@@ -3,48 +3,69 @@
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
-        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Item-->
-        <scene sceneID="tne-QT-ifu">
-            <objects>
-                <viewController storyboardIdentifier="MAryam" id="BYZ-38-t0r" customClass="ViewController" customModule="Jobify" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                    </view>
-                    <tabBarItem key="tabBarItem" title="Item" id="Qio-ZU-pRr"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1515.2671755725189" y="-522.53521126760563"/>
-        </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="Sc5-CR-E4s">
             <objects>
                 <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="gHQ-ek-1n4" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="59E-PW-lbJ">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
                     <connections>
-                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="X6g-oW-Y8R"/>
+                        <segue destination="4TT-6y-evk" kind="relationship" relationship="viewControllers" id="4q9-7X-gHz"/>
+                        <segue destination="Xtu-6i-7oo" kind="relationship" relationship="viewControllers" id="17a-Hh-ehp"/>
+                        <segue destination="osv-Dc-vgv" kind="relationship" relationship="viewControllers" id="36L-ls-1AI"/>
+                        <segue destination="CAx-Ow-jwq" kind="relationship" relationship="viewControllers" id="TW4-pL-ZNa"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wmH-7n-0ey" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="588.54961832061065" y="-522.53521126760563"/>
         </scene>
+        <!--JobBrowsingAndJobSearch_FatimaKhamis-->
+        <scene sceneID="JmS-7j-ICA">
+            <objects>
+                <viewControllerPlaceholder storyboardName="JobBrowsingAndJobSearch_FatimaKhamis" id="4TT-6y-evk" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="puS-k8-7ct"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bdy-BD-oAl" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1664" y="-799"/>
+        </scene>
+        <!--ApplicationTracking_ZahraHusain-->
+        <scene sceneID="47x-0K-fxh">
+            <objects>
+                <viewControllerPlaceholder storyboardName="ApplicationTracking_ZahraHusain" id="Xtu-6i-7oo" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="1qs-kV-44Q"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="BJ9-6G-WFj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1622" y="-651"/>
+        </scene>
+        <!--Notifications-->
+        <scene sceneID="adr-HH-F4S">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Notifications" id="osv-Dc-vgv" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="mgW-Dh-JHJ"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ax5-aR-LDO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1525" y="-523"/>
+        </scene>
+        <!--CareerResourcesAndSkillDevelopment-->
+        <scene sceneID="bvc-9c-K3G">
+            <objects>
+                <viewControllerPlaceholder storyboardName="CareerResourcesAndSkillDevelopment" id="CAx-Ow-jwq" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="jLY-LP-2vU"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bJd-Y2-YWk" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1644" y="-399"/>
+        </scene>
     </scenes>
-    <resources>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-    </resources>
 </document>
