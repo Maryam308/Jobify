@@ -2,26 +2,16 @@ import Foundation
 
 // CV model containing all the user information needed for the CV
 struct CV {
-    var personalDetails: PersonalDetails
-    var education: [Education]  // Array to store multiple education entries
-    var skills: [String]        // Array to store skills
-    var workExperience: [WorkExperience] // Array to store multiple work experiences
-    var photo: Data?   // Photo is optional
-    
-    // A computed property to return the CV's full name from personal details
-    var fullName: String {
-        return personalDetails.name
-    }
+    var personalDetails: PersonalDetails //will take this from Zainab's file
+    var education: [Education]
+    var skills: [String]
+    var workExperience: [WorkExperience]
+    var photo: Data?  // Photo is optional
 }
 
 // Personal details struct containing basic info about the user
 struct PersonalDetails {
-    var name: String
-    var email: String
-    var phone: String?
-    var country: String
-    var city: String
-    var photo: Data?  // Optional photo data
+
 }
 
 // Education struct to store educational background info
@@ -29,7 +19,7 @@ struct Education {
     var degree: String
     var institution: String
     var startDate: Date
-    var endDate: Date?  // Optional end date (could be ongoing)
+    var endDate: Date?  // Optional (could be ongoing)
 }
 
 // Work experience struct to store job-related experience
@@ -37,13 +27,13 @@ struct WorkExperience {
     var company: String
     var role: String
     var startDate: Date
-    var endDate: Date?  // Optional end date (could be ongoing)
+    var endDate: Date?  // Optional (could be ongoing)
     var keyResponsibilities: String
 }
 
 // CVManager class to manage multiple CVs for the user
 class CVManager {
-    static var userCVs: [CV] = [] // Array to hold multiple CVs for the user
+    static var userCVs: [CV] = []
     
     // Add a new CV
     static func addCV(cv: CV) {

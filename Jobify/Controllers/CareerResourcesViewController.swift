@@ -26,4 +26,6 @@ class CareerResourcesViewController: UIViewController {
     }
     */
 
+    @IBAction func savedLearningResourcesTapped(_ sender: UIButton) {
+    }
 }
