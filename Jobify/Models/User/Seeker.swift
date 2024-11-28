@@ -74,7 +74,9 @@ struct Seeker {
     }
     
     //
-    func sendMessage(to recipient: Seeker, message: Messages) {
+    mutating func sendMessage(messageBody: String, messageSender: Self, messageReceiver: Any) {
+        
+        //let message = Messages(messageSender: "s")
     }
 
 
