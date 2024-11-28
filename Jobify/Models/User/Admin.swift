@@ -12,7 +12,7 @@ struct Admin{
     var adminName: String
     var email: String
     var password: String
-//    var messageList: [Message] = []
+    var messageList: [Message] = []
     var seekerList: [Seeker] = []
     var employerList: [Employer] = []
     var myLearningResources: [LearningResource] = []
@@ -33,11 +33,12 @@ struct Admin{
     }
     
     //login check email and password
-    //should we make it return bool?
-    func login(email: String, password: String){
+    func login(email: String, password: String) -> Bool {
         guard email == self.email && password == self.password else {
-            return print("Invalid credentials")
+            print("Invalid credentials")
+            return false
         }
+        return true
     }
     
     //pass the new password and change to it
@@ -47,8 +48,8 @@ struct Admin{
     
     //add the admin as the message sender
     func sendMessage(messageBody:String, recieverId: Int){
-        //let messageFromAdmin = Message()  // sender reciever are added also
-        //messageList.Add(messageFromAdmin)
+//        let messageFromAdmin = Message()  // sender reciever are added also
+//        messageList.append(messageFromAdmin)
     }
     
     //combined with adding a job post

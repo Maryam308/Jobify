@@ -10,19 +10,17 @@ import Foundation
 struct Notification{
     static var notificationIdCounter: Int = 0
     var notificationId: Int
-   // var notificationSender: User
-   // var notificationReceiver: User
+    //notifications are sent either from admin or the system itself when an update occur
+    var notificationSender: String
+    var notificationReceiver: String
     var notificationTitle: String
     var notificationBody: String
     var notificationDate: Date
     var notificationTime: String
     var notificationIsRead: Bool?
     
-   /* init(){
-        
-    }
-    
-    init(notificationSender: User, notificationReceiver: User, notificationTitle: String, notificationBody: String, notificationDate: Date, notificationTime: String, notificationIsRead: Bool?){
+ 
+    init(notificationSender: String, notificationReceiver: String, notificationTitle: String, notificationBody: String, notificationDate: Date, notificationTime: String, notificationIsRead: Bool?){
         Notification.notificationIdCounter += 1
         notificationId = Notification.notificationIdCounter
         self.notificationSender = notificationSender
@@ -33,6 +31,6 @@ struct Notification{
         self.notificationTime = notificationTime
         self.notificationIsRead = notificationIsRead
         
-    }*/
+    }
     
 }
