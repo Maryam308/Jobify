@@ -87,7 +87,7 @@ struct Employer {
         let message = Message(messageSender: self, messageReceiver:messageReceiver, messageBody: messageBody)
         
         // Add to sender list
-        EmployermessageList.append(<#T##newElement: Message##Message#>)
+        EmployermessageList.append(message)
     }
     
     //===================================================================================================================//

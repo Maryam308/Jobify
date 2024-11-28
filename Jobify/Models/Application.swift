@@ -34,9 +34,10 @@ struct JobApplication{
         case rejected = "Rejected"
     }
     
+
     
     
-    init(jobApplicant: inout Seeker,
+    init(jobApplicant:  inout Seeker,
          jobApplied: Job,
          applicantCV: CV,
          briefIntroduction: String,
@@ -66,9 +67,5 @@ struct JobApplication{
         self.contributionToCompany = contributionToCompany
         self.applicantCoverLetter = applicantCoverLetter
         
-
     }
-    
-   
-    
-}
+    }

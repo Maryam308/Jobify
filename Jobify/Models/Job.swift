@@ -87,6 +87,3 @@ struct Job : Equatable {
         case contract = "Contract"
     }
 }
-
-
-
