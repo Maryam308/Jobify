@@ -34,6 +34,7 @@ struct JobApplication{
         case rejected = "Rejected"
     }
     
+
     
     
     init(jobApplicant:  inout Seeker,

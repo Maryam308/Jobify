@@ -16,6 +16,7 @@ struct Admin{
     var seekerList: [Seeker] = []
     var employerList: [Employer] = []
     var myLearningResources: [LearningResource] = []
+    var savedLearningResources: [LearningResource] = []
     var allLearningResources: [LearningResource] = []
     var allCareerPaths: [CareerPath] = []
     var allSkills: [Skill] = []
@@ -23,6 +24,7 @@ struct Admin{
     var mentorRequestList: [MentorRequest] = []
     var applicationMentors: [Seeker] = []
     var sentNotifications: [Notification] = []
+    var allJobPosts: [Job] = []
 
     
     //admin Id is uniqe and there is only one admin
@@ -58,23 +60,42 @@ struct Admin{
     }
     
     //combined with adding a job post
-    func createJobPost(/*newJobPost: JobPost*/){
+    mutating func createJobPostA(
+        titleA: String,
+        companyA: inout Employer,
+        levelA: String,
+        locationA: String,
+        descA: String,
+        requirementA: String,
+        extraAttachmentsA: Data?,
+        employmentTypeA: Job.EmploymentType,
+        deadlineA: Date){
+                           
+            var newJobPost = Job(title: titleA, company: &companyA, level: levelA, location: locationA, desc: descA, requirement: requirementA, extraAttachments: extraAttachmentsA, employmentType: employmentTypeA, deadline: deadlineA)
+                           
         //add the job post to the adminlist
-        //myJobPosts.Add(newJobPost)
+        myJobPosts.append(newJobPost)
         
-        //check jobCategory and add it to its list
-        
-        //might need an all job post array
-        
+        //add the job to all job posts
+        allJobPosts.append(newJobPost)
+            
+            
     }
     
     
     
-    func removeJobPost(/*jobPosttoRemove: JobPost*/){
-        //remove from admin arraylist
-        //myJobPosts.Remove(jobPosttoRemove)
+    mutating func removeJobPost(jobPosttoRemove: Job ){
         
-        //remove from other arraylist
+        //remove from admin arraylist
+        if let index = myJobPosts.firstIndex(of: jobPosttoRemove){
+            myJobPosts.remove(at: index)
+        }
+        
+        //remove from all jobs
+        if let index = allJobPosts.firstIndex(of: jobPosttoRemove){
+            allJobPosts.remove(at: index)
+        }
+        
     }
     
     mutating func reviewLearningResourceRequest(learningResourceRequest: inout LearningRequest , reply: Bool){
@@ -92,7 +113,7 @@ struct Admin{
             )
             
             //add to the requester learning resource list
-                //learningResourceRequest.requester.myLearningResourcesList.append()
+                learningResourceRequest.requester.myLearningResourcesList.append(newLearningResource)
          
             //add to the application list of learning resource
                 allLearningResources.append(newLearningResource)
@@ -105,12 +126,11 @@ struct Admin{
         }
          
         //remove the request from the requester list of request
-        //learningResourceRequest.requester.learningRequestsList.remove()
-//        if let theRequest = learningResourceRequest.requester.learningRequestsList.firstIndex(of: learningResourceRequest) {
-//            learningResourceRequest.requester.learningRequestsList.remove(at: index)
-//        } else {
-//            print("Request not found in the list.")
-//        }
+        if let theRequestIndx = learningResourceRequest.requester.learningRequestsList.firstIndex(of: learningResourceRequest) {
+            learningResourceRequest.requester.learningRequestsList.remove(at: theRequestIndx)
+        } else {
+            print("Request not found in the list.")
+        }
         
     }
     
@@ -169,7 +189,6 @@ struct Admin{
         
         //add to career paths array
         allCareerPaths.append(newCareerPath)
-        
     }
     
     
@@ -186,16 +205,79 @@ struct Admin{
         
     }
     
-    func addSkill(){}
-    
-    func removeSkill(){
+    mutating func addSkill(skillTitle: String, skillDescription: String){
         
-        //remove
+        //add the skill
+        var newSkill = Skill(title: skillTitle , description: skillDescription )
+        
+        //add to all skill
+        allSkills.append(newSkill)
+        
+    }
+    
+    mutating func removeSkill(skillToRemove: inout Skill){
+        
+        //remove the learning resources of the skill
+        skillToRemove.learningResources.removeAll();
+        
+        
+        //remove the learning resources from allLearningResources that belong to the same skill
+        allLearningResources.removeAll { $0.skillToDevelop == skillToRemove.title }
+        
+        //remove learning resources from savedLearningResources and my learning resources in employers and seekers
+            //from seekers
+                // Print remaining resources for each seeker
+          
+                    for seekerIndex in seekerList.indices {
+                        seekerList[seekerIndex].savedLearningResourcesList.removeAll { $0.skillToDevelop == skillToRemove.title }
+                    }
+        
+            //from employers
+                //saved by the employer
+                    for employerIndex in employerList.indices {
+                        employerList[employerIndex].savedLearningResourcesList.removeAll { $0.skillToDevelop == skillToRemove.title }
+                    }
+                    
+                //created by the employer
+                    for employerIndex in employerList.indices {
+                        employerList[employerIndex].myLearningResourcesList.removeAll { $0.skillToDevelop == skillToRemove.title }
+                    }
+        
+            //from admin
+                //saved by the admin
+                    self.savedLearningResources.removeAll { $0.skillToDevelop == skillToRemove.title }
+                    
+                    
+                //created by the admin
+                    self.myLearningResources.removeAll { $0.skillToDevelop == skillToRemove.title }
+                    
+            
+        //remove skill from allskill
+        if let skillIndex = allSkills.firstIndex(of: skillToRemove) {
+            allSkills.remove(at: skillIndex)
+        } else {
+            print("Skill not found in the array.")
+        }
+        
+        
+        
     }
     
     
-    
-    
+    mutating func removeEmployerJobPost(jobPostToRemove: inout Job, employerPosted: inout Employer){
+        
+        //remove from employer
+        if let index = employerPosted.myJobPostsList.firstIndex(of: jobPostToRemove){
+            employerPosted.myJobPostsList.remove(at: index)
+        }
+        
+        //remove from all jobs
+        if let index = allJobPosts.firstIndex(of: jobPostToRemove){
+            allJobPosts.remove(at: index)
+        }
+        
+    }
+ 
     
 }
 

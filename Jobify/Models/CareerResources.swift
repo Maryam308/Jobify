@@ -87,7 +87,12 @@ struct Skill: Equatable {
     
 }
 
-struct LearningRequest {
+struct LearningRequest: Equatable {
+    
+    static func == (lhs: LearningRequest, rhs: LearningRequest) -> Bool {
+        return lhs.requestId == rhs.requestId
+    }
+    
     static var requestIdCounter: Int = 0
     var requestId: Int
     var status: LearningRequestStatus
@@ -107,6 +112,7 @@ struct LearningRequest {
         self.link = link
         self.requester = requester
         self.skillToDevelop = skillToDevelop
+        
     }
     
 }
