@@ -110,7 +110,7 @@ struct Seeker {
             messageBody: messageBody)
         
         // Add to sender list
-        seekerMessageList.append(<#T##newElement: Message##Message#>)
+        seekerMessageList.append(message)
     }
     
     
@@ -147,19 +147,3 @@ struct Seeker {
         "Website Designer",
         "Other"
     ]
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

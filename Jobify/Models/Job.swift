@@ -82,6 +82,3 @@ struct Job {
         case contract = "Contract"
     }
 }
-
-
-

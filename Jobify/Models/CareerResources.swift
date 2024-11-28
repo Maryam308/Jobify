@@ -76,7 +76,7 @@ struct Skill: Equatable {
     var skillId: Int
     var title: String
     var description: String
-    var learningResources: [LearningResource]
+    var learningResources: [LearningResource] = []
     
     init(title: String, description: String) {
         Skill.skillIdCounter += 1
