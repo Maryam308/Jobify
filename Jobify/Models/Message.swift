@@ -25,7 +25,7 @@ struct Message{
     
     init(messageSender: Any, messageReceiver: Any, messageBody: String) {
         Message.messageIdCounter += 1
-        messageId = Message.messageIdCounter
+        self.messageId = Message.messageIdCounter
         self.messageSender = messageSender
         self.messageReceiver = messageReceiver
         self.messageBody = messageBody
@@ -46,6 +46,26 @@ struct Message{
         
         self.messageDate = date
         self.messageTime = time
+        
+        if var theReciever = messageReceiver as? Employer {
+                //then the reciever is an employer and the message will be added to the arraylist of meesage inn the employer
+            
+                //theReciever.seekerMessageList.append(self)
+            
+            } else if var theReciever = messageReceiver as? Admin {
+                //then the reciever is an employer and the message will be added to the arraylist of meesage inn the employer
+            
+                theReciever.adminMessageList.append(self)
+                
+            } else if var theReciever = messageReceiver as? Seeker {
+                //then the reciever is an employer and the message will be added to the arraylist of meesage inn the employer
+            
+                //theReciever.seekerMessageList.append(self)
+                
+            } else {
+                print("Unknown type")
+            }
+        
         
     }
     

@@ -8,11 +8,11 @@
 import Foundation
 struct Admin{
     
-    var adminId: Int = 0000 //if there is only one admin should be a constant
+    let adminId: Int = 0000 //There is only one admin
     var adminName: String
     var email: String
     var password: String
-    var messageList: [Message] = []
+    var adminMessageList: [Message] = []
     var seekerList: [Seeker] = []
     var employerList: [Employer] = []
     var myLearningResources: [LearningResource] = []
@@ -47,9 +47,14 @@ struct Admin{
     }
     
     //add the admin as the message sender
-    func sendMessage(messageBody:String, recieverId: Int){
-//        let messageFromAdmin = Message()  // sender reciever are added also
-//        messageList.append(messageFromAdmin)
+    mutating func sendMessage(messageBody:String, reciever: Any){
+        
+        let messageFromAdmin = Message(messageSender: self, messageReceiver: reciever, messageBody: messageBody)  // sender reciever are added also
+        
+        adminMessageList.append(messageFromAdmin)
+        
+        
+        
     }
     
     //combined with adding a job post
