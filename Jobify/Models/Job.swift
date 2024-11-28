@@ -8,7 +8,12 @@
 import Foundation
 
 
-struct Job {
+struct Job : Equatable {
+    
+    static func == (lhs: Job, rhs: Job) -> Bool {
+        lhs.jobId == rhs.jobId
+    }
+    
     // Auto-generated variables
     static var jobIdCounter = 0
     var jobId: Int

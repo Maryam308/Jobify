@@ -2,33 +2,146 @@ import Foundation
 
 // CV model containing all the user information needed for the CV
 struct CV {
-    var personalDetails: PersonalDetails //will take this from Zainab's file
-    var education: [Education]
-    var skills: [String]
-    var workExperience: [WorkExperience]
-    var photo: Data?  // Photo is optional
+    
+    //Auto-generated variabels
+    static var cvIDCounter = 0 // Static counter for generating unique CV ID
+    var cvID: Int
+    
+    //Passed variables
+    var personalDetails: PersonalDetails
+    var education: [Education] = []
+    var skills: [String] = []
+    var workExperience: [WorkExperience] = []
+    var name : String
+    var email : String
+    var phoneNumber : String
+    var country : String
+    var city : String
+    var profilePicture : Data?
+    
+    
+
+    
+    init(personalDetails: PersonalDetails, skills: [String], education: [Education], workExperience: [WorkExperience], name: String, email: String, phoneNumber: String, country: String, city: String, profilePicture: Data? = nil) {
+        
+        //Auto-gnerated variabels
+        CV.cvIDCounter = 0 // Static counter for generating unique education ID
+        cvID = CV.cvIDCounter
+        
+        
+        self.personalDetails = personalDetails
+        self.skills = skills
+        self.education = education
+        self.workExperience = workExperience
+        self.name = name
+        self.email = email
+        self.phoneNumber = phoneNumber
+        self.country = country
+        self.city = city
+        self.profilePicture = profilePicture
+    }
+    
+    
 }
+
 
 // Personal details struct containing basic info about the user
 struct PersonalDetails {
+    var name : String
+    var email : String
+    var phoneNumber : String
+    var country : String
+    var city : String
+    var profilePicture : Data?
+    
+    init(name: String, email: String, phoneNumber: String, country: String, city: String, profilePicture: Data? = nil) {
+        self.name = name
+        self.email = email
+        self.phoneNumber = phoneNumber
+        self.country = country
+        self.city = city
+        self.profilePicture = profilePicture
+    }
 
 }
 
 // Education struct to store educational background info
 struct Education {
+   
+    //Auto-gnerated variabels
+    static var educationIdCounter = 0 // Static counter for generating unique education ID
+    var educationID: Int
+    
+    //Passed variables
     var degree: String
     var institution: String
     var startDate: Date
     var endDate: Date?  // Optional (could be ongoing)
+    
+    // Custom initializer
+    init(
+        degree: String,
+        institution: String,
+        startDate: Date,
+        endDate: Date? = nil)
+        {
+            Education.educationIdCounter+=1
+            self.educationID = Education.educationIdCounter
+            
+            self.degree = degree
+            self.institution = institution
+            self.startDate = startDate
+            self.endDate = endDate
+    }
+}
+
+// Skill struct to store seeker's skill info
+struct CVSkill{
+    
+    //Auto-gnerated variabels
+    static var skillIDCounter = 0 // Static counter for generating unique education ID
+    var skillID: Int
+    
+    //Passed variables
+    var skillDescription: String
+
+    
+    // Custom initializer
+    init(skillDescription: String) {
+        
+        CVSkill.skillIDCounter+=1
+        skillID=CVSkill.skillIDCounter
+        
+        self.skillDescription = skillDescription
+    }
+
 }
 
 // Work experience struct to store job-related experience
 struct WorkExperience {
+   
+    static var workExperienceIDCounter = 0 // Static counter for generating unique working experince ID
+    var workExperienceID: Int
+    
     var company: String
     var role: String
     var startDate: Date
     var endDate: Date?  // Optional (could be ongoing)
     var keyResponsibilities: String
+    
+    // Custom initializer
+    init(company: String, role: String, startDate: Date, endDate: Date? = nil, keyResponsibilities: String) {
+        
+        WorkExperience.workExperienceIDCounter+=1
+        workExperienceID=WorkExperience.workExperienceIDCounter
+        
+        self.company = company
+        self.role = role
+        self.startDate = startDate
+        self.endDate = endDate
+        self.keyResponsibilities = keyResponsibilities
+    }
+    
 }
 
 // CVManager class to manage multiple CVs for the user
@@ -126,6 +239,6 @@ class CVManager {
     // Update Photo for a CV
     static func updatePhoto(at index: Int, photoData: Data?) {
         guard index >= 0 && index < userCVs.count else { return }
-        userCVs[index].photo = photoData
+        userCVs[index].profilePicture = photoData
     }
 }

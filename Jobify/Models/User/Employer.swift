@@ -23,6 +23,7 @@ struct Employer {
     var myJobPostsList: [Job] = []
     var learningRequestsList: [LearningRequest] = []
     var myLearningResourcesList: [LearningResource] = []
+    var savedLearningResourcesList: [LearningResource] = []
     var notificationList: [Notification] = []
     
     // Custom initializer
