@@ -7,6 +7,7 @@
 
 import Foundation
 
+
 struct Messages{
     static var messageIdCounter = 0
     var messageId: Int
@@ -33,4 +34,5 @@ struct Messages{
     }*/
     
     
+
 }

@@ -7,6 +7,7 @@
 
 import Foundation
 
+
 struct Job {
     static var jobIdCounter = 0
     var jobId: Int
@@ -48,5 +49,6 @@ enum EmploymentType: String {
     case intern = "Intern"
     case contract = "Contract"
 }
+
 
 
