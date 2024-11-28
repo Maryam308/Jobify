@@ -19,7 +19,7 @@ struct Admin{
     var allLearningResources: [LearningResource] = []
     var allCareerPaths: [CareerPath] = []
     var allSkills: [Skill] = []
-//    var myJobPosts: [JobPost] = []
+    var myJobPosts: [Job] = []
     var mentorRequestList: [MentorRequest] = []
     var applicationMentors: [Seeker] = []
     var sentNotifications: [Notification] = []
@@ -68,9 +68,7 @@ struct Admin{
         
     }
     
-    func editJobPost(/*jobPosttoEdit: JobPost*/){ //add the job post parameter
-        
-    }
+    
     
     func removeJobPost(/*jobPosttoRemove: JobPost*/){
         //remove from admin arraylist
@@ -79,54 +77,122 @@ struct Admin{
         //remove from other arraylist
     }
     
-    func reviewLearningResourceRequest(learningResourceRequest: LearningRequest, reply: Bool){
+    mutating func reviewLearningResourceRequest(learningResourceRequest: inout LearningRequest , reply: Bool){
         
         //depending on the reply change the status
         if reply {
-            //learningResourceRequest.status = .Approved
-            
+            learningResourceRequest.status = .Approved
+        
+            //create the learning resource
+            var newLearningResource = LearningResource(
+                type: learningResourceRequest.type,
+                summary: learningResourceRequest.summary,
+                link: learningResourceRequest.link,
+                skillToDevelop: learningResourceRequest.skillToDevelop
+            )
             
             //add to the requester learning resource list
+                //learningResourceRequest.requester.myLearningResourcesList.append()
          
-            //create the new learning resource
-//                let newLearningResource = LearningResource(/*pass info from request object*/)
-//         
-//            //add to the application list of learning resource
-//                allLearningResources.Add(newLearningResource)
-//         
-//         }else{
-//            learningResourceRequest.status = "Rejected"
-            //keep it in the request lists
-          
+            //add to the application list of learning resource
+                allLearningResources.append(newLearningResource)
+
+         }else{
+             
+             learningResourceRequest.status = .Rejected
+             //keep it in the request lists
+             
+        }
          
-         }
-         
-        
         //remove the request from the requester list of request
+        //learningResourceRequest.requester.learningRequestsList.remove()
+//        if let theRequest = learningResourceRequest.requester.learningRequestsList.firstIndex(of: learningResourceRequest) {
+//            learningResourceRequest.requester.learningRequestsList.remove(at: index)
+//        } else {
+//            print("Request not found in the list.")
+//        }
         
     }
     
-    func reviewMentorshipRequest(/*pass in the requester, */ reply: Bool){
+    mutating func reviewMentorshipRequest(request: inout MentorRequest, reply: Bool){
+        
+        if reply {
+            
+            //change the request status to approved
+            request.status = .Accepted
+            //add the seeker as a mentor in the mentor array
+            applicationMentors.append(request.requester)
+            
+        }else{
+            
+            //change the request status to approved
+            request.status = .Rejected
+            
+        }
+        
+        //remove the request
+        if let index = mentorRequestList.firstIndex(of: request) {
+            mentorRequestList.remove(at: index)
+        } else {
+            print("Request not found in the list.")
+        }
         
     }
     
-    func addNewLearningResource(){}
+    mutating func addNewLearningResource(type: LearningResourceType, summary: String, link: String, skillToDevelop: String){
+        
+        //create new learning resource
+        var newLearningResource = LearningResource(type: type, summary: summary, link: link, skillToDevelop: skillToDevelop)
+                
+        //add to array of all learning resources
+        allLearningResources.append(newLearningResource)
+        
+    }
     
-    func editLearningResource(){}
     
-    func removeLearningResource(){}
+    mutating func removeLearningResource(resourceToRemove: LearningResource){
+        
+        if let index = allLearningResources.firstIndex(of: resourceToRemove) {
+            
+            allLearningResources.remove(at: index)
+            
+        } else {
+            print("Learning Resource not found in the list.")
+        }
+        
+    }
     
-    func addCareerPath(){}
+    mutating func addCareerPath(careerName: String, demand: Demand, roadmap: String){
+        
+        //create the Career path
+        var newCareerPath = CareerPath(careerName: careerName, demand: demand, roadmap: roadmap)
+        
+        //add to career paths array
+        allCareerPaths.append(newCareerPath)
+        
+    }
     
-    func editCareerPath(){}
     
-    func removeCareerPath(){}
+    
+    mutating func removeCareerPath(careerToRemove: CareerPath){
+        
+        if let index = allCareerPaths.firstIndex(of: careerToRemove) {
+            
+            allCareerPaths.remove(at: index)
+            
+        } else {
+            print("Learning Resource not found in the list.")
+        }
+        
+    }
     
     func addSkill(){}
     
-    func removeSkill(){}
+    func removeSkill(){
+        
+        //remove
+    }
     
-    func logOut(){}
     
     
     
@@ -134,11 +200,31 @@ struct Admin{
 }
 
 
-struct MentorRequest {
+struct MentorRequest: Equatable {
+    
+    static func == (lhs: MentorRequest, rhs: MentorRequest) -> Bool {
+        lhs.requestId == rhs.requestId
+    }
+    
+   
+    static var requestIdCounter: Int = 0
     var requestId: Int
     var requester: Seeker
-    var status: String
+    var status: MentorRequestStatus
     
+    init(requester: Seeker) {
+        MentorRequest.requestIdCounter += 1
+        requestId = MentorRequest.requestIdCounter
+        self.requester = requester
+        status = .Pending
+    }
     
     
 }
+
+enum MentorRequestStatus: String, Codable {
+    case Pending
+    case Accepted
+    case Rejected
+}
+
