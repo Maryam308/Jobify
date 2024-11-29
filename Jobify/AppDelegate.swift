@@ -6,7 +6,8 @@
 //
 
 import UIKit
-
+import Firebase
+import FirebaseFirestore
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -14,6 +15,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        FirebaseApp.configure()
+        print("Database Configured Successfully")
+        let db = Firestore.firestore()
+
+        // Perform Firestore operation in the background
+        DispatchQueue.global(qos: .background).async {
+            db.collection("users").document("user1").setData([
+                "name": "John Doe",
+                "age": 30
+            ]) { error in
+                DispatchQueue.main.async {
+                    if let error = error {
+                        print("Error writing document: \(error.localizedDescription)")
+                    } else {
+                        print("Document successfully written to Firestore!")
+                    }
+                }
+            }
+        }
+        
         return true
     }
 
