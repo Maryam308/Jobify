@@ -1,8 +1,36 @@
 import Foundation
 
-// CV model containing all the user information needed for the CV
-struct CV {
+// Education struct to store educational background info
+public struct Education {
+   
+    //Auto-gnerated variabels
+    static var educationIdCounter = 0 // Static counter for generating unique education ID
+    var educationID: Int
     
+    //Passed variables
+    var degree: String
+    var institution: String
+    var startDate: Date
+    var endDate: Date?  // Optional (could be ongoing)
+    
+    // Custom initializer
+    init(
+        degree: String,
+        institution: String,
+        startDate: Date,
+        endDate: Date? = nil)
+        {
+            Education.educationIdCounter+=1
+            self.educationID = Education.educationIdCounter
+            
+            self.degree = degree
+            self.institution = institution
+            self.startDate = startDate
+            self.endDate = endDate
+    }
+}
+// CV model containing all the user information needed for the CV
+public struct CV {
     //Auto-generated variabels
     static var cvIDCounter = 0 // Static counter for generating unique CV ID
     var cvID: Int
@@ -65,35 +93,6 @@ struct PersonalDetails {
 
 }
 
-// Education struct to store educational background info
-struct Education {
-   
-    //Auto-gnerated variabels
-    static var educationIdCounter = 0 // Static counter for generating unique education ID
-    var educationID: Int
-    
-    //Passed variables
-    var degree: String
-    var institution: String
-    var startDate: Date
-    var endDate: Date?  // Optional (could be ongoing)
-    
-    // Custom initializer
-    init(
-        degree: String,
-        institution: String,
-        startDate: Date,
-        endDate: Date? = nil)
-        {
-            Education.educationIdCounter+=1
-            self.educationID = Education.educationIdCounter
-            
-            self.degree = degree
-            self.institution = institution
-            self.startDate = startDate
-            self.endDate = endDate
-    }
-}
 
 // Skill struct to store seeker's skill info
 struct CVSkill{
