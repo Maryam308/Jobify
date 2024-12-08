@@ -104,7 +104,6 @@ import UIKit
                 
                 sheet.detents = [ //specifies the available size of the sheet
                     .custom(resolver: { _ in totalHeight }), // The height of the sheet based on the content
-                    .large() //large height that uses most of the screen
                 ]
                 sheet.prefersGrabberVisible = true //the small handle at the top of the sheet
             }
