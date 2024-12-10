@@ -9,6 +9,11 @@ import UIKit
 
 class CareerResourcesTableViewCell: UITableViewCell {
 
+    @IBAction func btnSaveTapped(_ sender: UIButton) {
+    }
+    @IBOutlet weak var btnResourceName: UILabel!
+    @IBOutlet weak var btnSave: UIButton!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
