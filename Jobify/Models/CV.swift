@@ -1,4 +1,13 @@
 import Foundation
+import Firebase
+import FirebaseFirestore
+//for testing only
+struct CVTest : Codable {
+    var id: String
+    var name: String
+    var city: String
+}
+
 
 // CV model containing all the user information needed for the CV
 struct CV {
@@ -144,101 +153,36 @@ struct WorkExperience {
     
 }
 
-// CVManager class to manage multiple CVs for the user
-class CVManager {
-    static var userCVs: [CV] = []
-    
-    // Add a new CV
-    static func addCV(cv: CV) {
-        userCVs.append(cv)
+final class CVManager{
+    private init(){} //singleton
+    private static let CVCollection = Firestore.firestore().collection(DB.FStore.CVTest.collectionName)
+    //get documents
+    private static func CVDocment(documentId: String) -> DocumentReference{
+        CVCollection.document(documentId)
     }
     
-    // Retrieve all CVs for a user
-    static func getAllCVs() -> [CV] {
-        return userCVs
+    static func createNewCV(cv: CVTest) async throws {
+        // Add document to Firestore and get the document ID
+        let docRef = try await CVCollection.addDocument(data: Firestore.Encoder().encode(cv))
+
+        // Update the document with the auto-generated document ID
+        try await CVDocment(documentId: docRef.documentID).updateData([
+            DB.FStore.CVTest.id: docRef.documentID
+        ])
     }
     
-    // Retrieve a specific CV by index
-    static func getCV(at index: Int) -> CV? {
-        guard index >= 0 && index < userCVs.count else { return nil }
-        return userCVs[index]
-    }
-    
-    // Remove a CV by index
-    static func removeCV(at index: Int) {
-        guard index >= 0 && index < userCVs.count else { return }
-        userCVs.remove(at: index)
-    }
-    
-    // Edit Personal Details of a CV
-    static func editPersonalDetails(at index: Int, newPersonalDetails: PersonalDetails) {
-        guard index >= 0 && index < userCVs.count else { return }
-        userCVs[index].personalDetails = newPersonalDetails
-    }
-    
-    // Add Education to a CV
-    static func addEducation(at index: Int, education: Education) {
-        guard index >= 0 && index < userCVs.count else { return }
-        userCVs[index].education.append(education)
-    }
-    
-    // Remove Education from a CV
-    static func removeEducation(at index: Int, educationIndex: Int) {
-        guard index >= 0 && index < userCVs.count else { return }
-        guard educationIndex >= 0 && educationIndex < userCVs[index].education.count else { return }
-        userCVs[index].education.remove(at: educationIndex)
-    }
-    
-    // Edit a specific Education entry
-    static func editEducation(at index: Int, educationIndex: Int, newEducation: Education) {
-        guard index >= 0 && index < userCVs.count else { return }
-        guard educationIndex >= 0 && educationIndex < userCVs[index].education.count else { return }
-        userCVs[index].education[educationIndex] = newEducation
-    }
-    
-    // Add Skill to a CV
-    static func addSkill(at index: Int, skill: String) {
-        guard index >= 0 && index < userCVs.count else { return }
-        userCVs[index].skills.append(skill)
-    }
-    
-    // Remove Skill from a CV
-    static func removeSkill(at index: Int, skill: String) {
-        guard index >= 0 && index < userCVs.count else { return }
-        userCVs[index].skills.removeAll { $0 == skill }
-    }
-    
-    // Edit a specific Skill in a CV
-    static func editSkill(at index: Int, oldSkill: String, newSkill: String) {
-        guard index >= 0 && index < userCVs.count else { return }
-        if let skillIndex = userCVs[index].skills.firstIndex(of: oldSkill) {
-            userCVs[index].skills[skillIndex] = newSkill
+    static func getAllCVs() async throws  -> [CVTest]{
+        try await CVCollection.getDocuments().documents.compactMap { doc in
+            try doc.data(as: CVTest.self)
         }
     }
     
-    // Add Work Experience to a CV
-    static func addWorkExperience(at index: Int, workExperience: WorkExperience) {
-        guard index >= 0 && index < userCVs.count else { return }
-        userCVs[index].workExperience.append(workExperience)
+    static func updateCV(cv: CVTest) async throws {
+        try await CVDocment(documentId: cv.id).updateData(Firestore.Encoder().encode(cv))
     }
     
-    // Remove Work Experience from a CV
-    static func removeWorkExperience(at index: Int, workExperienceIndex: Int) {
-        guard index >= 0 && index < userCVs.count else { return }
-        guard workExperienceIndex >= 0 && workExperienceIndex < userCVs[index].workExperience.count else { return }
-        userCVs[index].workExperience.remove(at: workExperienceIndex)
+    static func updateCV(docID: String, fields: [String: Any]) async throws {
+        try await CVDocment(documentId: docID).updateData(fields)
     }
-    
-    // Edit a specific Work Experience entry
-    static func editWorkExperience(at index: Int, workExperienceIndex: Int, newWorkExperience: WorkExperience) {
-        guard index >= 0 && index < userCVs.count else { return }
-        guard workExperienceIndex >= 0 && workExperienceIndex < userCVs[index].workExperience.count else { return }
-        userCVs[index].workExperience[workExperienceIndex] = newWorkExperience
-    }
-    
-    // Update Photo for a CV
-    static func updatePhoto(at index: Int, photoData: Data?) {
-        guard index >= 0 && index < userCVs.count else { return }
-        userCVs[index].profilePicture = photoData
-    }
+
 }
