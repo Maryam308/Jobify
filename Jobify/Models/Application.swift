@@ -28,8 +28,8 @@ struct JobApplication{
     var jobApplied: Job
 
     enum ApplicationStatus: String, Codable{
-        case notViewed = "Not Viewed"
-        case viewed = "Viewed"
+        case notReviewed = "Not Reviewed"
+        case viewed = "Reviewed"
         case accepted = "Accepted"
         case rejected = "Rejected"
     }

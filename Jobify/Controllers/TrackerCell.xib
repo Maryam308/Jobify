@@ -43,7 +43,7 @@
                     <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6wT-A5-4FL">
                         <rect key="frame" x="15" y="130" width="73" height="38.333333333333343"/>
                         <state key="normal" title="Button"/>
-                        <buttonConfiguration key="configuration" style="filled" title="Status"/>
+                        <buttonConfiguration key="configuration" style="filled" title="Status" cornerStyle="capsule"/>
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="company" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nsh-eO-xGr">
                         <rect key="frame" x="77" y="21" width="70" height="21"/>
@@ -52,6 +52,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
+                <color key="backgroundColor" red="0.85098039219999999" green="0.85098039219999999" blue="0.85098039219999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                 <constraints>
                     <constraint firstItem="7pV-TA-LRe" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" symbolic="YES" id="2Nn-Az-ZoB"/>
                     <constraint firstAttribute="bottom" secondItem="6wT-A5-4FL" secondAttribute="bottom" constant="8.6699999999999999" id="AMM-0E-bF5"/>
