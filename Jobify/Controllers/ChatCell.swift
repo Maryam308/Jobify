@@ -1,30 +1,57 @@
 //
 //  ChatCell.swift
-//  Jobify
+//  tryingProject
 //
 //  Created by Maryam Ahmed on 08/12/2024.
 //
 
 import UIKit
 
-class ChatCell: UITableViewCell{
+class MessageCell: UITableViewCell{
     
     //outlets
     
-    @IBOutlet weak var lblChatUserName: UILabel!
-    @IBOutlet weak var imgProfileImage: UIImage!
+    @IBOutlet weak var SentMessageCell: UIView!
+
+    @IBOutlet weak var ReceivedMessageContainer: UIView!
     
-    //an array of names
-    let userNames: [String] = ["maryam","zainab","zahra", "fatima"]
+    @IBOutlet weak var lblRecievedMessageContent: UILabel!
     
-    //an array of messages
-    let messagesOne: [String] = ["hello","hi","who","me"]
+    @IBOutlet weak var lblSentMessageContent: UILabel!
     
-    //second array
-    let messagesTwo: [String] = ["hello","hi","who","me"]
+    //dummy data
     
-    //third array
-    let messageThree: [String] = ["hello","hi","who","me"]
+//    //an array of names
+//    let userNames: [String] = ["maryam","zainab","zahra", "fatima"]
+//
+//    //an array of messages
+//    let messagesOne: [String] = ["hello","hi","who","me"]
+//
+//    //second array
+//    let messagesTwo: [String] = ["hello","hi","who","me"]
+//
+//    //third array
+//    let messageThree: [String] = ["hello","hi","who","me"]
+    
+    
+    override func awakeFromNib() {
+            super.awakeFromNib()
+            // Set corner radius for the cell's content view
+        
+        if let firstContainer = self.viewWithTag(1) {
+                firstContainer.layer.cornerRadius = 10
+                firstContainer.clipsToBounds = true
+            }
+
+            if let secondContainer = self.viewWithTag(2) {
+                secondContainer.layer.cornerRadius = 20
+                secondContainer.clipsToBounds = true
+            }
+        
+
+        
+        
+        }
     
     
     
