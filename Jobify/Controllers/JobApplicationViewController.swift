@@ -12,38 +12,21 @@ import UIKit
         @IBOutlet var masterView: UIView!
         
         @IBOutlet weak var chooseCvButton: UIButton!
-        @IBOutlet weak var chooseCoverLetterButton: UIButton!
+        
         
         override func viewDidLoad() {
             super.viewDidLoad()
             
             //creates action on the choose cv button
-            chooseCvButton.addTarget(self, action: #selector(chooseCvButtonTapped), for: .touchUpInside)
-            //creates action on the choose cover letter button
-            chooseCoverLetterButton.addTarget(self, action: #selector(chooseCoverLetterButtonTapped), for: .touchUpInside)
+            //chooseCvButton.addTarget(self, action: #selector(chooseCvButtonTapped), for: .touchUpInside)
             
         }
         
         //
-        @objc private func chooseCvButtonTapped() {
-            configureSheet(title: "Choose CV Document",
-                           options: [
-                            ("Choose from Files", "doc.text.fill", #selector(chooseFilesTapped)),
-                            ("Choose from Jobify", "doc.text.fill", #selector(chooseJobifyTapped))
-                           ])
-        }
         
         
-        @objc private func chooseCoverLetterButtonTapped() {
-            configureSheet(
-                title: "Choose Cover Letter",
-                options: [
-                    ("Choose from Files", "doc.text.fill", #selector(chooseFilesTapped))
-                ]
-            )
-        }
         
-        private func configureSheet(title: String, options: [(String, String, Selector)]) {
+        /* private func configureSheet()) {
             //creates a popup view controller and set its background color and make the edges rounded
             let popupVC = UIViewController()
             popupVC.view.backgroundColor = UIColor(hex: "#1D2D44")
@@ -150,7 +133,7 @@ import UIKit
             print("Choose from Jobify tapped")
         }
         
-        
+        */
     }
     
     /*
