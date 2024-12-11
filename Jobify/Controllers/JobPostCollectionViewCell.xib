@@ -114,7 +114,7 @@
                             <constraint firstItem="6a0-Q0-gKm" firstAttribute="top" secondItem="kNp-iQ-7KB" secondAttribute="top" id="yY2-op-YAk"/>
                         </constraints>
                     </view>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fdX-l0-gCK">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fdX-l0-gCK">
                         <rect key="frame" x="10" y="117" width="329.33333333333331" height="71"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="71" id="Nns-Hq-mhk"/>
@@ -140,8 +140,8 @@ and data management.</string>
                             <constraint firstAttribute="width" constant="73" id="Iso-U7-T8d"/>
                         </constraints>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ahli United Bank" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GN3-Ld-4G2">
-                        <rect key="frame" x="99" y="19" width="126" height="21"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ahli United Bank" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GN3-Ld-4G2">
+                        <rect key="frame" x="99" y="19" width="125.33333333333331" height="20.333333333333329"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -177,7 +177,7 @@ and data management.</string>
                 <outlet property="jobPostTitlelbl" destination="GN3-Ld-4G2" id="b2z-TC-GIo"/>
                 <outlet property="jobPostView" destination="6D9-1e-LSq" id="Oe9-Qe-esN"/>
             </connections>
-            <point key="canvasLocation" x="-441" y="-395"/>
+            <point key="canvasLocation" x="-441.2213740458015" y="-395.07042253521126"/>
         </collectionViewCell>
     </objects>
     <resources>

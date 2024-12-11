@@ -9,8 +9,10 @@ import UIKit
 
 class JobCategoryViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
+    
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return categories.count // create the cells depending on the number of categories
+        return categories.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -34,8 +36,9 @@ class JobCategoryViewController: UIViewController, UICollectionViewDataSource, U
 
     
     
-    @IBOutlet weak var collectionView: UICollectionView!
 
+    @IBOutlet weak var collectionView: UICollectionView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -48,4 +51,3 @@ class JobCategoryViewController: UIViewController, UICollectionViewDataSource, U
         
     }
 }
-

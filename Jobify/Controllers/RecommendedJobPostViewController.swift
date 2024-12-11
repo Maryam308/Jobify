@@ -1,33 +1,34 @@
 //
-//  JobPosViewController.swift
+//  RecommendedJobPostViewController.swift
 //  Jobify
 //
-//  Created by Fatima Ali on 10/12/2024.
+//  Created by Fatima Ali on 11/12/2024.
 //
 
 import UIKit
 
-class JobPostViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+class RecommendedJobPostViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
 
     @IBOutlet weak var jobPostCollectionView: UICollectionView!
+    
     let JobPostCollectionViewCellId = "JobPostCollectionViewCell"
+ 
     
     var jobs: [JobPost] = []  // Initialize jobs array here
 
     override func viewDidLoad() {
         super.viewDidLoad()
-            
-        // Register cell
-        let nib = UINib(nibName: JobPostCollectionViewCellId, bundle: nil)
-        jobPostCollectionView.register(nib, forCellWithReuseIdentifier: JobPostCollectionViewCellId)
+        
         jobPostCollectionView.delegate = self
         jobPostCollectionView.dataSource = self
         
+        // Register cell
+        let nib = UINib(nibName: JobPostCollectionViewCellId, bundle: nil)
+        jobPostCollectionView.register(nib, forCellWithReuseIdentifier: JobPostCollectionViewCellId)
         
-        // Create and assign job posts to the jobs array
-        jobs = createJobPosts()  // Populate jobs array
+     
         
-        // Reload collection view to reflect the changes
+        jobs = createJobPosts()
         jobPostCollectionView.reloadData()
     }
     
@@ -40,7 +41,7 @@ class JobPostViewController: UIViewController, UICollectionViewDataSource, UICol
         
         let jobPost = jobs[indexPath.row]
         
-        // Configure the cell with job post data
+        // fill the cell with job data
         cell.jobPostImageView.image = jobPost.image
         cell.jobPostTimelbl.text = jobPost.time
         cell.jobPostTitlelbl.text = jobPost.title
@@ -57,6 +58,13 @@ class JobPostViewController: UIViewController, UICollectionViewDataSource, UICol
     
     // Adjust the size of collection view cells dynamically (horizontal scroll)
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: collectionView.frame.width - 20, height: 200)  // Adjust as needed
+        return CGSize(width: collectionView.frame.width - 20, height: 200)
     }
+    
+
+ 
+    
+
+    
+
 }

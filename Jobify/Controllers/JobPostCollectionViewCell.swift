@@ -27,8 +27,20 @@ class JobPostCollectionViewCell: UICollectionViewCell {
         super.awakeFromNib()
        
         // Example of setting up a view layout
-        jobPostView.layer.cornerRadius = 8
+        jobPostView.layer.cornerRadius = 20
         jobPostView.layer.masksToBounds = true
+        
+        jobPostImageView.layer.cornerRadius = jobPostImageView.frame.size.width / 2
+        jobPostImageView.layer.masksToBounds = true
+        
+        
+        
+     
+        
+        
+        
+
+
     }
   
 
