@@ -42,8 +42,8 @@
             </collectionViewCellContentView>
             <size key="customSize" width="208" height="200"/>
             <connections>
-                <outlet property="jobCategoryImageView" destination="aJO-6X-y9i" id="o32-Yr-Zud"/>
-                <outlet property="jobCategorytitleLbl" destination="wJm-jl-ffJ" id="nGj-AR-v4O"/>
+                <outlet property="jobCategoryImageView" destination="aJO-6X-y9i" id="pR5-8d-gox"/>
+                <outlet property="jobCategorytitleLbl" destination="wJm-jl-ffJ" id="sKn-Uy-PNX"/>
             </connections>
             <point key="canvasLocation" x="55" y="-84"/>
         </collectionViewCell>
