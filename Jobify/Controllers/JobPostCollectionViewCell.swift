@@ -27,11 +27,29 @@ class JobPostCollectionViewCell: UICollectionViewCell {
         super.awakeFromNib()
        
         // Example of setting up a view layout
-        jobPostView.layer.cornerRadius = 20
+        jobPostView.layer.cornerRadius = 9
+        jobPostView.layer.shadowColor = UIColor.black.cgColor
+               jobPostView.layer.shadowOpacity = 2
+               jobPostView.layer.shadowRadius = 10
+               jobPostView.layer.shadowOffset = CGSize(width: 0, height: 10)
         jobPostView.layer.masksToBounds = true
         
+        //round the image view corners
         jobPostImageView.layer.cornerRadius = jobPostImageView.frame.size.width / 2
         jobPostImageView.layer.masksToBounds = true
+
+        // Create an array of labels
+            let labels = [jobPostLevellbl, jobPostEnrollmentTypelbl, jobPostCategorylbl, joPostLocationlbl]
+            
+            // Set corner radius and masks to bounds for each button
+            for label in labels {
+                if let label = label {
+                    label.layer.cornerRadius = label.frame.size.height / 2
+                    label.layer.masksToBounds = true
+                }
+            }
+        
+       
         
         
         
