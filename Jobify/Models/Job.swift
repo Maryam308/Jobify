@@ -14,6 +14,7 @@ struct Job : Equatable {
         lhs.jobId == rhs.jobId
     }
     
+    
     // Auto-generated variables
     static var jobIdCounter = 0
     var jobId: Int

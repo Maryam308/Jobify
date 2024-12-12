@@ -9,12 +9,14 @@ import UIKit
 
 class JobCategoryViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
+    
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return categories.count // create the cells depending on the number of categories
+        return categories.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "JobCategoryCollectionViewCell", for: indexPath) as! JobCategoryCollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "JobsCollectionViewCell", for: indexPath) as! JobsCollectionViewCell
         
         // populate information from the cell to the collection view from the categories we created
         cell.setUp(category: categories[indexPath.row])
@@ -34,13 +36,17 @@ class JobCategoryViewController: UIViewController, UICollectionViewDataSource, U
 
     
     
-    @IBOutlet weak var collectionView: UICollectionView!
 
+    @IBOutlet weak var collectionView: UICollectionView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         collectionView.dataSource = self
            collectionView.delegate = self
+        
+        let nib = UINib(nibName: "JobsCollectionViewCell", bundle: nil)
+               collectionView.register(nib, forCellWithReuseIdentifier: "JobsCollectionViewCell")
            
            let layout = UICollectionViewFlowLayout()
            layout.scrollDirection = .vertical // Ensure vertical scrolling
@@ -48,4 +54,3 @@ class JobCategoryViewController: UIViewController, UICollectionViewDataSource, U
         
     }
 }
-
