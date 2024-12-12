@@ -11,35 +11,37 @@ import FirebaseFirestore
 
 let db = Firestore.firestore()
 
+
+
 class ApplicationTrackerViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return careers.count
+        return applications.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "TrackerCell", for: indexPath) as! TrackerCell
-        let career = careers[indexPath.row]
-        cell.companyLabel.text = career.company
-        cell.typeLabel.text = career.type
-        cell.positionLabel.text = career.position
-        cell.locationLabel.text = career.location
-        cell.statusButton.setTitle(career.status, for: .normal)
+        let application = applications[indexPath.row]
+        cell.companyLabel.text = application.company
+        cell.typeLabel.text = application.type
+        cell.positionLabel.text = application.position
+        cell.locationLabel.text = application.location
+        cell.statusButton.setTitle(application.status, for: .normal)
         return cell
     }
     
     
     let db = Firestore.firestore()
     
-    struct Career {
+    struct Application {
         let company: String
         let type: String
         let position: String
         let location: String
         let status: String
     }
-    var careers: [Career] = []
+    var applications: [Application] = []
     
-    
+    var filteredApplications: [Application] = []
     
     
     
@@ -58,7 +60,7 @@ class ApplicationTrackerViewController: UIViewController, UITableViewDelegate, U
     
     
     @IBOutlet var tableView: UITableView!
-    //let myApplications = ["first", "second", "third", "fourth", "fifth"]
+   
     func fetchData() {
         db.collection("jobApplication")
             .getDocuments { [weak self] (querySnapshot, error) in
@@ -83,18 +85,55 @@ class ApplicationTrackerViewController: UIViewController, UITableViewDelegate, U
                         let location = data["location"] as? String ?? "Unknown"
                         let status = data["status"] as? String ?? "Not Reviewed"
                         
-                        let career = Career(
+                        let application = Application(
                             company: company,
                             type: type,
                             position: position,
                             location: location,
                             status: status
                         )
-                        careers.append(career)
+                        applications.append(application)
                     }
                 }
                 tableView.reloadData()
             }
+        
+        func filterApplications(by status: String?) {
+            if let status = status {
+                filteredApplications = applications.filter { $0.status == status }
+            } else {
+                filteredApplications = applications
+            }
+            tableView.reloadData()
+        }
+        
+        
+       /*
+        @IBAction func allButtonTapped(_ sender: Any) {
+            filterApplications(by: nil) // Show all
+        }
+
+        @IBAction func notReviewedButtonTapped(_ sender: UIBarButtonItem) {
+            filterApplications(by: "not reviewed")
+        }
+
+        @IBAction func reviewedButtonTapped(_ sender: UIBarButtonItem) {
+            filterApplications(by: "reviewed")
+        }
+
+        @IBAction func approvedButtonTapped(_ sender: UIBarButtonItem) {
+            filterApplications(by: "approved")
+        }
+
+        @IBAction func rejectedButtonTapped(_ sender: UIBarButtonItem) {
+            filterApplications(by: "rejected")
+        }
+
+
+        */
+        
+        
+        
         
         /*  @objc private func changeStatusButtonTapped() {
          configureSheet(

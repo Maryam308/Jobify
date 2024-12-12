@@ -6,12 +6,41 @@
 //
 
 import UIKit
+import FirebaseFirestore
+
+
+
+
 
 
     class JobApplicationViewController: UIViewController {
-        @IBOutlet var masterView: UIView!
+        @IBOutlet var tableView: UITableView!
+     /*
+        func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+            return cvs.count
+        }
         
-        @IBOutlet weak var chooseCvButton: UIButton!
+        func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "ChooseCVCell", for: indexPath) as! ChooseCVCell
+            let cv = cv[indexPath.row]
+            cell.cvTitleLabel.text = cv.title
+            cell.cvDateLabel.text = cv.date
+            return cell
+        }
+        
+        
+        
+        let db = Firestore.firestore()
+        
+        struct cv {
+            let title: String
+            let date: String
+            
+        }
+        var cvs: [cv] = []
+        
+        
+        
         
         
         override func viewDidLoad() {
@@ -20,9 +49,54 @@ import UIKit
             //creates action on the choose cv button
             //chooseCvButton.addTarget(self, action: #selector(chooseCvButtonTapped), for: .touchUpInside)
             
+            fetchData()
+            
+            let nib = UINib(nibName: "ChooseCVCell", bundle: nil)
+            tableView.register(nib, forCellReuseIdentifier: "ChooseCVCell")
+            tableView.delegate = self
+            tableView.dataSource = self
+            
         }
         
+        @IBOutlet var tableView: UITableView!
+       
+        func fetchData() {
+            db.collection("Ziv")
+                .getDocuments { [weak self] (querySnapshot, error) in
+                    guard let self = self else { return }
+                    
+                    if let error = error {
+                        print("Error fetching documents: \(error)")
+                        return
+                    }
+                    
+                    guard let documents = querySnapshot?.documents else {
+                        print("No documents found")
+                        return
+                    }
+                    
+                    // Loop through the documents and add buttons
+                    for document in documents {
+                        let data = document.data()
+                        if let title = data["cvtitle"] as? String {
+                            let date = data["cvdate"] as? String ?? "Unknown"
+                            
+                            let cv = cv(
+                                title: title,
+                                date: date
+                            )
+                            cvs.append(cv)
+                        }
+                    }
+                    tableView.reloadData()
+                }
+        
+        
         //
+        
+        */
+        
+        
         
         
         
@@ -136,14 +210,6 @@ import UIKit
         */
     }
     
-    /*
-     // MARK: - Navigation
      
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destination.
-     // Pass the selected object to the new view controller.
-     }
-     */
     
     
