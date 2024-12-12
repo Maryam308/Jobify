@@ -32,14 +32,10 @@ class JobPost {
     }
 }
 
-// Declare the jobPosts array
-var jobs: [JobPost] = []
-
-// Example of creating 3 job posts and adding them to the array
-func createJobPosts() -> [JobPost] {
-    // Job Post 1
-    let jobPost1 = JobPost(
-        image: UIImage(named: "Batelco Logo"), // Make sure this image exists in your asset catalog
+// Declare the jobPosts array and initialize it with job posts
+var jobs: [JobPost] = [
+    JobPost(
+        image: UIImage(named: "Batelco Logo"),
         time: "12:15, 25-10-2024",
         title: "Software Developer",
         date: "25-10-2024",
@@ -49,10 +45,8 @@ func createJobPosts() -> [JobPost] {
         location: "Bahrain",
         description: "Description",
         jobDescription: "As a Software Developer, you will work with various technologies..."
-    )
-    
-    // Job Post 2
-    let jobPost2 = JobPost(
+    ),
+    JobPost(
         image: UIImage(named: "GDN logo"),
         time: "09:30, 01-11-2024",
         title: "UX Designer",
@@ -63,10 +57,8 @@ func createJobPosts() -> [JobPost] {
         location: "Dubai",
         description: "Description",
         jobDescription: "We are looking for a talented UX Designer to join our team."
-    )
-    
-    // Job Post 3
-    let jobPost3 = JobPost(
+    ),
+    JobPost(
         image: UIImage(named: "Gulf Digital Group Logo"),
         time: "14:45, 05-12-2024",
         title: "Data Scientist",
@@ -78,11 +70,4 @@ func createJobPosts() -> [JobPost] {
         description: "Description",
         jobDescription: "As a Data Scientist, you will analyze large datasets to uncover insights and build predictive models."
     )
-    
-    // Adding all three job posts to the jobPosts array
-    jobs.append(jobPost1)
-    jobs.append(jobPost2)
-    jobs.append(jobPost3)
-    
-    return jobs
-}
+]

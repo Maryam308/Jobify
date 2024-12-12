@@ -16,7 +16,7 @@ class HomeJobPostViewController: UIViewController, UICollectionViewDataSource, U
     let JobPostCollectionViewCellId = "JobPostCollectionViewCell"
     let JobsCollectionViewCellId = "JobsCollectionViewCell"
     
-    var jobs: [JobPost] = []  // Initialize jobs array here
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,8 +40,9 @@ class HomeJobPostViewController: UIViewController, UICollectionViewDataSource, U
         let categoryNib = UINib(nibName: JobsCollectionViewCellId, bundle: nil)
         categoryCollectionView.register(categoryNib, forCellWithReuseIdentifier: JobsCollectionViewCellId)
         
-        jobs = createJobPosts()
+        
         jobPostCollectionView.reloadData()
+    
        // categoryCollectionView.reloadData()
     }
     
@@ -57,23 +58,21 @@ class HomeJobPostViewController: UIViewController, UICollectionViewDataSource, U
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if collectionView == jobPostCollectionView {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: JobPostCollectionViewCellId, for: indexPath) as! JobPostCollectionViewCell
-            let jobPost = jobs[indexPath.row]
-            
-            // Fill the cell with job data
-            cell.jobPostImageView.image = jobPost.image
-            cell.jobPostTimelbl.text = jobPost.time
-            cell.jobPostTitlelbl.text = jobPost.title
-            cell.jobPostDatelbl.text = jobPost.date
-            cell.jobPostLevellbl.setTitle(jobPost.level, for: .normal)
-            cell.jobPostEnrollmentTypelbl.setTitle(jobPost.enrollmentType, for: .normal)
-            cell.jobPostCategorylbl.setTitle(jobPost.category, for: .normal)
-            cell.joPostLocationlbl.setTitle(jobPost.location, for: .normal)
-            cell.jobPostDescriptionTitlelbl.text = jobPost.description
-            cell.jobPostDescriptionlbl.text = jobPost.jobDescription
-            
-       
-            
-            return cell
+                   let jobPost = jobs[indexPath.row]
+                   
+                   // Fill the cell with job data
+                   cell.jobPostImageView.image = jobPost.image
+                   cell.jobPostTimelbl.text = jobPost.time
+                   cell.jobPostTitlelbl.text = jobPost.title
+                   cell.jobPostDatelbl.text = jobPost.date
+                   cell.jobPostLevellbl.setTitle(jobPost.level, for: .normal)
+                   cell.jobPostEnrollmentTypelbl.setTitle(jobPost.enrollmentType, for: .normal)
+                   cell.jobPostCategorylbl.setTitle(jobPost.category, for: .normal)
+                   cell.joPostLocationlbl.setTitle(jobPost.location, for: .normal)
+                   cell.jobPostDescriptionTitlelbl.text = jobPost.description
+                   cell.jobPostDescriptionlbl.text = jobPost.jobDescription
+                   
+                   return cell
         } else if collectionView == categoryCollectionView {
             let categoryCell = collectionView.dequeueReusableCell(withReuseIdentifier: JobsCollectionViewCellId, for: indexPath) as! JobsCollectionViewCell
             // Populate information from the categories
@@ -96,7 +95,7 @@ class HomeJobPostViewController: UIViewController, UICollectionViewDataSource, U
 
                     // Set the width to be smaller; adjust this value as needed
                     let width = (collectionView.bounds.width - totalSpacing) / 2 // For example, 3 cells in a row
-                    let height: CGFloat = 140 // Set a smaller height for category cells
+            let height: CGFloat = 140 // Set a smaller height for category cells
                     
             
                     return CGSize(width: width, height: height)

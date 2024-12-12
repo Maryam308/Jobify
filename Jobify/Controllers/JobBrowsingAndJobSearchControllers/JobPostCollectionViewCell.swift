@@ -28,10 +28,6 @@ class JobPostCollectionViewCell: UICollectionViewCell {
        
         // Example of setting up a view layout
         jobPostView.layer.cornerRadius = 9
-        jobPostView.layer.shadowColor = UIColor.black.cgColor
-               jobPostView.layer.shadowOpacity = 2
-               jobPostView.layer.shadowRadius = 10
-               jobPostView.layer.shadowOffset = CGSize(width: 0, height: 10)
         jobPostView.layer.masksToBounds = true
         
         //round the image view corners
@@ -48,18 +44,7 @@ class JobPostCollectionViewCell: UICollectionViewCell {
                     label.layer.masksToBounds = true
                 }
             }
-        
-       
-        
-        
-        
-     
-        
-        
-        
-
 
     }
-  
-
+ 
 }
