@@ -99,10 +99,10 @@ struct LearningRequest: Equatable {
     var type: LearningResourceType
     var summary: String
     var link: String
-    var requester: Employer
+    var requester: User
     var skillToDevelop: String //since the skill will be displayed in a drop down list there wont be a problem to use its title
     
-    init(status: LearningRequestStatus, type: LearningResourceType, summary: String, link: String, requester: Employer, skillToDevelop: String) {
+    init(status: LearningRequestStatus, type: LearningResourceType, summary: String, link: String, requester: User, skillToDevelop: String) {
         
         LearningRequest.requestIdCounter += 1
         requestId = LearningRequest.requestIdCounter
