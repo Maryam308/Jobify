@@ -25,7 +25,7 @@ struct Job : Equatable {
 
     // Passed variables
     var title: String
-    var company: Employer
+//    var company: Employer
     var level: String
     var location: String
     var desc: String
@@ -39,7 +39,7 @@ struct Job : Equatable {
     // Custom initializer
     init(
         title: String,
-        company: inout Employer,
+//        company: inout Employer,
         level: String,
         location: String,
         desc: String,
@@ -66,7 +66,7 @@ struct Job : Equatable {
 
         // Assign other properties
         self.title = title
-        self.company = company
+//        self.company = company
         self.level = level
         self.location = location
         self.desc = desc
