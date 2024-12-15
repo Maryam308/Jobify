@@ -6,15 +6,10 @@
 //
 
 import Foundation
-struct Admin{
+struct AdminDetails{
     
-    let adminId: Int = 0000 //There is only one admin
-    var adminName: String
-    var email: String
-    var password: String
+    
     var adminMessageList: [Message] = []
-    var seekerList: [Seeker] = []
-    var employerList: [Employer] = []
     var myLearningResources: [LearningResource] = []
     var savedLearningResources: [LearningResource] = []
     var allLearningResources: [LearningResource] = []
@@ -22,31 +17,31 @@ struct Admin{
     var allSkills: [Skill] = []
     var myJobPosts: [Job] = []
     var mentorRequestList: [MentorRequest] = []
-    var applicationMentors: [Seeker] = []
+    var applicationMentors: [User] = []
     var sentNotifications: [Notification] = []
     var allJobPosts: [Job] = []
 
     
     //admin Id is uniqe and there is only one admin
-    init(adminName: String, email: String, password: String) {
-        self.adminName = adminName
-        self.email = email
-        self.password = password
-    }
+//    init(adminName: String, email: String, password: String) {
+//        self.adminName = adminName
+//        self.email = email
+//        self.password = password
+//    }
     
     //login check email and password
-    func login(email: String, password: String) -> Bool {
-        guard email == self.email && password == self.password else {
-            print("Invalid credentials")
-            return false
-        }
-        return true
-    }
-    
-    //pass the new password and change to it
-    mutating func resitPassword(newPassword: String){
-        self.password = newPassword
-    }
+//    func login(email: String, password: String) -> Bool {
+//        guard email == self.email && password == self.password else {
+//            print("Invalid credentials")
+//            return false
+//        }
+//        return true
+//    }
+//    
+//    //pass the new password and change to it
+//    mutating func resitPassword(newPassword: String){
+//        self.password = newPassword
+//    }
     
     //add the admin as the message sender
     mutating func sendMessage(messageBody:String, reciever: Any){
@@ -60,27 +55,27 @@ struct Admin{
     }
     
     //combined with adding a job post
-    mutating func createJobPostA(
-        titleA: String,
-        companyA: inout Employer,
-        levelA: String,
-        locationA: String,
-        descA: String,
-        requirementA: String,
-        extraAttachmentsA: Data?,
-        employmentTypeA: Job.EmploymentType,
-        deadlineA: Date){
-                           
-            var newJobPost = Job(title: titleA, company: &companyA, level: levelA, location: locationA, desc: descA, requirement: requirementA, extraAttachments: extraAttachmentsA, employmentType: employmentTypeA, deadline: deadlineA)
-                           
-        //add the job post to the adminlist
-        myJobPosts.append(newJobPost)
-        
-        //add the job to all job posts
-        allJobPosts.append(newJobPost)
-            
-            
-    }
+//    mutating func createJobPostA(
+//        titleA: String,
+//        companyA: inout Employer,
+//        levelA: String,
+//        locationA: String,
+//        descA: String,
+//        requirementA: String,
+//        extraAttachmentsA: Data?,
+//        employmentTypeA: Job.EmploymentType,
+//        deadlineA: Date){
+//                           
+//            var newJobPost = Job(title: titleA, company: &companyA, level: levelA, location: locationA, desc: descA, requirement: requirementA, extraAttachments: extraAttachmentsA, employmentType: employmentTypeA, deadline: deadlineA)
+//                           
+//        //add the job post to the adminlist
+//        myJobPosts.append(newJobPost)
+//        
+//        //add the job to all job posts
+//        allJobPosts.append(newJobPost)
+//            
+//            
+//    }
     
     
     
@@ -98,41 +93,41 @@ struct Admin{
         
     }
     
-    mutating func reviewLearningResourceRequest(learningResourceRequest: inout LearningRequest , reply: Bool){
-        
-        //depending on the reply change the status
-        if reply {
-            learningResourceRequest.status = .Approved
-        
-            //create the learning resource
-            var newLearningResource = LearningResource(
-                type: learningResourceRequest.type,
-                summary: learningResourceRequest.summary,
-                link: learningResourceRequest.link,
-                skillToDevelop: learningResourceRequest.skillToDevelop
-            )
-            
-            //add to the requester learning resource list
-                learningResourceRequest.requester.myLearningResourcesList.append(newLearningResource)
-         
-            //add to the application list of learning resource
-                allLearningResources.append(newLearningResource)
-
-         }else{
-             
-             learningResourceRequest.status = .Rejected
-             //keep it in the request lists
-             
-        }
-         
-        //remove the request from the requester list of request
-        if let theRequestIndx = learningResourceRequest.requester.learningRequestsList.firstIndex(of: learningResourceRequest) {
-            learningResourceRequest.requester.learningRequestsList.remove(at: theRequestIndx)
-        } else {
-            print("Request not found in the list.")
-        }
-        
-    }
+//    mutating func reviewLearningResourceRequest(learningResourceRequest: inout LearningRequest , reply: Bool){
+//        
+//        //depending on the reply change the status
+//        if reply {
+//            learningResourceRequest.status = .Approved
+//        
+//            //create the learning resource
+//            var newLearningResource = LearningResource(
+//                type: learningResourceRequest.type,
+//                summary: learningResourceRequest.summary,
+//                link: learningResourceRequest.link,
+//                skillToDevelop: learningResourceRequest.skillToDevelop
+//            )
+//            
+//            //add to the requester learning resource list
+//                learningResourceRequest.requester.myLearningResourcesList.append(newLearningResource)
+//         
+//            //add to the application list of learning resource
+//                allLearningResources.append(newLearningResource)
+//
+//         }else{
+//             
+//             learningResourceRequest.status = .Rejected
+//             //keep it in the request lists
+//             
+//        }
+//         
+//        //remove the request from the requester list of request
+//        if let theRequestIndx = learningResourceRequest.requester.learningRequestsList.firstIndex(of: learningResourceRequest) {
+//            learningResourceRequest.requester.learningRequestsList.remove(at: theRequestIndx)
+//        } else {
+//            print("Request not found in the list.")
+//        }
+//        
+//    }
     
     mutating func reviewMentorshipRequest(request: inout MentorRequest, reply: Bool){
         
@@ -228,20 +223,20 @@ struct Admin{
             //from seekers
                 // Print remaining resources for each seeker
           
-                    for seekerIndex in seekerList.indices {
-                        seekerList[seekerIndex].savedLearningResourcesList.removeAll { $0.skillToDevelop == skillToRemove.title }
-                    }
-        
-            //from employers
-                //saved by the employer
-                    for employerIndex in employerList.indices {
-                        employerList[employerIndex].savedLearningResourcesList.removeAll { $0.skillToDevelop == skillToRemove.title }
-                    }
-                    
-                //created by the employer
-                    for employerIndex in employerList.indices {
-                        employerList[employerIndex].myLearningResourcesList.removeAll { $0.skillToDevelop == skillToRemove.title }
-                    }
+//                    for seekerIndex in seekerList.indices {
+//                        seekerList[seekerIndex].savedLearningResourcesList.removeAll { $0.skillToDevelop == skillToRemove.title }
+//                    }
+//        
+//            //from employers
+//                //saved by the employer
+//                    for employerIndex in employerList.indices {
+//                        employerList[employerIndex].savedLearningResourcesList.removeAll { $0.skillToDevelop == skillToRemove.title }
+//                    }
+//                    
+//                //created by the employer
+//                    for employerIndex in employerList.indices {
+//                        employerList[employerIndex].myLearningResourcesList.removeAll { $0.skillToDevelop == skillToRemove.title }
+//                    }
         
             //from admin
                 //saved by the admin
@@ -264,19 +259,19 @@ struct Admin{
     }
     
     
-    mutating func removeEmployerJobPost(jobPostToRemove: inout Job, employerPosted: inout Employer){
-        
-        //remove from employer
-        if let index = employerPosted.myJobPostsList.firstIndex(of: jobPostToRemove){
-            employerPosted.myJobPostsList.remove(at: index)
-        }
-        
-        //remove from all jobs
-        if let index = allJobPosts.firstIndex(of: jobPostToRemove){
-            allJobPosts.remove(at: index)
-        }
-        
-    }
+//    mutating func removeEmployerJobPost(jobPostToRemove: inout Job, employerPosted: inout Employer){
+//        
+//        //remove from employer
+//        if let index = employerPosted.myJobPostsList.firstIndex(of: jobPostToRemove){
+//            employerPosted.myJobPostsList.remove(at: index)
+//        }
+//        
+//        //remove from all jobs
+//        if let index = allJobPosts.firstIndex(of: jobPostToRemove){
+//            allJobPosts.remove(at: index)
+//        }
+//        
+//    }
  
     
 }
@@ -291,10 +286,10 @@ struct MentorRequest: Equatable {
    
     static var requestIdCounter: Int = 0
     var requestId: Int
-    var requester: Seeker
+    var requester: User
     var status: MentorRequestStatus
     
-    init(requester: Seeker) {
+    init(requester: User) {
         MentorRequest.requestIdCounter += 1
         requestId = MentorRequest.requestIdCounter
         self.requester = requester

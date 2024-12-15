@@ -6,13 +6,9 @@
 //
 
 import Foundation
-struct Employer {
-    static var employerIdCounter = 0 // Static counter for generating unique employer IDs
+struct EmployerDetails {
     
-    var employerId: Int
-    var employerName: String
-    var email: String
-    var password: String
+    
     var country: String
     var city: String
     var EmployermessageList: [Message] = []
@@ -28,9 +24,7 @@ struct Employer {
     
     // Custom initializer
     init(
-           employerName: String,
-           email: String,
-           password: String,
+           
            country: String,
            city: String,
            companyMainCategory: String = "",
@@ -38,14 +32,10 @@ struct Employer {
            employabilityGoals: String = "",
            vision: String = ""
        ) {
-           // Increment the counter and assign it as employerId
-           Employer.employerIdCounter += 1
-           self.employerId = Employer.employerIdCounter
+           
 
            // Assign other properties
-           self.employerName = employerName
-           self.email = email
-           self.password = password
+           
            self.country = country
            self.city = city
            self.companyMainCategory = companyMainCategory
@@ -59,24 +49,24 @@ struct Employer {
     
     
     // Validating user's credentials for login
-    func login(email: String, password: String) -> Bool {
-        guard self.email == email && self.password == password else {
-            //print("Invalid email or password.")
-            return false
-        }
-        //print("Login successful for \(self.seekerName)")
-        return true
-    }
+//    func login(email: String, password: String) -> Bool {
+//        guard self.email == email && self.password == password else {
+//            //print("Invalid email or password.")
+//            return false
+//        }
+//        //print("Login successful for \(self.seekerName)")
+//        return true
+//    }
     
     
     //===================================================================================================================//
     
     
-    // Chnaging user's passwords, key-word mutating is used to make the function follow Swift's value type safety principles
-    mutating func resetPassword(newPassword: String) {
-        self.password = newPassword
-        //print("Password reset successful for \(self.seekerName).")
-    }
+//    // Chnaging user's passwords, key-word mutating is used to make the function follow Swift's value type safety principles
+//    mutating func resetPassword(newPassword: String) {
+//        self.password = newPassword
+//        //print("Password reset successful for \(self.seekerName).")
+//    }
     
     
     //===================================================================================================================//
@@ -94,31 +84,31 @@ struct Employer {
     
     
     //Creating a new job post
-    mutating func createJobPost(
-        title: String,
-        company: inout Employer,
-        level: String,
-        location: String,
-        desc: String,
-        requirement: String,
-        extraAttachments: Data?,
-        employmentType: Job.EmploymentType,
-        deadline: Date) {
-        
-            let newJobPost = Job(
-                title: title,
-                company: &company,
-                level: level,
-                location: location,
-                desc: desc,
-                requirement: requirement,
-                extraAttachments:  extraAttachments,
-                employmentType: employmentType,
-                deadline: deadline)
-        
-        //Adding the new job post to the company's job posts list
-        self.myJobPostsList.append(newJobPost)
-    }
+//    mutating func createJobPost(
+//        title: String,
+//        company: inout Employer,
+//        level: String,
+//        location: String,
+//        desc: String,
+//        requirement: String,
+//        extraAttachments: Data?,
+//        employmentType: Job.EmploymentType,
+//        deadline: Date) {
+//        
+//            let newJobPost = Job(
+//                title: title,
+//                company: &company,
+//                level: level,
+//                location: location,
+//                desc: desc,
+//                requirement: requirement,
+//                extraAttachments:  extraAttachments,
+//                employmentType: employmentType,
+//                deadline: deadline)
+//        
+//        //Adding the new job post to the company's job posts list
+//        self.myJobPostsList.append(newJobPost)
+//    }
 }
 
 

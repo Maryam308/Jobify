@@ -7,13 +7,7 @@
 
 import Foundation
 
-struct Seeker {
-    static var seekerIdCounter = 0 // Static counter for generating unique seeker IDs
-    var seekerId: Int
-
-    var seekerName: String
-    var email: String
-    var password: String
+struct SeekerDetails {
     var country: String
     var city: String
     var seekerMessageList: [Message] = []
@@ -33,14 +27,10 @@ struct Seeker {
         isMentor: Bool = false,
         selectedJobPosition: String = ""
     ) {
-        // Increment the counter and assign it as seekerId
-        Seeker.seekerIdCounter += 1
-        self.seekerId = Seeker.seekerIdCounter
+        
 
         // Assign other properties
-        self.seekerName = seekerName
-        self.email = email
-        self.password = password
+        
         self.country = country
         self.city = city
         self.isMentor = isMentor
@@ -50,53 +40,53 @@ struct Seeker {
     //===================================================================================================================//
     
     // Validating user's credentials for login
-    func login(email: String, password: String) -> Bool {
-        guard self.email == email && self.password == password else {
-            //print("Invalid email or password.")
-            return false
-        }
-        //print("Login successful for \(self.seekerName)")
-        return true
-    }
-    
-    
-    //===================================================================================================================//
-    
-    
-    // Chnaging user's passwords, key-word mutating is used to make the function follow Swift's value type safety principles
-    mutating func resetPassword(newPassword: String) {
-        self.password = newPassword
-        //print("Password reset successful for \(self.seekerName).")
-    }
+//    func login(email: String, password: String) -> Bool {
+//        guard self.email == email && self.password == password else {
+//            //print("Invalid email or password.")
+//            return false
+//        }
+//        //print("Login successful for \(self.seekerName)")
+//        return true
+//    }
+//    
+//    
+//    //===================================================================================================================//
+//    
+//    
+//    // Chnaging user's passwords, key-word mutating is used to make the function follow Swift's value type safety principles
+//    mutating func resetPassword(newPassword: String) {
+//        self.password = newPassword
+//        //print("Password reset successful for \(self.seekerName).")
+//    }
     
     
     //===================================================================================================================//
     
     
     // Everytime the seeker applies for a new job, this application will be created and added to his profile directly
-    mutating func CreateJobApplication(
-    jobApplicant: inout Seeker,
-    jobApplied: Job,
-    applicantCV: CV,
-    briefIntroduction: String,
-    motivation: String,
-    contributionToCompany: String,
-    applicantCoverLetter: Data?){
-        
-        //Creating job application
-        let newApplication = JobApplication(
-            jobApplicant: &jobApplicant,
-                 jobApplied: jobApplied,
-                 applicantCV: applicantCV,
-                 briefIntroduction: briefIntroduction,
-                 motivation: motivation,
-                 contributionToCompany: contributionToCompany,
-                 applicantCoverLetter: applicantCoverLetter
-        )
-        
-        // Adding the job application to the seeker's list
-        self.jobsApplicationList.append(newApplication)
-    }
+//    mutating func CreateJobApplication(
+//    jobApplicant: inout Seeker,
+//    jobApplied: Job,
+//    applicantCV: CV,
+//    briefIntroduction: String,
+//    motivation: String,
+//    contributionToCompany: String,
+//    applicantCoverLetter: Data?){
+//        
+//        //Creating job application
+//        let newApplication = JobApplication(
+//            jobApplicant: &jobApplicant,
+//                 jobApplied: jobApplied,
+//                 applicantCV: applicantCV,
+//                 briefIntroduction: briefIntroduction,
+//                 motivation: motivation,
+//                 contributionToCompany: contributionToCompany,
+//                 applicantCoverLetter: applicantCoverLetter
+//        )
+//        
+//        // Adding the job application to the seeker's list
+//        self.jobsApplicationList.append(newApplication)
+//    }
     
     //===================================================================================================================//
     
