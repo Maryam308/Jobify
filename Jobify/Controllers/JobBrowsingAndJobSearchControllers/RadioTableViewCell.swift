@@ -16,33 +16,28 @@ class RadioTableViewCell: UITableViewCell {
     @IBOutlet weak var btnOption2: UIButton!
     
     
-    func setOptionsTitleFrom(_ options:[String]){
-        lblOption1.text = options[0]
-        lblOption2.text = options[1]
-    }
-    
-    func setOptipotionsSelectedFrom(_ isOption1Selected:Bool){
-        if isOption1Selected{
-            btnOption1.isSelected = true
-            btnOption2.isSelected = false
-        }else{
-            btnOption1.isSelected = false
-            btnOption2.isSelected = true
+    // Configure the cell with option titles
+        func setOptionsTitleFrom(_ options: [String]) {
+            guard options.count >= 2 else { return } // Ensure there are at least 2 options
+            lblOption1.text = options[0]
+            lblOption2.text = options[1]
         }
         
-    }
+        // Set the selection state of the buttons
+        func setOptionSelected(_ isOption1Selected: Bool) {
+            btnOption1.isSelected = isOption1Selected
+            btnOption2.isSelected = !isOption1Selected
+        }
     
     @IBAction func option1Selected(_ sender: UIButton) {
-        setOptipotionsSelectedFrom(true)
+        setOptionSelected(true)
     }
     
     @IBAction func option2Selected(_ sender: UIButton) {
-        setOptipotionsSelectedFrom(false)
+        setOptionSelected(false)
     }
     
-    func setOption1Selected(_ selected:Bool){
-        
-    }
+    
     
     override func awakeFromNib() {
         super.awakeFromNib()

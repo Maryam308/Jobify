@@ -9,80 +9,74 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="120" id="KGk-i7-Jjw" customClass="RadioTableViewCell" customModule="Jobify" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="319" height="120"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="147" id="upK-mR-j64" customClass="RadioTableViewCell" customModule="Jobify" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="326" height="147"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="319" height="120"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="upK-mR-j64" id="aE3-lF-lcW">
+                <rect key="frame" x="0.0" y="0.0" width="326" height="147"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tLh-14-k8M">
-                        <rect key="frame" x="12" y="21" width="33" height="33"/>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pbY-cv-rwh">
+                        <rect key="frame" x="12" y="21" width="43" height="42"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="33" id="6rI-Lf-UBQ"/>
-                            <constraint firstAttribute="height" constant="33" id="pWX-Mr-hMS"/>
+                            <constraint firstAttribute="height" constant="42" id="UmM-7m-Z4e"/>
+                            <constraint firstAttribute="width" constant="43" id="yNW-Cq-Nww"/>
                         </constraints>
                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                         <state key="normal" backgroundImage="radioOff"/>
                         <state key="selected" backgroundImage="radioOn"/>
                         <connections>
-                            <action selector="option1Selected:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="yIk-T3-bvO"/>
+                            <action selector="option1Selected:" destination="upK-mR-j64" eventType="touchUpInside" id="ioL-mp-3pv"/>
                         </connections>
                     </button>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nMG-bc-fYn">
-                        <rect key="frame" x="63" y="27" width="41.333333333333343" height="21"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0y2-bG-igG">
+                        <rect key="frame" x="63" y="30" width="41.333333333333343" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OOF-RJ-7JG">
-                        <rect key="frame" x="12" y="67" width="33" height="33"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i01-2r-0TC">
+                        <rect key="frame" x="63" y="90.666666666666671" width="41.333333333333371" height="13"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CrR-qs-7PI">
+                        <rect key="frame" x="12" y="74" width="43" height="42"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="33" id="1E0-2N-EBG"/>
-                            <constraint firstAttribute="width" constant="33" id="CUP-ft-blh"/>
+                            <constraint firstAttribute="width" constant="43" id="MGQ-iZ-tZx"/>
+                            <constraint firstAttribute="height" constant="42" id="gZN-ui-dQu"/>
                         </constraints>
                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                         <state key="normal" backgroundImage="radioOff"/>
                         <state key="selected" backgroundImage="radioOn"/>
                         <connections>
-                            <action selector="option2Selected:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="LA3-8R-0qq"/>
+                            <action selector="option2Selected:" destination="upK-mR-j64" eventType="touchUpInside" id="INh-qI-bfs"/>
                         </connections>
                     </button>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gyt-dt-dRN">
-                        <rect key="frame" x="63" y="73.333333333333329" width="41.333333333333343" height="20.333333333333329"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <nil key="textColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="tLh-14-k8M" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="12" id="3Vl-w7-Jpg"/>
-                    <constraint firstItem="OOF-RJ-7JG" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="12" id="5Ri-8e-E9n"/>
-                    <constraint firstItem="tLh-14-k8M" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="21" id="5gw-IN-Xss"/>
-                    <constraint firstItem="Gyt-dt-dRN" firstAttribute="top" secondItem="nMG-bc-fYn" secondAttribute="bottom" constant="25.329999999999998" id="AzP-Hx-ztr"/>
-                    <constraint firstItem="Gyt-dt-dRN" firstAttribute="leading" secondItem="OOF-RJ-7JG" secondAttribute="trailing" constant="18" id="HGW-76-blV"/>
-                    <constraint firstItem="Gyt-dt-dRN" firstAttribute="centerY" secondItem="OOF-RJ-7JG" secondAttribute="centerY" id="Znz-d8-sZj"/>
-                    <constraint firstItem="OOF-RJ-7JG" firstAttribute="top" secondItem="tLh-14-k8M" secondAttribute="bottom" constant="13" id="eXt-hH-dOA"/>
-                    <constraint firstItem="nMG-bc-fYn" firstAttribute="leading" secondItem="tLh-14-k8M" secondAttribute="trailing" constant="18" id="hT5-Gi-dl8"/>
-                    <constraint firstItem="nMG-bc-fYn" firstAttribute="centerY" secondItem="tLh-14-k8M" secondAttribute="centerY" id="sa9-oo-6cb"/>
+                    <constraint firstItem="i01-2r-0TC" firstAttribute="leading" secondItem="0y2-bG-igG" secondAttribute="leading" id="Fkt-t3-vYf"/>
+                    <constraint firstItem="i01-2r-0TC" firstAttribute="top" secondItem="0y2-bG-igG" secondAttribute="bottom" constant="39.666666666666671" id="Fnk-uA-mFU"/>
+                    <constraint firstItem="i01-2r-0TC" firstAttribute="centerY" secondItem="CrR-qs-7PI" secondAttribute="centerY" constant="2.1666666666666714" id="SAq-e9-cxe"/>
+                    <constraint firstAttribute="bottom" secondItem="CrR-qs-7PI" secondAttribute="bottom" constant="31" id="Sox-al-8xp"/>
+                    <constraint firstItem="pbY-cv-rwh" firstAttribute="leading" secondItem="aE3-lF-lcW" secondAttribute="leading" constant="12" id="TFo-SU-pTX"/>
+                    <constraint firstItem="CrR-qs-7PI" firstAttribute="leading" secondItem="aE3-lF-lcW" secondAttribute="leading" constant="12" id="buw-Uw-NAU"/>
+                    <constraint firstItem="0y2-bG-igG" firstAttribute="centerY" secondItem="pbY-cv-rwh" secondAttribute="centerY" constant="-1.5" id="h74-wq-LeW"/>
+                    <constraint firstItem="i01-2r-0TC" firstAttribute="leading" secondItem="CrR-qs-7PI" secondAttribute="trailing" constant="8" symbolic="YES" id="jq4-Xn-aSW"/>
+                    <constraint firstItem="CrR-qs-7PI" firstAttribute="top" secondItem="pbY-cv-rwh" secondAttribute="bottom" constant="11" id="lJ2-5w-Saj"/>
+                    <constraint firstItem="pbY-cv-rwh" firstAttribute="top" secondItem="aE3-lF-lcW" secondAttribute="top" constant="21" id="mnH-L5-Jmh"/>
                 </constraints>
             </tableViewCellContentView>
-            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <viewLayoutGuide key="safeArea" id="aM9-v2-xBj"/>
             <connections>
-                <outlet property="btnOption1" destination="tLh-14-k8M" id="hLR-sg-7Si"/>
-                <outlet property="btnOption2" destination="OOF-RJ-7JG" id="qwy-Oi-b7K"/>
-                <outlet property="lblOption1" destination="nMG-bc-fYn" id="d09-Fm-IyD"/>
-                <outlet property="lblOption2" destination="Gyt-dt-dRN" id="SVq-MA-5VG"/>
+                <outlet property="btnOption1" destination="pbY-cv-rwh" id="jZT-jT-cph"/>
+                <outlet property="btnOption2" destination="CrR-qs-7PI" id="B3g-mV-sah"/>
+                <outlet property="lblOption1" destination="0y2-bG-igG" id="ZlK-Od-Gyj"/>
+                <outlet property="lblOption2" destination="i01-2r-0TC" id="L19-dp-L0U"/>
             </connections>
-            <point key="canvasLocation" x="37.404580152671755" y="47.183098591549296"/>
+            <point key="canvasLocation" x="-305.34351145038164" y="-43.309859154929576"/>
         </tableViewCell>
-        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="zRO-U5-Q2d">
-            <rect key="frame" x="0.0" y="0.0" width="75" height="39"/>
-            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <state key="normal" title="Button"/>
-            <buttonConfiguration key="configuration" style="plain" title="Button"/>
-            <point key="canvasLocation" x="-77" y="-55"/>
-        </button>
     </objects>
     <resources>
         <image name="radioOff" width="512" height="512"/>
