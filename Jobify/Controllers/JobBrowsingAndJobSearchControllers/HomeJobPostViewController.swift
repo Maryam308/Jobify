@@ -25,7 +25,7 @@ class HomeJobPostViewController: UIViewController, UICollectionViewDataSource, U
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        //updated version
         //mainHomeView.isHidden = true //because it will hide the view
        // hamburgerView.isHidden = true
         
