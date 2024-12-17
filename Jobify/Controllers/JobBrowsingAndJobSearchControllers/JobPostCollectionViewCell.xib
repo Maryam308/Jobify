@@ -11,10 +11,10 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="JobPostCollectionViewCell" id="NVP-Pt-6i1" customClass="JobPostCollectionViewCell" customModule="Jobify" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="346" height="196"/>
+            <rect key="frame" x="0.0" y="0.0" width="327" height="196"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="vRZ-iN-EWo">
-                <rect key="frame" x="0.0" y="0.0" width="346" height="196"/>
+                <rect key="frame" x="0.0" y="0.0" width="327" height="196"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6D9-1e-LSq">
@@ -161,7 +161,7 @@
                     <constraint firstItem="fdX-l0-gCK" firstAttribute="trailing" secondItem="vRZ-iN-EWo" secondAttribute="trailingMargin" id="scN-Qm-Foj"/>
                 </constraints>
             </collectionViewCellContentView>
-            <size key="customSize" width="346" height="196"/>
+            <size key="customSize" width="327" height="196"/>
             <connections>
                 <outlet property="joPostLocationlbl" destination="yPu-q6-IDI" id="gkR-9r-VQy"/>
                 <outlet property="jobPostCategorylbl" destination="Vci-EA-kdY" id="kSc-tm-K87"/>
@@ -175,7 +175,7 @@
                 <outlet property="jobPostTitlelbl" destination="GN3-Ld-4G2" id="b2z-TC-GIo"/>
                 <outlet property="jobPostView" destination="6D9-1e-LSq" id="Oe9-Qe-esN"/>
             </connections>
-            <point key="canvasLocation" x="-441.2213740458015" y="-395.07042253521126"/>
+            <point key="canvasLocation" x="-481.67938931297709" y="-395.07042253521126"/>
         </collectionViewCell>
     </objects>
     <resources>

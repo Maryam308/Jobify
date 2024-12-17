@@ -16,11 +16,21 @@ class HomeJobPostViewController: UIViewController, UICollectionViewDataSource, U
     let JobPostCollectionViewCellId = "JobPostCollectionViewCell"
     let JobsCollectionViewCellId = "JobsCollectionViewCell"
     
-
- 
+    @IBOutlet var mainHomeView: UIView!
+    
+    @IBOutlet weak var hamburgerView: UIView!
+    
+    var isHamburgerMenuOpen = false
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        //updated version
+        //mainHomeView.isHidden = true //because it will hide the view
+       // hamburgerView.isHidden = true
+        
+        // Initially position the hamburgerView off-screen to the left
+            hamburgerView.transform = CGAffineTransform(translationX: -hamburgerView.frame.width, y: 0)
   
         let layout = UICollectionViewFlowLayout()
             layout.scrollDirection = .horizontal
@@ -50,7 +60,20 @@ class HomeJobPostViewController: UIViewController, UICollectionViewDataSource, U
     //MARK: - Handlers
     
     
-    
+    @IBAction func showHamburgerMenu(_ sender: Any) {
+        UIView.animate(withDuration: 0.3) {
+               if self.isHamburgerMenuOpen {
+                   // Slide out (to the left)
+                   self.hamburgerView.transform = CGAffineTransform(translationX: -self.hamburgerView.frame.width, y: 0)
+               } else {
+                   // Slide in (to the right)
+                   self.hamburgerView.transform = .identity
+               }
+           }
+           
+           // Toggle state
+           isHamburgerMenuOpen.toggle()
+    }
     
     
     //Recommended Jobs
