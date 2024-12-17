@@ -16,11 +16,12 @@ class HomeJobPostViewController: UIViewController, UICollectionViewDataSource, U
     let JobPostCollectionViewCellId = "JobPostCollectionViewCell"
     let JobsCollectionViewCellId = "JobsCollectionViewCell"
     
-    
+
+ 
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+  
         let layout = UICollectionViewFlowLayout()
             layout.scrollDirection = .horizontal
             categoryCollectionView.collectionViewLayout = layout
@@ -46,6 +47,13 @@ class HomeJobPostViewController: UIViewController, UICollectionViewDataSource, U
        // categoryCollectionView.reloadData()
     }
     
+    //MARK: - Handlers
+    
+    
+    
+    
+    
+    //Recommended Jobs
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == jobPostCollectionView {
             return jobs.count

@@ -9,26 +9,17 @@ import UIKit
 
 class SortViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
-    let sortArray: [String] = ["Newest to oldest", "Oldest to newest"]
+   // let sortArray: [String] = ["Newest to oldest", "Oldest to newest"]
     
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // num of rows to show on table (table cell)
-        return sortArray.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel?.text = sortArray[indexPath.row]
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("you tapped me ")
-    }
-    
+    // Array of options to display in the table view
+    private let options = ["Newest to Oldest", "Oldest to Newest"]
+    private var selectedOptionIndex: Int?
+   
 
     @IBOutlet weak var sortTableView: UITableView!
+    
+    let RadioTableViewCellId = "RadioTableViewCell"
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -50,12 +41,34 @@ class SortViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         sortTableView.tableHeaderView = header
         
-        
+        let nib = UINib(nibName: RadioTableViewCellId, bundle: nil)
+              sortTableView.register(nib, forCellReuseIdentifier: RadioTableViewCellId)
 
+        sortTableView.reloadData()
     }
     
-   
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        // num of rows to show on table (table cell)
+        return 1
+    }
     
-
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+         let cell = tableView.dequeueReusableCell(withIdentifier: RadioTableViewCellId, for: indexPath) as! RadioTableViewCell
+         
+         // Set titles for options from the array
+         cell.setOptionsTitleFrom(options)
+         
+         // Set the selected state for the cell
+        cell.setOptionSelected((selectedOptionIndex == indexPath.row))
+         
+         return cell
+     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+            // Update the selected option index
+            selectedOptionIndex = indexPath.row
+            tableView.reloadData() // Reload data to refresh cell states
+        }
+    
   
 }
