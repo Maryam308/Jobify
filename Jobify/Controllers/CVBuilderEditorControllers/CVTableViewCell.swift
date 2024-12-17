@@ -28,7 +28,7 @@ class CVTableViewCell: UITableViewCell {
     }
     
     //setup the cell
-    func setup(CV: CVTest){
+    func setup(CV: CV){
         lblCVTitle.text = CV.name
         lblCVAddDate.text = CV.city
     }

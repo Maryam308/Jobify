@@ -1,16 +1,9 @@
 import Foundation
 import Firebase
 import FirebaseFirestore
-//for testing only
-struct CVTest : Codable {
-    var id: String
-    var name: String
-    var city: String
-}
-
 
 // CV model containing all the user information needed for the CV
-struct CV {
+struct CV:Codable {
     
     //Auto-generated variabels
     static var cvIDCounter = 0 // Static counter for generating unique CV ID
@@ -55,7 +48,7 @@ struct CV {
 
 
 // Personal details struct containing basic info about the user
-struct PersonalDetails {
+struct PersonalDetails:Codable {
     var name : String
     var email : String
     var phoneNumber : String
@@ -75,7 +68,7 @@ struct PersonalDetails {
 }
 
 // Education struct to store educational background info
-struct Education {
+struct Education:Codable {
    
     //Auto-gnerated variabels
     static var educationIdCounter = 0 // Static counter for generating unique education ID
@@ -105,7 +98,7 @@ struct Education {
 }
 
 // Skill struct to store seeker's skill info
-struct CVSkill{
+struct CVSkill:Codable{
     
     //Auto-gnerated variabels
     static var skillIDCounter = 0 // Static counter for generating unique education ID
@@ -127,7 +120,7 @@ struct CVSkill{
 }
 
 // Work experience struct to store job-related experience
-struct WorkExperience {
+struct WorkExperience:Codable{
    
     static var workExperienceIDCounter = 0 // Static counter for generating unique working experince ID
     var workExperienceID: Int
@@ -154,35 +147,47 @@ struct WorkExperience {
 }
 
 final class CVManager{
-    private init(){} //singleton
-    private static let CVCollection = Firestore.firestore().collection(DB.FStore.CVTest.collectionName)
-    //get documents
-    private static func CVDocment(documentId: String) -> DocumentReference{
-        CVCollection.document(documentId)
-    }
     
-    static func createNewCV(cv: CVTest) async throws {
-        // Add document to Firestore and get the document ID
-        let docRef = try await CVCollection.addDocument(data: Firestore.Encoder().encode(cv))
+    private static let CVCollection = Firestore.firestore().collection("CVs")
 
-        // Update the document with the auto-generated document ID
-        try await CVDocment(documentId: docRef.documentID).updateData([
-            DB.FStore.CVTest.id: docRef.documentID
-        ])
+    static func createNewCV(cv: CV) async throws {
+        // Add document to Firestore and get the document ID
+        let docRef = try await CVCollection.addDocument(data: Firestore.Encoder().encode(cv))
+        
+        // Update the document with the auto-generated document ID
+        try await CVCollection.document(docRef.documentID).updateData([
+            "cvID": docRef.documentID // save the Firestore document ID
+        ])
     }
-    
-    static func getAllCVs() async throws  -> [CVTest]{
-        try await CVCollection.getDocuments().documents.compactMap { doc in
-            try doc.data(as: CVTest.self)
-        }
-    }
-    
-    static func updateCV(cv: CVTest) async throws {
-        try await CVDocment(documentId: cv.id).updateData(Firestore.Encoder().encode(cv))
-    }
-    
-    static func updateCV(docID: String, fields: [String: Any]) async throws {
-        try await CVDocment(documentId: docID).updateData(fields)
-    }
+////    private init(){} //singleton
+////    private static let CVCollection = Firestore.firestore().collection(DB.FStore.CVTest.collectionName)
+////    //get documents
+////    private static func CVDocment(documentId: String) -> DocumentReference{
+////        CVCollection.document(documentId)
+////    }
+////
+////    static func createNewCV(cv: CVTest) async throws {
+////        // Add document to Firestore and get the document ID
+////        let docRef = try await CVCollection.addDocument(data: Firestore.Encoder().encode(cv))
+////
+////        // Update the document with the auto-generated document ID
+////        try await CVDocment(documentId: docRef.documentID).updateData([
+////            DB.FStore.CVTest.id: docRef.documentID
+////        ])
+////    }
+//
+//    static func getAllCVs() async throws  -> [CVTest]{
+//        try await CVCollection.getDocuments().documents.compactMap { doc in
+//            try doc.data(as: CVTest.self)
+//        }
+//    }
+//
+//    static func updateCV(cv: CVTest) async throws {
+//        try await CVDocment(documentId: cv.id).updateData(Firestore.Encoder().encode(cv))
+//    }
+//
+//    static func updateCV(docID: String, fields: [String: Any]) async throws {
+//        try await CVDocment(documentId: docID).updateData(fields)
+//    }
 
 }
