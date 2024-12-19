@@ -14,7 +14,6 @@
 		5CF49A412CF920BC00EE1B24 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 5CF49A402CF920BC00EE1B24 /* FirebaseFirestore */; };
 		5CF49A432CF920BC00EE1B24 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 5CF49A422CF920BC00EE1B24 /* FirebaseMessaging */; };
 		5CF49A452CF920BC00EE1B24 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 5CF49A442CF920BC00EE1B24 /* FirebaseStorage */; };
-		E48E19A02D0F7B9600923ABF /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = E48E199F2D0F7B9600923ABF /* Alamofire */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,7 +47,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				5CF49A432CF920BC00EE1B24 /* FirebaseMessaging in Frameworks */,
-				E48E19A02D0F7B9600923ABF /* Alamofire in Frameworks */,
 				5CF49A392CF920BC00EE1B24 /* FirebaseAnalytics in Frameworks */,
 				5CF49A3D2CF920BC00EE1B24 /* FirebaseCore in Frameworks */,
 				5CF49A3F2CF920BC00EE1B24 /* FirebaseDatabase in Frameworks */,
@@ -104,7 +102,6 @@
 				5CF49A402CF920BC00EE1B24 /* FirebaseFirestore */,
 				5CF49A422CF920BC00EE1B24 /* FirebaseMessaging */,
 				5CF49A442CF920BC00EE1B24 /* FirebaseStorage */,
-				E48E199F2D0F7B9600923ABF /* Alamofire */,
 			);
 			productName = Jobify;
 			productReference = 5CEF08832CEB2680009CB194 /* Jobify.app */;
@@ -136,7 +133,6 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				5CF49A372CF920BC00EE1B24 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
-				E48E199E2D0F7B9600923ABF /* XCRemoteSwiftPackageReference "Alamofire" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 5CEF08842CEB2680009CB194 /* Products */;
@@ -374,14 +370,6 @@
 				minimumVersion = 11.5.0;
 			};
 		};
-		E48E199E2D0F7B9600923ABF /* XCRemoteSwiftPackageReference "Alamofire" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/Alamofire/Alamofire";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 5.10.2;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -419,11 +407,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 5CF49A372CF920BC00EE1B24 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseStorage;
-		};
-		E48E199F2D0F7B9600923ABF /* Alamofire */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = E48E199E2D0F7B9600923ABF /* XCRemoteSwiftPackageReference "Alamofire" */;
-			productName = Alamofire;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

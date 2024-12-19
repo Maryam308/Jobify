@@ -38,25 +38,38 @@
                                         <rect key="frame" x="0.0" y="-26" width="393" height="1240"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tgE-yB-2Q8">
-                                                <rect key="frame" x="0.0" y="0.0" width="393" height="340"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="393" height="390"/>
                                                 <subviews>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="nl3-1N-MJf">
+                                                        <rect key="frame" x="54" y="36" width="285" height="40"/>
+                                                        <subviews>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ohM-I3-jNe">
+                                                                <rect key="frame" x="0.0" y="0.0" width="135" height="40"/>
+                                                                <color key="backgroundColor" red="0.1137254902" green="0.1764705882" blue="0.2666666667" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="40" id="yTV-m4-u05"/>
+                                                                </constraints>
+                                                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <state key="normal" title="Button"/>
+                                                                <buttonConfiguration key="configuration" style="plain" title="Create Job Post"/>
+                                                            </button>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VVe-pg-o33">
+                                                                <rect key="frame" x="150" y="0.0" width="135" height="40"/>
+                                                                <color key="backgroundColor" red="0.1137254902" green="0.1764705882" blue="0.2666666667" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <state key="normal" title="Button"/>
+                                                                <buttonConfiguration key="configuration" style="plain" title="My Job Posts"/>
+                                                            </button>
+                                                        </subviews>
+                                                    </stackView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Recommended Jobs" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5iD-r2-l6i">
-                                                        <rect key="frame" x="20" y="42.333333333333343" width="175.33333333333334" height="21.666666666666671"/>
+                                                        <rect key="frame" x="20" y="91" width="175.33333333333334" height="21.666666666666671"/>
                                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SFN-A3-cMT">
-                                                        <rect key="frame" x="282" y="34" width="84" height="38.333333333333343"/>
-                                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        <state key="normal" title="Button"/>
-                                                        <buttonConfiguration key="configuration" style="plain" title="View All"/>
-                                                        <connections>
-                                                            <segue destination="f0m-Lu-YlA" kind="show" id="qwT-Wf-BPi"/>
-                                                        </connections>
-                                                    </button>
                                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="IBV-Pz-E9q">
-                                                        <rect key="frame" x="20" y="74" width="346" height="266"/>
+                                                        <rect key="frame" x="20" y="126" width="346" height="264"/>
                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                         <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="hhI-U4-ZIb">
                                                             <size key="itemSize" width="346" height="221"/>
@@ -66,7 +79,7 @@
                                                         </collectionViewFlowLayout>
                                                         <cells>
                                                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="JobPostCollectionViewCellId" id="yyc-Us-H6J" customClass="JobPostCollectionViewCellId">
-                                                                <rect key="frame" x="0.0" y="22.666666666666668" width="346" height="221"/>
+                                                                <rect key="frame" x="0.0" y="21.666666666666668" width="346" height="221"/>
                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                 <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="bwI-Uz-MCe">
                                                                     <rect key="frame" x="0.0" y="0.0" width="346" height="221"/>
@@ -76,33 +89,46 @@
                                                             </collectionViewCell>
                                                         </cells>
                                                     </collectionView>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SFN-A3-cMT">
+                                                        <rect key="frame" x="281" y="81" width="84" height="38.333333333333343"/>
+                                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <state key="normal" title="Button"/>
+                                                        <buttonConfiguration key="configuration" style="plain" title="View All"/>
+                                                        <connections>
+                                                            <segue destination="f0m-Lu-YlA" kind="show" id="qwT-Wf-BPi"/>
+                                                        </connections>
+                                                    </button>
                                                 </subviews>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <accessibility key="accessibilityConfiguration">
                                                     <accessibilityTraits key="traits" notEnabled="YES"/>
                                                 </accessibility>
                                                 <constraints>
-                                                    <constraint firstAttribute="trailing" secondItem="SFN-A3-cMT" secondAttribute="trailing" constant="27" id="05B-8e-qk9"/>
+                                                    <constraint firstAttribute="trailing" secondItem="SFN-A3-cMT" secondAttribute="trailing" constant="28" id="05B-8e-qk9"/>
+                                                    <constraint firstAttribute="trailing" secondItem="nl3-1N-MJf" secondAttribute="trailing" constant="54" id="2DG-Mz-k9D"/>
                                                     <constraint firstAttribute="bottom" secondItem="IBV-Pz-E9q" secondAttribute="bottom" id="2rb-rw-6vE"/>
-                                                    <constraint firstItem="SFN-A3-cMT" firstAttribute="centerY" secondItem="5iD-r2-l6i" secondAttribute="centerY" id="4jG-Nj-Cgn"/>
+                                                    <constraint firstItem="SFN-A3-cMT" firstAttribute="centerY" secondItem="5iD-r2-l6i" secondAttribute="centerY" constant="-1.6666666666666572" id="4jG-Nj-Cgn"/>
+                                                    <constraint firstItem="nl3-1N-MJf" firstAttribute="top" secondItem="tgE-yB-2Q8" secondAttribute="top" constant="36" id="4lq-r5-4BN"/>
                                                     <constraint firstItem="IBV-Pz-E9q" firstAttribute="leading" secondItem="tgE-yB-2Q8" secondAttribute="leading" constant="20" id="Sf6-5f-7vb"/>
                                                     <constraint firstItem="5iD-r2-l6i" firstAttribute="leading" secondItem="tgE-yB-2Q8" secondAttribute="leading" constant="20" id="c9u-pN-q2o"/>
-                                                    <constraint firstItem="IBV-Pz-E9q" firstAttribute="top" secondItem="5iD-r2-l6i" secondAttribute="bottom" constant="10" id="hYe-M1-23i"/>
-                                                    <constraint firstItem="SFN-A3-cMT" firstAttribute="top" secondItem="tgE-yB-2Q8" secondAttribute="top" constant="34" id="idi-8X-nBU"/>
+                                                    <constraint firstItem="IBV-Pz-E9q" firstAttribute="top" secondItem="5iD-r2-l6i" secondAttribute="bottom" constant="13.333333333333343" id="hYe-M1-23i"/>
+                                                    <constraint firstItem="SFN-A3-cMT" firstAttribute="top" secondItem="tgE-yB-2Q8" secondAttribute="top" constant="81" id="idi-8X-nBU"/>
+                                                    <constraint firstItem="nl3-1N-MJf" firstAttribute="leading" secondItem="tgE-yB-2Q8" secondAttribute="leading" constant="54" id="oQf-cQ-m0v"/>
+                                                    <constraint firstItem="nl3-1N-MJf" firstAttribute="leading" secondItem="tgE-yB-2Q8" secondAttribute="leading" constant="54" id="vA6-By-6r1"/>
                                                     <constraint firstAttribute="trailing" secondItem="IBV-Pz-E9q" secondAttribute="trailing" constant="27" id="zXH-ML-WKk"/>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f6p-0G-1P3">
-                                                <rect key="frame" x="0.0" y="350" width="393" height="240"/>
+                                                <rect key="frame" x="0.0" y="400" width="393" height="190"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Category" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TaU-RQ-B3F">
-                                                        <rect key="frame" x="22" y="21.666666666666686" width="80" height="21.666666666666671"/>
+                                                        <rect key="frame" x="22" y="21.666666666666629" width="80" height="21.666666666666671"/>
                                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tkB-bL-OJa">
-                                                        <rect key="frame" x="282" y="13.333333333333318" width="84" height="38.333333333333343"/>
+                                                        <rect key="frame" x="282" y="13.333333333333375" width="84" height="38.333333333333343"/>
                                                         <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <state key="normal" title="Button"/>
                                                         <buttonConfiguration key="configuration" style="plain" title="View All"/>
@@ -111,7 +137,7 @@
                                                         </connections>
                                                     </button>
                                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="06u-2n-GhI">
-                                                        <rect key="frame" x="22" y="66" width="344" height="166"/>
+                                                        <rect key="frame" x="22" y="66" width="344" height="116"/>
                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                         <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="LES-Vm-mTa">
                                                             <size key="itemSize" width="154" height="158"/>
@@ -121,7 +147,7 @@
                                                         </collectionViewFlowLayout>
                                                         <cells>
                                                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="JobsCollectionViewCell" id="3u5-Cz-Co5" customClass="JobsCollectionViewCell" customModule="Jobify" customModuleProvider="target">
-                                                                <rect key="frame" x="0.0" y="4" width="154" height="158"/>
+                                                                <rect key="frame" x="0.0" y="-21" width="154" height="158"/>
                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                 <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="Aq9-5i-xmN">
                                                                     <rect key="frame" x="0.0" y="0.0" width="154" height="158"/>
@@ -199,7 +225,7 @@
                                         </subviews>
                                         <constraints>
                                             <constraint firstItem="hlm-EV-Dnl" firstAttribute="top" secondItem="l8B-GF-Aic" secondAttribute="top" constant="600" id="Bj4-ce-wE1"/>
-                                            <constraint firstItem="f6p-0G-1P3" firstAttribute="top" secondItem="l8B-GF-Aic" secondAttribute="top" constant="350" id="gfD-nD-zTp"/>
+                                            <constraint firstItem="f6p-0G-1P3" firstAttribute="top" secondItem="l8B-GF-Aic" secondAttribute="top" constant="400" id="gfD-nD-zTp"/>
                                             <constraint firstAttribute="height" constant="1240" id="o3x-wU-LWf"/>
                                         </constraints>
                                     </stackView>
@@ -237,6 +263,7 @@
                         <constraints>
                             <constraint firstItem="skS-pV-yUb" firstAttribute="bottom" secondItem="qnd-J1-Fyh" secondAttribute="top" id="0dV-MR-ey9"/>
                             <constraint firstItem="VK4-QT-LrE" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="34F-Mh-F4Z"/>
+                            <constraint firstItem="nl3-1N-MJf" firstAttribute="centerX" secondItem="vDu-zF-Fre" secondAttribute="centerX" id="8b8-TE-Tnx"/>
                             <constraint firstItem="qnd-J1-Fyh" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="HmL-kl-Drg"/>
                             <constraint firstItem="skS-pV-yUb" firstAttribute="trailing" secondItem="qnd-J1-Fyh" secondAttribute="trailing" id="U7g-He-XgE"/>
                             <constraint firstItem="skS-pV-yUb" firstAttribute="leading" secondItem="qnd-J1-Fyh" secondAttribute="leading" id="YzX-0z-ML2"/>
@@ -784,7 +811,7 @@ Requests</string>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="Q5a-7b-CPA"/>
+        <segue reference="qwT-Wf-BPi"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="Batelco Logo" width="75" height="75"/>
