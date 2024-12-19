@@ -6,9 +6,43 @@
 //
 
 import UIKit
+// MARK: - Singleton for CV Data
+class CVData {
+    static let shared = CVData()
+    
+    // Personal Details
+    var name: String?
+    var email: String?
+    var phone: String?
+    var country: String?
+    var city: String?
+    var profileImage: UIImage?
+    
+    // Education Details
+    var education: [Education]=[]
+    
+    // Skills Details
+    var skill: String?
+
+    //Experience Details
+    var company: String?
+    var role: String?
+    var experienceFrom: Date?
+    var experienceTo: Date?
+    var responsibilities: String?
+    
+    //Preview Details
+    var cvTitle: String?
+    
+    private init() {}
+}
+
+
+
+
 
 class CVBuilderEditorTableViewController: UITableViewController , UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-
+    var educationRecords: [(degree: String, institution: String, from: Date, to: Date)] = []
     //personal page outlets
     @IBOutlet weak var txtName: UITextField!
     @IBOutlet weak var txtEmail: UITextField!
@@ -23,16 +57,7 @@ class CVBuilderEditorTableViewController: UITableViewController , UIImagePickerC
     @IBOutlet weak var cityErr: UILabel!
     @IBOutlet weak var btnGoToEducation: UIButton!
     
-    //Education page outlets
-    @IBOutlet weak var txtDegree: UITextField!
-    @IBOutlet weak var txtInstitution: UITextField!
-    @IBOutlet weak var educationFrom: UIDatePicker!
-    @IBOutlet weak var educationTo: UIDatePicker!
-    @IBOutlet weak var degreeErr: UILabel!
-    @IBOutlet weak var institutionErr: UILabel!
-    @IBOutlet weak var btnGoToSkills: UIButton!
-    
-    
+
     //skills page outlets
     @IBOutlet weak var txtSkill: UITextField!
     @IBOutlet weak var skillErr: UILabel!
@@ -61,40 +86,6 @@ class CVBuilderEditorTableViewController: UITableViewController , UIImagePickerC
         present(picker, animated: true)
     }
     
-    // MARK: - Singleton for CV Data
-    class CVData {
-        static let shared = CVData()
-        
-        // Personal Details
-        var name: String?
-        var email: String?
-        var phone: String?
-        var country: String?
-        var city: String?
-        var profileImage: UIImage?
-        
-        // Education Details
-        var degree: String?
-        var institution: String?
-        var educationFrom: Date?
-        var educationTo: Date?
-        
-        // Skills Details
-        var skill: String?
-
-        //Experience Details
-        var company: String?
-        var role: String?
-        var experienceFrom: Date?
-        var experienceTo: Date?
-        var responsibilities: String?
-        
-        //Preview Details
-        var cvTitle: String?
-        
-        private init() {}
-    }
-
     // MARK: - Save Data for the Current Page
      func saveCurrentPageData() {
          guard let cvSection = CVSection(rawValue: tableView.tag) else { return }
@@ -108,17 +99,15 @@ class CVBuilderEditorTableViewController: UITableViewController , UIImagePickerC
              CVData.shared.city = txtCity.text
              CVData.shared.profileImage = CVImage.image
          case .education:
-             CVData.shared.degree = txtDegree.text
-             CVData.shared.institution = txtInstitution.text
-             CVData.shared.educationFrom = educationFrom.date
-             CVData.shared.educationTo = educationTo.date
+             //save data in the cv data
+             print("Saved")
          case .skills:
              CVData.shared.skill = txtSkill.text
          case .experience:
              CVData.shared.company = txtCompany.text
              CVData.shared.role = txtRole.text
              CVData.shared.experienceFrom = experienceFrom.date
-             CVData.shared.educationTo = experienceTo.date
+             CVData.shared.experienceTo = experienceTo.date
              CVData.shared.responsibilities = txtResponsibilities.text
          case .preview:
              CVData.shared.cvTitle = txtCVTitle.text
@@ -138,14 +127,8 @@ class CVBuilderEditorTableViewController: UITableViewController , UIImagePickerC
               txtCity.text = CVData.shared.city
               CVImage.image = CVData.shared.profileImage
           case .education:
-              txtDegree.text = CVData.shared.degree
-              txtInstitution.text = CVData.shared.institution
-              if let fromDate = CVData.shared.educationFrom {
-                  educationFrom.date = fromDate
-              }
-              if let toDate = CVData.shared.educationTo {
-                  educationTo.date = toDate
-              }
+             //put data in the table view cell
+              var str = ""
           case .skills:
               txtSkill.text = CVData.shared.skill
           case .experience:
@@ -161,6 +144,13 @@ class CVBuilderEditorTableViewController: UITableViewController , UIImagePickerC
               txtCVTitle.text = CVData.shared.cvTitle
           }
       }
+    
+    
+    @IBAction func btnAddEducationTapped(_ sender: UIButton) {
+
+    }
+    
+    
   
     @IBAction func btnGotToEducationTapped(_ sender: UIButton) {
         saveCurrentPageData()
@@ -178,6 +168,8 @@ class CVBuilderEditorTableViewController: UITableViewController , UIImagePickerC
         saveCurrentPageData()
     }
     
+    
+ 
     // This function is called when the user finishes choosing image
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         // Safely unwrap the selected image
@@ -193,29 +185,47 @@ class CVBuilderEditorTableViewController: UITableViewController , UIImagePickerC
     }
     
     @IBAction func btnPublishTapped(_ sender: UIButton) {
-        guard let fname = CVData.shared.name, let email = CVData.shared.email, let phone = CVData.shared.phone, let country = CVData.shared.country, let city = CVData.shared.city, let degree = CVData.shared.degree, let institution = CVData.shared.institution, let skill = CVData.shared.skill,let company = CVData.shared.company, let role = CVData.shared.role, let responsibility = CVData.shared.responsibilities, let cvTitle = CVData.shared.cvTitle else {
+        guard let fname = CVData.shared.name,
+              let email = CVData.shared.email,
+              let phone = CVData.shared.phone,
+              let country = CVData.shared.country,
+              let city = CVData.shared.city,
+              let skill = CVData.shared.skill,
+              let company = CVData.shared.company,
+              let role = CVData.shared.role,
+              let responsibility = CVData.shared.responsibilities,
+              let cvTitle = CVData.shared.cvTitle,
+              !CVData.shared.education.isEmpty else {
             return
         }
 
         
         let personalDetails = PersonalDetails(name: fname, email: email, phoneNumber: phone, country: country, city:city)
-        let education = [Education(degree: degree, institution:institution, startDate: Date())]
+        // Prepare the education entries
+        let education = CVData.shared.education.map { entry in
+            Education(degree: entry.degree!, institution: entry.institution!, startDate: entry.startDate!, endDate: entry.endDate)
+        }
         let skills = [skill]
         let workExperience = [WorkExperience(company: company, role: role, startDate: Date(), keyResponsibilities: responsibility)]
+      
 
          // Create the CV object
-         let newCV = CV(personalDetails: personalDetails, skills: skills, education: education, workExperience: workExperience, name: personalDetails.name, email: personalDetails.email, phoneNumber: personalDetails.phoneNumber, country: personalDetails.country, city: personalDetails.city)
+        let newCV = CV(personalDetails: personalDetails, skills: skills, education: education, workExperience: workExperience,cvTitle: cvTitle)
 
-         // Store the CV in Firestore
-         Task {
-             do {
-                 try await CVManager.createNewCV(cv: newCV)
-                 print("CV created successfully")
-             } catch {
-                 print("Error creating CV: \(error.localizedDescription)")
-             }
-         }
+        // Store the CV in Firestore
+        Task {
+            do {
+                try await CVManager.createNewCV(cv: newCV)
+                print("CV created successfully")
+            } catch {
+                print("Error creating CV: \(error.localizedDescription)")
+            }
+        }
+
     }
+
+    
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -225,6 +235,7 @@ class CVBuilderEditorTableViewController: UITableViewController , UIImagePickerC
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         saveCurrentPageData() // Save data when navigating away
+
     }
     
     //will be called when user exits the personal page back to my CVs page
@@ -235,8 +246,8 @@ class CVBuilderEditorTableViewController: UITableViewController , UIImagePickerC
         phoneErr.isHidden = true
         countryErr.isHidden = true
         cityErr.isHidden = true
-        degreeErr.isHidden = true
-        institutionErr.isHidden = true
+//        degreeErr.isHidden = true
+//        institutionErr.isHidden = true
         skillErr.isHidden = true
         companyErr.isHidden = true
         roleErr.isHidden = true
@@ -250,8 +261,8 @@ class CVBuilderEditorTableViewController: UITableViewController , UIImagePickerC
         txtCountry.text = ""
         txtCity.text = ""
         txtCity.text = ""
-        txtDegree.text = ""
-        txtInstitution.text = ""
+//        txtDegree.text = ""
+//        txtInstitution.text = ""
         txtCompany.text = ""
         txtRole.text = ""
         txtResponsibilities.text = ""
@@ -421,35 +432,35 @@ class CVBuilderEditorTableViewController: UITableViewController , UIImagePickerC
     
     //functions for education validation
     //only enable the go to skills button when all fields are valid
-    func checkForValidEducationForm(){
-        if degreeErr.isHidden && institutionErr.isHidden{
-            btnGoToSkills.isEnabled = true
-        }else{
-            btnGoToSkills.isEnabled = false
-        }
-    }
+//    func checkForValidEducationForm(){
+//        if degreeErr.isHidden && institutionErr.isHidden{
+//            btnGoToSkills.isEnabled = true
+//        }else{
+//            btnGoToSkills.isEnabled = false
+//        }
+//    }
     
     
-    func invalidDegree(_ value: String) -> String? {
-        // Check if the degree name is empty
-        if value.isEmpty {
-            return "Must not be empty"
-        }
-        
-        // Check if the degree name contains only letters and spaces
-        let allowedCharacterSet = CharacterSet.letters.union(CharacterSet.whitespaces)
-        let set = CharacterSet(charactersIn: value)
-        if !allowedCharacterSet.isSuperset(of: set) {
-            return "Must contain letters and spaces only"
-        }
-        
-        // Check for minimum length
-        if value.count < 2 {
-            return "Must be at least 2 characters"
-        }
-
-        return nil
-    }
+//    func invalidDegree(_ value: String) -> String? {
+//        // Check if the degree name is empty
+//        if value.isEmpty {
+//            return "Must not be empty"
+//        }
+//        
+//        // Check if the degree name contains only letters and spaces
+//        let allowedCharacterSet = CharacterSet.letters.union(CharacterSet.whitespaces)
+//        let set = CharacterSet(charactersIn: value)
+//        if !allowedCharacterSet.isSuperset(of: set) {
+//            return "Must contain letters and spaces only"
+//        }
+//        
+//        // Check for minimum length
+//        if value.count < 2 {
+//            return "Must be at least 2 characters"
+//        }
+//
+//        return nil
+//    }
     
     func invalidInstitution(_ value: String) -> String? {
         // Check if the institution name is empty
@@ -474,30 +485,30 @@ class CVBuilderEditorTableViewController: UITableViewController , UIImagePickerC
     
     
     //text fields validation for education page
-    @IBAction func degreeChanged(_ sender: UITextField) {
-        if let degree = txtDegree.text {
-            if let errMsg = invalidDegree(degree){
-                degreeErr.text = errMsg
-                degreeErr.isHidden = false
-            }else{
-                degreeErr.isHidden = true
-            }
-        }
-        checkForValidEducationForm()
-    }
+//    @IBAction func degreeChanged(_ sender: UITextField) {
+//        if let degree = txtDegree.text {
+//            if let errMsg = invalidDegree(degree){
+//                degreeErr.text = errMsg
+//                degreeErr.isHidden = false
+//            }else{
+//                degreeErr.isHidden = true
+//            }
+//        }
+//        checkForValidEducationForm()
+//    }
     
-    @IBAction func institutionChanged(_ sender: UITextField) {
-        if let institution = txtInstitution.text {
-            if let errMsg = invalidInstitution(institution){
-                institutionErr.text = errMsg
-                institutionErr.isHidden = false
-            }else{
-                institutionErr.isHidden = true
-            }
-        }
-        checkForValidEducationForm()
-    }
-    
+//    @IBAction func institutionChanged(_ sender: UITextField) {
+//        if let institution = txtInstitution.text {
+//            if let errMsg = invalidInstitution(institution){
+//                institutionErr.text = errMsg
+//                institutionErr.isHidden = false
+//            }else{
+//                institutionErr.isHidden = true
+//            }
+//        }
+//        checkForValidEducationForm()
+//    }
+//    
     
     
     //functions for skills validation
@@ -723,11 +734,13 @@ class CVBuilderEditorTableViewController: UITableViewController , UIImagePickerC
         guard let cvSection = CVSection(rawValue: tableView.tag) else { return 0 }
         switch cvSection {
         case .personalDetails: return 7
-        case .education: return 6
+        case .education: return 3
         case .skills: return 3
         case .experience: return 6
         case .preview: return 3
         }
     }
+    
 
 }
+

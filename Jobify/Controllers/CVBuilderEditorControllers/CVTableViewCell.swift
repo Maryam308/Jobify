@@ -28,16 +28,19 @@ class CVTableViewCell: UITableViewCell {
     }
     
     //setup the cell
-    func setup(CV: CV){
-        lblCVTitle.text = CV.name
-        lblCVAddDate.text = CV.city
+    func setup(_ cv:CV){
+        lblCVTitle.text = cv.cvTitle
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .medium
+        dateFormatter.timeStyle = .none
+        let formattedDate = dateFormatter.string(from: cv.creationDate)
+        lblCVAddDate.text = formattedDate
     }
     
     
     override func awakeFromNib() {
         super.awakeFromNib()
         CVCellView.layer.cornerRadius = contentView.frame.height / 9
-
         // Shadow configuration
         CVCellView.layer.shadowColor = UIColor.black.cgColor
         CVCellView.layer.shadowOpacity = 0.2
