@@ -44,15 +44,15 @@
                                 <color key="textColor" systemColor="scrollViewTexturedBackgroundColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <stackView opaque="NO" contentMode="scaleAspectFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="Xth-At-FYz">
-                                <rect key="frame" x="89" y="53" width="243" height="22"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="Xth-At-FYz">
+                                <rect key="frame" x="89" y="53" width="242" height="14"/>
                                 <subviews>
                                     <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6a0-Q0-gKm">
-                                        <rect key="frame" x="0.0" y="0.0" width="48" height="22"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="56.666666666666664" height="14"/>
                                         <color key="backgroundColor" systemColor="underPageBackgroundColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="8"/>
                                         <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <inset key="contentEdgeInsets" minX="5" minY="0.0" maxX="5" maxY="0.0"/>
+                                        <inset key="contentEdgeInsets" minX="5" minY="2" maxX="5" maxY="2"/>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                         <state key="normal" title="Executive">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -60,11 +60,11 @@
                                         </state>
                                     </button>
                                     <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vci-EA-kdY">
-                                        <rect key="frame" x="53" y="0.0" width="104" height="22"/>
+                                        <rect key="frame" x="61.666666666666657" y="0.0" width="57" height="14"/>
                                         <color key="backgroundColor" systemColor="underPageBackgroundColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="8"/>
                                         <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <inset key="contentEdgeInsets" minX="5" minY="0.0" maxX="5" maxY="0.0"/>
+                                        <inset key="contentEdgeInsets" minX="5" minY="2" maxX="5" maxY="2"/>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                         <state key="normal" title="Information Technology">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -72,11 +72,11 @@
                                         </state>
                                     </button>
                                     <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kNp-iQ-7KB">
-                                        <rect key="frame" x="162" y="0.0" width="46" height="22"/>
+                                        <rect key="frame" x="123.66666666666667" y="0.0" width="56.666666666666671" height="14"/>
                                         <color key="backgroundColor" systemColor="underPageBackgroundColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="8"/>
                                         <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <inset key="contentEdgeInsets" minX="5" minY="0.0" maxX="5" maxY="0.0"/>
+                                        <inset key="contentEdgeInsets" minX="5" minY="2" maxX="5" maxY="2"/>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                         <state key="normal" title="Full-time">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -84,10 +84,11 @@
                                         </state>
                                     </button>
                                     <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yPu-q6-IDI">
-                                        <rect key="frame" x="213" y="0.0" width="30" height="22"/>
+                                        <rect key="frame" x="185.33333333333331" y="0.0" width="56.666666666666657" height="14"/>
                                         <color key="backgroundColor" systemColor="underPageBackgroundColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="8"/>
                                         <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <inset key="contentEdgeInsets" minX="5" minY="2" maxX="5" maxY="2"/>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                         <state key="normal" title="Hidd">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -105,6 +106,7 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fdX-l0-gCK">
                                 <rect key="frame" x="8" y="110" width="324" height="71"/>
                                 <constraints>
+                                    <constraint firstAttribute="height" constant="71" id="90H-O4-kjw"/>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="71" id="eHU-1O-wYK"/>
                                     <constraint firstAttribute="width" constant="324" id="k9y-Tc-8ZY"/>
                                 </constraints>
@@ -176,8 +178,11 @@
                             <constraint firstItem="3nO-om-b2J" firstAttribute="top" secondItem="6D9-1e-LSq" secondAttribute="top" constant="12" id="ebg-Nr-CaC"/>
                             <constraint firstItem="fdX-l0-gCK" firstAttribute="leading" secondItem="6D9-1e-LSq" secondAttribute="leadingMargin" id="fuP-Sv-g4E"/>
                             <constraint firstItem="Xth-At-FYz" firstAttribute="top" secondItem="ZTY-QJ-asI" secondAttribute="bottom" constant="8.3333333333333712" id="hZA-4A-mk5"/>
+                            <constraint firstAttribute="bottom" secondItem="e53-D6-2SM" secondAttribute="bottom" constant="16" id="hxI-tu-Fun"/>
+                            <constraint firstAttribute="trailing" secondItem="Xth-At-FYz" secondAttribute="trailing" constant="13" id="nYm-zk-NaU"/>
                             <constraint firstItem="fdX-l0-gCK" firstAttribute="top" secondItem="TZd-8h-fj4" secondAttribute="bottom" constant="0.6666666666666714" id="og9-Pr-jme"/>
                             <constraint firstAttribute="trailing" secondItem="e53-D6-2SM" secondAttribute="trailing" constant="12" id="p28-y4-36M"/>
+                            <constraint firstItem="e53-D6-2SM" firstAttribute="leading" secondItem="6D9-1e-LSq" secondAttribute="leading" constant="202" id="pD7-qc-g0k"/>
                             <constraint firstItem="iqq-ut-vV3" firstAttribute="leading" secondItem="ZTY-QJ-asI" secondAttribute="trailing" constant="4.3333333333333144" id="x5a-wL-XUR"/>
                             <constraint firstItem="ZTY-QJ-asI" firstAttribute="centerY" secondItem="iqq-ut-vV3" secondAttribute="centerY" id="zcJ-dc-nxg"/>
                         </constraints>
