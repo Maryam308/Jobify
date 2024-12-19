@@ -51,14 +51,31 @@
                                                                 </constraints>
                                                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <state key="normal" title="Button"/>
-                                                                <buttonConfiguration key="configuration" style="plain" title="Create Job Post"/>
+                                                                <buttonConfiguration key="configuration" style="plain">
+                                                                    <attributedString key="attributedTitle">
+                                                                        <fragment content="Create New Job">
+                                                                            <attributes>
+                                                                                <font key="NSFont" size="14" name="Helvetica"/>
+                                                                            </attributes>
+                                                                        </fragment>
+                                                                    </attributedString>
+                                                                </buttonConfiguration>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VVe-pg-o33">
                                                                 <rect key="frame" x="150" y="0.0" width="135" height="40"/>
                                                                 <color key="backgroundColor" red="0.1137254902" green="0.1764705882" blue="0.2666666667" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <state key="normal" title="Button"/>
-                                                                <buttonConfiguration key="configuration" style="plain" title="My Job Posts"/>
+                                                                <buttonConfiguration key="configuration" style="plain">
+                                                                    <attributedString key="attributedTitle">
+                                                                        <fragment content="My Job Posts">
+                                                                            <attributes>
+                                                                                <font key="NSFont" size="14" name="Helvetica"/>
+                                                                                <font key="NSOriginalFont" size="12" name="Helvetica"/>
+                                                                            </attributes>
+                                                                        </fragment>
+                                                                    </attributedString>
+                                                                </buttonConfiguration>
                                                             </button>
                                                         </subviews>
                                                     </stackView>
@@ -111,6 +128,7 @@
                                                     <constraint firstItem="nl3-1N-MJf" firstAttribute="top" secondItem="tgE-yB-2Q8" secondAttribute="top" constant="36" id="4lq-r5-4BN"/>
                                                     <constraint firstItem="IBV-Pz-E9q" firstAttribute="leading" secondItem="tgE-yB-2Q8" secondAttribute="leading" constant="20" id="Sf6-5f-7vb"/>
                                                     <constraint firstItem="5iD-r2-l6i" firstAttribute="leading" secondItem="tgE-yB-2Q8" secondAttribute="leading" constant="20" id="c9u-pN-q2o"/>
+                                                    <constraint firstItem="SFN-A3-cMT" firstAttribute="top" secondItem="nl3-1N-MJf" secondAttribute="bottom" constant="5" id="d1K-d8-5YE"/>
                                                     <constraint firstItem="IBV-Pz-E9q" firstAttribute="top" secondItem="5iD-r2-l6i" secondAttribute="bottom" constant="13.333333333333343" id="hYe-M1-23i"/>
                                                     <constraint firstItem="SFN-A3-cMT" firstAttribute="top" secondItem="tgE-yB-2Q8" secondAttribute="top" constant="81" id="idi-8X-nBU"/>
                                                     <constraint firstItem="nl3-1N-MJf" firstAttribute="leading" secondItem="tgE-yB-2Q8" secondAttribute="leading" constant="54" id="oQf-cQ-m0v"/>
@@ -119,7 +137,7 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f6p-0G-1P3">
-                                                <rect key="frame" x="0.0" y="400" width="393" height="190"/>
+                                                <rect key="frame" x="0.0" y="400" width="393" height="240"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Category" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TaU-RQ-B3F">
                                                         <rect key="frame" x="22" y="21.666666666666629" width="80" height="21.666666666666671"/>
@@ -137,7 +155,7 @@
                                                         </connections>
                                                     </button>
                                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="06u-2n-GhI">
-                                                        <rect key="frame" x="22" y="66" width="344" height="116"/>
+                                                        <rect key="frame" x="22" y="66" width="344" height="166"/>
                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                         <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="LES-Vm-mTa">
                                                             <size key="itemSize" width="154" height="158"/>
@@ -147,7 +165,7 @@
                                                         </collectionViewFlowLayout>
                                                         <cells>
                                                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="JobsCollectionViewCell" id="3u5-Cz-Co5" customClass="JobsCollectionViewCell" customModule="Jobify" customModuleProvider="target">
-                                                                <rect key="frame" x="0.0" y="-21" width="154" height="158"/>
+                                                                <rect key="frame" x="0.0" y="4" width="154" height="158"/>
                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                 <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="Aq9-5i-xmN">
                                                                     <rect key="frame" x="0.0" y="0.0" width="154" height="158"/>
@@ -171,7 +189,7 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hlm-EV-Dnl">
-                                                <rect key="frame" x="0.0" y="600" width="393" height="640"/>
+                                                <rect key="frame" x="0.0" y="650" width="393" height="590"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Recent Jobs" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="POP-bV-g5P">
                                                         <rect key="frame" x="21.999999999999993" y="23.333333333333371" width="106.33333333333331" height="21.666666666666671"/>
@@ -189,7 +207,7 @@
                                                         </connections>
                                                     </button>
                                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="2vN-dV-gff">
-                                                        <rect key="frame" x="21" y="61" width="345" height="559"/>
+                                                        <rect key="frame" x="21" y="61" width="345" height="509"/>
                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                         <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="dMj-87-NDl">
                                                             <size key="itemSize" width="346" height="196"/>
@@ -224,7 +242,7 @@
                                             </view>
                                         </subviews>
                                         <constraints>
-                                            <constraint firstItem="hlm-EV-Dnl" firstAttribute="top" secondItem="l8B-GF-Aic" secondAttribute="top" constant="600" id="Bj4-ce-wE1"/>
+                                            <constraint firstItem="hlm-EV-Dnl" firstAttribute="top" secondItem="l8B-GF-Aic" secondAttribute="top" constant="650" id="Bj4-ce-wE1"/>
                                             <constraint firstItem="f6p-0G-1P3" firstAttribute="top" secondItem="l8B-GF-Aic" secondAttribute="top" constant="400" id="gfD-nD-zTp"/>
                                             <constraint firstAttribute="height" constant="1240" id="o3x-wU-LWf"/>
                                         </constraints>

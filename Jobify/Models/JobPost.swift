@@ -44,7 +44,7 @@ var jobs: [JobPost] = [
         category: "Information Technology",
         location: "Bahrain",
         description: "Description",
-        jobDescription: "As a Software Developer, you will work with various technologies..."
+        jobDescription: "The Junior Web Developer will assist in building and maintaining websites and web applications. You will be working with senior developers to enhance the functionality, performance, and security of websites.The Junior Web Developer will assist in building and maintaining websites and web applications. You will be working with senior developers to enhance the functionality, performance, and security of websites.jvcmd vjks,ksx ewjhcxmjn,mdbThe Junior Web Developer will assist in building and maintaining websites and web applications. You will be working with senior developers to enhance the functionality, performance, and security of websites.jvcmd vjks,ksx ewjhcxmjn,mdb"
     ),
     JobPost(
         image: UIImage(named: "GDN logo"),
@@ -56,7 +56,7 @@ var jobs: [JobPost] = [
         category: "Design",
         location: "Dubai",
         description: "Description",
-        jobDescription: "We are looking for a talented UX Designer to join our team."
+        jobDescription: "The Junior Web Developer will assist in building and maintaining websites and web applications. You will be working with senior developers to enhance the functionality, performance, and security of websites."
     ),
     JobPost(
         image: UIImage(named: "Gulf Digital Group Logo"),
@@ -68,6 +68,6 @@ var jobs: [JobPost] = [
         category: "Data Science",
         location: "Remote",
         description: "Description",
-        jobDescription: "As a Data Scientist, you will analyze large datasets to uncover insights and build predictive models."
+        jobDescription: "As an IT Security Specialist, you will safeguard the company’s IT infrastructure by developing and enforcing security policies, monitoring networks for threats, and responding to security incidents. You will also conduct security audits and manage risk assessments."
     )
 ]
