@@ -13,8 +13,11 @@ class HomeJobPostViewController: UIViewController, UICollectionViewDataSource, U
     
     @IBOutlet weak var categoryCollectionView: UICollectionView!
     
+    @IBOutlet weak var recentJobPostCollectionView: UICollectionView!
+    
     let JobPostCollectionViewCellId = "JobPostCollectionViewCell"
     let JobsCollectionViewCellId = "JobsCollectionViewCell"
+    let recentJobPostCollectionViewCellId = "JobPostCollectionViewCell"
     
     @IBOutlet var mainHomeView: UIView!
     
@@ -25,7 +28,7 @@ class HomeJobPostViewController: UIViewController, UICollectionViewDataSource, U
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //updated version
+        //updated
         //mainHomeView.isHidden = true //because it will hide the view
        // hamburgerView.isHidden = true
         
@@ -43,6 +46,10 @@ class HomeJobPostViewController: UIViewController, UICollectionViewDataSource, U
         categoryCollectionView.delegate = self
         categoryCollectionView.dataSource = self
         
+        //vertical recent job post
+        recentJobPostCollectionView.delegate = self
+        recentJobPostCollectionView.dataSource = self
+        
         // register cell for horizontal job post (recommended)
         let nib = UINib(nibName: JobPostCollectionViewCellId, bundle: nil)
         jobPostCollectionView.register(nib, forCellWithReuseIdentifier: JobPostCollectionViewCellId)
@@ -50,6 +57,10 @@ class HomeJobPostViewController: UIViewController, UICollectionViewDataSource, U
         // register cell for job category
         let categoryNib = UINib(nibName: JobsCollectionViewCellId, bundle: nil)
         categoryCollectionView.register(categoryNib, forCellWithReuseIdentifier: JobsCollectionViewCellId)
+        
+        // register cell for vertical recent job post (recommended)
+        let recentJobPostnib = UINib(nibName: recentJobPostCollectionViewCellId, bundle: nil)
+        recentJobPostCollectionView.register(nib, forCellWithReuseIdentifier: recentJobPostCollectionViewCellId)
         
         
         jobPostCollectionView.reloadData()
@@ -82,6 +93,8 @@ class HomeJobPostViewController: UIViewController, UICollectionViewDataSource, U
             return jobs.count
         } else if collectionView == categoryCollectionView {
             return categories.count
+        } else if collectionView == recentJobPostCollectionView {
+            return jobs.count
         }
         return 0
     }
@@ -109,6 +122,23 @@ class HomeJobPostViewController: UIViewController, UICollectionViewDataSource, U
             // Populate information from the categories
             categoryCell.setUp(category: categories[indexPath.row])
             return categoryCell
+        } else if collectionView == recentJobPostCollectionView {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: recentJobPostCollectionViewCellId, for: indexPath) as! JobPostCollectionViewCell
+                   let jobPost = jobs[indexPath.row]
+                   
+                   // Fill the cell with job data
+                   cell.jobPostImageView.image = jobPost.image
+                   cell.jobPostTimelbl.text = jobPost.time
+                   cell.jobPostTitlelbl.text = jobPost.title
+                   cell.jobPostDatelbl.text = jobPost.date
+                   cell.jobPostLevellbl.setTitle(jobPost.level, for: .normal)
+                   cell.jobPostEnrollmentTypelbl.setTitle(jobPost.enrollmentType, for: .normal)
+                   cell.jobPostCategorylbl.setTitle(jobPost.category, for: .normal)
+                   cell.joPostLocationlbl.setTitle(jobPost.location, for: .normal)
+                   cell.jobPostDescriptionTitlelbl.text = jobPost.description
+                   cell.jobPostDescriptionlbl.text = jobPost.jobDescription
+                   
+                   return cell
         }
         
         return UICollectionViewCell()
@@ -118,7 +148,7 @@ class HomeJobPostViewController: UIViewController, UICollectionViewDataSource, U
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if collectionView == jobPostCollectionView {
             // Size for job post cells
-            return CGSize(width: collectionView.frame.width - 20, height: 200)
+            return CGSize(width: collectionView.frame.width , height: 220)
         } else if collectionView == categoryCollectionView {
             // Size for category cells
             let padding: CGFloat = 10 // Adjust padding as needed
@@ -131,7 +161,11 @@ class HomeJobPostViewController: UIViewController, UICollectionViewDataSource, U
             
                     return CGSize(width: width, height: height)
                     
-                }
+        } else if collectionView == recentJobPostCollectionView {
+            let width = collectionView.frame.width - 20 // Adjust padding as needed
+            let height: CGFloat = 220 // Set your desired height
+            return CGSize(width: width, height: height)
+        }
         
         return CGSize(width: 0, height: 0)
     }

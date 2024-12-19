@@ -59,7 +59,7 @@ class JobPostsViewController: UIViewController, UICollectionViewDelegate, UIColl
     // Set the size for the collection view cells
        func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
            let width = collectionView.frame.width - 20 // Adjust padding as needed
-           let height: CGFloat = 200 // Set your desired height
+           let height: CGFloat = 220 // Set your desired height
            return CGSize(width: width, height: height)
        }
 }
