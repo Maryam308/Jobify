@@ -21,7 +21,6 @@ class EducationTableViewCell: UITableViewCell {
         // Add padding to the content view (internal margin for the cell)
         contentView.layoutMargins = UIEdgeInsets(top: 10, left: 15, bottom: 10, right: 15)
 
-        // Optional: Add a background view with a margin (for visual margin inside the cell)
         CVCellView.layer.cornerRadius = 10
         CVCellView.layer.masksToBounds = true
 
@@ -32,12 +31,10 @@ class EducationTableViewCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
     
     func setup(education: Education) {
-        lblDegree.text = education.degree
+        lblDegree.text = "Degree: " + education.degree!;
         lblInstitution.text = education.institution
         lblFrom.text = DateFormatter.localizedString(from: education.startDate!, dateStyle: .medium, timeStyle: .none)
         lblTo.text = education.endDate != nil ? DateFormatter.localizedString(from: education.endDate!, dateStyle: .medium, timeStyle: .none) : "Present"

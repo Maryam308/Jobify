@@ -9,7 +9,7 @@ import UIKit
 
 class CVTableViewCell: UITableViewCell {
     //creating outlets
-    
+    var onDelete: (() -> Void)?
     @IBOutlet weak var CVCellView: UIView!
     
     @IBOutlet weak var lblCVTitle: UILabel!
@@ -25,6 +25,7 @@ class CVTableViewCell: UITableViewCell {
     
     
     @IBAction func btnDeleteCVTapped(_ sender: UIButton) {
+        onDelete?()
     }
     
     //setup the cell

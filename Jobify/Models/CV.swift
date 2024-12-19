@@ -6,12 +6,12 @@ struct CV: Codable {
     var cvID: String
     var personalDetails: PersonalDetails
     var education: [Education]
-    var skills: [String]
+    var skills: [cvSkills]
     var workExperience: [WorkExperience]
     var cvTitle: String
     var creationDate: Date
     
-    init(personalDetails: PersonalDetails, skills: [String], education: [Education], workExperience: [WorkExperience],cvTitle: String,creationDate: Date = Date()) {
+    init(personalDetails: PersonalDetails, skills: [cvSkills], education: [Education], workExperience: [WorkExperience],cvTitle: String,creationDate: Date = Date()) {
         self.cvID = UUID().uuidString
         self.personalDetails = personalDetails
         self.skills = skills
@@ -57,13 +57,23 @@ struct Education: Codable {
     }
 }
 
+struct cvSkills: Codable {
+    var skillTitle: String?
+    init(title: String){
+        self.skillTitle = title
+    }
+    init(){
+        
+    }
+}
+
 struct WorkExperience: Codable {
-    var workExperienceID: String
-    var company: String
-    var role: String
-    var startDate: Date
+    var workExperienceID: String?
+    var company: String?
+    var role: String?
+    var startDate: Date?
     var endDate: Date?
-    var keyResponsibilities: String
+    var keyResponsibilities: String?
 
     init(company: String, role: String, startDate: Date, endDate: Date? = nil, keyResponsibilities: String) {
         self.workExperienceID = UUID().uuidString
@@ -73,7 +83,12 @@ struct WorkExperience: Codable {
         self.endDate = endDate
         self.keyResponsibilities = keyResponsibilities
     }
+    
+    init(){
+        
+    }
 }
+
 
 struct DB{
     static let encoder: Firestore.Encoder = {

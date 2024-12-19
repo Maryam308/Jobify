@@ -9,29 +9,33 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="70" id="KGk-i7-Jjw" customClass="SkillsTableViewCell" customModule="Jobify" customModuleProvider="target">
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SkillsCell" rowHeight="70" id="KGk-i7-Jjw" customClass="SkillsTableViewCell" customModule="Jobify" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="320" height="70"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
                 <rect key="frame" x="0.0" y="0.0" width="320" height="70"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Skill:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OQY-Ao-CAO">
-                        <rect key="frame" x="16" y="-47" width="288" height="164"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Skill: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XYY-zQ-q4K">
+                        <rect key="frame" x="16" y="9" width="288" height="50"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <nil key="textColor"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="OQY-Ao-CAO" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="Cg3-Oh-K8r"/>
-                    <constraint firstItem="OQY-Ao-CAO" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="Fk2-6p-z5h"/>
-                    <constraint firstItem="OQY-Ao-CAO" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="-59" id="OJS-yM-0tr"/>
-                    <constraint firstAttribute="trailing" secondItem="OQY-Ao-CAO" secondAttribute="trailing" constant="16" id="mUo-vk-7xC"/>
+                    <constraint firstAttribute="trailing" secondItem="XYY-zQ-q4K" secondAttribute="trailing" constant="16" id="CLR-UQ-z7p"/>
+                    <constraint firstItem="XYY-zQ-q4K" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="9" id="Lbh-7A-OiI"/>
+                    <constraint firstAttribute="bottom" secondItem="XYY-zQ-q4K" secondAttribute="bottom" constant="11" id="ogl-eC-7Xo"/>
+                    <constraint firstItem="XYY-zQ-q4K" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="oym-6p-aN0"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
-            <point key="canvasLocation" x="85.496183206106863" y="-23.239436619718312"/>
+            <color key="backgroundColor" red="0.1137254902" green="0.1764705882" blue="0.2666666667" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <connections>
+                <outlet property="lblSkill" destination="XYY-zQ-q4K" id="nvk-SU-rmt"/>
+            </connections>
+            <point key="canvasLocation" x="80.916030534351137" y="15.492957746478874"/>
         </tableViewCell>
     </objects>
 </document>

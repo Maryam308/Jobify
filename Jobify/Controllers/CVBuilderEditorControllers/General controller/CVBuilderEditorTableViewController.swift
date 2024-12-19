@@ -9,7 +9,6 @@ import UIKit
 // MARK: - Singleton for CV Data
 class CVData {
     static let shared = CVData()
-    
     // Personal Details
     var name: String?
     var email: String?
@@ -20,25 +19,18 @@ class CVData {
     
     // Education Details
     var education: [Education]=[]
-    
+
     // Skills Details
-    var skill: String?
+    var skill: [cvSkills]=[]
 
     //Experience Details
-    var company: String?
-    var role: String?
-    var experienceFrom: Date?
-    var experienceTo: Date?
-    var responsibilities: String?
+    var experience: [WorkExperience]=[]
     
     //Preview Details
     var cvTitle: String?
     
     private init() {}
 }
-
-
-
 
 
 class CVBuilderEditorTableViewController: UITableViewController , UIImagePickerControllerDelegate, UINavigationControllerDelegate {
@@ -59,19 +51,11 @@ class CVBuilderEditorTableViewController: UITableViewController , UIImagePickerC
     
 
     //skills page outlets
-    @IBOutlet weak var txtSkill: UITextField!
-    @IBOutlet weak var skillErr: UILabel!
+    
     @IBOutlet weak var btnGoToExperience: UIButton!
     
     //experience page outlets
-    @IBOutlet weak var txtCompany: UITextField!
-    @IBOutlet weak var txtRole: UITextField!
-    @IBOutlet weak var experienceFrom: UIDatePicker!
-    @IBOutlet weak var experienceTo: UIDatePicker!
-    @IBOutlet weak var txtResponsibilities: UITextField!
-    @IBOutlet weak var companyErr: UILabel!
-    @IBOutlet weak var roleErr: UILabel!
-    @IBOutlet weak var responsibilityErr: UILabel!
+
     @IBOutlet weak var btnGoToPreview: UIButton!
     
     //Preview page outlets
@@ -98,17 +82,6 @@ class CVBuilderEditorTableViewController: UITableViewController , UIImagePickerC
              CVData.shared.country = txtCountry.text
              CVData.shared.city = txtCity.text
              CVData.shared.profileImage = CVImage.image
-         case .education:
-             //save data in the cv data
-             print("Saved")
-         case .skills:
-             CVData.shared.skill = txtSkill.text
-         case .experience:
-             CVData.shared.company = txtCompany.text
-             CVData.shared.role = txtRole.text
-             CVData.shared.experienceFrom = experienceFrom.date
-             CVData.shared.experienceTo = experienceTo.date
-             CVData.shared.responsibilities = txtResponsibilities.text
          case .preview:
              CVData.shared.cvTitle = txtCVTitle.text
          }
@@ -126,48 +99,16 @@ class CVBuilderEditorTableViewController: UITableViewController , UIImagePickerC
               txtCountry.text = CVData.shared.country
               txtCity.text = CVData.shared.city
               CVImage.image = CVData.shared.profileImage
-          case .education:
-             //put data in the table view cell
-              var str = ""
-          case .skills:
-              txtSkill.text = CVData.shared.skill
-          case .experience:
-              txtCompany.text = CVData.shared.company
-              txtRole.text = CVData.shared.role
-              if let fromDate = CVData.shared.experienceFrom {
-                  experienceFrom.date = fromDate
-              }
-              if let toDate = CVData.shared.experienceTo {
-                  experienceTo.date = toDate
-              }
+
           case .preview:
               txtCVTitle.text = CVData.shared.cvTitle
           }
       }
     
-    
-    @IBAction func btnAddEducationTapped(_ sender: UIButton) {
-
-    }
-    
-    
   
     @IBAction func btnGotToEducationTapped(_ sender: UIButton) {
         saveCurrentPageData()
     }
-    
-    @IBAction func btnGoToSkillsTapped(_ sender: UIButton) {
-        saveCurrentPageData()
-    }
-    
-    @IBAction func btnGoToExperienceTapped(_ sender: UIButton) {
-        saveCurrentPageData()
-    }
-    
-    @IBAction func btnGoToPreviewTapped(_ sender: UIButton) {
-        saveCurrentPageData()
-    }
-    
     
  
     // This function is called when the user finishes choosing image
@@ -190,12 +131,13 @@ class CVBuilderEditorTableViewController: UITableViewController , UIImagePickerC
               let phone = CVData.shared.phone,
               let country = CVData.shared.country,
               let city = CVData.shared.city,
-              let skill = CVData.shared.skill,
-              let company = CVData.shared.company,
-              let role = CVData.shared.role,
-              let responsibility = CVData.shared.responsibilities,
               let cvTitle = CVData.shared.cvTitle,
-              !CVData.shared.education.isEmpty else {
+              !CVData.shared.education.isEmpty, !CVData.shared.skill.isEmpty else {
+                  let alert = UIAlertController(title: "Missing Information",
+                                                  message: "Personal details, skills, education, and CV title must be filled.",
+                                                  preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                    present(alert, animated: true, completion: nil)
             return
         }
 
@@ -205,8 +147,8 @@ class CVBuilderEditorTableViewController: UITableViewController , UIImagePickerC
         let education = CVData.shared.education.map { entry in
             Education(degree: entry.degree!, institution: entry.institution!, startDate: entry.startDate!, endDate: entry.endDate)
         }
-        let skills = [skill]
-        let workExperience = [WorkExperience(company: company, role: role, startDate: Date(), keyResponsibilities: responsibility)]
+        let skills = CVData.shared.skill.map { entry in cvSkills(title: entry.skillTitle!) }
+        let workExperience = CVData.shared.experience.map { entry in WorkExperience(company: entry.company!, role: entry.role!, startDate: entry.startDate!,endDate: entry.endDate!, keyResponsibilities: entry.keyResponsibilities!)}
       
 
          // Create the CV object
@@ -217,6 +159,10 @@ class CVBuilderEditorTableViewController: UITableViewController , UIImagePickerC
             do {
                 try await CVManager.createNewCV(cv: newCV)
                 print("CV created successfully")
+                let storyboard = UIStoryboard(name: "CareerResourcesAndSkillDevelopment", bundle: nil)
+                if let myCVsVC = storyboard.instantiateViewController(identifier: "myCVs") as? CVBuilderEditorViewController {
+                    navigationController?.pushViewController(myCVsVC, animated: true)
+                }
             } catch {
                 print("Error creating CV: \(error.localizedDescription)")
             }
@@ -224,9 +170,7 @@ class CVBuilderEditorTableViewController: UITableViewController , UIImagePickerC
 
     }
 
-    
 
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         restoreCurrentPageData()
@@ -246,12 +190,6 @@ class CVBuilderEditorTableViewController: UITableViewController , UIImagePickerC
         phoneErr.isHidden = true
         countryErr.isHidden = true
         cityErr.isHidden = true
-//        degreeErr.isHidden = true
-//        institutionErr.isHidden = true
-        skillErr.isHidden = true
-        companyErr.isHidden = true
-        roleErr.isHidden = true
-        responsibilityErr.isHidden = true
         cvTitleErr.isHidden = true
         
         //clear text fields
@@ -261,11 +199,6 @@ class CVBuilderEditorTableViewController: UITableViewController , UIImagePickerC
         txtCountry.text = ""
         txtCity.text = ""
         txtCity.text = ""
-//        txtDegree.text = ""
-//        txtInstitution.text = ""
-        txtCompany.text = ""
-        txtRole.text = ""
-        txtResponsibilities.text = ""
         txtCVTitle.text = ""
     }
     
@@ -428,254 +361,7 @@ class CVBuilderEditorTableViewController: UITableViewController , UIImagePickerC
         }
         checkForValidPersonalForm()
     }
-    
-    
-    //functions for education validation
-    //only enable the go to skills button when all fields are valid
-//    func checkForValidEducationForm(){
-//        if degreeErr.isHidden && institutionErr.isHidden{
-//            btnGoToSkills.isEnabled = true
-//        }else{
-//            btnGoToSkills.isEnabled = false
-//        }
-//    }
-    
-    
-//    func invalidDegree(_ value: String) -> String? {
-//        // Check if the degree name is empty
-//        if value.isEmpty {
-//            return "Must not be empty"
-//        }
-//        
-//        // Check if the degree name contains only letters and spaces
-//        let allowedCharacterSet = CharacterSet.letters.union(CharacterSet.whitespaces)
-//        let set = CharacterSet(charactersIn: value)
-//        if !allowedCharacterSet.isSuperset(of: set) {
-//            return "Must contain letters and spaces only"
-//        }
-//        
-//        // Check for minimum length
-//        if value.count < 2 {
-//            return "Must be at least 2 characters"
-//        }
-//
-//        return nil
-//    }
-    
-    func invalidInstitution(_ value: String) -> String? {
-        // Check if the institution name is empty
-        if value.isEmpty {
-            return "Must not be empty"
-        }
-        
-        // Check if the institution name contains only letters, spaces, and permissible punctuation
-        let allowedCharacterSet = CharacterSet.letters.union(CharacterSet.whitespaces).union(CharacterSet.punctuationCharacters)
-        let set = CharacterSet(charactersIn: value)
-        if !allowedCharacterSet.isSuperset(of: set) {
-            return "Must contain letters, spaces, or permissible punctuation only"
-        }
-        
-        // Check for minimum length
-        if value.count < 2 {
-            return "Must be at least 2 characters"
-        }
 
-        return nil
-    }
-    
-    
-    //text fields validation for education page
-//    @IBAction func degreeChanged(_ sender: UITextField) {
-//        if let degree = txtDegree.text {
-//            if let errMsg = invalidDegree(degree){
-//                degreeErr.text = errMsg
-//                degreeErr.isHidden = false
-//            }else{
-//                degreeErr.isHidden = true
-//            }
-//        }
-//        checkForValidEducationForm()
-//    }
-    
-//    @IBAction func institutionChanged(_ sender: UITextField) {
-//        if let institution = txtInstitution.text {
-//            if let errMsg = invalidInstitution(institution){
-//                institutionErr.text = errMsg
-//                institutionErr.isHidden = false
-//            }else{
-//                institutionErr.isHidden = true
-//            }
-//        }
-//        checkForValidEducationForm()
-//    }
-//    
-    
-    
-    //functions for skills validation
-    //only enable the go to experience button when all fields are valid
-    func checkForValidSkillsForm(){
-        if skillErr.isHidden{
-            btnGoToExperience.isEnabled = true
-        }else{
-            btnGoToExperience.isEnabled = false
-        }
-    }
-    
-    
-    func invalidSkill(_ value: String) -> String? {
-        // Check if the skill name is empty
-        if value.isEmpty {
-            return "Must not be empty"
-        }
-        
-        // Check if the skill name contains only letters and spaces
-        let allowedCharacterSet = CharacterSet.letters.union(CharacterSet.whitespaces)
-        let set = CharacterSet(charactersIn: value)
-        if !allowedCharacterSet.isSuperset(of: set) {
-            return "Must contain letters and spaces only"
-        }
-        
-        // Check for minimum length
-        if value.count < 2 {
-            return "Must be at least 2 characters"
-        }
-
-        return nil
-    }
-    
-    
-    //text fields validation for skills page
-    @IBAction func skillChanged(_ sender: UITextField) {
-        if let skill = txtSkill.text {
-            if let errMsg = invalidSkill(skill){
-                skillErr.text = errMsg
-                skillErr.isHidden = false
-            }else{
-                skillErr.isHidden = true
-            }
-        }
-        checkForValidSkillsForm()
-    }
-    
-    //functions for experience validation
-    //only enable the go to preview button when all fields are valid
-    func checkForValidExperienceForm(){
-        if companyErr.isHidden && roleErr.isHidden && responsibilityErr.isHidden{
-            btnGoToPreview.isEnabled = true
-        }else{
-            btnGoToPreview.isEnabled = false
-        }
-    }
-    
-    
-    
-    func invalidCompany(_ value: String) -> String? {
-        // Check if the company name is empty
-        if value.isEmpty {
-            return "Must not be empty"
-        }
-        
-        // Check if the company name contains only letters, numbers, spaces, and permissible punctuation
-        let allowedCharacterSet = CharacterSet.letters
-            .union(CharacterSet.decimalDigits)
-            .union(CharacterSet.whitespaces)
-            .union(CharacterSet.punctuationCharacters)
-        
-        let set = CharacterSet(charactersIn: value)
-        if !allowedCharacterSet.isSuperset(of: set) {
-            return "Must contain letters, numbers, spaces, or permissible punctuation"
-        }
-        // Check for minimum length
-        if value.count < 2 {
-            return "Must be at least 2 characters"
-        }
-        return nil
-    }
-    
-    func invalidRole(_ value: String) -> String? {
-        // Check if the role name is empty
-        if value.isEmpty {
-            return "Must not be empty"
-        }
-        // Check if the role name contains only letters, numbers, spaces, and permissible punctuation
-        let allowedCharacterSet = CharacterSet.letters
-            .union(CharacterSet.decimalDigits)
-            .union(CharacterSet.whitespaces)
-            .union(CharacterSet.punctuationCharacters)
-        
-        let set = CharacterSet(charactersIn: value)
-        if !allowedCharacterSet.isSuperset(of: set) {
-            return "Must contain letters, numbers, spaces, or permissible punctuation only"
-        }
-        // Check for minimum length
-        if value.count < 2 {
-            return "Must be at least 2 characters"
-        }
-        return nil
-    }
-    
-    func invalidResponsibility(_ value: String) -> String? {
-        // Check if the responsibility description is empty
-        if value.isEmpty {
-            return "Must not be empty"
-        }
-        
-        // Check if the responsibility description contains only letters, numbers, spaces, and permissible punctuation
-        let allowedCharacterSet = CharacterSet.letters
-            .union(CharacterSet.decimalDigits)
-            .union(CharacterSet.whitespaces)
-            .union(CharacterSet.punctuationCharacters)
-        
-        let set = CharacterSet(charactersIn: value)
-        if !allowedCharacterSet.isSuperset(of: set) {
-            return "Must contain letters, numbers, spaces, or permissible punctuation only"
-        }
-        
-        // Check for minimum length
-        if value.count < 5 {
-            return "Must be at least 5 characters"
-        }
-
-        return nil
-    }
-    
-    //text fields validation for experience page
-    @IBAction func companyChanged(_ sender: UITextField) {
-        if let company = txtCompany.text {
-            if let errMsg = invalidCompany(company){
-                companyErr.text = errMsg
-                companyErr.isHidden = false
-            }else{
-                companyErr.isHidden = true
-            }
-        }
-        checkForValidExperienceForm()
-    }
-    
-    @IBAction func roleChanged(_ sender: UITextField) {
-        if let role = txtRole.text {
-            if let errMsg = invalidRole(role){
-                roleErr.text = errMsg
-                roleErr.isHidden = false
-            }else{
-                roleErr.isHidden = true
-            }
-        }
-        checkForValidExperienceForm()
-    }
-    
-    @IBAction func responsibilityChanged(_ sender: UITextField) {
-        if let responsibility = txtResponsibilities.text {
-            if let errMsg = invalidResponsibility(responsibility){
-                responsibilityErr.text = errMsg
-                responsibilityErr.isHidden = false
-            }else{
-                responsibilityErr.isHidden = true
-            }
-        }
-        checkForValidExperienceForm()
-    }
-    
     
     //function for preview validation
     func invalidCVTitle(_ value: String) -> String? {
@@ -723,9 +409,6 @@ class CVBuilderEditorTableViewController: UITableViewController , UIImagePickerC
     //enum to store table views tags
     enum CVSection: Int {
         case personalDetails = 101
-        case education = 102
-        case skills = 103
-        case experience = 104
         case preview = 105
     }
     
@@ -734,13 +417,9 @@ class CVBuilderEditorTableViewController: UITableViewController , UIImagePickerC
         guard let cvSection = CVSection(rawValue: tableView.tag) else { return 0 }
         switch cvSection {
         case .personalDetails: return 7
-        case .education: return 3
-        case .skills: return 3
-        case .experience: return 6
         case .preview: return 3
         }
     }
     
 
 }
-

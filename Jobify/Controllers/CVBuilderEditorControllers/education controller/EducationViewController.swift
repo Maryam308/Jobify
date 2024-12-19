@@ -18,12 +18,10 @@ class EducationViewController: UIViewController, UITableViewDelegate, UITableVie
 
          // Register the custom cell
          tableView.register(UINib(nibName: "EducationTableViewCell", bundle: nil), forCellReuseIdentifier: "EducationCell")
-        print(educationData)
-        
         
         //restore data in the table view
         //get the education array from the CvData shared model:
-        var fetchedEducation = CVData.shared.education
+        let fetchedEducation = CVData.shared.education
         //loop through the array and add cells in the table view if it contains records (count not equals to 0 )
         if fetchedEducation.count != 0{
             educationData = fetchedEducation
@@ -110,9 +108,7 @@ class EducationViewController: UIViewController, UITableViewDelegate, UITableVie
 extension EducationViewController: EducationFormDelegate {
 
     func didSaveEducation(_ education: Education) {
-        print("Before append: \(educationData)")
         educationData.append(education)
-        print("After append: \(educationData)")
         tableView.reloadData()
     }
 

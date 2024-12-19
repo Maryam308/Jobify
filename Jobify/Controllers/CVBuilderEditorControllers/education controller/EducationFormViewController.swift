@@ -13,13 +13,12 @@ protocol EducationFormDelegate: AnyObject {
 
 class EducationFormViewController: UITableViewController {
     @IBOutlet weak var txtDegree: UITextField!
-    
     @IBOutlet weak var txtInstitution: UITextField!
-    
-    
     @IBOutlet weak var from: UIDatePicker!
-    
     @IBOutlet weak var to: UIDatePicker!
+    @IBOutlet weak var degreeErr: UILabel!
+    @IBOutlet weak var institutionErr: UILabel!
+    @IBOutlet weak var btnSaveEducation: UIButton!
     
     weak var delegate: EducationFormDelegate?
     var degreeToEdit: Education? // The degree to edit (if editing)
@@ -35,22 +34,21 @@ class EducationFormViewController: UITableViewController {
             to.date = degreeToEdit.endDate!
         }
     }
+    
     @IBAction func saveEducationTapped(_ sender: UIButton) {
-        // Ensure all fields are filled
-          guard let degree = txtDegree.text, !degree.isEmpty,
-                let institution = txtInstitution.text, !institution.isEmpty else {
-              let alert = UIAlertController(title: "Error", message: "Please enter all education details", preferredStyle: .alert)
-              alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-              present(alert, animated: true, completion: nil)
-              return
-          }
+        checkForValidEducationForm()
+        // Ensure end date is greater than or equal to start date
+        let startDate = from.date
+        let endDate = to.date
+        guard endDate >= startDate else {
+            let alert = UIAlertController(title: "Error", message: "End date must be greater than or equal to start date", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            present(alert, animated: true, completion: nil)
+            return
+        }
 
-          let startDate = from.date
-          let endDate = to.date
-          let education = Education(degree: degree, institution: institution, startDate: startDate, endDate: endDate)
+        let education = Education(degree: txtDegree.text!, institution: txtInstitution.text!, startDate: startDate, endDate: endDate)
 
-          // Print the education record for debugging
-          print("Saving Education Record: \(education)")
 
           if let index = editIndex {
               // Editing existing education
@@ -63,72 +61,96 @@ class EducationFormViewController: UITableViewController {
           navigationController?.popViewController(animated: true)
     }
     
+    //validation
+    //functions for education validation
+    func checkForValidEducationForm(){
+        if degreeErr.isHidden && institutionErr.isHidden{
+            btnSaveEducation.isEnabled = true
+        }else{
+            btnSaveEducation.isEnabled = false
+        }
+    }
+    
+    func invalidDegree(_ value: String) -> String? {
+        // Check if the degree name is empty
+        if value.isEmpty {
+            return "Must not be empty"
+        }
+
+        // Check if the degree name contains only letters and spaces
+        let allowedCharacterSet = CharacterSet.letters.union(CharacterSet.whitespaces)
+        let set = CharacterSet(charactersIn: value)
+        if !allowedCharacterSet.isSuperset(of: set) {
+            return "Must contain letters and spaces only"
+        }
+
+        // Check for minimum length
+        if value.count < 2 {
+            return "Must be at least 2 characters"
+        }
+
+        return nil
+    }
+    
+    func invalidInstitution(_ value: String) -> String? {
+        // Check if the institution name is empty
+        if value.isEmpty {
+            return "Must not be empty"
+        }
+
+        // Check if the institution name contains only letters, spaces, and permissible punctuation
+        let allowedCharacterSet = CharacterSet.letters.union(CharacterSet.whitespaces).union(CharacterSet.punctuationCharacters)
+        let set = CharacterSet(charactersIn: value)
+        if !allowedCharacterSet.isSuperset(of: set) {
+            return "Must contain letters, spaces, or permissible punctuation"
+        }
+        
+        // Check for minimum length
+        if value.count < 2 {
+            return "Must be at least 2 characters"
+        }
+
+        return nil
+    }
+    
+    
+    //text fields validation for education page
+    @IBAction func degreeChanged(_ sender: UITextField) {
+        if let degree = txtDegree.text {
+            if let errMsg = invalidDegree(degree){
+                degreeErr.text = errMsg
+                degreeErr.isHidden = false
+            }else{
+                degreeErr.isHidden = true
+            }
+        }
+        checkForValidEducationForm()
+    }
+    
+    
+    @IBAction func institutionChanged(_ sender: UITextField) {
+        if let institution = txtInstitution.text {
+            if let errMsg = invalidInstitution(institution){
+                institutionErr.text = errMsg
+                institutionErr.isHidden = false
+            }else{
+                institutionErr.isHidden = true
+            }
+        }
+        checkForValidEducationForm()
+    }
+    
+ 
+
     
     // MARK: - Table view data source
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 1
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         return 5
     }
-    
-    /*
-     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-     let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-     
-     // Configure the cell...
-     
-     return cell
-     }
-     */
-    
-    /*
-     // Override to support conditional editing of the table view.
-     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-     // Return false if you do not want the specified item to be editable.
-     return true
-     }
-     */
-    
-    /*
-     // Override to support editing the table view.
-     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-     if editingStyle == .delete {
-     // Delete the row from the data source
-     tableView.deleteRows(at: [indexPath], with: .fade)
-     } else if editingStyle == .insert {
-     // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-     }
-     }
-     */
-    
-    /*
-     // Override to support rearranging the table view.
-     override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-     
-     }
-     */
-    
-    /*
-     // Override to support conditional rearranging of the table view.
-     override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-     // Return false if you do not want the item to be re-orderable.
-     return true
-     }
-     */
-    
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using 1 segue.destination.
-     // Pass the selected object to the new view controller.
-     }
-     */
     
 }
