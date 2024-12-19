@@ -38,7 +38,7 @@
                                         <rect key="frame" x="0.0" y="-26" width="393" height="1240"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tgE-yB-2Q8">
-                                                <rect key="frame" x="0.0" y="0.0" width="393" height="290"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="393" height="340"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Recommended Jobs" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5iD-r2-l6i">
                                                         <rect key="frame" x="20" y="42.333333333333343" width="175.33333333333334" height="21.666666666666671"/>
@@ -56,23 +56,23 @@
                                                         </connections>
                                                     </button>
                                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="IBV-Pz-E9q">
-                                                        <rect key="frame" x="20" y="74" width="346" height="216"/>
+                                                        <rect key="frame" x="20" y="74" width="346" height="266"/>
                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                         <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="hhI-U4-ZIb">
-                                                            <size key="itemSize" width="346" height="196"/>
+                                                            <size key="itemSize" width="346" height="221"/>
                                                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                         </collectionViewFlowLayout>
                                                         <cells>
                                                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="JobPostCollectionViewCellId" id="yyc-Us-H6J" customClass="JobPostCollectionViewCellId">
-                                                                <rect key="frame" x="0.0" y="10" width="346" height="196"/>
+                                                                <rect key="frame" x="0.0" y="22.666666666666668" width="346" height="221"/>
                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                 <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="bwI-Uz-MCe">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="346" height="196"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="346" height="221"/>
                                                                     <autoresizingMask key="autoresizingMask"/>
                                                                 </collectionViewCellContentView>
-                                                                <size key="customSize" width="346" height="196"/>
+                                                                <size key="customSize" width="346" height="221"/>
                                                             </collectionViewCell>
                                                         </cells>
                                                     </collectionView>
@@ -93,7 +93,7 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f6p-0G-1P3">
-                                                <rect key="frame" x="0.0" y="300" width="393" height="290"/>
+                                                <rect key="frame" x="0.0" y="350" width="393" height="240"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Category" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TaU-RQ-B3F">
                                                         <rect key="frame" x="22" y="21.666666666666686" width="80" height="21.666666666666671"/>
@@ -111,7 +111,7 @@
                                                         </connections>
                                                     </button>
                                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="06u-2n-GhI">
-                                                        <rect key="frame" x="22" y="66" width="344" height="216"/>
+                                                        <rect key="frame" x="22" y="66" width="344" height="166"/>
                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                         <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="LES-Vm-mTa">
                                                             <size key="itemSize" width="154" height="158"/>
@@ -121,7 +121,7 @@
                                                         </collectionViewFlowLayout>
                                                         <cells>
                                                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="JobsCollectionViewCell" id="3u5-Cz-Co5" customClass="JobsCollectionViewCell" customModule="Jobify" customModuleProvider="target">
-                                                                <rect key="frame" x="0.0" y="29" width="154" height="158"/>
+                                                                <rect key="frame" x="0.0" y="4" width="154" height="158"/>
                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                 <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="Aq9-5i-xmN">
                                                                     <rect key="frame" x="0.0" y="0.0" width="154" height="158"/>
@@ -158,20 +158,22 @@
                                                         <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <state key="normal" title="Button"/>
                                                         <buttonConfiguration key="configuration" style="plain" title="View All"/>
+                                                        <connections>
+                                                            <segue destination="f0m-Lu-YlA" kind="show" id="Q5a-7b-CPA"/>
+                                                        </connections>
                                                     </button>
-                                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="2vN-dV-gff">
-                                                        <rect key="frame" x="21" y="61" width="345" height="217"/>
-                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="2vN-dV-gff">
+                                                        <rect key="frame" x="21" y="61" width="345" height="559"/>
                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                                        <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="dMj-87-NDl">
+                                                        <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="dMj-87-NDl">
                                                             <size key="itemSize" width="346" height="196"/>
                                                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                         </collectionViewFlowLayout>
                                                         <cells>
-                                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="JobPostCollectionViewCellId" id="3Wy-q0-B8U" customClass="JobPostCollectionViewCellId">
-                                                                <rect key="frame" x="0.0" y="10.666666666666666" width="346" height="196"/>
+                                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="JobPostCollectionViewCell" id="3Wy-q0-B8U" customClass="JobPostCollectionViewCell" customModule="Jobify" customModuleProvider="target">
+                                                                <rect key="frame" x="-0.66666666666666663" y="0.0" width="346" height="196"/>
                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                 <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="lfL-lv-UId">
                                                                     <rect key="frame" x="0.0" y="0.0" width="346" height="196"/>
@@ -184,7 +186,11 @@
                                                 </subviews>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
+                                                    <constraint firstAttribute="trailing" secondItem="2vN-dV-gff" secondAttribute="trailing" constant="27" id="09Z-AF-GcT"/>
+                                                    <constraint firstAttribute="bottom" secondItem="2vN-dV-gff" secondAttribute="bottom" constant="20" id="1Um-Du-IHZ"/>
                                                     <constraint firstAttribute="trailing" secondItem="tdE-ii-WdZ" secondAttribute="trailing" constant="27" id="3zc-f5-NG4"/>
+                                                    <constraint firstItem="2vN-dV-gff" firstAttribute="leading" secondItem="hlm-EV-Dnl" secondAttribute="leading" constant="21" id="4bi-hR-sYy"/>
+                                                    <constraint firstItem="2vN-dV-gff" firstAttribute="top" secondItem="tdE-ii-WdZ" secondAttribute="bottom" constant="7.6666666666666572" id="KW7-H7-tFm"/>
                                                     <constraint firstItem="POP-bV-g5P" firstAttribute="leading" secondItem="hlm-EV-Dnl" secondAttribute="leading" constant="22" id="W5K-hF-pyM"/>
                                                     <constraint firstItem="tdE-ii-WdZ" firstAttribute="centerY" secondItem="POP-bV-g5P" secondAttribute="centerY" id="dZr-iu-ot0"/>
                                                     <constraint firstItem="tdE-ii-WdZ" firstAttribute="top" secondItem="hlm-EV-Dnl" secondAttribute="top" constant="15" id="xW6-Jk-GmY"/>
@@ -193,7 +199,7 @@
                                         </subviews>
                                         <constraints>
                                             <constraint firstItem="hlm-EV-Dnl" firstAttribute="top" secondItem="l8B-GF-Aic" secondAttribute="top" constant="600" id="Bj4-ce-wE1"/>
-                                            <constraint firstItem="f6p-0G-1P3" firstAttribute="top" secondItem="l8B-GF-Aic" secondAttribute="top" constant="300" id="gfD-nD-zTp"/>
+                                            <constraint firstItem="f6p-0G-1P3" firstAttribute="top" secondItem="l8B-GF-Aic" secondAttribute="top" constant="350" id="gfD-nD-zTp"/>
                                             <constraint firstAttribute="height" constant="1240" id="o3x-wU-LWf"/>
                                         </constraints>
                                     </stackView>
@@ -263,11 +269,12 @@
                         <outlet property="hamburgerView" destination="VK4-QT-LrE" id="KmX-Pv-XGQ"/>
                         <outlet property="jobPostCollectionView" destination="IBV-Pz-E9q" id="v25-NU-6ZF"/>
                         <outlet property="mainHomeView" destination="5EZ-qb-Rvc" id="LwM-0x-wbj"/>
+                        <outlet property="recentJobPostCollectionView" destination="2vN-dV-gff" id="MrT-Ww-ANZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1881" y="-37"/>
+            <point key="canvasLocation" x="1879.8507462686566" y="-37.41418764302059"/>
         </scene>
         <!--Job Category View Controller-->
         <scene sceneID="FWB-nT-EMV">
@@ -333,29 +340,16 @@
             </objects>
             <point key="canvasLocation" x="1820.8955223880596" y="-763.38672768878712"/>
         </scene>
-        <!--Recommended Jobs-->
+        <!--Job Posts-->
         <scene sceneID="BwY-uK-g7q">
             <objects>
                 <viewController id="f0m-Lu-YlA" customClass="JobPostsViewController" customModule="Jobify" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" ambiguous="YES" id="eZo-fK-pbe">
+                    <view key="view" contentMode="scaleToFill" id="eZo-fK-pbe">
                         <rect key="frame" x="0.0" y="0.0" width="402" height="874"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pZc-Xn-XDP">
-                                <rect key="frame" x="216" y="129" width="160" height="52"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="160" id="64Y-Hs-Lpd"/>
-                                    <constraint firstAttribute="width" constant="160" id="IlT-dk-nkS"/>
-                                    <constraint firstAttribute="height" constant="52" id="Isq-ob-EAu"/>
-                                </constraints>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="Sort"/>
-                                <connections>
-                                    <segue destination="mT8-hC-IOq" kind="show" id="WEz-dg-Uuh"/>
-                                </connections>
-                            </button>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="2te-zd-f0c">
-                                <rect key="frame" x="16" y="187" width="370" height="642"/>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="2te-zd-f0c">
+                                <rect key="frame" x="16" y="187" width="369.33333333333331" height="642"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="4zH-Jp-4Rg">
                                     <size key="itemSize" width="128" height="128"/>
@@ -374,42 +368,52 @@
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tOS-X4-Oe3">
-                                <rect key="frame" x="44" y="129" width="160" height="52"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="160" id="IM4-7W-QVv"/>
-                                    <constraint firstAttribute="width" constant="160" id="aCF-44-zRZ"/>
-                                    <constraint firstAttribute="height" constant="52" id="i8h-Lt-j9Z"/>
-                                </constraints>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="Filter"/>
-                                <connections>
-                                    <segue destination="41u-V6-Oc8" kind="show" id="cFx-Uz-Am1"/>
-                                </connections>
-                            </button>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="LQd-RX-lvB">
+                                <rect key="frame" x="40.666666666666657" y="133" width="320" height="40"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tOS-X4-Oe3">
+                                        <rect key="frame" x="0.0" y="0.0" width="150" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="150" id="2If-LJ-Ler"/>
+                                            <constraint firstAttribute="height" constant="40" id="Dfm-Ye-pdY"/>
+                                        </constraints>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" image="iconFilter" title="Filter" imagePadding="20"/>
+                                        <connections>
+                                            <segue destination="41u-V6-Oc8" kind="show" id="cFx-Uz-Am1"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pZc-Xn-XDP">
+                                        <rect key="frame" x="170" y="0.0" width="150" height="40"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" image="iconSort" title="Sort" imagePadding="20"/>
+                                        <connections>
+                                            <segue destination="mT8-hC-IOq" kind="show" id="WEz-dg-Uuh"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="UxU-Kv-9vZ"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="2te-zd-f0c" firstAttribute="top" secondItem="tOS-X4-Oe3" secondAttribute="bottom" constant="6" id="3hJ-Dc-pEf"/>
-                            <constraint firstItem="tOS-X4-Oe3" firstAttribute="leading" secondItem="UxU-Kv-9vZ" secondAttribute="leading" constant="44" id="J3I-5z-Yvq"/>
-                            <constraint firstItem="2te-zd-f0c" firstAttribute="leading" secondItem="UxU-Kv-9vZ" secondAttribute="leading" constant="16" id="L59-0F-5x5"/>
-                            <constraint firstItem="UxU-Kv-9vZ" firstAttribute="bottom" secondItem="2te-zd-f0c" secondAttribute="bottom" constant="-38" id="MWH-1N-rC2"/>
-                            <constraint firstItem="UxU-Kv-9vZ" firstAttribute="trailing" secondItem="2te-zd-f0c" secondAttribute="trailing" constant="16" id="OZm-6H-gXH"/>
-                            <constraint firstItem="tOS-X4-Oe3" firstAttribute="top" secondItem="UxU-Kv-9vZ" secondAttribute="top" constant="23" id="PDt-f3-u7N"/>
-                            <constraint firstItem="2te-zd-f0c" firstAttribute="width" secondItem="eZo-fK-pbe" secondAttribute="width" multiplier="0.920398" id="hvt-ul-amF"/>
-                            <constraint firstItem="pZc-Xn-XDP" firstAttribute="top" secondItem="UxU-Kv-9vZ" secondAttribute="top" constant="23" id="hxQ-1h-uCq"/>
-                            <constraint firstItem="UxU-Kv-9vZ" firstAttribute="trailing" secondItem="pZc-Xn-XDP" secondAttribute="trailing" constant="26" id="sfa-kG-she"/>
+                            <constraint firstItem="2te-zd-f0c" firstAttribute="top" secondItem="LQd-RX-lvB" secondAttribute="bottom" constant="14" id="Akt-7z-7jg"/>
+                            <constraint firstItem="UxU-Kv-9vZ" firstAttribute="trailing" secondItem="2te-zd-f0c" secondAttribute="trailing" constant="16.670000000000002" id="DWl-rJ-wTV"/>
+                            <constraint firstItem="LQd-RX-lvB" firstAttribute="leading" secondItem="UxU-Kv-9vZ" secondAttribute="leading" constant="40.640000000000001" id="j9P-YQ-Va1"/>
+                            <constraint firstItem="LQd-RX-lvB" firstAttribute="top" secondItem="UxU-Kv-9vZ" secondAttribute="top" constant="27" id="lrb-J0-mzE"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="2te-zd-f0c" secondAttribute="bottom" constant="-38" id="ptS-qd-2ok"/>
+                            <constraint firstItem="2te-zd-f0c" firstAttribute="centerX" secondItem="LQd-RX-lvB" secondAttribute="centerX" id="ybB-y9-5pt"/>
+                            <constraint firstItem="UxU-Kv-9vZ" firstAttribute="trailing" secondItem="LQd-RX-lvB" secondAttribute="trailing" constant="41.359999999999999" id="zs1-6M-mv1"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Recommended Jobs" id="TvO-tC-fag"/>
+                    <navigationItem key="navigationItem" title="Job Posts" id="TvO-tC-fag"/>
                     <connections>
                         <outlet property="jobPostCollectionView" destination="2te-zd-f0c" id="kk0-Uf-rkP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zlF-Z8-PwI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2745" y="-428"/>
+            <point key="canvasLocation" x="2744.7761194029849" y="-428.3752860411899"/>
         </scene>
         <!--Job Post Filter-->
         <scene sceneID="oJK-j7-UWA">
@@ -779,6 +783,9 @@ Requests</string>
             <point key="canvasLocation" x="1880.5970149253731" y="669.33638443935922"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="Q5a-7b-CPA"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <image name="Batelco Logo" width="75" height="75"/>
         <image name="IconHamburgerMenu" width="16.666666030883789" height="16.666666030883789"/>
@@ -788,6 +795,8 @@ Requests</string>
         <image name="IconManageSkills" width="19" height="16.666666030883789"/>
         <image name="IconMentorRequests" width="14.333333015441895" height="14"/>
         <image name="IconSettings" width="20" height="16.666666030883789"/>
+        <image name="iconFilter" width="18" height="18"/>
+        <image name="iconSort" width="16.666666030883789" height="16.666666030883789"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
