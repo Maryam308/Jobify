@@ -49,7 +49,7 @@ class HomeJobPostViewController: UIViewController, UICollectionViewDataSource, U
         //vertical recent job post
         recentJobPostCollectionView.delegate = self
         recentJobPostCollectionView.dataSource = self
-        
+        //recent
         // register cell for horizontal job post (recommended)
         let nib = UINib(nibName: JobPostCollectionViewCellId, bundle: nil)
         jobPostCollectionView.register(nib, forCellWithReuseIdentifier: JobPostCollectionViewCellId)
