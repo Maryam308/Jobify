@@ -103,7 +103,7 @@
                 <outlet property="companyLabel" destination="Nsh-eO-xGr" id="jyG-88-yxV"/>
                 <outlet property="locationLabel" destination="sev-f8-eXR" id="Os8-mu-Gsc"/>
                 <outlet property="positionLabel" destination="7pV-TA-LRe" id="jJC-rZ-jur"/>
-                <outlet property="statusButton" destination="6wT-A5-4FL" id="xjo-Xg-VwD"/>
+                <outlet property="statusButton" destination="6wT-A5-4FL" id="lI4-cQ-xNL"/>
                 <outlet property="typeLabel" destination="NEr-E2-Huy" id="AKb-fr-4Tp"/>
             </connections>
             <point key="canvasLocation" x="-302.29007633587787" y="69.718309859154928"/>

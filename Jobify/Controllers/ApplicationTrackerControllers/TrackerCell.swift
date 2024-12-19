@@ -14,6 +14,9 @@ class TrackerCell: UITableViewCell {
     @IBOutlet var typeLabel: UILabel!
     @IBOutlet var statusButton: UIButton!
     
+    
+        
+         
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

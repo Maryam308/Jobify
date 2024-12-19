@@ -10,7 +10,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MonitorCell" rowHeight="195" id="K00-hN-cZq" customClass="TrackerCell" customModule="Jobify" customModuleProvider="target">
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MonitorCell" rowHeight="195" id="K00-hN-cZq" customClass="MonitorCell" customModule="Jobify" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="406" height="195"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="K00-hN-cZq" id="s0f-Nx-k6j">
@@ -26,14 +26,14 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Status:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0cb-Z3-v6A">
-                                <rect key="frame" x="19" y="96" width="53.666666666666657" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Status:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0cb-Z3-v6A" userLabel="Status Label">
+                                <rect key="frame" x="18.999999999999996" y="96" width="53.666666666666657" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PCg-cu-RKf">
-                                <rect key="frame" x="19" y="131" width="150.66666666666666" height="38.333333333333329"/>
+                            <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PCg-cu-RKf" userLabel="View Application Button">
+                                <rect key="frame" x="19" y="131" width="150.66666666666666" height="38.333333333333343"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="38.333333333333343" id="inR-IS-zdo"/>
                                 </constraints>
@@ -41,7 +41,7 @@
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" title="View Application" cornerStyle="capsule"/>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="job seeker" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PQR-9O-qfd">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="job seeker" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PQR-9O-qfd" userLabel="Seeker Label">
                                 <rect key="frame" x="90" y="22" width="79" height="26"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
@@ -54,10 +54,13 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MRs-me-9jv">
-                                <rect key="frame" x="184" y="131" width="137" height="38.333333333333329"/>
+                                <rect key="frame" x="184" y="131" width="137" height="38.333333333333343"/>
                                 <color key="tintColor" systemColor="systemCyanColor"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" title="Change Status" cornerStyle="capsule"/>
+                                <connections>
+                                    <action selector="ChangeStatusClicked:" destination="K00-hN-cZq" eventType="touchUpInside" id="1hE-6T-8BM"/>
+                                </connections>
                             </button>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="S9d-qq-ESM">
                                 <rect key="frame" x="13" y="7" width="64" height="48"/>
@@ -108,10 +111,15 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="qve-Pq-msY"/>
             <connections>
+                <outlet property="changeStatusButton" destination="MRs-me-9jv" id="61T-zs-OxP"/>
                 <outlet property="companyLabel" destination="PQR-9O-qfd" id="ZML-Bv-dCF"/>
+                <outlet property="currentStatusLabel" destination="wbe-ii-MdZ" id="48n-e7-9yc"/>
                 <outlet property="locationLabel" destination="0cb-Z3-v6A" id="FTK-fs-bjh"/>
-                <outlet property="positionLabel" destination="0z0-Dg-bzc" id="hsg-QL-dDf"/>
+                <outlet property="positionLabel" destination="0z0-Dg-bzc" id="svY-Tv-eBo"/>
+                <outlet property="profileImage" destination="S9d-qq-ESM" id="37Z-1C-WdI"/>
+                <outlet property="seekerLabel" destination="PQR-9O-qfd" id="XKH-hb-TKC"/>
                 <outlet property="statusButton" destination="PCg-cu-RKf" id="knR-by-vCd"/>
+                <outlet property="viewApplicationButton" destination="PCg-cu-RKf" id="izG-y7-kec"/>
             </connections>
             <point key="canvasLocation" x="-302.29007633587787" y="60.211267605633807"/>
         </tableViewCell>
