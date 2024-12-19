@@ -207,7 +207,7 @@
                                                         </connections>
                                                     </button>
                                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="2vN-dV-gff">
-                                                        <rect key="frame" x="21" y="61" width="345" height="649"/>
+                                                        <rect key="frame" x="21" y="61" width="345" height="685"/>
                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                         <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="dMj-87-NDl">
                                                             <size key="itemSize" width="346" height="196"/>
@@ -234,7 +234,7 @@
                                                     <constraint firstAttribute="trailing" secondItem="tdE-ii-WdZ" secondAttribute="trailing" constant="27" id="3zc-f5-NG4"/>
                                                     <constraint firstItem="2vN-dV-gff" firstAttribute="leading" secondItem="hlm-EV-Dnl" secondAttribute="leading" constant="21" id="4bi-hR-sYy"/>
                                                     <constraint firstItem="2vN-dV-gff" firstAttribute="top" secondItem="tdE-ii-WdZ" secondAttribute="bottom" constant="7.6666666666666572" id="KW7-H7-tFm"/>
-                                                    <constraint firstAttribute="bottom" secondItem="2vN-dV-gff" secondAttribute="bottom" constant="10" id="NSR-9E-6bp"/>
+                                                    <constraint firstAttribute="bottom" secondItem="2vN-dV-gff" secondAttribute="bottom" constant="-26" id="NSR-9E-6bp"/>
                                                     <constraint firstItem="POP-bV-g5P" firstAttribute="leading" secondItem="hlm-EV-Dnl" secondAttribute="leading" constant="22" id="W5K-hF-pyM"/>
                                                     <constraint firstItem="tdE-ii-WdZ" firstAttribute="centerY" secondItem="POP-bV-g5P" secondAttribute="centerY" id="dZr-iu-ot0"/>
                                                     <constraint firstItem="tdE-ii-WdZ" firstAttribute="top" secondItem="hlm-EV-Dnl" secondAttribute="top" constant="15" id="xW6-Jk-GmY"/>
@@ -251,7 +251,6 @@
                                 <constraints>
                                     <constraint firstItem="l8B-GF-Aic" firstAttribute="bottom" secondItem="SbQ-0f-YLG" secondAttribute="bottom" constant="-12" id="2Ok-XT-s42"/>
                                     <constraint firstItem="l8B-GF-Aic" firstAttribute="width" secondItem="z9t-JK-whc" secondAttribute="width" id="9WS-CL-zfl"/>
-                                    <constraint firstItem="hlm-EV-Dnl" firstAttribute="height" secondItem="qnd-J1-Fyh" secondAttribute="height" multiplier="1.17264" constant="-7.0358306188925326" id="LkG-8W-9UB"/>
                                     <constraint firstItem="SbQ-0f-YLG" firstAttribute="top" secondItem="l8B-GF-Aic" secondAttribute="top" constant="26" id="R0m-Mr-mur"/>
                                     <constraint firstItem="l8B-GF-Aic" firstAttribute="trailing" secondItem="SbQ-0f-YLG" secondAttribute="trailing" id="Vty-AP-qcR"/>
                                     <constraint firstItem="l8B-GF-Aic" firstAttribute="leading" secondItem="SbQ-0f-YLG" secondAttribute="leading" id="jcM-Ca-b58"/>
@@ -397,9 +396,6 @@
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="2te-zd-f0c">
                                 <rect key="frame" x="16" y="187" width="369.33333333333331" height="642"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="369.32999999999998" id="blH-QL-ixm"/>
-                                </constraints>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="4zH-Jp-4Rg">
                                     <size key="itemSize" width="359.33333333333331" height="154"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
