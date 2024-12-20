@@ -12,6 +12,8 @@ class JobPostsViewController: UIViewController, UICollectionViewDelegate, UIColl
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        fetchJobPostings() // Call to fetch from Firestore
+        
         jobPostCollectionView.delegate = self
         jobPostCollectionView.dataSource = self
         
@@ -19,10 +21,12 @@ class JobPostsViewController: UIViewController, UICollectionViewDelegate, UIColl
         let nib = UINib(nibName: JobPostCollectionViewCellId, bundle: nil)
         jobPostCollectionView.register(nib, forCellWithReuseIdentifier: JobPostCollectionViewCellId)
         
-        fetchJobPostings() // Call to fetch from Firestore
+        
+        //jobPostCollectionView.reloadData()
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        print("Jobs count: \(self.jobs.count)")
         return jobs.count
     }
     
@@ -46,7 +50,6 @@ class JobPostsViewController: UIViewController, UICollectionViewDelegate, UIColl
     }
     
     func fetchJobPostings() {
-        print("Fetching job postings...")
         db.collection("jobPost").getDocuments { (snapshot, error) in
             if let error = error {
                 print("Error fetching job postings: \(error.localizedDescription)")
@@ -58,7 +61,7 @@ class JobPostsViewController: UIViewController, UICollectionViewDelegate, UIColl
                 return
             }
             
-            print("Documents fetched: \(documents.count)")
+            print("Total documents fetched: \(documents.count)") // Log total documents
             
             // Clear existing jobs
             self.jobs.removeAll()
@@ -70,29 +73,52 @@ class JobPostsViewController: UIViewController, UICollectionViewDelegate, UIColl
                 let data = document.data()
                 print("Document data: \(data)") // Log each document's data
                 
-                if let title = data["jobTitle"] as? String,
-                   let company = data["companyName"] as? String,
-                   let levelRaw = data["jobLevel"] as? String,
-                   let level = Job.JobLevel(rawValue: levelRaw),
-                   let categoryRaw = data["jobCategory"] as? String,
-                   let category = Job.JobCategory(rawValue: categoryRaw),
-                   let employmentTypeRaw = data["jobEmploymentType"] as? String,
-                   let employmentType = Job.EmploymentType(rawValue: employmentTypeRaw),
-                   let location = data["jobLocation"] as? String,
-                   let datePostedString = data["jobPostDate"] as? String,
-                   let timePostedString = data["jobPostTime"] as? String,
-                   let desc = data["jobDescription"] as? String,
-                   let deadlineString = data["jobDeadlineDate"] as? String,
-                   let deadline = dateFormatter.date(from: deadlineString) { // Use the custom date formatter
+                if let title = data["jobTitle"] as? String {
+                    print("Processing job title: \(title)") // Log the title being processed
+                    
+                    let company = data["companyName"] as? String ?? "Unknown"
+                    let levelRaw = data["jobLevel"] as? String ?? "Unknown"
+                    let level = Job.JobLevel(rawValue: levelRaw)
+                    
+                    // Safely unwrap JobLevel
+                    guard let jobLevel = level else {
+                        print("Invalid job level: \(levelRaw) for document ID: \(document.documentID)")
+                        continue // Skip this document if level is invalid
+                    }
+                    
+                    let categoryRaw = data["jobCategory"] as? String ?? "Unknown"
+                    let category = Job.JobCategory(rawValue: categoryRaw)
+                    
+                    // Safely unwrap JobCategory
+                    guard let jobCategory = category else {
+                        print("Invalid job category: \(categoryRaw) for document ID: \(document.documentID)")
+                        continue // Skip this document if category is invalid
+                    }
+                    
+                    let employmentTypeRaw = data["jobEmploymentType"] as? String ?? "Unknown"
+                    let employmentType = Job.EmploymentType(rawValue: employmentTypeRaw)
+                    
+                    // Safely unwrap EmploymentType
+                    guard let jobEmploymentType = employmentType else {
+                        print("Invalid employment type: \(employmentTypeRaw) for document ID: \(document.documentID)")
+                        continue // Skip this document if employment type is invalid
+                    }
+                    
+                    let location = data["jobLocation"] as? String ?? "Unknown"
+                    let datePostedString = data["jobPostDate"] as? String ?? "Unknown"
+                    let timePostedString = data["jobPostTime"] as? String ?? "Unknown"
+                    let desc = data["jobDescription"] as? String ?? "Unknown"
+                    let deadlineString = data["jobDeadlineDate"] as? String ?? "Unknown"
+                    let deadline = dateFormatter.date(from: deadlineString)
                     
                     let requirement = data["jobRequirement"] as? String ?? "No requirements specified"
                     
                     let job = Job(
                         title: title,
                         company: company,
-                        level: level,
-                        category: category,
-                        employmentType: employmentType,
+                        level: jobLevel,
+                        category: jobCategory,
+                        employmentType: jobEmploymentType,
                         location: location,
                         deadline: deadline,
                         desc: desc,
@@ -104,14 +130,14 @@ class JobPostsViewController: UIViewController, UICollectionViewDelegate, UIColl
                     
                     self.jobs.append(job) // Append the job to the jobs array
                 } else {
-                    print("Failed to parse document: \(data)") // Log if parsing fails
+                    print("Failed to parse document: \(data) for document ID: \(document.documentID)") // Log if parsing fails
                 }
             }
             
-            DispatchQueue.main.async {
-                print("Jobs array count before reload: \(self.jobs.count)")
-                self.jobPostCollectionView.reloadData() // Reload collection view with fetched jobs
-            }
+            print("Total valid jobs added: \(self.jobs.count)") // Log valid jobs added
+            self.jobPostCollectionView.reloadData()
         }
+    
     }
 }
+

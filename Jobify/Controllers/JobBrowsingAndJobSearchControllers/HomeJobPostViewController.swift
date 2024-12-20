@@ -59,7 +59,7 @@ class HomeJobPostViewController: UIViewController, UICollectionViewDataSource, U
         categoryCollectionView.register(categoryNib, forCellWithReuseIdentifier: JobsCollectionViewCellId)
         
         // register cell for vertical recent job post (recommended)
-        let recentJobPostnib = UINib(nibName: recentJobPostCollectionViewCellId, bundle: nil)
+        _ = UINib(nibName: recentJobPostCollectionViewCellId, bundle: nil)
         recentJobPostCollectionView.register(nib, forCellWithReuseIdentifier: recentJobPostCollectionViewCellId)
         
        
