@@ -62,7 +62,7 @@ class HomeJobPostViewController: UIViewController, UICollectionViewDataSource, U
         let recentJobPostnib = UINib(nibName: recentJobPostCollectionViewCellId, bundle: nil)
         recentJobPostCollectionView.register(nib, forCellWithReuseIdentifier: recentJobPostCollectionViewCellId)
         
-        
+       
         jobPostCollectionView.reloadData()
     
        // categoryCollectionView.reloadData()

@@ -1,90 +1,90 @@
-//
-//  Job.swift
-//  Jobify
-//
-//  Created by Maryam Yousif on 27/11/2024.
-//
-
 import Foundation
 
-
-struct Job : Equatable {
-    
+struct Job: Equatable {
     static func == (lhs: Job, rhs: Job) -> Bool {
         lhs.jobId == rhs.jobId
     }
     
-    
-    // Auto-generated variables
     static var jobIdCounter = 0
     var jobId: Int
     var date: String
     var time: String
-    // Create a Calendar instance to format the date and time
-    var calendar = Calendar.current
-
-    // Passed variables
     var title: String
-//    var company: Employer
-    var level: String
-    var location: String
-    var desc: String
-    var requirement: String
-    var extraAttachments: Data? = nil
+    var company: String
+    var level: JobLevel
+    var category: JobCategory
     var employmentType: EmploymentType
-    var deadline: Date
-
+    var location: String
+    var deadline: Date? // Make this optional
+    var desc: String
+    var requirement: String // Uncomment this
+    var extraAttachments: Data? = nil
     var applications: [JobApplication] = []
 
     // Custom initializer
     init(
         title: String,
-//        company: inout Employer,
-        level: String,
+        company: String,
+        level: JobLevel,
+        category: JobCategory,
+        employmentType: EmploymentType,
         location: String,
+        deadline: Date?, // Make this optional
         desc: String,
         requirement: String,
         extraAttachments: Data?,
-        employmentType: EmploymentType,
-        deadline: Date
+        date: String,
+        time: String
     ) {
-        // Auto-generated variables
-        // Increment the counter and assign it as jobId
         Job.jobIdCounter += 1
         self.jobId = Job.jobIdCounter
-
-        // Get the current date and time
-        let currentDate = Date()
-
-        // Extract the date components for the date
-        let dateComponents = self.calendar.dateComponents([.day, .month], from: currentDate)
-        let timeComponents = self.calendar.dateComponents([.hour, .minute], from: currentDate)
-
-        // Create date and time variables and convert date and time components to string
-        self.date = String(format: "%02d-%02d", dateComponents.day ?? 0, dateComponents.month ?? 0)
-        self.time = String(format: "%02d:%02d", timeComponents.hour ?? 0, timeComponents.minute ?? 0)
-
-        // Assign other properties
+        
+        self.date = date // Pass Firestore's `jobPostDate`
+        self.time = time // Pass Firestore's `jobPostTime`
+        
         self.title = title
-//        self.company = company
+        self.company = company
         self.level = level
-        self.location = location
-        self.desc = desc
-        self.requirement = requirement
+        self.category = category
         self.employmentType = employmentType
-        self.deadline = deadline
-
-        // Handle extraAttachments
-        if let attachment = extraAttachments {
-            self.extraAttachments = attachment
-        } else {
-            self.extraAttachments = nil
-        }
+        self.location = location
+        self.deadline = deadline // Assign optional deadline
+        self.desc = desc
+        self.requirement = requirement // Assign requirement
+        self.extraAttachments = extraAttachments
     }
+
+    enum JobLevel: String {
+        case entryLevel = "Entry Level"
+        case junior = "Junior"
+        case midLevel = "Mid-Level"
+        case senior = "Senior"
+        case lead = "Lead"
+        case manager = "Manager"
+        case director = "Director"
+        case executive = "Executive"
+        case intern = "Intern"
+    }
+    
+    enum JobCategory: String {
+        case informationTechnology = "Information Technology"
+        case business = "Business"
+        case healthcare = "Healthcare"
+        case education = "Education"
+        case engineering = "Engineering"
+        case marketing = "Marketing"
+        case architectureAndConstruction = "Architecture & Construction"
+        case interiorDesign = "Interior Design"
+        case finance = "Finance"
+        case arts = "Arts"
+        case other = "Other"
+    }
+    
     enum EmploymentType: String {
         case fullTime = "Full-Time"
         case partTime = "Part-Time"
         case intern = "Intern"
         case contract = "Contract"
+        case remote = "Remote"
     }
 }

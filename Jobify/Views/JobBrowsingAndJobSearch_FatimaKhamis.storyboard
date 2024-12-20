@@ -237,6 +237,8 @@
                                                     <constraint firstAttribute="bottom" secondItem="2vN-dV-gff" secondAttribute="bottom" constant="-26" id="NSR-9E-6bp"/>
                                                     <constraint firstItem="POP-bV-g5P" firstAttribute="leading" secondItem="hlm-EV-Dnl" secondAttribute="leading" constant="22" id="W5K-hF-pyM"/>
                                                     <constraint firstItem="tdE-ii-WdZ" firstAttribute="centerY" secondItem="POP-bV-g5P" secondAttribute="centerY" id="dZr-iu-ot0"/>
+                                                    <constraint firstItem="2vN-dV-gff" firstAttribute="leading" secondItem="hlm-EV-Dnl" secondAttribute="leading" constant="21" id="f5O-7f-IoM"/>
+                                                    <constraint firstAttribute="trailing" secondItem="2vN-dV-gff" secondAttribute="trailing" constant="27" id="hE9-BV-HDb"/>
                                                     <constraint firstItem="tdE-ii-WdZ" firstAttribute="top" secondItem="hlm-EV-Dnl" secondAttribute="top" constant="15" id="xW6-Jk-GmY"/>
                                                 </constraints>
                                             </view>
@@ -454,7 +456,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Job Posts" id="TvO-tC-fag"/>
                     <connections>
-                        <outlet property="jobPostCollectionView" destination="2te-zd-f0c" id="kk0-Uf-rkP"/>
+                        <outlet property="jobPostCollectionView" destination="2te-zd-f0c" id="dMn-f3-FlC"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zlF-Z8-PwI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
