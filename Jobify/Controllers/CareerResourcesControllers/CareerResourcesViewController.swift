@@ -10,6 +10,8 @@ class CareerResourcesViewController: UIViewController {
     
     let db = Firestore.firestore()
 
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configurePopupView() // Hide popup initially

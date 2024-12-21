@@ -1,47 +1,40 @@
 import Foundation
 import Firebase
 import FirebaseFirestore
-//for testing only
-struct CVTest : Codable {
-    var id: String
-    var name: String
-    var city: String
-}
 
-
-// CV model containing all the user information needed for the CV
-struct CV {
-    
-    //Auto-generated variabels
-    static var cvIDCounter = 0 // Static counter for generating unique CV ID
-    var cvID: Int
-    
-    //Passed variables
+struct CV: Codable {
+    var cvID: String
     var personalDetails: PersonalDetails
-    var education: [Education] = []
-    var skills: [String] = []
-    var workExperience: [WorkExperience] = []
-    var name : String
-    var email : String
-    var phoneNumber : String
-    var country : String
-    var city : String
-    var profilePicture : Data?
-    
-    
+    var education: [Education]
+    var skills: [cvSkills]
+    var workExperience: [WorkExperience]
+    var cvTitle: String
+    var creationDate: Date
+    var preferredTitle: String
+    var isFavorite: Bool?
 
-    
-    init(personalDetails: PersonalDetails, skills: [String], education: [Education], workExperience: [WorkExperience], name: String, email: String, phoneNumber: String, country: String, city: String, profilePicture: Data? = nil) {
-        
-        //Auto-gnerated variabels
-        CV.cvIDCounter = 0 // Static counter for generating unique education ID
-        cvID = CV.cvIDCounter
-        
-        
+    init(cvID: String = UUID().uuidString, personalDetails: PersonalDetails, skills: [cvSkills], education: [Education], workExperience: [WorkExperience], cvTitle: String, creationDate: Date = Date(), preferredTitle: String, isFavorite: Bool? = nil) {
+        self.cvID = cvID
         self.personalDetails = personalDetails
         self.skills = skills
         self.education = education
         self.workExperience = workExperience
+        self.cvTitle = cvTitle
+        self.creationDate = creationDate
+        self.preferredTitle = preferredTitle
+        self.isFavorite = isFavorite
+    }
+}
+
+struct PersonalDetails: Codable {
+    var name: String
+    var email: String
+    var phoneNumber: String
+    var country: String
+    var city: String
+    var profilePicture: String
+
+    init(name: String, email: String, phoneNumber: String, country: String, city: String, profilePicture: String) {
         self.name = name
         self.email = email
         self.phoneNumber = phoneNumber
@@ -49,101 +42,45 @@ struct CV {
         self.city = city
         self.profilePicture = profilePicture
     }
-    
-    
 }
 
+struct Education: Codable {
+    var degree: String?
+    var institution: String?
+    var startDate: Date?
+    var endDate: Date?
 
-// Personal details struct containing basic info about the user
-struct PersonalDetails {
-    var name : String
-    var email : String
-    var phoneNumber : String
-    var country : String
-    var city : String
-    var profilePicture : Data?
-    
-    init(name: String, email: String, phoneNumber: String, country: String, city: String, profilePicture: Data? = nil) {
-        self.name = name
-        self.email = email
-        self.phoneNumber = phoneNumber
-        self.country = country
-        self.city = city
-        self.profilePicture = profilePicture
+    init(degree: String, institution: String, startDate: Date, endDate: Date?) {
+        self.degree = degree
+        self.institution = institution
+        self.startDate = startDate
+        self.endDate = endDate
     }
-
-}
-
-// Education struct to store educational background info
-struct Education {
-   
-    //Auto-gnerated variabels
-    static var educationIdCounter = 0 // Static counter for generating unique education ID
-    var educationID: Int
-    
-    //Passed variables
-    var degree: String
-    var institution: String
-    var startDate: Date
-    var endDate: Date?  // Optional (could be ongoing)
-    
-    // Custom initializer
-    init(
-        degree: String,
-        institution: String,
-        startDate: Date,
-        endDate: Date? = nil)
-        {
-            Education.educationIdCounter+=1
-            self.educationID = Education.educationIdCounter
-            
-            self.degree = degree
-            self.institution = institution
-            self.startDate = startDate
-            self.endDate = endDate
-    }
-}
-
-// Skill struct to store seeker's skill info
-struct CVSkill{
-    
-    //Auto-gnerated variabels
-    static var skillIDCounter = 0 // Static counter for generating unique education ID
-    var skillID: Int
-    
-    //Passed variables
-    var skillDescription: String
-
-    
-    // Custom initializer
-    init(skillDescription: String) {
+    init() {
         
-        CVSkill.skillIDCounter+=1
-        skillID=CVSkill.skillIDCounter
-        
-        self.skillDescription = skillDescription
     }
-
 }
 
-// Work experience struct to store job-related experience
-struct WorkExperience {
-   
-    static var workExperienceIDCounter = 0 // Static counter for generating unique working experince ID
-    var workExperienceID: Int
-    
-    var company: String
-    var role: String
-    var startDate: Date
-    var endDate: Date?  // Optional (could be ongoing)
-    var keyResponsibilities: String
-    
-    // Custom initializer
+struct cvSkills: Codable {
+    var skillTitle: String?
+    init(title: String){
+        self.skillTitle = title
+    }
+    init(){
+        
+    }
+}
+
+struct WorkExperience: Codable {
+    var workExperienceID: String?
+    var company: String?
+    var role: String?
+    var startDate: Date?
+    var endDate: Date?
+    var keyResponsibilities: String?
+
     init(company: String, role: String, startDate: Date, endDate: Date? = nil, keyResponsibilities: String) {
-        
-        WorkExperience.workExperienceIDCounter+=1
-        workExperienceID=WorkExperience.workExperienceIDCounter
-        
+        self.workExperienceID = UUID().uuidString
         self.company = company
         self.role = role
         self.startDate = startDate
@@ -151,38 +88,104 @@ struct WorkExperience {
         self.keyResponsibilities = keyResponsibilities
     }
     
+    init(){
+        
+    }
 }
 
-final class CVManager{
-    private init(){} //singleton
-    private static let CVCollection = Firestore.firestore().collection(DB.FStore.CVTest.collectionName)
-    //get documents
-    private static func CVDocment(documentId: String) -> DocumentReference{
+
+struct DB{
+    static let encoder: Firestore.Encoder = {
+        let encoder = Firestore.Encoder()
+        encoder.keyEncodingStrategy = .useDefaultKeys
+        return encoder
+    }()
+
+    static let decoder: Firestore.Decoder = {
+        let decoder = Firestore.Decoder()
+        decoder.keyDecodingStrategy = .useDefaultKeys
+        return decoder
+    }()
+
+    static let appName = "Jobify"
+    
+    struct FStore{
+        struct CV{
+            static let collectionName = "CVs"
+            static let cvID = "cvID"
+            static let personalDetails = "personalDetails"
+            static let education = "education"
+            static let skills = "skills"
+            static let workExperience = "workExperience"
+            static let cvTitle = "cvTitle"
+            static let creationDate = "creationDate"
+        }
+    }
+}
+
+final class CVManager {
+    
+    private init() {} // Singleton
+    private static let CVCollection = Firestore.firestore().collection(DB.FStore.CV.collectionName)
+
+    // Get documents
+    private static func CVDocument(documentId: String) -> DocumentReference {
         CVCollection.document(documentId)
     }
-    
-    static func createNewCV(cv: CVTest) async throws {
-        // Add document to Firestore and get the document ID
-        let docRef = try await CVCollection.addDocument(data: Firestore.Encoder().encode(cv))
 
-        // Update the document with the auto-generated document ID
-        try await CVDocment(documentId: docRef.documentID).updateData([
-            DB.FStore.CVTest.id: docRef.documentID
-        ])
-    }
+    static func createNewCV(cv: CV) async throws {
+          do {
+              // Fetch all existing CVs
+              let existingCVs = try await getAllCVs()
+              let isFavorite = existingCVs.isEmpty // If there are no existing CVs, set isFavorite to true
+
+              // Create new CV with updated isFavorite
+              var newCV = cv
+              newCV.isFavorite = isFavorite // Set the isFavorite based on existing CVs
+              
+              let data = try DB.encoder.encode(newCV) // Use the DB encoder
+              let docRef = try await CVCollection.addDocument(data: data)
+
+              // Update the CV ID in Firestore
+              try await CVDocument(documentId: docRef.documentID).updateData([
+                  DB.FStore.CV.cvID: docRef.documentID
+              ])
+          } catch {
+              print("Error creating CV: \(error.localizedDescription)")
+              throw error // Re-throw the error for further handling
+          }
+      }
+
     
-    static func getAllCVs() async throws  -> [CVTest]{
-        try await CVCollection.getDocuments().documents.compactMap { doc in
-            try doc.data(as: CVTest.self)
+    // Function to fetch all CVs
+    static func getAllCVs() async throws -> [CV] {
+        let snapshot = try await CVCollection.getDocuments()
+        print("Fetched \(snapshot.documents.count) CVs.")
+        return snapshot.documents.compactMap { document in
+            do {
+                let cv = try document.data(as: CV.self)
+                print("Successfully decoded CV: \(cv)")
+                return cv
+            } catch {
+                print("Error decoding CV for document ID \(document.documentID): \(error)")
+                return nil
+            }
         }
     }
     
-    static func updateCV(cv: CVTest) async throws {
-        try await CVDocment(documentId: cv.id).updateData(Firestore.Encoder().encode(cv))
-    }
-    
-    static func updateCV(docID: String, fields: [String: Any]) async throws {
-        try await CVDocment(documentId: docID).updateData(fields)
-    }
+    //function to update cvs
+    static func updateExistingCV(cvID: String, cv: CV) async throws {
+        do {
+            // Use the DB encoder to prepare the data
+            let data = try DB.encoder.encode(cv)
 
+            // Update the document in Firestore, merge true to keep existing fields
+            try await CVDocument(documentId: cvID).setData(data, merge: true)
+            
+            print("CV updated successfully.")
+        } catch {
+            print("Error updating CV: \(error.localizedDescription)")
+            throw error // Re-throw the error for further handling
+        }
+    }
 }

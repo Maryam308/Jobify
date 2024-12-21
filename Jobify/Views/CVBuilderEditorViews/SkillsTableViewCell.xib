@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" restorationIdentifier="EducationCell" selectionStyle="default" indentationWidth="10" reuseIdentifier="SkillsCell" rowHeight="94" id="CnD-kb-2uY" customClass="SkillsTableViewCell" customModule="Jobify" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="410" height="94"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="CnD-kb-2uY" id="uxx-nv-6qT">
+                <rect key="frame" x="0.0" y="0.0" width="410" height="94"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Amn-4l-OA1">
+                        <rect key="frame" x="20" y="13" width="370" height="69"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Skill:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vi0-oR-3Vj">
+                                <rect key="frame" x="0.0" y="28" width="325" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="Vi0-oR-3Vj" secondAttribute="trailing" constant="45" id="3Kh-tK-4wc"/>
+                            <constraint firstItem="Vi0-oR-3Vj" firstAttribute="top" secondItem="Amn-4l-OA1" secondAttribute="top" constant="28" id="4Xe-zb-zUA"/>
+                            <constraint firstItem="Vi0-oR-3Vj" firstAttribute="leading" secondItem="Amn-4l-OA1" secondAttribute="leading" id="Ihz-dr-A0V"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <color key="backgroundColor" red="0.1137254902" green="0.1764705882" blue="0.2666666667" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                <constraints>
+                    <constraint firstItem="Amn-4l-OA1" firstAttribute="leading" secondItem="uxx-nv-6qT" secondAttribute="leading" constant="20" id="2U6-gR-A3T"/>
+                    <constraint firstItem="Amn-4l-OA1" firstAttribute="top" secondItem="uxx-nv-6qT" secondAttribute="top" constant="13" id="B1y-y3-d7i"/>
+                    <constraint firstAttribute="trailing" secondItem="Amn-4l-OA1" secondAttribute="trailing" constant="20" id="bBm-qc-xyj"/>
+                    <constraint firstAttribute="bottom" secondItem="Amn-4l-OA1" secondAttribute="bottom" constant="12" id="xYT-Yg-eTf"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="Wiw-SJ-6Et"/>
+            <connections>
+                <outlet property="lblSkill" destination="Vi0-oR-3Vj" id="dX2-ks-CkW"/>
+                <outlet property="skillsView" destination="Amn-4l-OA1" id="Tja-aL-dNh"/>
+            </connections>
+            <point key="canvasLocation" x="74.809160305343511" y="-207.74647887323945"/>
+        </tableViewCell>
+    </objects>
+</document>
