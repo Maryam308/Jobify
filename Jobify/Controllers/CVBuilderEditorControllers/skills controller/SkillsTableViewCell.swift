@@ -10,6 +10,7 @@ import UIKit
 class SkillsTableViewCell: UITableViewCell {
 
     
+    @IBOutlet weak var skillsView: UIView!
     @IBOutlet weak var lblSkill: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()

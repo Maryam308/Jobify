@@ -6,6 +6,15 @@
 //
 
 import UIKit
+import Alamofire
+import Firebase
+import FirebaseFirestore
+
+// MARK: - Cloudinary Response Struct
+struct CloudinaryResponse: Decodable {
+    let secure_url: String
+}
+
 // MARK: - Singleton for CV Data
 class CVData {
     static let shared = CVData()
@@ -28,12 +37,15 @@ class CVData {
     
     //Preview Details
     var cvTitle: String?
+    var jobTitle: String?
     
+    var cvToEdit: CV?
     private init() {}
 }
 
 
 class CVBuilderEditorTableViewController: UITableViewController , UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
     var educationRecords: [(degree: String, institution: String, from: Date, to: Date)] = []
     //personal page outlets
     @IBOutlet weak var txtName: UITextField!
@@ -49,19 +61,13 @@ class CVBuilderEditorTableViewController: UITableViewController , UIImagePickerC
     @IBOutlet weak var cityErr: UILabel!
     @IBOutlet weak var btnGoToEducation: UIButton!
     
-
-    //skills page outlets
     
-    @IBOutlet weak var btnGoToExperience: UIButton!
-    
-    //experience page outlets
-
-    @IBOutlet weak var btnGoToPreview: UIButton!
-    
-    //Preview page outlets
+    //Titles page outlets
     @IBOutlet weak var txtCVTitle: UITextField!
     @IBOutlet weak var cvTitleErr: UILabel!
-    
+    @IBOutlet weak var txtJobTitle: UITextField!
+    @IBOutlet weak var jobTitleErr: UILabel!
+    @IBOutlet weak var btnPublish: UIButton!
     
     @IBAction func btnAddPhotoTapped(_ sender: UIButton) {
         let picker = UIImagePickerController()
@@ -70,110 +76,206 @@ class CVBuilderEditorTableViewController: UITableViewController , UIImagePickerC
         present(picker, animated: true)
     }
     
+    // MARK: - UIImagePickerControllerDelegate Methods
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let editedImage = info[.editedImage] as? UIImage {
+            CVImage.image = editedImage
+            CVData.shared.profileImage = editedImage
+        } else if let originalImage = info[.originalImage] as? UIImage {
+            CVImage.image = originalImage
+            CVData.shared.profileImage = originalImage
+        }
+        dismiss(animated: true)
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true)
+    }
     // MARK: - Save Data for the Current Page
-     func saveCurrentPageData() {
-         guard let cvSection = CVSection(rawValue: tableView.tag) else { return }
-         
-         switch cvSection {
-         case .personalDetails:
-             CVData.shared.name = txtName.text
-             CVData.shared.email = txtEmail.text
-             CVData.shared.phone = txtPhone.text
-             CVData.shared.country = txtCountry.text
-             CVData.shared.city = txtCity.text
-             CVData.shared.profileImage = CVImage.image
-         case .preview:
-             CVData.shared.cvTitle = txtCVTitle.text
-         }
-     }
+    func saveCurrentPageData() {
+        guard let cvSection = CVSection(rawValue: tableView.tag) else { return }
+        
+        switch cvSection {
+        case .personalDetails:
+            CVData.shared.name = txtName.text
+            CVData.shared.email = txtEmail.text
+            CVData.shared.phone = txtPhone.text
+            CVData.shared.country = txtCountry.text
+            CVData.shared.city = txtCity.text
+            CVData.shared.profileImage = CVImage.image
+        case .titles:
+            CVData.shared.cvTitle = txtCVTitle.text
+            CVData.shared.jobTitle = txtJobTitle.text
+        }
+    }
     
     // MARK: - Restore Data for the Current Page
-      func restoreCurrentPageData() {
-          guard let cvSection = CVSection(rawValue: tableView.tag) else { return }
-          
-          switch cvSection {
-          case .personalDetails:
-              txtName.text = CVData.shared.name
-              txtEmail.text = CVData.shared.email
-              txtPhone.text = CVData.shared.phone
-              txtCountry.text = CVData.shared.country
-              txtCity.text = CVData.shared.city
-              CVImage.image = CVData.shared.profileImage
-
-          case .preview:
-              txtCVTitle.text = CVData.shared.cvTitle
-          }
-      }
+    func restoreCurrentPageData() {
+        guard let cvSection = CVSection(rawValue: tableView.tag) else { return }
+        
+        switch cvSection {
+        case .personalDetails:
+            txtName.text = CVData.shared.name
+            txtEmail.text = CVData.shared.email
+            txtPhone.text = CVData.shared.phone
+            txtCountry.text = CVData.shared.country
+            txtCity.text = CVData.shared.city
+            CVImage.image = CVData.shared.profileImage
+            
+        case .titles:
+            txtCVTitle.text = CVData.shared.cvTitle
+            txtJobTitle.text = CVData.shared.jobTitle
+        }
+    }
     
-  
+    
     @IBAction func btnGotToEducationTapped(_ sender: UIButton) {
         saveCurrentPageData()
     }
     
- 
-    // This function is called when the user finishes choosing image
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
-        // Safely unwrap the selected image
-        if let image = info[.editedImage] as? UIImage {
-            CVImage.image = image
-        } else if let image = info[.originalImage] as? UIImage {
-            CVImage.image = image
-        } else {
-            print("Failed to load image")
-        }
-        // Dismiss the picker
-        dismiss(animated: true, completion: nil)
+    @IBAction func btnPublishTapped(_ sender: UIButton) {
+        // Save current page data first
+          saveCurrentPageData()
+
+          // Validate collected data
+          guard let fname = CVData.shared.name,
+                let email = CVData.shared.email,
+                let phone = CVData.shared.phone,
+                let country = CVData.shared.country,
+                let city = CVData.shared.city,
+                let cvTitle = CVData.shared.cvTitle,
+                let jobTitle = CVData.shared.jobTitle,
+                let cvImage = CVData.shared.profileImage,
+                !CVData.shared.education.isEmpty,
+                !CVData.shared.skill.isEmpty else {
+              let alert = UIAlertController(title: "Missing Information",
+                                            message: "All fields must be filled.",
+                                            preferredStyle: .alert)
+              alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+              present(alert, animated: true)
+              return
+          }
+
+          Task {
+              do {
+                  var imageUrl: String
+                  
+                  // Check if we are editing an existing CV
+                  if let existingCV = CVData.shared.cvToEdit {
+                      // Upload the image only if it has changed
+                      if let imageData = cvImage.jpegData(compressionQuality: 0.8) {
+                          imageUrl = try await uploadImageToCloudinary(imageData: imageData)
+                      } else {
+                          imageUrl = existingCV.personalDetails.profilePicture // Use existing image URL
+                      }
+                      
+                      // Create an updated CV object
+                      let updatedCV = CV(
+                          cvID: existingCV.cvID, // Use existing CV ID
+                          personalDetails: PersonalDetails(
+                              name: fname,
+                              email: email,
+                              phoneNumber: phone,
+                              country: country,
+                              city: city,
+                              profilePicture: imageUrl
+                          ),
+                          skills: CVData.shared.skill.map { cvSkills(title: $0.skillTitle ?? "") },
+                          education: CVData.shared.education,
+                          workExperience: CVData.shared.experience,
+                          cvTitle: cvTitle,
+                          creationDate: existingCV.creationDate, // Keep the original creation date
+                          preferredTitle: jobTitle,
+                          isFavorite: existingCV.isFavorite // Preserve favorite status
+                      )
+                      
+                      // Update the CV in Firestore
+                      try await CVManager.updateExistingCV(cvID: existingCV.cvID, cv: updatedCV)
+                      print("CV updated successfully.")
+                      CVData.shared.cvToEdit = nil // Clear the editing context
+                      
+                  } else {
+                      // Handle the creation of a new CV if no existing CV is being edited
+                      guard let imageData = cvImage.jpegData(compressionQuality: 0.8) else {
+                          print("Failed to convert image to JPEG data.")
+                          return
+                      }
+                      
+                      imageUrl = try await uploadImageToCloudinary(imageData: imageData)
+                      
+                      let newCV = CV(
+                          personalDetails: PersonalDetails(
+                              name: fname,
+                              email: email,
+                              phoneNumber: phone,
+                              country: country,
+                              city: city,
+                              profilePicture: imageUrl
+                          ),
+                          skills: CVData.shared.skill.map { cvSkills(title: $0.skillTitle ?? "") },
+                          education: CVData.shared.education,
+                          workExperience: CVData.shared.experience,
+                          cvTitle: cvTitle,
+                          creationDate: Date(), // Set creation date to now
+                          preferredTitle: jobTitle
+                      )
+                      
+                      // Create the new CV in Firestore
+                      try await CVManager.createNewCV(cv: newCV)
+                      print("CV created successfully.")
+                  }
+                  
+                  // Navigate back to the CVs view controller and refresh data
+                  let storyboard = UIStoryboard(name: "CareerResourcesAndSkillDevelopment", bundle: nil)
+                  if let myCVsVC = storyboard.instantiateViewController(identifier: "myCVs") as? CVBuilderEditorViewController {
+                      myCVsVC.fetchCVs() // Ensure the latest CVs are fetched
+                      navigationController?.pushViewController(myCVsVC, animated: true)
+                  }
+              } catch {
+                  print("Error saving CV: \(error.localizedDescription)")
+              }
+          }
     }
     
-    @IBAction func btnPublishTapped(_ sender: UIButton) {
-        guard let fname = CVData.shared.name,
-              let email = CVData.shared.email,
-              let phone = CVData.shared.phone,
-              let country = CVData.shared.country,
-              let city = CVData.shared.city,
-              let cvTitle = CVData.shared.cvTitle,
-              !CVData.shared.education.isEmpty, !CVData.shared.skill.isEmpty else {
-                  let alert = UIAlertController(title: "Missing Information",
-                                                  message: "Personal details, skills, education, and CV title must be filled.",
-                                                  preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-                    present(alert, animated: true, completion: nil)
-            return
-        }
-
+   
+    func uploadImageToCloudinary(imageData: Data) async throws -> String {
+        let cloudinaryURL = "https://api.cloudinary.com/v1_1/dvxwcsscw/image/upload"
+        let uploadPreset = "JobifyImages"
         
-        let personalDetails = PersonalDetails(name: fname, email: email, phoneNumber: phone, country: country, city:city)
-        // Prepare the education entries
-        let education = CVData.shared.education.map { entry in
-            Education(degree: entry.degree!, institution: entry.institution!, startDate: entry.startDate!, endDate: entry.endDate)
-        }
-        let skills = CVData.shared.skill.map { entry in cvSkills(title: entry.skillTitle!) }
-        let workExperience = CVData.shared.experience.map { entry in WorkExperience(company: entry.company!, role: entry.role!, startDate: entry.startDate!,endDate: entry.endDate!, keyResponsibilities: entry.keyResponsibilities!)}
-      
-
-         // Create the CV object
-        let newCV = CV(personalDetails: personalDetails, skills: skills, education: education, workExperience: workExperience,cvTitle: cvTitle)
-
-        // Store the CV in Firestore
-        Task {
-            do {
-                try await CVManager.createNewCV(cv: newCV)
-                print("CV created successfully")
-                let storyboard = UIStoryboard(name: "CareerResourcesAndSkillDevelopment", bundle: nil)
-                if let myCVsVC = storyboard.instantiateViewController(identifier: "myCVs") as? CVBuilderEditorViewController {
-                    navigationController?.pushViewController(myCVsVC, animated: true)
+        let parameters: [String: String] = [
+            "upload_preset": uploadPreset
+        ]
+        
+        return try await withCheckedThrowingContinuation { continuation in
+            AF.upload(multipartFormData: { multipartFormData in
+                multipartFormData.append(imageData, withName: "file", fileName: "profile.jpg", mimeType: "image/jpeg")
+                for (key, value) in parameters {
+                    multipartFormData.append(value.data(using: .utf8)!, withName: key)
                 }
-            } catch {
-                print("Error creating CV: \(error.localizedDescription)")
+            }, to: cloudinaryURL)
+            .responseDecodable(of: CloudinaryResponse.self) { response in
+                switch response.result {
+                case .success(let cloudinaryResponse):
+                    print("Cloudinary response: \(cloudinaryResponse)") // Log the entire response
+                    continuation.resume(returning: cloudinaryResponse.secure_url)
+                    
+                case .failure(let error):
+                    continuation.resume(throwing: error)
+                }
             }
         }
-
     }
-
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         restoreCurrentPageData()
+        
+        // Change the publish button title based on edit mode
+//        if CVData.shared.cvToEdit != nil {
+//            btnPublish.setTitle("Save Changes", for: .normal)
+//        } else {
+//            btnPublish.setTitle("Publish", for: .normal)
+//        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -191,6 +293,7 @@ class CVBuilderEditorTableViewController: UITableViewController , UIImagePickerC
         countryErr.isHidden = true
         cityErr.isHidden = true
         cvTitleErr.isHidden = true
+        jobTitleErr.isHidden = true
         
         //clear text fields
         txtName.text = ""
@@ -200,6 +303,7 @@ class CVBuilderEditorTableViewController: UITableViewController , UIImagePickerC
         txtCity.text = ""
         txtCity.text = ""
         txtCVTitle.text = ""
+        txtJobTitle.text = ""
     }
     
     //only enable the go to education button when all fields are valid
@@ -363,14 +467,23 @@ class CVBuilderEditorTableViewController: UITableViewController , UIImagePickerC
     }
 
     
-    //function for preview validation
-    func invalidCVTitle(_ value: String) -> String? {
+    //function for titles validation
+    func checkForValidTitlesForm(){
+        if cvTitleErr.isHidden && jobTitleErr.isHidden {
+            btnPublish.isEnabled = true
+        }else{
+            btnPublish.isEnabled = false
+        }
+    }
+    
+    
+    func invalidTitle(_ value: String) -> String? {
         // Check if the CV title is empty
         if value.isEmpty {
             return "Must not be empty"
         }
         
-        // Check if the CV title contains only letters, numbers, spaces, and permissible punctuation
+        // Check if the CV/Job title contains only letters, numbers, spaces, and permissible punctuation
         let allowedCharacterSet = CharacterSet.letters
             .union(CharacterSet.decimalDigits)
             .union(CharacterSet.whitespaces)
@@ -381,7 +494,7 @@ class CVBuilderEditorTableViewController: UITableViewController , UIImagePickerC
             return "Must contain letters, numbers, spaces, or permissible punctuation only"
         }
         
-        // Check for minimum length (e.g., at least 2 characters)
+        // Check for minimum length
         if value.count < 2 {
             return "Must be at least 2 characters long"
         }
@@ -389,17 +502,33 @@ class CVBuilderEditorTableViewController: UITableViewController , UIImagePickerC
         return nil
     }
     
+
+    
     //text fields validation for preview page
     @IBAction func cvTitleChanged(_ sender: UITextField) {
         if let title = txtCVTitle.text {
-            if let errMsg = invalidCVTitle(title){
+            if let errMsg = invalidTitle(title){
                 cvTitleErr.text = errMsg
                 cvTitleErr.isHidden = false
             }else{
                 cvTitleErr.isHidden = true
             }
         }
+        checkForValidTitlesForm()
     }
+    
+    @IBAction func txtJobTitleChanged(_ sender: UITextField) {
+        if let title = txtCVTitle.text {
+            if let errMsg = invalidTitle(title){
+                jobTitleErr.text = errMsg
+                jobTitleErr.isHidden = false
+            }else{
+                jobTitleErr.isHidden = true
+            }
+        }
+        checkForValidTitlesForm()
+    }
+    
     
     // MARK: - Table view data source
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -409,7 +538,7 @@ class CVBuilderEditorTableViewController: UITableViewController , UIImagePickerC
     //enum to store table views tags
     enum CVSection: Int {
         case personalDetails = 101
-        case preview = 105
+        case titles = 105
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -417,7 +546,7 @@ class CVBuilderEditorTableViewController: UITableViewController , UIImagePickerC
         guard let cvSection = CVSection(rawValue: tableView.tag) else { return 0 }
         switch cvSection {
         case .personalDetails: return 7
-        case .preview: return 3
+        case .titles: return 3
         }
     }
     

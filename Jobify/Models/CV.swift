@@ -10,15 +10,19 @@ struct CV: Codable {
     var workExperience: [WorkExperience]
     var cvTitle: String
     var creationDate: Date
-    
-    init(personalDetails: PersonalDetails, skills: [cvSkills], education: [Education], workExperience: [WorkExperience],cvTitle: String,creationDate: Date = Date()) {
-        self.cvID = UUID().uuidString
+    var preferredTitle: String
+    var isFavorite: Bool?
+
+    init(cvID: String = UUID().uuidString, personalDetails: PersonalDetails, skills: [cvSkills], education: [Education], workExperience: [WorkExperience], cvTitle: String, creationDate: Date = Date(), preferredTitle: String, isFavorite: Bool? = nil) {
+        self.cvID = cvID
         self.personalDetails = personalDetails
         self.skills = skills
         self.education = education
         self.workExperience = workExperience
         self.cvTitle = cvTitle
         self.creationDate = creationDate
+        self.preferredTitle = preferredTitle
+        self.isFavorite = isFavorite
     }
 }
 
@@ -28,9 +32,9 @@ struct PersonalDetails: Codable {
     var phoneNumber: String
     var country: String
     var city: String
-    var profilePicture: String?
+    var profilePicture: String
 
-    init(name: String, email: String, phoneNumber: String, country: String, city: String, profilePicture: String? = nil) {
+    init(name: String, email: String, phoneNumber: String, country: String, city: String, profilePicture: String) {
         self.name = name
         self.email = email
         self.phoneNumber = phoneNumber
@@ -121,25 +125,72 @@ struct DB{
 
 final class CVManager {
     
-    private init(){} //singleton
-        private static let CVCollection = Firestore.firestore().collection(DB.FStore.CV.collectionName)
-        //get documents
-        private static func CVDocment(documentId: String) -> DocumentReference{
-            CVCollection.document(documentId)
-        }
-    static func createNewCV(cv: CV) async throws {
-        let docRef = try await CVCollection.addDocument(data: Firestore.Encoder().encode(cv))
+    private init() {} // Singleton
+    private static let CVCollection = Firestore.firestore().collection(DB.FStore.CV.collectionName)
 
-        try await CVDocment(documentId: docRef.documentID).updateData([
-            DB.FStore.CV.cvID: docRef.documentID
-        ])
+    // Get documents
+    private static func CVDocument(documentId: String) -> DocumentReference {
+        CVCollection.document(documentId)
     }
+
+    static func createNewCV(cv: CV) async throws {
+          do {
+              // Fetch all existing CVs
+              let existingCVs = try await getAllCVs()
+              let isFavorite = existingCVs.isEmpty // If there are no existing CVs, set isFavorite to true
+
+              // Create new CV with updated isFavorite
+              var newCV = cv
+              newCV.isFavorite = isFavorite // Set the isFavorite based on existing CVs
+              
+              let data = try DB.encoder.encode(newCV) // Use the DB encoder
+              let docRef = try await CVCollection.addDocument(data: data)
+
+              // Update the CV ID in Firestore
+              try await CVDocument(documentId: docRef.documentID).updateData([
+                  DB.FStore.CV.cvID: docRef.documentID
+              ])
+          } catch {
+              print("Error creating CV: \(error.localizedDescription)")
+              throw error // Re-throw the error for further handling
+          }
+      }
+
     
     // Function to fetch all CVs
     static func getAllCVs() async throws -> [CV] {
         let snapshot = try await CVCollection.getDocuments()
+        print("Fetched \(snapshot.documents.count) CVs.")
         return snapshot.documents.compactMap { document in
-            try? document.data(as: CV.self)
+            do {
+                let cv = try document.data(as: CV.self)
+                print("Successfully decoded CV: \(cv)")
+                return cv
+            } catch {
+                print("Error decoding CV for document ID \(document.documentID): \(error)")
+                return nil
+            }
+        }
+    }
+    
+    static func updateExistingCV(cvID: String, cv: CV) async throws {
+        do {
+            // Fetch the existing CV if necessary to check for isFavorite or other properties (optional)
+            let existingCVs = try await getAllCVs()
+            let isFavorite = existingCVs.contains(where: { $0.cvID == cv.cvID }) ? cv.isFavorite : false
+
+            // Update the CV object with the existing id
+            var updatedCV = cv
+            updatedCV.isFavorite = isFavorite // Ensure the isFavorite is set correctly
+
+            // Use the DB encoder to maintain the format
+            let data = try DB.encoder.encode(updatedCV)
+
+            // Update the document in Firestore
+            try await CVDocument(documentId: cvID).setData(data, merge: true)
+        } catch {
+            print("Error updating CV: \(error.localizedDescription)")
+            throw error // Re-throw the error for further handling
         }
     }
 }

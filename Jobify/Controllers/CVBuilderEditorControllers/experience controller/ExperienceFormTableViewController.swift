@@ -22,7 +22,7 @@ class ExperienceFormTableViewController: UITableViewController {
     @IBOutlet weak var experienceTo: UIDatePicker!
     
     
-    @IBOutlet weak var txtResponsibility: UITextField!
+    @IBOutlet weak var txtResponsibility: UITextView!
     
     @IBOutlet weak var companyErr: UILabel!
     
@@ -36,7 +36,7 @@ class ExperienceFormTableViewController: UITableViewController {
     var editIndex: Int?       // The index of the experience being edited
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        addBorderToTextView()
         // Populate the text field if editing
         if let experienceToEdit = experienceToEdit {
             txtCompany.text = experienceToEdit.company
@@ -49,29 +49,41 @@ class ExperienceFormTableViewController: UITableViewController {
 
 
     @IBAction func btnSaveExperienceTapped(_ sender: UIButton) {
-        checkForValidExperienceForm()
-        // Ensure end date is greater than or equal to start date
-        let startDate = experienceFrom.date
-        let endDate = experienceTo.date
-        
-        guard endDate >= startDate else {
-            let alert = UIAlertController(title: "Error", message: "End date must be greater than or equal to start date", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-            present(alert, animated: true, completion: nil)
-            return
-        }
-        let experience = WorkExperience(company: txtCompany.text!, role: txtRole.text!, startDate: startDate, endDate: endDate,keyResponsibilities: txtResponsibility.text!)
+        // Check for valid experience form
+           checkForValidExperienceForm()
+           
+           // Ensure all fields are filled
+           guard let company = txtCompany.text, !company.isEmpty,
+                 let role = txtRole.text, !role.isEmpty,
+                 let responsibilities = txtResponsibility.text, !responsibilities.isEmpty else {
+               let alert = UIAlertController(title: "Error", message: "All fields must be filled out", preferredStyle: .alert)
+               alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+               present(alert, animated: true, completion: nil)
+               return
+           }
 
+           // Ensure end date is greater than or equal to start date
+           let startDate = experienceFrom.date
+           let endDate = experienceTo.date
+           
+           guard endDate >= startDate else {
+               let alert = UIAlertController(title: "Error", message: "End date must be greater than the start date", preferredStyle: .alert)
+               alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+               present(alert, animated: true, completion: nil)
+               return
+           }
+           
+           let experience = WorkExperience(company: company, role: role, startDate: startDate, endDate: endDate, keyResponsibilities: responsibilities)
 
-          if let index = editIndex {
-              // Editing existing experience
-              delegate?.didEditExperience(experience, at: index)
-          } else {
-              // Adding new experience
-              delegate?.didSaveExperience(experience)
-          }
+           if let index = editIndex {
+               // Editing existing experience
+               delegate?.didEditExperience(experience, at: index)
+           } else {
+               // Adding new experience
+               delegate?.didSaveExperience(experience)
+           }
 
-          navigationController?.popViewController(animated: true)
+           navigationController?.popViewController(animated: true)
     }
     
     //validation
@@ -203,5 +215,12 @@ class ExperienceFormTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 6
+    }
+    
+    func addBorderToTextView() {
+        // Set border color and width
+        txtResponsibility.layer.borderColor = UIColor.gray.cgColor
+        txtResponsibility.layer.borderWidth = 1.0
+        txtResponsibility.layer.cornerRadius = 5.0
     }
 }

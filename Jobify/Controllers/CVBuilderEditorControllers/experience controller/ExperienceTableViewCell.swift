@@ -39,12 +39,20 @@ class ExperienceTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
+    
     func setup(experience: WorkExperience) {
         lblCompany.text = "Company: " + experience.company!
         lblRole.text = "Role: " + experience.role!
         lblFrom.text = "From: " + DateFormatter.localizedString(from: experience.startDate!, dateStyle: .medium, timeStyle: .none)
-        lblTo.text = experience.endDate != nil ? "To: " +  DateFormatter.localizedString(from: experience.endDate!, dateStyle: .medium, timeStyle: .none) : "Present"
+
+        // Check if the end date is greater than the current date
+        let currentDate = Date()
+        if let endDate = experience.endDate, endDate > currentDate {
+            lblTo.text = "To: Present"
+        } else {
+            lblTo.text = "To: " + DateFormatter.localizedString(from: experience.endDate ?? currentDate, dateStyle: .medium, timeStyle: .none)
+        }
+        
         lblKeyResponsibility.text = experience.keyResponsibilities
     }
-    
 }
