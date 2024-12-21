@@ -7,52 +7,51 @@ struct Job: Equatable {
     static var jobIdCounter = 0
     var jobId: Int
     var date: Date // Change to Date type
-    var time: String // Keep as String if you want to manage time separately
+    var time: String
     var title: String
-    var company: String
+    var companyDetails: EmployerDetails? // Store the company details object
     var level: JobLevel
-    var category: JobCategory
+    var category: CategoryJob
     var employmentType: EmploymentType
-    var location: String
-    var deadline: Date? // Make this optional
+    //var location: String
+    var deadline: Date?
     var desc: String
-    var requirement: String // Uncomment this
+    var requirement: String
     var extraAttachments: Data? = nil
     var applications: [JobApplication] = []
     
-    // Custom initializer
     init(
         title: String,
-        company: String,
+        companyDetails: EmployerDetails?,
         level: JobLevel,
-        category: JobCategory,
+        category: CategoryJob,
         employmentType: EmploymentType,
-        location: String,
-        deadline: Date?, // Make this optional
+       // location: String,
+        deadline: Date?,
         desc: String,
         requirement: String,
         extraAttachments: Data?,
-        date: Date, // Change to Date type
+        date: Date,
         time: String
     ) {
         Job.jobIdCounter += 1
         self.jobId = Job.jobIdCounter
         
-        self.date = date // Assign the Date from Firestore
-        self.time = time // Keep as String if needed
-        
+        self.date = date
+        self.time = time
         self.title = title
-        self.company = company
+        self.companyDetails = companyDetails
         self.level = level
         self.category = category
         self.employmentType = employmentType
-        self.location = location
-        self.deadline = deadline // Assign optional deadline
+       // self.location = location
+        self.deadline = deadline
         self.desc = desc
-        self.requirement = requirement // Assign requirement
+        self.requirement = requirement
         self.extraAttachments = extraAttachments
     }
-    
+}
+
     // Enums remain unchanged
     
     enum JobLevel: String {
@@ -67,7 +66,7 @@ struct Job: Equatable {
         case intern = "Intern"
     }
     
-    enum JobCategory: String {
+    enum CategoryJob: String {
         case informationTechnology = "Information Technology"
         case business = "Business"
         case healthcare = "Healthcare"
@@ -89,4 +88,4 @@ struct Job: Equatable {
         case remote = "Remote"
     }
     
-}
+

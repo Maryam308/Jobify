@@ -16,6 +16,17 @@ class HomeJobPostViewController: UIViewController, UICollectionViewDataSource, U
     @IBOutlet weak var recentJobPostCollectionView: UICollectionView!
     
     
+    
+    @IBAction func viewAllRecommendedJobs(_ sender: Any) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            if let jobPostsVC = storyboard.instantiateViewController(withIdentifier: "JobPostsViewController") as? JobPostsViewController {
+                jobPostsVC.source = .recommendedJobs
+                navigationController?.pushViewController(jobPostsVC, animated: true)
+            } else {
+                print("Failed to instantiate JobPostsViewController")
+        }
+    }
+    
     @IBAction func viewAllRecentJobs(_ sender: Any) {
         let storyboard = UIStoryboard(name: "JobBrowsingAndJobSearch_FatimaKhamis", bundle: nil)
         if let jobPostsVC = storyboard.instantiateViewController(withIdentifier: "JobPostsViewController") as? JobPostsViewController {
@@ -26,16 +37,7 @@ class HomeJobPostViewController: UIViewController, UICollectionViewDataSource, U
         }
     }
     
-    
-    
-   /* @IBAction func viewAllRecommendedJobs(_ sender: Any) {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            if let jobPostsVC = storyboard.instantiateViewController(withIdentifier: "JobPostsViewController") as? JobPostsViewController {
-                jobPostsVC.source = .recommendedJobs // Set the source to recommended jobs
-                navigationController?.pushViewController(jobPostsVC, animated: true)
-            }
-    }*/
-    
+
     
     let JobPostCollectionViewCellId = "JobPostCollectionViewCell"
     let JobsCollectionViewCellId = "JobsCollectionViewCell"

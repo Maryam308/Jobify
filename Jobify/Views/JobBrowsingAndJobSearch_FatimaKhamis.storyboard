@@ -112,7 +112,7 @@
                                                         <state key="normal" title="Button"/>
                                                         <buttonConfiguration key="configuration" style="plain" title="View All"/>
                                                         <connections>
-                                                            <action selector="viewAllRecentJobs:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="eXc-C8-g0v"/>
+                                                            <action selector="viewAllRecommendedJobs:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="jQi-8s-PGC"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
@@ -203,8 +203,7 @@
                                                         <state key="normal" title="Button"/>
                                                         <buttonConfiguration key="configuration" style="plain" title="View All"/>
                                                         <connections>
-                                                            <action selector="viewAllRecommendedJobs:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="UTE-2a-KAY"/>
-                                                            <segue destination="f0m-Lu-YlA" kind="show" id="bsL-u3-QlV"/>
+                                                            <action selector="viewAllRecentJobs:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="KH1-Q6-vhj"/>
                                                         </connections>
                                                     </button>
                                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="2vN-dV-gff">
@@ -397,7 +396,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="2te-zd-f0c">
-                                <rect key="frame" x="16" y="187" width="369.33333333333331" height="642"/>
+                                <rect key="frame" x="16" y="143" width="369.33333333333331" height="735"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="4zH-Jp-4Rg">
                                     <size key="itemSize" width="359.33333333333331" height="154"/>
@@ -418,7 +417,7 @@
                                 </cells>
                             </collectionView>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="LQd-RX-lvB">
-                                <rect key="frame" x="40.666666666666657" y="133" width="320" height="40"/>
+                                <rect key="frame" x="40.666666666666657" y="89" width="320" height="40"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tOS-X4-Oe3">
                                         <rect key="frame" x="0.0" y="0.0" width="150" height="40"/>
@@ -469,11 +468,11 @@
             <objects>
                 <viewController title="Job Post Filter" id="41u-V6-Oc8" customClass="FilterViewController" customModule="Jobify" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="BfC-PQ-WHq">
-                        <rect key="frame" x="0.0" y="0.0" width="402" height="874"/>
+                        <rect key="frame" x="0.0" y="0.0" width="402" height="864"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="9JN-DT-hgz">
-                                <rect key="frame" x="0.0" y="106" width="402" height="638"/>
+                                <rect key="frame" x="0.0" y="0.0" width="402" height="817"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </tableView>
                         </subviews>
@@ -500,11 +499,11 @@
             <objects>
                 <viewController title="JobPostSort" id="mT8-hC-IOq" customClass="SortViewController" customModule="Jobify" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="UI7-Qh-Qqe">
-                        <rect key="frame" x="0.0" y="0.0" width="402" height="874"/>
+                        <rect key="frame" x="0.0" y="0.0" width="402" height="864"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="4J9-nG-510">
-                                <rect key="frame" x="0.0" y="117" width="402" height="638"/>
+                                <rect key="frame" x="0.0" y="11" width="402" height="817"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="RadioTableViewCell" id="9Ki-ea-iYN" customClass="RadioTableViewCell" customModule="Jobify" customModuleProvider="target">

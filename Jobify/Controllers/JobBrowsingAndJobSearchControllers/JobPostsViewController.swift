@@ -2,9 +2,9 @@ import UIKit
 import FirebaseFirestore
 
 enum JobSource {
+    case recommendedJobs
     case recentJobs
-  
-    case category(String) // Holds the category title
+    case category(String)
 }
 
 class JobPostsViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
@@ -15,24 +15,22 @@ class JobPostsViewController: UIViewController, UICollectionViewDelegate, UIColl
     var jobs: [Job] = [] // Array to hold job postings
     let db = Firestore.firestore() // Firestore instance
     
-    // Property to hold the source of job postings
     var source: JobSource?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        fetchJobPostings() // Call to fetch from Firestore
+        fetchJobPostings() // Fetch data from Firestore
         
         jobPostCollectionView.delegate = self
         jobPostCollectionView.dataSource = self
         
-        // Register cell for job post
+        // Register the job cell for collection view
         let nib = UINib(nibName: JobPostCollectionViewCellId, bundle: nil)
         jobPostCollectionView.register(nib, forCellWithReuseIdentifier: JobPostCollectionViewCellId)
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        print("Jobs count: \(self.jobs.count)")
         return jobs.count
     }
     
@@ -40,28 +38,30 @@ class JobPostsViewController: UIViewController, UICollectionViewDelegate, UIColl
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: JobPostCollectionViewCellId, for: indexPath) as! JobPostCollectionViewCell
         let job = jobs[indexPath.row]
         
-        // Fill the cell with job data
-        cell.jobPostImageView.image = nil // Ensure this property is handled correctly
+        // Configure the cell with job data
+        cell.jobPostImageView.image = nil
         cell.jobPostTimelbl.text = job.time
-        cell.jobPostTitlelbl.text = job.company
+        cell.jobPostTitlelbl.text = job.companyDetails?.name ?? "No Company"
         
-        // Convert the datePosted to a string
+        // Format the date
         let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .medium // Adjust as needed
-        dateFormatter.timeStyle = .none // Set to .short if you want to include time
-
-        // Format the job's datePosted
-        cell.jobPostDatelbl.text = dateFormatter.string(from: job.date) // Use job.date for datePosted
+        dateFormatter.dateStyle = .medium
+        cell.jobPostDatelbl.text = dateFormatter.string(from: job.date)
         
         cell.jobPostLevellbl.setTitle(job.level.rawValue, for: .normal)
         cell.jobPostEnrollmentTypelbl.setTitle(job.employmentType.rawValue, for: .normal)
         cell.jobPostCategorylbl.setTitle(job.category.rawValue, for: .normal)
-        cell.joPostLocationlbl.setTitle(job.location, for: .normal)
+        
+        if let location = job.companyDetails?.location {
+            cell.joPostLocationlbl.setTitle(location.city, for: .normal)
+        }
+        
         cell.jobPostDescriptionTitlelbl.text = job.title
         cell.jobPostDescriptionlbl.text = job.desc
         
         return cell
     }
+
     func fetchJobPostings() {
         switch source {
         case .recentJobs:
@@ -87,7 +87,7 @@ class JobPostsViewController: UIViewController, UICollectionViewDelegate, UIColl
             print("No source provided.")
         }
     }
-
+    
     private func handleJobPostFetch(snapshot: QuerySnapshot?, error: Error?) {
         if let error = error {
             print("Error fetching job postings: \(error.localizedDescription)")
@@ -99,93 +99,119 @@ class JobPostsViewController: UIViewController, UICollectionViewDelegate, UIColl
             return
         }
         
-        print("Total documents fetched: \(documents.count)") // Log total documents
+        self.jobs.removeAll() // Clear existing jobs
         
-        // Clear existing jobs
-        self.jobs.removeAll()
-        
-        // Initialize DateFormatter
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd" // Adjust according to your format if needed
-        
+        let dispatchGroup = DispatchGroup() // To wait for asynchronous fetches
+
         for document in documents {
             let data = document.data()
-            print("Document data: \(data)") // Log each document's data
             
-            if let title = data["jobTitle"] as? String {
-                print("Processing job title: \(title)") // Log the title being processed
+            if let title = data["jobTitle"] as? String,
+               let companyRef = data["companyRef"] as? DocumentReference {
                 
-                let company = data["companyName"] as? String ?? "Unknown"
                 let levelRaw = data["jobLevel"] as? String ?? "Unknown"
-                let level = Job.JobLevel(rawValue: levelRaw)
+                let level = JobLevel(rawValue: levelRaw)
                 
-                // Safely unwrap JobLevel
                 guard let jobLevel = level else {
                     print("Invalid job level: \(levelRaw) for document ID: \(document.documentID)")
-                    continue // Skip this document if level is invalid
+                    continue
                 }
                 
                 let categoryRaw = data["jobCategory"] as? String ?? "Unknown"
-                let category = Job.JobCategory(rawValue: categoryRaw)
+                let category = CategoryJob(rawValue: categoryRaw)
                 
-                // Safely unwrap JobCategory
                 guard let jobCategory = category else {
                     print("Invalid job category: \(categoryRaw) for document ID: \(document.documentID)")
-                    continue // Skip this document if category is invalid
+                    continue
                 }
                 
                 let employmentTypeRaw = data["jobEmploymentType"] as? String ?? "Unknown"
-                let employmentType = Job.EmploymentType(rawValue: employmentTypeRaw)
+                let employmentType = EmploymentType(rawValue: employmentTypeRaw)
                 
-                // Safely unwrap EmploymentType
                 guard let jobEmploymentType = employmentType else {
                     print("Invalid employment type: \(employmentTypeRaw) for document ID: \(document.documentID)")
-                    continue // Skip this document if employment type is invalid
+                    continue
                 }
                 
-                let location = data["jobLocation"] as? String ?? "Unknown"
-                
-                // Retrieve the timestamp for jobPostDate
                 if let datePosted = data["jobPostDate"] as? Timestamp {
                     let date = datePosted.dateValue() // Convert Timestamp to Date
                     let timePostedString = data["jobPostTime"] as? String ?? "Unknown"
                     let desc = data["jobDescription"] as? String ?? "Unknown"
                     
-                    // Retrieve the deadline as Timestamp
                     let deadline: Date?
                     if let deadlineTimestamp = data["jobDeadlineDate"] as? Timestamp {
-                        deadline = deadlineTimestamp.dateValue() // Convert Timestamp to Date
+                        deadline = deadlineTimestamp.dateValue()
                     } else {
-                        deadline = nil // Handle as optional if not present
+                        deadline = nil
                     }
                     
                     let requirement = data["jobRequirement"] as? String ?? "No requirements specified"
                     
-                    let job = Job(
+                    var job = Job(
                         title: title,
-                        company: company,
+                        companyDetails: nil,
                         level: jobLevel,
                         category: jobCategory,
                         employmentType: jobEmploymentType,
-                        location: location,
-                        deadline: deadline, // Use Date type for deadline
+                        deadline: deadline,
                         desc: desc,
                         requirement: requirement,
                         extraAttachments: nil,
-                        date: date, // Use Date type for job post date
+                        date: date,
                         time: timePostedString
                     )
                     
-                    self.jobs.append(job) // Append the job to the jobs array
-                } else {
-                    print("Failed to parse date for document ID: \(document.documentID)")
+                    dispatchGroup.enter() // Start waiting for the company details
+                    
+                    // Fetch company details asynchronously
+                    companyRef.getDocument { (companySnapshot, error) in
+                        if let error = error {
+                            print("Error fetching company details: \(error.localizedDescription)")
+                            dispatchGroup.leave() // Leave the group if there's an error
+                            return
+                        }
+
+                        if let companyData = companySnapshot?.data() {
+                            let companyName = companyData["name"] as? String ?? "Unknown"
+                            let userId = companyData["userId"] as? Int ?? 0
+                            let email = companyData["email"] as? String ?? "Unknown"
+                            
+                            var location: EmployerDetails.Location? = nil
+                            if let locationData = companyData["location"] as? [String: Any] {
+                                let country = locationData["country"] as? String ?? "Unknown"
+                                let city = locationData["city"] as? String ?? "Unknown"
+                                location = EmployerDetails.Location(country: country, city: city)
+                            }
+                            
+                            let companyMainCategory = companyData["companyMainCategory"] as? String
+                            let aboutUs = companyData["aboutUs"] as? String
+                            let employabilityGoals = companyData["employabilityGoals"] as? String
+                            let vision = companyData["vision"] as? String
+                            
+                            let companyDetails = EmployerDetails(
+                                name: companyName,
+                                userId: userId,
+                                email: email,
+                                location: location,
+                                companyMainCategory: companyMainCategory,
+                                aboutUs: aboutUs,
+                                employabilityGoals: employabilityGoals,
+                                vision: vision
+                            )
+                            
+                            job.companyDetails = companyDetails
+                        }
+                        
+                        dispatchGroup.leave() // Done with fetching company details
+                    }
+                    
+                    // Wait for all asynchronous fetches to complete
+                    dispatchGroup.notify(queue: .main) {
+                        self.jobs.append(job)
+                        self.jobPostCollectionView.reloadData()
+                    }
                 }
-            } else {
-                print("Failed to parse document: \(data) for document ID: \(document.documentID)") // Log if parsing fails
             }
         }
-        
-        print("Total valid jobs added: \(self.jobs.count)") // Log valid jobs added
-        self.jobPostCollectionView.reloadData()
     }
 }
