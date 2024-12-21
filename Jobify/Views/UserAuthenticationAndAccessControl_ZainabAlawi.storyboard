@@ -12,7 +12,7 @@
         <!--Login Screen-->
         <scene sceneID="s0d-6b-0kx">
             <objects>
-                <viewController title="Login Screen" id="Y6W-OH-hqX" sceneMemberID="viewController">
+                <viewController title="Login Screen" id="Y6W-OH-hqX" customClass="LoginController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -926,7 +926,7 @@ Under PDPL, you have the right to access, correct, and request the deletion of y
         <!--Profile View Controller-->
         <scene sceneID="6Rj-dc-wF0">
             <objects>
-                <viewController storyboardIdentifier="ProfileViewController" id="3sM-Go-7js" customClass="ProfileViewController" customModule="testProfile" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ProfileViewController" id="3sM-Go-7js" customClass="ProfileViewController" customModule="Jobify" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="wiq-Ru-vHU">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
