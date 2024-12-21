@@ -15,6 +15,28 @@ class HomeJobPostViewController: UIViewController, UICollectionViewDataSource, U
     
     @IBOutlet weak var recentJobPostCollectionView: UICollectionView!
     
+    
+    @IBAction func viewAllRecentJobs(_ sender: Any) {
+        let storyboard = UIStoryboard(name: "JobBrowsingAndJobSearch_FatimaKhamis", bundle: nil)
+        if let jobPostsVC = storyboard.instantiateViewController(withIdentifier: "JobPostsViewController") as? JobPostsViewController {
+            jobPostsVC.source = .recentJobs // Set the source to recent jobs
+            navigationController?.pushViewController(jobPostsVC, animated: true)
+        } else {
+            print("Failed to instantiate JobPostsViewController")
+        }
+    }
+    
+    
+    
+   /* @IBAction func viewAllRecommendedJobs(_ sender: Any) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            if let jobPostsVC = storyboard.instantiateViewController(withIdentifier: "JobPostsViewController") as? JobPostsViewController {
+                jobPostsVC.source = .recommendedJobs // Set the source to recommended jobs
+                navigationController?.pushViewController(jobPostsVC, animated: true)
+            }
+    }*/
+    
+    
     let JobPostCollectionViewCellId = "JobPostCollectionViewCell"
     let JobsCollectionViewCellId = "JobsCollectionViewCell"
     let recentJobPostCollectionViewCellId = "JobPostCollectionViewCell"
@@ -170,7 +192,23 @@ class HomeJobPostViewController: UIViewController, UICollectionViewDataSource, U
         return CGSize(width: 0, height: 0)
     }
     
+    //  did select category
+    // didSelectItemAt for categoryCollectionView
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if collectionView == categoryCollectionView {
+            let selectedCategory = categories[indexPath.row].title
+            
+            let storyboard = UIStoryboard(name: "JobBrowsingAndJobSearch_FatimaKhamis", bundle: nil)
+            if let jobPostsVC = storyboard.instantiateViewController(withIdentifier: "JobPostsViewController") as? JobPostsViewController {
+                jobPostsVC.source = .category(selectedCategory) // Pass the selected category
+                navigationController?.pushViewController(jobPostsVC, animated: true)
+            }
+        }
+    }
 }
+
+    
+
 
 
 

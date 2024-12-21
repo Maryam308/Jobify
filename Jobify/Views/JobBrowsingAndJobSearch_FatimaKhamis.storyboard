@@ -112,7 +112,7 @@
                                                         <state key="normal" title="Button"/>
                                                         <buttonConfiguration key="configuration" style="plain" title="View All"/>
                                                         <connections>
-                                                            <segue destination="f0m-Lu-YlA" kind="show" id="qwT-Wf-BPi"/>
+                                                            <action selector="viewAllRecentJobs:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="eXc-C8-g0v"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
@@ -203,7 +203,8 @@
                                                         <state key="normal" title="Button"/>
                                                         <buttonConfiguration key="configuration" style="plain" title="View All"/>
                                                         <connections>
-                                                            <segue destination="f0m-Lu-YlA" kind="show" id="Q5a-7b-CPA"/>
+                                                            <action selector="viewAllRecommendedJobs:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="UTE-2a-KAY"/>
+                                                            <segue destination="f0m-Lu-YlA" kind="show" id="bsL-u3-QlV"/>
                                                         </connections>
                                                     </button>
                                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="2vN-dV-gff">
@@ -390,7 +391,7 @@
         <!--Job Posts-->
         <scene sceneID="BwY-uK-g7q">
             <objects>
-                <viewController id="f0m-Lu-YlA" customClass="JobPostsViewController" customModule="Jobify" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="JobPostsViewController" id="f0m-Lu-YlA" customClass="JobPostsViewController" customModule="Jobify" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="eZo-fK-pbe">
                         <rect key="frame" x="0.0" y="0.0" width="402" height="874"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -831,9 +832,6 @@ Requests</string>
             <point key="canvasLocation" x="1880.5970149253731" y="669.33638443935922"/>
         </scene>
     </scenes>
-    <inferredMetricsTieBreakers>
-        <segue reference="qwT-Wf-BPi"/>
-    </inferredMetricsTieBreakers>
     <resources>
         <image name="Batelco Logo" width="75" height="75"/>
         <image name="IconHamburgerMenu" width="16.666666030883789" height="16.666666030883789"/>
