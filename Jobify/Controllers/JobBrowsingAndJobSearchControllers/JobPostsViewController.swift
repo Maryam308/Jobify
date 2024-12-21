@@ -44,7 +44,15 @@ class JobPostsViewController: UIViewController, UICollectionViewDelegate, UIColl
         cell.jobPostImageView.image = nil // Ensure this property is handled correctly
         cell.jobPostTimelbl.text = job.time
         cell.jobPostTitlelbl.text = job.company
-        cell.jobPostDatelbl.text = job.date
+        
+        // Convert the datePosted to a string
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .medium // Adjust as needed
+        dateFormatter.timeStyle = .none // Set to .short if you want to include time
+
+        // Format the job's datePosted
+        cell.jobPostDatelbl.text = dateFormatter.string(from: job.date) // Use job.date for datePosted
+        
         cell.jobPostLevellbl.setTitle(job.level.rawValue, for: .normal)
         cell.jobPostEnrollmentTypelbl.setTitle(job.employmentType.rawValue, for: .normal)
         cell.jobPostCategorylbl.setTitle(job.category.rawValue, for: .normal)
@@ -54,19 +62,27 @@ class JobPostsViewController: UIViewController, UICollectionViewDelegate, UIColl
         
         return cell
     }
-    
     func fetchJobPostings() {
         switch source {
         case .recentJobs:
-            // Fetch recent job postings
-            db.collection("jobPost").order(by: "datePosted", descending: true).getDocuments { (snapshot, error) in
-                self.handleJobPostFetch(snapshot: snapshot, error: error)
+            db.collection("jobPost").order(by: "jobPostDate", descending: true).getDocuments { (snapshot, error) in
+                if let error = error {
+                    print("Error fetching recent jobs: \(error.localizedDescription)")
+                    return
+                }
+                self.handleJobPostFetch(snapshot: snapshot, error: nil)
             }
         case .category(let category):
-            // Fetch job postings for a specific category
-            db.collection("jobPost").whereField("jobCategory", isEqualTo: category).getDocuments { (snapshot, error) in
-                self.handleJobPostFetch(snapshot: snapshot, error: error)
-            }
+            db.collection("jobPost")
+                .whereField("jobCategory", isEqualTo: category)
+                .order(by: "jobPostDate", descending: true)
+                .getDocuments { (snapshot, error) in
+                    if let error = error {
+                        print("Error fetching jobs for category \(category): \(error.localizedDescription)")
+                        return
+                    }
+                    self.handleJobPostFetch(snapshot: snapshot, error: nil)
+                }
         case .none:
             print("No source provided.")
         }
@@ -88,8 +104,9 @@ class JobPostsViewController: UIViewController, UICollectionViewDelegate, UIColl
         // Clear existing jobs
         self.jobs.removeAll()
         
+        // Initialize DateFormatter
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd" // Adjust according to your format
+        dateFormatter.dateFormat = "yyyy-MM-dd" // Adjust according to your format if needed
         
         for document in documents {
             let data = document.data()
@@ -127,30 +144,42 @@ class JobPostsViewController: UIViewController, UICollectionViewDelegate, UIColl
                 }
                 
                 let location = data["jobLocation"] as? String ?? "Unknown"
-                let datePostedString = data["jobPostDate"] as? String ?? "Unknown"
-                let timePostedString = data["jobPostTime"] as? String ?? "Unknown"
-                let desc = data["jobDescription"] as? String ?? "Unknown"
-                let deadlineString = data["jobDeadlineDate"] as? String ?? "Unknown"
-                let deadline = dateFormatter.date(from: deadlineString)
                 
-                let requirement = data["jobRequirement"] as? String ?? "No requirements specified"
-                
-                let job = Job(
-                    title: title,
-                    company: company,
-                    level: jobLevel,
-                    category: jobCategory,
-                    employmentType: jobEmploymentType,
-                    location: location,
-                    deadline: deadline,
-                    desc: desc,
-                    requirement: requirement,
-                    extraAttachments: nil,
-                    date: datePostedString,
-                    time: timePostedString
-                )
-                
-                self.jobs.append(job) // Append the job to the jobs array
+                // Retrieve the timestamp for jobPostDate
+                if let datePosted = data["jobPostDate"] as? Timestamp {
+                    let date = datePosted.dateValue() // Convert Timestamp to Date
+                    let timePostedString = data["jobPostTime"] as? String ?? "Unknown"
+                    let desc = data["jobDescription"] as? String ?? "Unknown"
+                    
+                    // Retrieve the deadline as Timestamp
+                    let deadline: Date?
+                    if let deadlineTimestamp = data["jobDeadlineDate"] as? Timestamp {
+                        deadline = deadlineTimestamp.dateValue() // Convert Timestamp to Date
+                    } else {
+                        deadline = nil // Handle as optional if not present
+                    }
+                    
+                    let requirement = data["jobRequirement"] as? String ?? "No requirements specified"
+                    
+                    let job = Job(
+                        title: title,
+                        company: company,
+                        level: jobLevel,
+                        category: jobCategory,
+                        employmentType: jobEmploymentType,
+                        location: location,
+                        deadline: deadline, // Use Date type for deadline
+                        desc: desc,
+                        requirement: requirement,
+                        extraAttachments: nil,
+                        date: date, // Use Date type for job post date
+                        time: timePostedString
+                    )
+                    
+                    self.jobs.append(job) // Append the job to the jobs array
+                } else {
+                    print("Failed to parse date for document ID: \(document.documentID)")
+                }
             } else {
                 print("Failed to parse document: \(data) for document ID: \(document.documentID)") // Log if parsing fails
             }

@@ -1,5 +1,4 @@
 import Foundation
-
 struct Job: Equatable {
     static func == (lhs: Job, rhs: Job) -> Bool {
         lhs.jobId == rhs.jobId
@@ -7,8 +6,8 @@ struct Job: Equatable {
     
     static var jobIdCounter = 0
     var jobId: Int
-    var date: String
-    var time: String
+    var date: Date // Change to Date type
+    var time: String // Keep as String if you want to manage time separately
     var title: String
     var company: String
     var level: JobLevel
@@ -20,7 +19,7 @@ struct Job: Equatable {
     var requirement: String // Uncomment this
     var extraAttachments: Data? = nil
     var applications: [JobApplication] = []
-
+    
     // Custom initializer
     init(
         title: String,
@@ -33,14 +32,14 @@ struct Job: Equatable {
         desc: String,
         requirement: String,
         extraAttachments: Data?,
-        date: String,
+        date: Date, // Change to Date type
         time: String
     ) {
         Job.jobIdCounter += 1
         self.jobId = Job.jobIdCounter
         
-        self.date = date // Pass Firestore's `jobPostDate`
-        self.time = time // Pass Firestore's `jobPostTime`
+        self.date = date // Assign the Date from Firestore
+        self.time = time // Keep as String if needed
         
         self.title = title
         self.company = company
@@ -53,7 +52,9 @@ struct Job: Equatable {
         self.requirement = requirement // Assign requirement
         self.extraAttachments = extraAttachments
     }
-
+    
+    // Enums remain unchanged
+    
     enum JobLevel: String {
         case entryLevel = "Entry Level"
         case junior = "Junior"
@@ -87,4 +88,5 @@ struct Job: Equatable {
         case contract = "Contract"
         case remote = "Remote"
     }
+    
 }
