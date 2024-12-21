@@ -25,6 +25,7 @@ class CVData {
     var country: String?
     var city: String?
     var profileImage: UIImage?
+    var profileImageURL: String?
     
     // Education Details
     var education: [Education]=[]
@@ -120,12 +121,37 @@ class CVBuilderEditorTableViewController: UITableViewController , UIImagePickerC
             txtPhone.text = CVData.shared.phone
             txtCountry.text = CVData.shared.country
             txtCity.text = CVData.shared.city
-            CVImage.image = CVData.shared.profileImage
+            // Fetch the profile image from the URL and set it
+            if let profileImageURL = CVData.shared.profileImageURL, let url = URL(string: profileImageURL) {
+                loadImage(from: url) // Load and set the image
+            } else {
+                CVImage.image = UIImage(systemName: "person.crop.circle") // Default image
+            }
+            
             
         case .titles:
             txtCVTitle.text = CVData.shared.cvTitle
             txtJobTitle.text = CVData.shared.jobTitle
         }
+    }
+    
+    private func loadImage(from url: URL) {
+        let task = URLSession.shared.dataTask(with: url) { data, response, error in
+            guard let data = data, error == nil else {
+                DispatchQueue.main.async {
+                    self.CVImage.image = UIImage(systemName: "person.crop.circle") // Fallback image
+                }
+                return
+            }
+            DispatchQueue.main.async {
+                if let image = UIImage(data: data) {
+                    self.CVImage.image = image // Update the imageView directly
+                } else {
+                    self.CVImage.image = UIImage(systemName: "person.crop.circle") // Fallback image
+                }
+            }
+        }
+        task.resume()
     }
     
     
@@ -147,7 +173,7 @@ class CVBuilderEditorTableViewController: UITableViewController , UIImagePickerC
                 let jobTitle = CVData.shared.jobTitle,
                 let cvImage = CVData.shared.profileImage,
                 !CVData.shared.education.isEmpty,
-                !CVData.shared.skill.isEmpty else {
+                !CVData.shared.skill.isEmpty, !jobTitle.isEmpty, !city.isEmpty,!cvTitle.isEmpty,!fname.isEmpty,!email.isEmpty,!phone.isEmpty,!country.isEmpty else {
               let alert = UIAlertController(title: "Missing Information",
                                             message: "All fields must be filled.",
                                             preferredStyle: .alert)
@@ -269,13 +295,6 @@ class CVBuilderEditorTableViewController: UITableViewController , UIImagePickerC
     override func viewDidLoad() {
         super.viewDidLoad()
         restoreCurrentPageData()
-        
-        // Change the publish button title based on edit mode
-//        if CVData.shared.cvToEdit != nil {
-//            btnPublish.setTitle("Save Changes", for: .normal)
-//        } else {
-//            btnPublish.setTitle("Publish", for: .normal)
-//        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {

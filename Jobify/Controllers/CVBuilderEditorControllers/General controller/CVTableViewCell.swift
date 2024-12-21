@@ -39,8 +39,8 @@ class CVTableViewCell: UITableViewCell {
           CVData.shared.phone = cv.personalDetails.phoneNumber
           CVData.shared.country = cv.personalDetails.country
           CVData.shared.city = cv.personalDetails.city
-          CVData.shared.profileImage = UIImage(named: cv.personalDetails.profilePicture)
-          
+          CVData.shared.profileImageURL = cv.personalDetails.profilePicture
+        
           // Populate education, skills, and experience
           CVData.shared.education = cv.education
           CVData.shared.skill = cv.skills
@@ -83,12 +83,13 @@ class CVTableViewCell: UITableViewCell {
         let formattedDate = dateFormatter.string(from: cv.creationDate)
         lblCVAddDate.text = formattedDate
         
-        // Set the CV image
-        if let imageUrl = URL(string: cv.personalDetails.profilePicture) {
-            loadImage(from: imageUrl)
-        } else {
-            cvImage.image = nil // Set to nil if the URL is invalid
-        }
+//        // Set the CV image
+//        if let imageUrl = URL(string: cv.personalDetails.profilePicture) {
+//            loadImage(from: imageUrl)
+//        } else {
+//            cvImage.image = nil // Set to nil if the URL is invalid
+//        }
+//
         
         updateFavoriteButton() // Ensure the button reflects the current favorite state
     }
@@ -105,6 +106,7 @@ class CVTableViewCell: UITableViewCell {
            }
            task.resume()
        }
+    
     
     override func awakeFromNib() {
         super.awakeFromNib()

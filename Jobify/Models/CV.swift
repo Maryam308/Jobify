@@ -175,19 +175,13 @@ final class CVManager {
     
     static func updateExistingCV(cvID: String, cv: CV) async throws {
         do {
-            // Fetch the existing CV if necessary to check for isFavorite or other properties (optional)
-            let existingCVs = try await getAllCVs()
-            let isFavorite = existingCVs.contains(where: { $0.cvID == cv.cvID }) ? cv.isFavorite : false
+            // Use the DB encoder to prepare the data
+            let data = try DB.encoder.encode(cv)
 
-            // Update the CV object with the existing id
-            var updatedCV = cv
-            updatedCV.isFavorite = isFavorite // Ensure the isFavorite is set correctly
-
-            // Use the DB encoder to maintain the format
-            let data = try DB.encoder.encode(updatedCV)
-
-            // Update the document in Firestore
+            // Update the document in Firestore, merge true to keep existing fields
             try await CVDocument(documentId: cvID).setData(data, merge: true)
+            
+            print("CV updated successfully.")
         } catch {
             print("Error updating CV: \(error.localizedDescription)")
             throw error // Re-throw the error for further handling
