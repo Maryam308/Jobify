@@ -154,7 +154,7 @@ struct AdminDetails{
         
     }
     
-    mutating func addNewLearningResource(type: LearningResourceType, summary: String, link: String, skillToDevelop: String){
+    mutating func addNewLearningResource(type: String, summary: String, link: String, skillToDevelop: String){
         
         //create new learning resource
         var newLearningResource = LearningResource(type: type, summary: summary, link: link, skillToDevelop: skillToDevelop)

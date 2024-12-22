@@ -40,11 +40,15 @@ struct LearningResource: Equatable{
     }
     
     static var resourceIdCounter: Int = 0
-    var learningResourceId: Int
-    var type: String
-    var summary: String
-    var link: String
-    var skillToDevelop: String //since the skill will be displayed in a drop down list there wont be a problem to use its title
+    var learningResourceId: Int = 0
+    var type: String = ""
+    var summary: String = ""
+    var link: String = ""
+    var title: String = ""
+    var datePublished = Date()
+    var skillToDevelop: String = "" //since the skill will be displayed in a drop down list there wont be a problem to use its title
+    
+    init(){}
     
     init(type: String, summary: String, link: String, skillToDevelop: String) {
         
