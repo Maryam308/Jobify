@@ -252,10 +252,14 @@ class CVBuilderEditorTableViewController: UITableViewController , UIImagePickerC
                   }
                   
                   // Navigate back to the CVs view controller and refresh data
-                  let storyboard = UIStoryboard(name: "CareerResourcesAndSkillDevelopment", bundle: nil)
-                  if let myCVsVC = storyboard.instantiateViewController(identifier: "myCVs") as? CVBuilderEditorViewController {
-                      myCVsVC.fetchCVs() // Ensure the latest CVs are fetched
-                      navigationController?.pushViewController(myCVsVC, animated: true)
+                  if let viewControllers = navigationController?.viewControllers {
+                      for viewController in viewControllers {
+                          if let myCVsVC = viewController as? CVBuilderEditorViewController {
+                              navigationController?.popToViewController(myCVsVC, animated: true)
+                              myCVsVC.fetchCVs() // Ensure the latest CVs are fetched
+                              return
+                          }
+                      }
                   }
               } catch {
                   print("Error saving CV: \(error.localizedDescription)")

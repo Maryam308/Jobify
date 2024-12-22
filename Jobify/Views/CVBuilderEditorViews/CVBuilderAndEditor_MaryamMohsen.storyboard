@@ -3,6 +3,154 @@
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="collection view cell content view" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
-    <scenes/>
+    <scenes>
+        <!--Career Advising View Controller-->
+        <scene sceneID="1IQ-22-Y2e">
+            <objects>
+                <viewController id="2ai-Wh-3VO" customClass="CareerAdvisingViewController" customModule="Jobify" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="TJs-3a-d4G">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.25" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LearningResourcesImg" adjustsImageSizeForAccessibilityContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lvi-Aj-Fa4">
+                                <rect key="frame" x="22" y="252" width="346" height="146"/>
+                                <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="medium"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pgw-3T-MU6">
+                                <rect key="frame" x="36" y="331" width="146" height="39"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="View Resources">
+                                    <color key="baseBackgroundColor" red="0.1137254902" green="0.1764705882" blue="0.2666666667" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </buttonConfiguration>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Career Advising" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rVb-FO-SQX">
+                                <rect key="frame" x="16" y="90" width="186" height="30"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="justified" translatesAutoresizingMaskIntoConstraints="NO" id="dSS-Ue-geH">
+                                <rect key="frame" x="22" y="128" width="346" height="107"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="107" id="vze-8h-lJG"/>
+                                </constraints>
+                                <string key="text">Explore various career paths, discover valuable resources, and connect with experienced industry mentors to support you on your journey to achieving your professional goals and excelling in your chosen field.</string>
+                                <color key="textColor" systemColor="labelColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kak-aZ-yC6">
+                                <rect key="frame" x="212.66666666666663" y="86" width="155.33333333333337" height="39"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Saved Resources">
+                                    <color key="baseBackgroundColor" red="0.1137254902" green="0.1764705882" blue="0.2666666667" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </buttonConfiguration>
+                            </button>
+                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rxB-x0-STZ">
+                                <rect key="frame" x="5" y="442" width="384" height="188.33333333333348"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Career paths" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XyB-cw-XLX">
+                                        <rect key="frame" x="22" y="21.666666666666671" width="112" height="22"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cGc-gX-owW">
+                                        <rect key="frame" x="273" y="13.333333333333332" width="84" height="38.666666666666671"/>
+                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="View All"/>
+                                    </button>
+                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Veg-rh-sQn">
+                                        <rect key="frame" x="22" y="66" width="335" height="114.33333333333331"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="cmZ-Lf-j3w">
+                                            <size key="itemSize" width="140" height="125.33333333333331"/>
+                                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        </collectionViewFlowLayout>
+                                        <cells>
+                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="careerPathCollectionViewCellId" id="3dh-lH-2Xs" customClass="JobsCollectionViewCell" customModule="Jobify" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="-5.666666666666667" width="140" height="125.33333333333331"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="J0A-Wu-G6l">
+                                                    <rect key="frame" x="0.0" y="0.0" width="140" height="125.33333333333331"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                </collectionViewCellContentView>
+                                                <size key="customSize" width="140" height="125.33333333333331"/>
+                                            </collectionViewCell>
+                                        </cells>
+                                    </collectionView>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstItem="Veg-rh-sQn" firstAttribute="trailing" secondItem="rxB-x0-STZ" secondAttribute="trailing" constant="-27" id="0tx-Fh-Olw"/>
+                                    <constraint firstItem="XyB-cw-XLX" firstAttribute="centerY" secondItem="cGc-gX-owW" secondAttribute="centerY" id="2R1-7w-KKf"/>
+                                    <constraint firstItem="Veg-rh-sQn" firstAttribute="top" secondItem="cGc-gX-owW" secondAttribute="bottom" constant="14.33" id="R4a-55-qa5"/>
+                                    <constraint firstAttribute="bottom" secondItem="Veg-rh-sQn" secondAttribute="bottom" constant="8" id="VYS-xQ-XqS"/>
+                                    <constraint firstItem="XyB-cw-XLX" firstAttribute="top" secondItem="rxB-x0-STZ" secondAttribute="top" constant="21.666666666666686" id="ZJs-Eg-iy2"/>
+                                    <constraint firstAttribute="trailing" secondItem="cGc-gX-owW" secondAttribute="trailing" constant="27" id="coW-w8-TkQ"/>
+                                    <constraint firstItem="Veg-rh-sQn" firstAttribute="leading" secondItem="rxB-x0-STZ" secondAttribute="leading" constant="22" id="eSc-0C-5uc"/>
+                                    <constraint firstItem="XyB-cw-XLX" firstAttribute="leading" secondItem="rxB-x0-STZ" secondAttribute="leading" constant="22" id="l4d-8G-BCf"/>
+                                    <constraint firstItem="XyB-cw-XLX" firstAttribute="leading" secondItem="rxB-x0-STZ" secondAttribute="leading" constant="22" id="lBc-bD-Ykq"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Learning Resources" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rJX-c4-i9O">
+                                <rect key="frame" x="36" y="276" width="194" height="27"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="zok-7R-HiG"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="rJX-c4-i9O" firstAttribute="leading" secondItem="zok-7R-HiG" secondAttribute="leading" constant="36" id="61t-8N-huB"/>
+                            <constraint firstItem="zok-7R-HiG" firstAttribute="trailing" secondItem="rxB-x0-STZ" secondAttribute="trailing" constant="4" id="AvE-31-jLe"/>
+                            <constraint firstItem="dSS-Ue-geH" firstAttribute="trailing" secondItem="lvi-Aj-Fa4" secondAttribute="trailing" id="AxM-gL-TgI"/>
+                            <constraint firstItem="dSS-Ue-geH" firstAttribute="top" secondItem="TJs-3a-d4G" secondAttribute="top" constant="128" id="C7M-tV-zPB"/>
+                            <constraint firstItem="rVb-FO-SQX" firstAttribute="leading" secondItem="zok-7R-HiG" secondAttribute="leading" constant="16" id="CLv-BG-zja"/>
+                            <constraint firstItem="lvi-Aj-Fa4" firstAttribute="leading" secondItem="zok-7R-HiG" secondAttribute="leading" constant="22" id="Cxs-yl-C49"/>
+                            <constraint firstItem="zok-7R-HiG" firstAttribute="trailing" secondItem="Kak-aZ-yC6" secondAttribute="trailing" constant="25" id="EmX-bD-EEa"/>
+                            <constraint firstItem="dSS-Ue-geH" firstAttribute="top" secondItem="rVb-FO-SQX" secondAttribute="bottom" constant="8" id="Mif-mm-6Bi"/>
+                            <constraint firstItem="lvi-Aj-Fa4" firstAttribute="top" secondItem="dSS-Ue-geH" secondAttribute="bottom" constant="17" id="NmW-HH-ucj"/>
+                            <constraint firstItem="zok-7R-HiG" firstAttribute="trailing" secondItem="lvi-Aj-Fa4" secondAttribute="trailing" constant="25" id="QfG-d8-NQ9"/>
+                            <constraint firstItem="zok-7R-HiG" firstAttribute="trailing" secondItem="dSS-Ue-geH" secondAttribute="trailing" constant="25" id="Sas-tf-tsX"/>
+                            <constraint firstItem="rJX-c4-i9O" firstAttribute="leading" secondItem="zok-7R-HiG" secondAttribute="leading" constant="36" id="TSu-em-n8H"/>
+                            <constraint firstItem="rJX-c4-i9O" firstAttribute="top" secondItem="dSS-Ue-geH" secondAttribute="bottom" constant="41" id="WAi-ub-tUR"/>
+                            <constraint firstItem="dSS-Ue-geH" firstAttribute="leading" secondItem="zok-7R-HiG" secondAttribute="leading" constant="22" id="bU1-8n-luW"/>
+                            <constraint firstItem="zok-7R-HiG" firstAttribute="trailing" secondItem="rJX-c4-i9O" secondAttribute="trailing" constant="163" id="cTy-kY-dnV"/>
+                            <constraint firstItem="dSS-Ue-geH" firstAttribute="leading" secondItem="lvi-Aj-Fa4" secondAttribute="leading" id="dHE-da-DP1"/>
+                            <constraint firstItem="zok-7R-HiG" firstAttribute="trailing" secondItem="dSS-Ue-geH" secondAttribute="trailing" constant="25" id="gl5-gE-9fT"/>
+                            <constraint firstItem="rxB-x0-STZ" firstAttribute="leading" secondItem="zok-7R-HiG" secondAttribute="leading" constant="5" id="rJG-8K-kcd"/>
+                            <constraint firstItem="Pgw-3T-MU6" firstAttribute="leading" secondItem="zok-7R-HiG" secondAttribute="leading" constant="36" id="vQD-QR-LG7"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="so4-O7-qLR"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="careerPathCollectionView" destination="Veg-rh-sQn" id="Ov7-MV-TtJ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0Vm-Oe-gEc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3328.636363636364" y="-1147.2803347280335"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="LearningResourcesImg" width="332" height="146"/>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
 </document>

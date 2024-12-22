@@ -9,9 +9,17 @@ import UIKit
 
 class CareerPathCollectionViewCell: UICollectionViewCell {
 
+    @IBOutlet weak var lblCareerPath: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+    }
+    
+    func setUp(careerPath: CareerPath1) {
+        lblCareerPath.text = careerPath.title
+        lblCareerPath.textAlignment = .center // Center the text
+                
     }
 
 }
