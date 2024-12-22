@@ -23,3 +23,24 @@ class MyLearningResourcesCells: UICollectionViewCell {
         
     }
 }
+
+
+class SkillsCollectionViewCells: UICollectionViewCell {
+    
+    
+    @IBOutlet weak var btnSkillTitle: UIButton!
+    
+    @IBOutlet weak var skillTitleView: UIView!
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        //set view rounds
+        skillTitleView.layer.cornerRadius = 15
+        
+        
+        
+    }
+    
+    
+}
