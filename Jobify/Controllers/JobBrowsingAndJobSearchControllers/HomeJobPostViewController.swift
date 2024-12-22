@@ -52,7 +52,7 @@ class HomeJobPostViewController: UIViewController, UICollectionViewDataSource, U
     
     
     @IBAction func viewAllRecommendedJobs(_ sender: Any) {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let storyboard = UIStoryboard(name: "JobBrowsingAndJobSearch_FatimaKhamis", bundle: nil)
             if let jobPostsVC = storyboard.instantiateViewController(withIdentifier: "JobPostsViewController") as? JobPostsViewController {
                 jobPostsVC.source = .recommendedJobs
                 navigationController?.pushViewController(jobPostsVC, animated: true)

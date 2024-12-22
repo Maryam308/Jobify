@@ -1417,7 +1417,7 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" translatesAutoresizingMaskIntoConstraints="NO" id="fkL-1P-ch5">
-                                                            <rect key="frame" x="20" y="48.666666666666657" width="360" height="36"/>
+                                                            <rect key="frame" x="20" y="48.666666666666657" width="360" height="36.333333333333343"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="36.329999999999998" id="kQf-wo-fwR"/>
                                                             </constraints>
@@ -1450,17 +1450,17 @@
                                             <rect key="frame" x="0.0" y="0.0" width="440" height="140"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Tjx-gQ-CqO">
-                                                    <rect key="frame" x="32" y="28" width="968" height="100"/>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tjx-gQ-CqO">
+                                                    <rect key="frame" x="32" y="24" width="376" height="100"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Attachment (Optional)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IbA-2Q-C0R">
-                                                            <rect key="frame" x="45" y="8" width="143.5" height="17"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Attachment (Optional)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IbA-2Q-C0R">
+                                                            <rect key="frame" x="45" y="8" width="143.66666666666666" height="17"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                             <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HJG-bd-m3d">
-                                                            <rect key="frame" x="60" y="40" width="112" height="38.5"/>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HJG-bd-m3d">
+                                                            <rect key="frame" x="60" y="40" width="112" height="38.666666666666657"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="112" id="zSX-Dp-PrB"/>
                                                             </constraints>
@@ -1496,8 +1496,8 @@
                                             <rect key="frame" x="0.0" y="0.0" width="440" height="100"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bxu-m8-1bi">
-                                                    <rect key="frame" x="30" y="31" width="972" height="40"/>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bxu-m8-1bi">
+                                                    <rect key="frame" x="30" y="27" width="380" height="40"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="40" id="DeT-RU-e2f"/>
                                                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="258" id="qo5-wc-lPy"/>
