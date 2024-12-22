@@ -6,6 +6,12 @@
 //
 import Foundation
 
+//Maryam Ahmed : I know this will need fixing but i am not using enums since i am working with the database so either i am going to do a collection and a refrence or keep them since they wont change if i kept them here and there the same.
+//currently i am using popup buttons to write them so they wont be altered from user side
+
+//Maybe for ids we should start with the number after data added to firebase
+
+
 struct CareerPath: Equatable {
     
     static func == (lhs: CareerPath, rhs: CareerPath) -> Bool {
@@ -14,15 +20,21 @@ struct CareerPath: Equatable {
     
     static var careerIdCounter: Int = 0
     var careerId: Int
-    var careerName: String
-    var demand: Demand
-    var roadmap: String
+    var description: String? = ""
+    var title: String
+    var demand: String? = ""
+    var roadmap: String? = ""
     
-    init(careerName: String, demand: Demand, roadmap: String) {
-        careerId = CareerPath.careerIdCounter
-        self.careerName = careerName
+    init(careerName: String, demand: String?, roadmap: String) {
+        careerId = CareerPath.careerIdCounter + 1
+        self.title = careerName
         self.demand = demand
         self.roadmap = roadmap
+    }
+    
+    init(title: String){
+        careerId = CareerPath.careerIdCounter + 1
+        self.title = title
     }
     
 }
@@ -99,18 +111,19 @@ struct LearningRequest: Equatable {
     
     static var requestIdCounter: Int = 0
     var requestId: Int
-    var status: LearningRequestStatus
-    var type: LearningResourceType
-    var summary: String
-    var link: String
-    var requester: User
-    var skillToDevelop: String //since the skill will be displayed in a drop down list there wont be a problem to use its title
+    var title: String = ""
+    var isApproved: Bool?
+    var type: String = ""
+    var summary: String = ""
+    var link: String = ""
+    var requester: User?
+    var skillToDevelop: String? //since the skill will be displayed in a drop down list there wont be a problem to use its title
     
-    init(status: LearningRequestStatus, type: LearningResourceType, summary: String, link: String, requester: User, skillToDevelop: String) {
+    init(isApproved: Bool?, type: String, summary: String, link: String, requester: User?, skillToDevelop: String) {
         
         LearningRequest.requestIdCounter += 1
         requestId = LearningRequest.requestIdCounter
-        self.status = status
+        self.isApproved = isApproved
         self.type = type
         self.summary = summary
         self.link = link
@@ -119,10 +132,20 @@ struct LearningRequest: Equatable {
         
     }
     
+    init(title: String, isApproved: Bool?){
+        
+        LearningRequest.requestIdCounter += 1
+        requestId = LearningRequest.requestIdCounter
+        self.title = title
+        self.isApproved = isApproved
+        
+    }
+    
+    
 }
 
-enum LearningRequestStatus: String {
-    case Pending
-    case Approved
-    case Rejected
-}
+//enum LearningRequestStatus: String {
+//    case Pending
+//    case Approved
+//    case Rejected
+//}
