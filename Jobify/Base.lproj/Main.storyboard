@@ -9,7 +9,6 @@
         <!--Tab Bar Controller-->
         <scene sceneID="Sc5-CR-E4s">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="wmH-7n-0ey" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="gHQ-ek-1n4" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="59E-PW-lbJ">
@@ -24,8 +23,9 @@
                         <segue destination="CAx-Ow-jwq" kind="relationship" relationship="viewControllers" id="TW4-pL-ZNa"/>
                     </connections>
                 </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wmH-7n-0ey" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="588.54961832061065" y="-522.53521126760563"/>
+            <point key="canvasLocation" x="411" y="-651"/>
         </scene>
         <!--JobBrowsingAndJobSearch_FatimaKhamis-->
         <scene sceneID="JmS-7j-ICA">

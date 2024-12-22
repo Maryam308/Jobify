@@ -29,8 +29,8 @@ struct JobApplication{
 
     enum ApplicationStatus: String, Codable{
         case notReviewed = "Not Reviewed"
-        case viewed = "Reviewed"
-        case accepted = "Accepted"
+        case reviewed = "Reviewed"
+        case approved = "Approved"
         case rejected = "Rejected"
     }
     
