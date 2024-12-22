@@ -41,12 +41,12 @@ struct LearningResource: Equatable{
     
     static var resourceIdCounter: Int = 0
     var learningResourceId: Int
-    var type: LearningResourceType
+    var type: String
     var summary: String
     var link: String
     var skillToDevelop: String //since the skill will be displayed in a drop down list there wont be a problem to use its title
     
-    init(type: LearningResourceType, summary: String, link: String, skillToDevelop: String) {
+    init(type: String, summary: String, link: String, skillToDevelop: String) {
         
         LearningResource.resourceIdCounter += 1
         
