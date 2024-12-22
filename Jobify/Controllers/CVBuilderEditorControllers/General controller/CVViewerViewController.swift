@@ -71,7 +71,7 @@ class CVViewerViewController: UIViewController, UITableViewDelegate, UITableView
                     UIGraphicsBeginPDFPage()
 
                     let pdfWidth = 595.2
-                    let pdfHeight = 842.0
+                    _ = 842.0
                     guard let context = UIGraphicsGetCurrentContext() else { return } // Capture context
 
                     var yPosition = 20.0
