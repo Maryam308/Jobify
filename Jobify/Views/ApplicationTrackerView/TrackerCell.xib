@@ -26,11 +26,6 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6wT-A5-4FL">
-                                <rect key="frame" x="27" y="145" width="73" height="38.333333333333343"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="filled" title="Status" cornerStyle="capsule"/>
-                            </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="company" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nsh-eO-xGr">
                                 <rect key="frame" x="96" y="25" width="70" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -59,28 +54,35 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kaL-PR-1nF" userLabel="Status Button">
+                                <rect key="frame" x="20" y="145" width="75" height="39"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Button">
+                                    <backgroundConfiguration key="background"/>
+                                </buttonConfiguration>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.85098039219999999" green="0.85098039219999999" blue="0.85098039219999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="EuQ-WI-VTN" firstAttribute="trailing" secondItem="Nsh-eO-xGr" secondAttribute="leading" constant="-13" id="2V3-0u-M1c"/>
                             <constraint firstItem="EuQ-WI-VTN" firstAttribute="leading" secondItem="UFX-hg-EEB" secondAttribute="leading" constant="19" id="8ie-k2-Mgo"/>
-                            <constraint firstItem="6wT-A5-4FL" firstAttribute="leading" secondItem="UFX-hg-EEB" secondAttribute="leading" constant="27" id="8pC-6R-E5r"/>
                             <constraint firstItem="Nsh-eO-xGr" firstAttribute="centerX" secondItem="NEr-E2-Huy" secondAttribute="centerX" constant="5" id="C9L-Jl-qvM"/>
                             <constraint firstItem="Nsh-eO-xGr" firstAttribute="top" secondItem="UFX-hg-EEB" secondAttribute="top" constant="25" id="CAu-9e-EfS"/>
+                            <constraint firstAttribute="bottom" secondItem="kaL-PR-1nF" secondAttribute="bottom" constant="16" id="Ffa-ov-zqG"/>
                             <constraint firstItem="sev-f8-eXR" firstAttribute="leading" secondItem="7pV-TA-LRe" secondAttribute="leading" id="HjT-gp-8rw"/>
                             <constraint firstItem="sev-f8-eXR" firstAttribute="leading" secondItem="UFX-hg-EEB" secondAttribute="leading" constant="27" id="J4F-dw-8nC"/>
                             <constraint firstItem="sev-f8-eXR" firstAttribute="top" secondItem="7pV-TA-LRe" secondAttribute="bottom" constant="14" id="NPQ-Fe-O1e"/>
-                            <constraint firstItem="6wT-A5-4FL" firstAttribute="top" secondItem="sev-f8-eXR" secondAttribute="bottom" constant="15" id="OHp-GB-lnC"/>
                             <constraint firstItem="7pV-TA-LRe" firstAttribute="leading" secondItem="UFX-hg-EEB" secondAttribute="leading" constant="27" id="Pyw-N0-Uz6"/>
                             <constraint firstItem="ksz-FU-GVY" firstAttribute="top" secondItem="Nsh-eO-xGr" secondAttribute="bottom" constant="59" id="Ras-TA-OTu"/>
                             <constraint firstItem="7pV-TA-LRe" firstAttribute="top" secondItem="EuQ-WI-VTN" secondAttribute="bottom" constant="12" id="bT4-Sz-Qu7"/>
+                            <constraint firstItem="kaL-PR-1nF" firstAttribute="leading" secondItem="UFX-hg-EEB" secondAttribute="leading" constant="20" symbolic="YES" id="f5b-if-Y7h"/>
                             <constraint firstItem="Nsh-eO-xGr" firstAttribute="leading" secondItem="EuQ-WI-VTN" secondAttribute="trailing" constant="13" id="gIF-hN-Gdo"/>
                             <constraint firstAttribute="bottom" secondItem="sev-f8-eXR" secondAttribute="bottom" constant="70" id="go2-An-Rbk"/>
                             <constraint firstItem="NEr-E2-Huy" firstAttribute="leading" secondItem="ksz-FU-GVY" secondAttribute="trailing" constant="8" symbolic="YES" id="hc0-tj-SLn"/>
                             <constraint firstItem="NEr-E2-Huy" firstAttribute="top" secondItem="Nsh-eO-xGr" secondAttribute="bottom" constant="63" id="hcI-gm-RtY"/>
                             <constraint firstItem="ksz-FU-GVY" firstAttribute="leading" secondItem="sev-f8-eXR" secondAttribute="trailing" constant="8" symbolic="YES" id="jGW-CJ-MVM"/>
                             <constraint firstItem="EuQ-WI-VTN" firstAttribute="top" secondItem="UFX-hg-EEB" secondAttribute="top" constant="9" id="nQm-ci-tKI"/>
-                            <constraint firstItem="sev-f8-eXR" firstAttribute="leading" secondItem="6wT-A5-4FL" secondAttribute="leading" id="q5z-3u-tfS"/>
+                            <constraint firstItem="kaL-PR-1nF" firstAttribute="top" secondItem="sev-f8-eXR" secondAttribute="bottom" constant="15" id="pba-cZ-dfJ"/>
                             <constraint firstAttribute="height" constant="200" id="te2-Ge-KQK"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
@@ -103,7 +105,7 @@
                 <outlet property="companyLabel" destination="Nsh-eO-xGr" id="jyG-88-yxV"/>
                 <outlet property="locationLabel" destination="sev-f8-eXR" id="Os8-mu-Gsc"/>
                 <outlet property="positionLabel" destination="7pV-TA-LRe" id="jJC-rZ-jur"/>
-                <outlet property="statusButton" destination="6wT-A5-4FL" id="xjo-Xg-VwD"/>
+                <outlet property="statusButton" destination="kaL-PR-1nF" id="zqR-Qv-FSV"/>
                 <outlet property="typeLabel" destination="NEr-E2-Huy" id="AKb-fr-4Tp"/>
             </connections>
             <point key="canvasLocation" x="-302.29007633587787" y="69.718309859154928"/>

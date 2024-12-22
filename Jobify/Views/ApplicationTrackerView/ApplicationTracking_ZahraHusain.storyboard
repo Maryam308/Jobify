@@ -46,7 +46,7 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="zwx-b2-Lqi">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="55"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QWL-Mg-783">
+                                            <button opaque="NO" contentMode="scaleToFill" highlighted="YES" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QWL-Mg-783">
                                                 <rect key="frame" x="0.0" y="5" width="60" height="45"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="60" id="OyY-P5-8DX"/>
@@ -59,8 +59,11 @@
                                                     </backgroundConfiguration>
                                                     <color key="baseForegroundColor" red="0.93333333330000001" green="0.93333333330000001" blue="0.93333333330000001" alpha="1" colorSpace="calibratedRGB"/>
                                                 </buttonConfiguration>
+                                                <connections>
+                                                    <action selector="allButtonTapped:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="V6z-Ws-ErT"/>
+                                                </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QDu-sf-H2l">
+                                            <button opaque="NO" contentMode="scaleToFill" highlighted="YES" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QDu-sf-H2l">
                                                 <rect key="frame" x="70" y="5" width="150" height="45"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="150" id="JqN-8t-Wr4"/>
@@ -71,8 +74,11 @@
                                                     <color key="baseForegroundColor" red="0.1137254902" green="0.1764705882" blue="0.2666666667" alpha="1" colorSpace="calibratedRGB"/>
                                                     <color key="baseBackgroundColor" red="0.93333333333333335" green="0.93333333333333335" blue="0.93333333333333335" alpha="1" colorSpace="calibratedRGB"/>
                                                 </buttonConfiguration>
+                                                <connections>
+                                                    <action selector="notReviewedButtonTapped:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="Cjs-Kj-8Lt"/>
+                                                </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7yS-m4-TMP">
+                                            <button opaque="NO" contentMode="scaleToFill" highlighted="YES" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7yS-m4-TMP">
                                                 <rect key="frame" x="230" y="5" width="110" height="45"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="110" id="ppn-zv-WRq"/>
@@ -80,11 +86,15 @@
                                                 </constraints>
                                                 <state key="normal" title="Button"/>
                                                 <buttonConfiguration key="configuration" style="filled" title="Reviewed" cornerStyle="capsule">
+                                                    <backgroundConfiguration key="background"/>
                                                     <color key="baseForegroundColor" red="0.1137254902" green="0.1764705882" blue="0.2666666667" alpha="1" colorSpace="calibratedRGB"/>
                                                     <color key="baseBackgroundColor" red="0.93333333330000001" green="0.93333333330000001" blue="0.93333333330000001" alpha="1" colorSpace="calibratedRGB"/>
                                                 </buttonConfiguration>
+                                                <connections>
+                                                    <action selector="reviewedButtonTapped:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="cyL-8o-saB"/>
+                                                </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6tT-T0-fEn">
+                                            <button opaque="NO" contentMode="scaleToFill" highlighted="YES" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6tT-T0-fEn">
                                                 <rect key="frame" x="350" y="5" width="120" height="45"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="120" id="nam-V3-Kfv"/>
@@ -95,8 +105,11 @@
                                                     <color key="baseForegroundColor" red="0.1137254902" green="0.1764705882" blue="0.2666666667" alpha="1" colorSpace="calibratedRGB"/>
                                                     <color key="baseBackgroundColor" red="0.93333333330000001" green="0.93333333330000001" blue="0.93333333330000001" alpha="1" colorSpace="calibratedRGB"/>
                                                 </buttonConfiguration>
+                                                <connections>
+                                                    <action selector="approvedButtonTapped:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="7lA-XR-wpI"/>
+                                                </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mlq-fy-rA7">
+                                            <button opaque="NO" contentMode="scaleToFill" highlighted="YES" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mlq-fy-rA7">
                                                 <rect key="frame" x="480" y="5" width="120" height="45"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="120" id="6V5-1V-RG7"/>
@@ -107,6 +120,9 @@
                                                     <color key="baseForegroundColor" red="0.1137254902" green="0.1764705882" blue="0.2666666667" alpha="1" colorSpace="calibratedRGB"/>
                                                     <color key="baseBackgroundColor" red="0.93333333330000001" green="0.93333333330000001" blue="0.93333333330000001" alpha="1" colorSpace="calibratedRGB"/>
                                                 </buttonConfiguration>
+                                                <connections>
+                                                    <action selector="rejectedButtonTapped:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="CBz-72-SCa"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <constraints>
@@ -125,7 +141,7 @@
                                 <viewLayoutGuide key="contentLayoutGuide" id="eub-2s-WnX"/>
                                 <viewLayoutGuide key="frameLayoutGuide" id="6S5-RB-7cj"/>
                             </scrollView>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="mcU-gs-qAN">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="mcU-gs-qAN" customClass="JobApplicationUITableView">
                                 <rect key="frame" x="0.0" y="207" width="440" height="666"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </tableView>
@@ -151,6 +167,11 @@
                     <navigationItem key="navigationItem" id="V1v-SM-W17"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="allButton" destination="QWL-Mg-783" id="1U9-xC-isf"/>
+                        <outlet property="approvedButton" destination="6tT-T0-fEn" id="2vq-jH-3iC"/>
+                        <outlet property="notReviewedButton" destination="QDu-sf-H2l" id="H2r-N8-5Lu"/>
+                        <outlet property="rejectedButton" destination="mlq-fy-rA7" id="nAV-5q-PAa"/>
+                        <outlet property="reviewedButton" destination="7yS-m4-TMP" id="GZK-1J-gVX"/>
                         <outlet property="tableView" destination="mcU-gs-qAN" id="4Z2-Bi-lMV"/>
                     </connections>
                 </viewController>
@@ -302,7 +323,7 @@
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                 </textView>
                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="pd8-cC-ZhA">
-                                                    <rect key="frame" x="39" y="41.666666666666671" width="362" height="148.33333333333331"/>
+                                                    <rect key="frame" x="39" y="42" width="362" height="148"/>
                                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                     <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                                     <color key="textColor" systemColor="labelColor"/>
@@ -344,7 +365,7 @@
                                                     <rect key="frame" x="220" y="27" width="180" height="39"/>
                                                     <color key="tintColor" red="0.1137254902" green="0.1764705882" blue="0.2666666667" alpha="1" colorSpace="calibratedRGB"/>
                                                     <state key="normal" title="Button"/>
-                                                    <buttonConfiguration key="configuration" style="filled" title="Choose File" imagePadding="10" cornerStyle="large">
+                                                    <buttonConfiguration key="configuration" style="filled" title="Choose CV" imagePadding="10" cornerStyle="large">
                                                         <imageReference key="image" image="square.and.arrow.up.fill" catalog="system" symbolScale="medium"/>
                                                     </buttonConfiguration>
                                                     <connections>
@@ -403,10 +424,10 @@
             </objects>
             <point key="canvasLocation" x="2605.9701492537311" y="-23.340961098398168"/>
         </scene>
-        <!--Table View Controller-->
+        <!--ChooseCV Table View Controller-->
         <scene sceneID="cal-on-9Y6">
             <objects>
-                <tableViewController id="reC-Sh-vhu" sceneMemberID="viewController">
+                <tableViewController id="reC-Sh-vhu" customClass="ChooseCVTableViewController" customModule="Jobify" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" estimatedSectionHeaderHeight="-1" sectionFooterHeight="28" estimatedSectionFooterHeight="-1" id="zsQ-DP-31R">
                         <rect key="frame" x="0.0" y="0.0" width="440" height="946"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -908,7 +929,7 @@
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemGray2Color">
-            <color red="0.68235294120000001" green="0.68235294120000001" blue="0.69803921570000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.68235294117647061" green="0.68235294117647061" blue="0.69803921568627447" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
