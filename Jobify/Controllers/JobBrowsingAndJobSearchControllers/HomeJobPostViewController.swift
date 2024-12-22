@@ -7,14 +7,48 @@
 
 import UIKit
 
-class HomeJobPostViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+class HomeJobPostViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UISearchBarDelegate {
+    
+    
+    @IBOutlet weak var homeScrollView: UIScrollView!
+
+    
+    @IBOutlet weak var homeStackView: NSLayoutConstraint!
+    
+    @IBOutlet weak var btnCreateNewJob: UIButton!
+    
+    @IBOutlet weak var btnMyJobPosts: UIButton!
+    
+    @IBOutlet weak var recommendedJobViewAllbtn: UIButton!
+    
+    @IBOutlet weak var recommendedJobView: UIView!
+    
+    @IBOutlet weak var recentJobTopConstraint: NSLayoutConstraint!
+    
+    
+    @IBOutlet weak var recommendedJobTopConstraint: NSLayoutConstraint!
+    
+    @IBOutlet weak var recommendedJobLabel: UILabel!
+    
+    @IBOutlet weak var recommendedJobCollectionHide: UICollectionView!
+    
+    @IBOutlet weak var categoryTopConstraint: NSLayoutConstraint!
+    
     
     @IBOutlet weak var jobPostCollectionView: UICollectionView!
     
     @IBOutlet weak var categoryCollectionView: UICollectionView!
     
+    @IBOutlet weak var recentJobView: UIView!
+    
+    
     @IBOutlet weak var recentJobPostCollectionView: UICollectionView!
     
+    @IBOutlet weak var searchBar: UISearchBar!
+    
+    @IBOutlet weak var searchOverlayView: UIView!
+    
+    @IBOutlet weak var searchResultsTableView: UITableView!
     
     
     @IBAction func viewAllRecommendedJobs(_ sender: Any) {
@@ -59,9 +93,29 @@ class HomeJobPostViewController: UIViewController, UICollectionViewDataSource, U
         // Initially position the hamburgerView off-screen to the left
             hamburgerView.transform = CGAffineTransform(translationX: -hamburgerView.frame.width, y: 0)
   
+        // Log the current frame of recommendedJobView
+        print("Initial Category Top Constraint: \(categoryTopConstraint.constant)")
+           print("Initial Recommended Job View Height: \(recommendedJobView.frame.height)")
+        // Set up your initial view
+              // recommendedJobCollectionHide.isHidden = false
+              //  recommendedJobView.isHidden = false
+                hideRecommendedJobView()
+        
+        
         let layout = UICollectionViewFlowLayout()
             layout.scrollDirection = .horizontal
             categoryCollectionView.collectionViewLayout = layout
+        
+        // Initially hide the overlay view and table view
+            searchOverlayView.isHidden = true
+            searchResultsTableView.isHidden = true
+        
+            searchBar.delegate = self
+            searchBar.showsCancelButton = false // Initially hide the cancel button
+            searchBar.delegate = self
+           
+        
+        
         //horizontal job post
         jobPostCollectionView.delegate = self
         jobPostCollectionView.dataSource = self
@@ -89,10 +143,90 @@ class HomeJobPostViewController: UIViewController, UICollectionViewDataSource, U
        
         jobPostCollectionView.reloadData()
     
-       // categoryCollectionView.reloadData()
+        categoryCollectionView.reloadData()
     }
     
     //MARK: - Handlers
+    
+    /*func hideRecommendedJobView() {
+        let recommendedJobHeight = recommendedJobView.frame.height
+        recommendedJobTopConstraint.constant = 0 // Reset to zero
+        categoryTopConstraint.constant -= recommendedJobHeight
+        recommendedJobView.isHidden = true // Hide the recommended job view
+        
+        homeStackView.constant -= recommendedJobHeight
+
+        UIView.animate(withDuration: 0.3) {
+            self.view.layoutIfNeeded()
+            self.updateScrollViewContentSize()
+        }
+    }*/
+    
+    func hideRecommendedJobView() {
+        // Calculate the total height for the recommended job view based on the buttons
+        let recommendedJobHeight = recommendedJobView.frame.height
+        recommendedJobTopConstraint.constant = 0
+        let buttonHeight = btnCreateNewJob.frame.height + btnMyJobPosts.frame.height + 20 // Add spacing
+        recommendedJobTopConstraint.constant = buttonHeight
+        // Adjust the top constraint for the category collection view
+        categoryTopConstraint.constant -= recommendedJobHeight
+        
+        // Ensure category view layout is updated
+            categoryCollectionView.layoutIfNeeded()
+           let categoryViewHeight = categoryCollectionView.collectionViewLayout.collectionViewContentSize.height
+            categoryTopConstraint.constant += categoryViewHeight // Add the height of the category view
+
+
+        // Show the buttons
+        btnCreateNewJob.isHidden = false
+        btnMyJobPosts.isHidden = false
+
+        // Hide the recommended label, button, and collection view
+        recommendedJobLabel.isHidden = true
+        recommendedJobViewAllbtn.isHidden = true
+        recommendedJobCollectionHide.isHidden = true
+
+        let recentJobViewHeight = recentJobPostCollectionView.collectionViewLayout.collectionViewContentSize.height
+        
+        // Set the home stack view height directly based on visible components
+        homeStackView.constant -= buttonHeight + categoryViewHeight + recentJobViewHeight + 100 // Total height with spacing
+
+        
+      
+
+        // Animate the layout changes
+        UIView.animate(withDuration: 0.3) {
+            self.view.layoutIfNeeded()
+            self.updateScrollViewContentSize()
+        }
+
+    }
+    
+    func updateScrollViewContentSize() {
+          // Update the scroll view's content size based on the total height of the stack view
+          let totalHeight = homeStackView.constant + homeScrollView.frame.origin.y
+          homeScrollView.contentSize = CGSize(width: homeScrollView.frame.width, height: totalHeight)
+      }
+    
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        searchOverlayView.isHidden = false
+        searchResultsTableView.isHidden = false
+        searchBar.showsCancelButton = true // Show the cancel button
+    }
+
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchOverlayView.isHidden = true
+        searchResultsTableView.isHidden = true
+        searchBar.text = "" // Clear search text
+        searchBar.showsCancelButton = false // Hide the cancel button
+        view.endEditing(true) // Dismiss keyboard
+    }
+
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        searchBar.showsCancelButton = false // Hide the cancel button when editing ends
+    }
+
+
     
     
     @IBAction func showHamburgerMenu(_ sender: Any) {
@@ -186,7 +320,7 @@ class HomeJobPostViewController: UIViewController, UICollectionViewDataSource, U
                     return CGSize(width: width, height: height)
                     
         } else if collectionView == recentJobPostCollectionView {
-            let width = collectionView.frame.width - 20 // Adjust padding as needed
+            let width = collectionView.frame.width + 20
             let height: CGFloat = 220 // Set your desired height
             return CGSize(width: width, height: height)
         }

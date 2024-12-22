@@ -17,7 +17,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="847"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <searchBar contentMode="redraw" placeholder="Search Jobs" translatesAutoresizingMaskIntoConstraints="NO" id="skS-pV-yUb">
+                            <searchBar contentMode="redraw" placeholder="Search Jobs" showsCancelButton="YES" translatesAutoresizingMaskIntoConstraints="NO" id="skS-pV-yUb">
                                 <rect key="frame" x="0.0" y="106" width="393" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="IAv-td-wIN"/>
@@ -27,12 +27,9 @@
                                     <string>Title</string>
                                     <string>Title</string>
                                 </scopeButtonTitles>
-                                <connections>
-                                    <outlet property="delegate" destination="Y6W-OH-hqX" id="n0q-7w-GNg"/>
-                                </connections>
                             </searchBar>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qnd-J1-Fyh">
-                                <rect key="frame" x="0.0" y="150" width="393" height="620"/>
+                                <rect key="frame" x="0.0" y="160" width="393" height="610"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="l8B-GF-Aic">
                                         <rect key="frame" x="0.0" y="-26" width="393" height="1370"/>
@@ -238,7 +235,6 @@
                                                     <constraint firstItem="POP-bV-g5P" firstAttribute="leading" secondItem="hlm-EV-Dnl" secondAttribute="leading" constant="22" id="W5K-hF-pyM"/>
                                                     <constraint firstItem="tdE-ii-WdZ" firstAttribute="centerY" secondItem="POP-bV-g5P" secondAttribute="centerY" id="dZr-iu-ot0"/>
                                                     <constraint firstItem="2vN-dV-gff" firstAttribute="leading" secondItem="hlm-EV-Dnl" secondAttribute="leading" constant="21" id="f5O-7f-IoM"/>
-                                                    <constraint firstAttribute="trailing" secondItem="2vN-dV-gff" secondAttribute="trailing" constant="27" id="hE9-BV-HDb"/>
                                                     <constraint firstItem="tdE-ii-WdZ" firstAttribute="top" secondItem="hlm-EV-Dnl" secondAttribute="top" constant="15" id="xW6-Jk-GmY"/>
                                                 </constraints>
                                             </view>
@@ -277,22 +273,42 @@
                                     <constraint firstAttribute="trailing" secondItem="mfv-jJ-qYn" secondAttribute="trailing" id="mfh-FC-aoD"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cV8-gn-Ibt">
+                                <rect key="frame" x="-1" y="150" width="395" height="622"/>
+                                <subviews>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="5hU-XD-7QN">
+                                        <rect key="frame" x="0.0" y="0.0" width="395" height="697"/>
+                                        <color key="backgroundColor" red="0.88764497419999999" green="0.28939750829999999" blue="0.22407893009999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                    </tableView>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="5hU-XD-7QN" secondAttribute="bottom" constant="-75" id="2JD-OE-Cyj"/>
+                                    <constraint firstItem="5hU-XD-7QN" firstAttribute="leading" secondItem="cV8-gn-Ibt" secondAttribute="leading" id="7r6-Bg-ZsC"/>
+                                    <constraint firstAttribute="trailing" secondItem="5hU-XD-7QN" secondAttribute="trailing" id="SAd-i3-MgI"/>
+                                    <constraint firstItem="5hU-XD-7QN" firstAttribute="top" secondItem="cV8-gn-Ibt" secondAttribute="top" id="g1f-rT-JoG"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="skS-pV-yUb" firstAttribute="bottom" secondItem="qnd-J1-Fyh" secondAttribute="top" id="0dV-MR-ey9"/>
+                            <constraint firstItem="cV8-gn-Ibt" firstAttribute="centerY" secondItem="VK4-QT-LrE" secondAttribute="centerY" constant="37.5" id="0WW-QA-SYt"/>
                             <constraint firstItem="VK4-QT-LrE" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="34F-Mh-F4Z"/>
                             <constraint firstItem="nl3-1N-MJf" firstAttribute="centerX" secondItem="vDu-zF-Fre" secondAttribute="centerX" id="8b8-TE-Tnx"/>
                             <constraint firstItem="qnd-J1-Fyh" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="HmL-kl-Drg"/>
                             <constraint firstItem="skS-pV-yUb" firstAttribute="trailing" secondItem="qnd-J1-Fyh" secondAttribute="trailing" id="U7g-He-XgE"/>
+                            <constraint firstItem="cV8-gn-Ibt" firstAttribute="leading" secondItem="5EZ-qb-Rvc" secondAttribute="leadingMargin" constant="-17" id="UGb-pT-9j5"/>
                             <constraint firstItem="skS-pV-yUb" firstAttribute="leading" secondItem="qnd-J1-Fyh" secondAttribute="leading" id="YzX-0z-ML2"/>
                             <constraint firstAttribute="bottom" secondItem="VK4-QT-LrE" secondAttribute="bottom" id="dd1-dm-awQ"/>
+                            <constraint firstItem="cV8-gn-Ibt" firstAttribute="centerX" secondItem="skS-pV-yUb" secondAttribute="centerX" id="eTx-CI-8Ll"/>
                             <constraint firstItem="skS-pV-yUb" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="fqB-rB-fhP"/>
+                            <constraint firstItem="qnd-J1-Fyh" firstAttribute="top" secondItem="skS-pV-yUb" secondAttribute="bottom" constant="10" id="jte-YO-nJN"/>
                             <constraint firstItem="qnd-J1-Fyh" firstAttribute="bottom" secondItem="vDu-zF-Fre" secondAttribute="bottom" constant="6" id="ks5-Og-ATY"/>
                             <constraint firstItem="mfv-jJ-qYn" firstAttribute="bottom" secondItem="vDu-zF-Fre" secondAttribute="bottom" id="nib-R4-4lw"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="top" secondItem="mfv-jJ-qYn" secondAttribute="top" id="pAL-cX-qc1"/>
                             <constraint firstItem="VK4-QT-LrE" firstAttribute="top" secondItem="5EZ-qb-Rvc" secondAttribute="top" id="tW9-ud-Qtg"/>
+                            <constraint firstItem="cV8-gn-Ibt" firstAttribute="top" secondItem="5EZ-qb-Rvc" secondAttribute="topMargin" constant="44" id="xwG-QJ-oXu"/>
                             <constraint firstItem="qnd-J1-Fyh" firstAttribute="trailing" secondItem="vDu-zF-Fre" secondAttribute="trailing" id="zfF-If-TrV"/>
                         </constraints>
                     </view>
@@ -312,11 +328,26 @@
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <size key="freeformSize" width="393" height="847"/>
                     <connections>
+                        <outlet property="btnCreateNewJob" destination="ohM-I3-jNe" id="Tud-gT-Wwr"/>
+                        <outlet property="btnMyJobPosts" destination="VVe-pg-o33" id="rEI-be-wer"/>
                         <outlet property="categoryCollectionView" destination="06u-2n-GhI" id="UqG-qU-qS4"/>
+                        <outlet property="categoryTopConstraint" destination="Bj4-ce-wE1" id="JZL-4N-fS3"/>
                         <outlet property="hamburgerView" destination="VK4-QT-LrE" id="KmX-Pv-XGQ"/>
+                        <outlet property="homeScrollView" destination="qnd-J1-Fyh" id="NTR-Pw-dXE"/>
+                        <outlet property="homeStackView" destination="o3x-wU-LWf" id="1JE-OA-48J"/>
                         <outlet property="jobPostCollectionView" destination="IBV-Pz-E9q" id="v25-NU-6ZF"/>
                         <outlet property="mainHomeView" destination="5EZ-qb-Rvc" id="LwM-0x-wbj"/>
                         <outlet property="recentJobPostCollectionView" destination="2vN-dV-gff" id="MrT-Ww-ANZ"/>
+                        <outlet property="recentJobTopConstraint" destination="KW7-H7-tFm" id="lq0-tt-qR7"/>
+                        <outlet property="recentJobView" destination="hlm-EV-Dnl" id="Oek-ka-isA"/>
+                        <outlet property="recommendedJobCollectionHide" destination="IBV-Pz-E9q" id="zpe-iq-UHw"/>
+                        <outlet property="recommendedJobLabel" destination="5iD-r2-l6i" id="JiD-dy-ggu"/>
+                        <outlet property="recommendedJobTopConstraint" destination="gfD-nD-zTp" id="Etv-0U-iXI"/>
+                        <outlet property="recommendedJobView" destination="tgE-yB-2Q8" id="0j4-ig-3Vc"/>
+                        <outlet property="recommendedJobViewAllbtn" destination="SFN-A3-cMT" id="3TB-8l-XwU"/>
+                        <outlet property="searchBar" destination="skS-pV-yUb" id="EGl-0s-FA4"/>
+                        <outlet property="searchOverlayView" destination="cV8-gn-Ibt" id="hhy-Qi-Pll"/>
+                        <outlet property="searchResultsTableView" destination="5hU-XD-7QN" id="viZ-Ss-ByY"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -846,13 +877,13 @@ Requests</string>
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemBlueColor">
-            <color red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemBrownColor">
-            <color red="0.63529411759999999" green="0.51764705879999995" blue="0.36862745099999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.63529411764705879" green="0.51764705882352946" blue="0.36862745098039218" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGreenColor">
-            <color red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
