@@ -332,6 +332,7 @@
                         <outlet property="btnMyJobPosts" destination="VVe-pg-o33" id="rEI-be-wer"/>
                         <outlet property="categoryCollectionView" destination="06u-2n-GhI" id="UqG-qU-qS4"/>
                         <outlet property="categoryTopConstraint" destination="Bj4-ce-wE1" id="JZL-4N-fS3"/>
+                        <outlet property="categoryView" destination="f6p-0G-1P3" id="vT6-zv-hGw"/>
                         <outlet property="hamburgerView" destination="VK4-QT-LrE" id="KmX-Pv-XGQ"/>
                         <outlet property="homeScrollView" destination="qnd-J1-Fyh" id="NTR-Pw-dXE"/>
                         <outlet property="homeStackView" destination="o3x-wU-LWf" id="1JE-OA-48J"/>
@@ -402,22 +403,6 @@
             </objects>
             <point key="canvasLocation" x="2745" y="292"/>
         </scene>
-        <!--View Controller-->
-        <scene sceneID="ajf-KH-Z4a">
-            <objects>
-                <viewController id="zIE-eW-iZ7" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="Aay-gc-etR">
-                        <rect key="frame" x="0.0" y="0.0" width="402" height="874"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <viewLayoutGuide key="safeArea" id="FOh-CE-1pL"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="2qv-N5-HVb"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="A49-4A-gLb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1820.8955223880596" y="-763.38672768878712"/>
-        </scene>
         <!--Job Posts-->
         <scene sceneID="BwY-uK-g7q">
             <objects>
@@ -426,27 +411,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="402" height="874"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="2te-zd-f0c">
-                                <rect key="frame" x="16" y="143" width="369.33333333333331" height="735"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="4zH-Jp-4Rg">
-                                    <size key="itemSize" width="359.33333333333331" height="154"/>
-                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="5" minY="10" maxX="5" maxY="10"/>
-                                </collectionViewFlowLayout>
-                                <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="JobPostCollectionViewCell" id="mM6-P3-nfq" customClass="JobPostCollectionViewCell" customModule="Jobify" customModuleProvider="target">
-                                        <rect key="frame" x="5" y="10" width="359.33333333333331" height="154"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="mDt-AY-MP2">
-                                            <rect key="frame" x="0.0" y="0.0" width="359.33333333333331" height="154"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </collectionViewCellContentView>
-                                        <size key="customSize" width="359.33333333333331" height="154"/>
-                                    </collectionViewCell>
-                                </cells>
-                            </collectionView>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="LQd-RX-lvB">
                                 <rect key="frame" x="40.666666666666657" y="89" width="320" height="40"/>
                                 <subviews>
@@ -472,16 +436,37 @@
                                     </button>
                                 </subviews>
                             </stackView>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="2te-zd-f0c">
+                                <rect key="frame" x="16" y="143" width="370" height="735"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="4zH-Jp-4Rg">
+                                    <size key="itemSize" width="359.33333333333331" height="154"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="JobPostCollectionViewCell" id="mM6-P3-nfq" customClass="JobPostCollectionViewCell" customModule="Jobify" customModuleProvider="target">
+                                        <rect key="frame" x="5.333333333333333" y="0.0" width="359.33333333333331" height="154"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="mDt-AY-MP2">
+                                            <rect key="frame" x="0.0" y="0.0" width="359.33333333333331" height="154"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </collectionViewCellContentView>
+                                        <size key="customSize" width="359.33333333333331" height="154"/>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="UxU-Kv-9vZ"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="2te-zd-f0c" firstAttribute="top" secondItem="LQd-RX-lvB" secondAttribute="bottom" constant="14" id="Akt-7z-7jg"/>
-                            <constraint firstItem="UxU-Kv-9vZ" firstAttribute="trailing" secondItem="2te-zd-f0c" secondAttribute="trailing" constant="16.670000000000002" id="DWl-rJ-wTV"/>
                             <constraint firstItem="LQd-RX-lvB" firstAttribute="leading" secondItem="UxU-Kv-9vZ" secondAttribute="leading" constant="40.640000000000001" id="j9P-YQ-Va1"/>
                             <constraint firstItem="LQd-RX-lvB" firstAttribute="top" secondItem="UxU-Kv-9vZ" secondAttribute="top" constant="27" id="lrb-J0-mzE"/>
                             <constraint firstAttribute="bottomMargin" secondItem="2te-zd-f0c" secondAttribute="bottom" constant="-38" id="ptS-qd-2ok"/>
-                            <constraint firstItem="2te-zd-f0c" firstAttribute="centerX" secondItem="LQd-RX-lvB" secondAttribute="centerX" id="ybB-y9-5pt"/>
+                            <constraint firstItem="2te-zd-f0c" firstAttribute="leading" secondItem="UxU-Kv-9vZ" secondAttribute="leading" constant="16" id="uJg-S3-jZj"/>
+                            <constraint firstItem="2te-zd-f0c" firstAttribute="centerX" secondItem="LQd-RX-lvB" secondAttribute="centerX" constant="0.33333333333334281" id="ybB-y9-5pt"/>
                             <constraint firstItem="UxU-Kv-9vZ" firstAttribute="trailing" secondItem="LQd-RX-lvB" secondAttribute="trailing" constant="41.359999999999999" id="zs1-6M-mv1"/>
                         </constraints>
                     </view>
@@ -721,24 +706,6 @@
             <point key="canvasLocation" x="56" y="712"/>
         </scene>
         <!--Navigation Controller-->
-        <scene sceneID="4dD-sw-XAo">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="2Ik-m7-U44" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="N6d-Hn-KO6">
-                        <rect key="frame" x="0.0" y="62" width="402" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="zIE-eW-iZ7" kind="relationship" relationship="rootViewController" id="2hq-fv-W1v"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="RWT-t6-pwi" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="901.49253731343276" y="-763.38672768878712"/>
-        </scene>
-        <!--Navigation Controller-->
         <scene sceneID="iA1-hE-1Bi">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="MVf-Dd-ko9" sceneMemberID="viewController">
@@ -877,13 +844,13 @@ Requests</string>
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemBlueColor">
-            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemBrownColor">
-            <color red="0.63529411764705879" green="0.51764705882352946" blue="0.36862745098039218" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.63529411759999999" green="0.51764705879999995" blue="0.36862745099999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGreenColor">
-            <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

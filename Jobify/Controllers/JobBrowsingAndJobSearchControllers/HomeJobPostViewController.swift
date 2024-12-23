@@ -34,6 +34,7 @@ class HomeJobPostViewController: UIViewController, UICollectionViewDataSource, U
     
     @IBOutlet weak var categoryTopConstraint: NSLayoutConstraint!
     
+    @IBOutlet weak var categoryView: UIView!
     
     @IBOutlet weak var jobPostCollectionView: UICollectionView!
     
@@ -99,7 +100,7 @@ class HomeJobPostViewController: UIViewController, UICollectionViewDataSource, U
         // Set up your initial view
               // recommendedJobCollectionHide.isHidden = false
               //  recommendedJobView.isHidden = false
-                hideRecommendedJobView()
+           // hideRecommendedJobView()
         
         
         let layout = UICollectionViewFlowLayout()
@@ -141,9 +142,10 @@ class HomeJobPostViewController: UIViewController, UICollectionViewDataSource, U
         recentJobPostCollectionView.register(nib, forCellWithReuseIdentifier: recentJobPostCollectionViewCellId)
         
        
-        jobPostCollectionView.reloadData()
-    
-        categoryCollectionView.reloadData()
+        // Initial reload and height update
+           jobPostCollectionView.reloadData()
+           recentJobPostCollectionView.reloadData()
+           updateParentViewHeight()
     }
     
     //MARK: - Handlers
@@ -161,6 +163,47 @@ class HomeJobPostViewController: UIViewController, UICollectionViewDataSource, U
             self.updateScrollViewContentSize()
         }
     }*/
+    
+    private func updateParentViewHeight() {
+        // Calculate the height for the recent job posts collection view
+        let recentJobPostHeight = calculateCollectionViewHeight(for: recentJobPostCollectionView)
+
+        // Log the height for debugging
+        print("Recent Job Post Height: \(recentJobPostHeight)")
+
+        // Get the heights of category and recommended job views
+        let categoryViewHeight = categoryView.frame.height // Assuming this is set correctly
+        let recommendedJobViewHeight = recommendedJobView.frame.height // Assuming this is set correctly
+
+        // Log the heights for debugging
+        print("Category View Height: \(categoryViewHeight)")
+        print("Recommended Job View Height: \(recommendedJobViewHeight)")
+
+        // Calculate the total height for the stack view
+        homeStackView.constant = categoryViewHeight + recommendedJobViewHeight + recentJobPostHeight
+   
+        // Log the total height for debugging
+        print("Total Stack View Height: \(homeStackView.constant)")
+
+        // Animate the height change
+        UIView.animate(withDuration: 0.3) {
+            self.view.layoutIfNeeded()
+        }
+    }
+
+    private func calculateCollectionViewHeight(for collectionView: UICollectionView) -> CGFloat {
+        let numberOfItems = collectionView.numberOfItems(inSection: 0)
+        print("Number of Recent Job Items: \(numberOfItems)") // Log the count
+
+        let itemHeight: CGFloat = 220 // Adjust based on your cell height
+        let spacing: CGFloat = 10 // Space between items
+
+        // Calculate total height (spacing only between items)
+        let totalHeight = (itemHeight * CGFloat(numberOfItems)) + (spacing * max(0, CGFloat(numberOfItems - 1)))
+        print("Calculated Total Height for Recent Job Posts: \(totalHeight)") // Log the calculated height
+
+        return max(totalHeight, 0) // Ensure non-negative height
+    }
     
     func hideRecommendedJobView() {
         // Calculate the total height for the recommended job view based on the buttons
@@ -320,13 +363,42 @@ class HomeJobPostViewController: UIViewController, UICollectionViewDataSource, U
                     return CGSize(width: width, height: height)
                     
         } else if collectionView == recentJobPostCollectionView {
-            let width = collectionView.frame.width + 20
-            let height: CGFloat = 220 // Set your desired height
-            return CGSize(width: width, height: height)
+            
+            let collectionViewWidth = collectionView.bounds.width
+            let spacing: CGFloat = 0
+            let columns: CGFloat = UIDevice.current.userInterfaceIdiom == .pad ? 2 : 1 // 2 columns for iPad, 1 column for iPhone
+            
+            // Calculate the width of each cell
+            let cellWidth = (collectionViewWidth - spacing) / columns
+            let cellHeight: CGFloat = UIDevice.current.userInterfaceIdiom == .pad ? 260 : 220 // Adjust height for iPad
+
+            return CGSize(width: cellWidth, height: cellHeight)
         }
-        
+            
+             
         return CGSize(width: 0, height: 0)
     }
+ 
+
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 10 // Example spacing
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 10 // Example spacing
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            // Insets for iPad
+            return UIEdgeInsets(top: 20, left: 20, bottom: 30, right: 30)
+        } else {
+            // Insets for iPhone
+            return UIEdgeInsets(top: 5, left: 10, bottom: 20, right: 20)
+        }
+    }
+
     
     //  did select category
     // didSelectItemAt for categoryCollectionView
