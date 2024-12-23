@@ -13,7 +13,6 @@
         <!--Chat View Controller-->
         <scene sceneID="RW1-2t-D2V">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="jGX-qk-mqo" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <viewController id="BoQ-U3-tNg" customClass="chatViewController" customModule="Jobify" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="fSV-Rl-Y5b">
                         <rect key="frame" x="0.0" y="0.0" width="440" height="956"/>
@@ -218,13 +217,13 @@
                         <outlet property="chatsTableView" destination="S7n-vP-4b9" id="b7b-fK-Bdg"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="jGX-qk-mqo" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1278" y="-218"/>
         </scene>
         <!--Manage Career Paths View Controller-->
         <scene sceneID="wJs-XZ-Sc5">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Z3E-Ik-pmr" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <viewController id="s8r-oj-H5y" customClass="ManageCareerPathsViewController" customModule="Jobify" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="3WF-Oi-AIS">
                         <rect key="frame" x="0.0" y="0.0" width="440" height="956"/>
@@ -367,13 +366,13 @@
                     </view>
                     <navigationItem key="navigationItem" id="SdS-z9-MLn"/>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Z3E-Ik-pmr" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1465.909090909091" y="881.79916317991638"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="6RF-kC-buz">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="3Rb-sQ-Sji" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <viewController id="mYx-pG-Q76" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="JMx-cR-A0P">
                         <rect key="frame" x="0.0" y="0.0" width="440" height="956"/>
@@ -472,6 +471,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="wU9-vL-SaV"/>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3Rb-sQ-Sji" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-2296.3636363636365" y="881.79916317991638"/>
         </scene>

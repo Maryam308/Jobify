@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import FirebaseFirestore
 struct AdminDetails{
     
     
@@ -154,14 +155,13 @@ struct AdminDetails{
         
     }
     
-    mutating func addNewLearningResource(type: String, summary: String, link: String, skillToDevelop: String){
+    mutating func addNewLearningResource(type: String, summary: String, link: String, skillToDevelop: DocumentReference) {
         
-        //create new learning resource
-        var newLearningResource = LearningResource(type: type, summary: summary, link: link, skillToDevelop: skillToDevelop)
-                
-        //add to array of all learning resources
+        // Create a new learning resource
+        let newLearningResource = LearningResource(type: type, summary: summary, link: link, title: "", skillRef: skillToDevelop)
+        
+        // Add to array of all learning resources
         allLearningResources.append(newLearningResource)
-        
     }
     
     
@@ -200,64 +200,61 @@ struct AdminDetails{
         
     }
     
-    mutating func addSkill(skillTitle: String, skillDescription: String){
+    mutating func addSkill(skillTitle: String, skillDescription: String, documentReference: DocumentReference) {
         
-        //add the skill
-        var newSkill = Skill(title: skillTitle , description: skillDescription )
+        // Create a new skill with the DocumentReference
+        let newSkill = Skill(title: skillTitle, description: skillDescription, documentReference: documentReference)
         
-        //add to all skill
+        // Add to all skills
         allSkills.append(newSkill)
-        
     }
     
-    mutating func removeSkill(skillToRemove: inout Skill){
+    
+    mutating func removeSkill(skillToRemove: inout Skill) {
         
-        //remove the learning resources of the skill
-        skillToRemove.learningResources.removeAll();
+        // Remove the learning resources of the skill
+//        skillToRemove.learningResources.removeAll()
         
+        // Remove the learning resources from allLearningResources that belong to the same skill
+        allLearningResources.removeAll { $0.skillRef == skillToRemove.documentReference }
         
-        //remove the learning resources from allLearningResources that belong to the same skill
-        allLearningResources.removeAll { $0.skillToDevelop == skillToRemove.title }
+        // Remove learning resources from savedLearningResources and my learning resources in employers and seekers
         
-        //remove learning resources from savedLearningResources and my learning resources in employers and seekers
-            //from seekers
-                // Print remaining resources for each seeker
-          
-//                    for seekerIndex in seekerList.indices {
-//                        seekerList[seekerIndex].savedLearningResourcesList.removeAll { $0.skillToDevelop == skillToRemove.title }
-//                    }
-//        
-//            //from employers
-//                //saved by the employer
-//                    for employerIndex in employerList.indices {
-//                        employerList[employerIndex].savedLearningResourcesList.removeAll { $0.skillToDevelop == skillToRemove.title }
-//                    }
-//                    
-//                //created by the employer
-//                    for employerIndex in employerList.indices {
-//                        employerList[employerIndex].myLearningResourcesList.removeAll { $0.skillToDevelop == skillToRemove.title }
-//                    }
+        // From seekers
+        // Print remaining resources for each seeker
+        /*
+        for seekerIndex in seekerList.indices {
+            seekerList[seekerIndex].savedLearningResourcesList.removeAll { $0.skillToDevelop == skillToRemove.documentReference }
+        }
+        */
         
-            //from admin
-                //saved by the admin
-                    self.savedLearningResources.removeAll { $0.skillToDevelop == skillToRemove.title }
-                    
-                    
-                //created by the admin
-                    self.myLearningResources.removeAll { $0.skillToDevelop == skillToRemove.title }
-                    
-            
-        //remove skill from allskill
-        if let skillIndex = allSkills.firstIndex(of: skillToRemove) {
+        // From employers
+        // Saved by the employer
+        /*
+        for employerIndex in employerList.indices {
+            employerList[employerIndex].savedLearningResourcesList.removeAll { $0.skillToDevelop == skillToRemove.documentReference }
+        }
+        
+        // Created by the employer
+        for employerIndex in employerList.indices {
+            employerList[employerIndex].myLearningResourcesList.removeAll { $0.skillToDevelop == skillToRemove.documentReference }
+        }
+        */
+        
+        // From admin
+        // Saved by the admin
+        savedLearningResources.removeAll { $0.skillRef == skillToRemove.documentReference }
+        
+        // Created by the admin
+        myLearningResources.removeAll { $0.skillRef == skillToRemove.documentReference }
+        
+        // Remove skill from allSkills
+        if let skillIndex = allSkills.firstIndex(where: { $0.documentReference == skillToRemove.documentReference }) {
             allSkills.remove(at: skillIndex)
         } else {
             print("Skill not found in the array.")
         }
-        
-        
-        
     }
-    
     
 //    mutating func removeEmployerJobPost(jobPostToRemove: inout Job, employerPosted: inout Employer){
 //        

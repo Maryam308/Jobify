@@ -44,7 +44,6 @@ class LearningResourcesSkillsViewController: UIViewController, UICollectionViewD
         
     }
     
-    //fetch all the skill titles and add them to the skill array
     func fetchSkills() {
         let db = Firestore.firestore()
         
@@ -62,13 +61,15 @@ class LearningResourcesSkillsViewController: UIViewController, UICollectionViewD
                     
                     let title = data["title"] as? String ?? "Untitled"
                     let description = data["description"] as? String ?? "No description"
+                    let documentReference = document.reference // Get the DocumentReference
                     
-                    return Skill(title: title, description: description)
+                    // Initialize Skill with title, description, and document reference
+                    return Skill(title: title, description: description, documentReference: documentReference)
                 }
                 
-                // Reload the collection view after fetching the data
+                // Reload the collection view or perform any additional actions
                 DispatchQueue.main.async {
-                    self.skillsCollection.reloadData()
+                    self.skillsCollection.reloadData() // Assuming you have a collection view to reload
                 }
             }
     }

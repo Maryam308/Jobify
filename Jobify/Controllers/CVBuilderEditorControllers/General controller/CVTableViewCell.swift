@@ -29,6 +29,13 @@ class CVTableViewCell: UITableViewCell {
          navigateToCVView(cv: cv)
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        // Ensure the content view fills the cell
+        contentView.frame = bounds
+    }
+    
+    
     @IBAction func btnEditTapped(_ sender: UIButton) {
         guard let cv = cv else { return }
           
