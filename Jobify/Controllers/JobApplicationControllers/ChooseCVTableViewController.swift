@@ -40,7 +40,7 @@ class ChooseCVTableViewController: UITableViewController {
         // Create a test CV asynchronously
         Task {
             do {
-                let fetchedCVs = try await CVManager.getAllCVs()
+                let fetchedCVs = try await CVManager.getUserAllCVs()
                 DispatchQueue.main.async {
                     self.cvs = fetchedCVs
                     self.tableView.reloadData()
