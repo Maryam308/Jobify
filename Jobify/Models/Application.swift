@@ -19,12 +19,12 @@ struct JobApplication{
 
 
     //Passed variables from application form
-//    var jobApplicant: Seeker
+//  var jobApplicant: Seeker
     var briefIntroduction: String
     var motivation: String
     var contributionToCompany: String
     var applicantCV: CV
-    var applicantCoverLetter: Data?
+    //var applicantCoverLetter: Data?
     var jobApplied: Job
 
     enum ApplicationStatus: String, Codable{

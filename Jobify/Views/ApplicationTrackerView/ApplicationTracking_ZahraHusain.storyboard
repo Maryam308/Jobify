@@ -198,10 +198,10 @@
             </objects>
             <point key="canvasLocation" x="57.251908396946561" y="-23.239436619718312"/>
         </scene>
-        <!--Table View Controller-->
+        <!--Application Table View Controller-->
         <scene sceneID="OFL-QE-S6x">
             <objects>
-                <tableViewController id="z67-qk-01w" sceneMemberID="viewController">
+                <tableViewController id="z67-qk-01w" customClass="ApplicationTableViewController" customModule="Jobify" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" id="uel-oO-6wZ">
                         <rect key="frame" x="0.0" y="0.0" width="440" height="956"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -257,7 +257,6 @@
                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Hzn-8U-QfS">
                                                     <rect key="frame" x="39" y="41" width="362" height="128"/>
                                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                                    <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                                     <color key="textColor" systemColor="labelColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -290,7 +289,6 @@
                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="OAK-6d-0xm">
                                                     <rect key="frame" x="39" y="44.333333333333329" width="362" height="128.66666666666669"/>
                                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                                    <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                                     <color key="textColor" systemColor="labelColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -325,7 +323,6 @@
                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="pd8-cC-ZhA">
                                                     <rect key="frame" x="39" y="42" width="362" height="148"/>
                                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                                    <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                                     <color key="textColor" systemColor="labelColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -342,7 +339,7 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="110" id="g22-bP-8MI">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="110" id="g22-bP-8MI" userLabel="ChooseCVUploadCell">
                                         <rect key="frame" x="0.0" y="694" width="440" height="110"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="g22-bP-8MI" id="b11-1n-GWO">
@@ -369,7 +366,7 @@
                                                         <imageReference key="image" image="square.and.arrow.up.fill" catalog="system" symbolScale="medium"/>
                                                     </buttonConfiguration>
                                                     <connections>
-                                                        <segue destination="reC-Sh-vhu" kind="showDetail" id="38u-eZ-z0x"/>
+                                                        <segue destination="iN7-FI-HyU" kind="showDetail" id="38u-eZ-z0x"/>
                                                     </connections>
                                                 </button>
                                             </subviews>
@@ -400,6 +397,9 @@
                                                     <color key="tintColor" red="0.1137254902" green="0.1764705882" blue="0.2666666667" alpha="1" colorSpace="calibratedRGB"/>
                                                     <state key="normal" title="Button"/>
                                                     <buttonConfiguration key="configuration" style="filled" title="Send Application" cornerStyle="large"/>
+                                                    <connections>
+                                                        <action selector="sendApplication:" destination="z67-qk-01w" eventType="touchUpInside" id="ngF-AF-CEL"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <constraints>
@@ -419,6 +419,12 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="27v-oM-aMQ"/>
+                    <connections>
+                        <outlet property="attachmentLabel" destination="awh-Am-40x" id="rMV-32-960"/>
+                        <outlet property="contributionText" destination="pd8-cC-ZhA" id="sxo-su-k9c"/>
+                        <outlet property="introductionText" destination="Hzn-8U-QfS" id="IWE-ZW-c2g"/>
+                        <outlet property="motivationText" destination="OAK-6d-0xm" id="Ubq-YV-YhF"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XpA-Rt-6oX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -428,20 +434,26 @@
         <scene sceneID="cal-on-9Y6">
             <objects>
                 <tableViewController id="reC-Sh-vhu" customClass="ChooseCVTableViewController" customModule="Jobify" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" estimatedSectionHeaderHeight="-1" sectionFooterHeight="28" estimatedSectionFooterHeight="-1" id="zsQ-DP-31R">
-                        <rect key="frame" x="0.0" y="0.0" width="440" height="946"/>
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" estimatedSectionHeaderHeight="-1" sectionFooterHeight="28" estimatedSectionFooterHeight="-1" id="zsQ-DP-31R" customClass="ChooseCVTableView">
+                        <rect key="frame" x="0.0" y="0.0" width="440" height="956"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <sections/>
-                        <connections>
-                            <outlet property="dataSource" destination="reC-Sh-vhu" id="P3I-C0-IBH"/>
-                            <outlet property="delegate" destination="reC-Sh-vhu" id="QQM-Vh-jCg"/>
-                        </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="X6y-5u-bYQ"/>
+                    <navigationItem key="navigationItem" id="X6y-5u-bYQ">
+                        <nil key="title"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="cancel" id="DPn-DT-9mb">
+                            <connections>
+                                <action selector="cancelButtonClicked:" destination="reC-Sh-vhu" id="Cww-SQ-Chl"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="ChooseCVTableView" destination="zsQ-DP-31R" id="oaw-Uc-4Vs"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SHr-ON-X1h" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3621" y="-5"/>
+            <point key="canvasLocation" x="4509.545454545455" y="-24.476987447698747"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="3SC-lc-W3p">
@@ -917,6 +929,24 @@
             </objects>
             <point key="canvasLocation" x="920.8955223880597" y="774.37070938215095"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="7pR-Wa-MNg">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="iN7-FI-HyU" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="dJq-n7-WhQ">
+                        <rect key="frame" x="0.0" y="62" width="440" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="reC-Sh-vhu" kind="relationship" relationship="rootViewController" id="knl-Ze-Lo9"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="aC0-cB-edD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3617.727272727273" y="-24.476987447698747"/>
+        </scene>
     </scenes>
     <resources>
         <image name="case.fill" catalog="system" width="128" height="100"/>
@@ -929,7 +959,7 @@
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemGray2Color">
-            <color red="0.68235294117647061" green="0.68235294117647061" blue="0.69803921568627447" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.68235294120000001" green="0.68235294120000001" blue="0.69803921570000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
