@@ -85,6 +85,8 @@ class AddNewLearningResourceViewController : UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
+        
         //check if the user is an admin or an employer
             //fetch the user id
         
@@ -149,8 +151,8 @@ class AddNewLearningResourceViewController : UITableViewController {
     
     
     // Function to display an error alert
-    func showErrorAlert(message: String) {
-        let alertController = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
+    func showAlert(title: String ,message: String) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
         
         // Add an "OK" button to dismiss the alert
         let okAction = UIAlertAction(title: "OK", style: .default)
@@ -167,40 +169,40 @@ class AddNewLearningResourceViewController : UITableViewController {
       
             // Validate inputs
             guard let selectedTitle = btnSkill.currentTitle, selectedTitle != "Choose the skill to develop" else {
-                showErrorAlert(message: "Please select a valid skill.")
+                showAlert( title: "Invalid" , message: "Please select a valid skill.")
                 return
             }
 
             guard let selectedCategory = btnCategory.currentTitle, selectedCategory != "Choose learning resource category" else {
-                showErrorAlert(message: "Please select a valid category.")
+                showAlert( title: "Invalid" ,message: "Please select a valid category.")
                 return
             }
 
             guard let link = txtLink.text?.trimmingCharacters(in: .whitespacesAndNewlines), !link.isEmpty else {
-                showErrorAlert(message: "Please enter a valid link.")
+                showAlert( title: "Invalid" ,message: "Please enter a valid link.")
                 return
             }
 
             guard let title = txtTitle.text?.trimmingCharacters(in: .whitespacesAndNewlines), !title.isEmpty else {
-                showErrorAlert(message: "Please enter a valid title.")
+                showAlert( title: "Invalid" ,message: "Please enter a valid title.")
                 return
             }
 
             guard let description = txtViewDescriptio.text?.trimmingCharacters(in: .whitespacesAndNewlines), !description.isEmpty else {
-                showErrorAlert(message: "Please enter a valid description.")
+                showAlert( title: "Invalid" ,message: "Please enter a valid description.")
                 return
             }
 
             // Fetch user and skill references
             fetchUserReference(by: currentUserId) { userRef in
                 guard let userRef = userRef else {
-                    self.showErrorAlert(message: "Failed to fetch user reference.")
+                    self.showAlert( title: "Invalid" ,message: "Failed to fetch user reference.")
                     return
                 }
 
                 self.fetchskillDocumentRefrence(by: selectedTitle) { skillDocRef in
                     guard let skillDocRef = skillDocRef else {
-                        self.showErrorAlert(message: "Failed to find the selected skill in the database.")
+                        self.showAlert( title: "Error Fetching" ,message: "Failed to find the selected skill in the database.")
                         return
                     }
 
@@ -220,9 +222,9 @@ class AddNewLearningResourceViewController : UITableViewController {
                         self.db.collection("LearningResources").addDocument(data: learningResourceData) { error in
                             if let error = error {
                                 print("Error adding document: \(error)")
-                                self.showErrorAlert(message: "Failed to add learning resource.")
+                                self.showAlert(  title: "Error"  , message: "Failed to add learning resource.")
                             } else {
-                                print("Learning resource successfully added!")
+                                self.showAlert( title: "Successful" ,message: "Learning resource added successfully.")
                             }
                         }
                     } else if self.currentUserRole == "employer" {
@@ -232,7 +234,7 @@ class AddNewLearningResourceViewController : UITableViewController {
                         self.db.collection("LearningResourcesRequests").addDocument(data: employerData) { error in
                             if let error = error {
                                 print("Error adding document: \(error)")
-                                self.showErrorAlert(message: "Failed to request learning resource.")
+                                self.showAlert( title: "Error" ,message: "Failed to request learning resource.")
                             } else {
                                 print("Learning resource request successfully submitted!")
                             }

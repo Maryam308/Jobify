@@ -6,45 +6,59 @@
 //
 
 import Foundation
+
 struct EmployerDetails {
+    // Basic Information
+    var name: String
+    var image: Data? = nil
+    var userId: Int
+    var email: String
     
+    // Location Details
+    struct Location {
+        var country: String
+        var city: String
+    }
+    var location: Location?
     
-    var country: String
-    var city: String
-    var EmployermessageList: [Message] = []
-    var companyMainCategory: String
-    var aboutUs: String
-    var employabilityGoals: String
-    var vision: String
+    // Company Details
+    var companyMainCategory: String?
+    var aboutUs: String?
+    var employabilityGoals: String?
+    var vision: String?
+    
+    // Lists
+    var employerMessageList: [Message] = []
     var myJobPostsList: [Job] = []
     var learningRequestsList: [LearningRequest] = []
     var myLearningResourcesList: [LearningResource] = []
     var savedLearningResourcesList: [LearningResource] = []
     var notificationList: [Notification] = []
-    
-    // Custom initializer
-    init(
-           
-           country: String,
-           city: String,
-           companyMainCategory: String = "",
-           aboutUs: String = "",
-           employabilityGoals: String = "",
-           vision: String = ""
-       ) {
-           
 
-           // Assign other properties
-           
-           self.country = country
-           self.city = city
-           self.companyMainCategory = companyMainCategory
-           self.aboutUs = aboutUs
-           self.employabilityGoals = employabilityGoals
-           self.vision = vision
-       }
-    
-    
+    // Custom Initializer
+    init(
+        name: String,
+        image: Data? = nil,
+        userId: Int,
+        email: String,
+        location: Location? = nil,
+        companyMainCategory: String? = nil,
+        aboutUs: String? = nil,
+        employabilityGoals: String? = nil,
+        vision: String? = nil
+    ) {
+        self.name = name
+        self.image = image
+        self.userId = userId
+        self.email = email
+        self.location = location
+        self.companyMainCategory = companyMainCategory
+        self.aboutUs = aboutUs
+        self.employabilityGoals = employabilityGoals
+        self.vision = vision
+    }
+}
+
     //===================================================================================================================//
     
     
@@ -73,12 +87,12 @@ struct EmployerDetails {
     
     
     // Creating the message object, then adding it for bothe the sender's messages list.
-    mutating func sendMessage(messageBody: String, messageReceiver: Any) {
+  /*  mutating func sendMessage(messageBody: String, messageReceiver: Any) {
         let message = Message(messageSender: self, messageReceiver:messageReceiver, messageBody: messageBody)
         
         // Add to sender list
         EmployermessageList.append(message)
-    }
+    }*/
     
     //===================================================================================================================//
     
@@ -109,14 +123,14 @@ struct EmployerDetails {
 //        //Adding the new job post to the company's job posts list
 //        self.myJobPostsList.append(newJobPost)
 //    }
-}
+//}
 
 
 //===================================================================================================================//
 
 
 // Dynaamic list for the company categories.
-var mainCompanyCategory: [String] = [
+/*var mainCompanyCategory: [String] = [
     "Information Technology",
     "business",
     "Healthcare",
@@ -126,4 +140,4 @@ var mainCompanyCategory: [String] = [
     "Architecture and Construction",
     "Interior Design",
     "Other"
-]
+]*/
