@@ -180,8 +180,8 @@ class HomeJobPostViewController: UIViewController, UICollectionViewDataSource, U
         print("Recommended Job View Height: \(recommendedJobViewHeight)")
 
         // Calculate the total height for the stack view
-        homeStackView.constant = categoryViewHeight + recommendedJobViewHeight + recentJobPostHeight
-   
+        homeStackView.constant = categoryViewHeight + recommendedJobViewHeight + recentJobPostHeight 
+   //commented
         // Log the total height for debugging
         print("Total Stack View Height: \(homeStackView.constant)")
 
