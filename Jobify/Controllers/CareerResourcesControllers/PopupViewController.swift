@@ -1,3 +1,10 @@
+//
+//  PopupViewController.swift
+//  Jobify
+//
+//  Created by Maryam Yousif on 22/12/2024.
+//
+
 import UIKit
 
 class PopupViewController: UIViewController {
@@ -79,6 +86,7 @@ class PopupViewController: UIViewController {
 
         setupCloseButton()
         setupScrollViewAndContent()
+        
     }
 
     // MARK: - UI Setup
@@ -176,7 +184,7 @@ class PopupViewController: UIViewController {
         demandLabel.text = "Demand:\n\(careerPath.demand)"
     }
 
-    @objc private func closePopUpDialog() {
+    @objc func closePopUpDialog() {
         UIView.animate(withDuration: 0.55, animations: {
             self.view.alpha = 0
             self.view.frame.origin.y = UIScreen.main.bounds.height // Slide down out of view

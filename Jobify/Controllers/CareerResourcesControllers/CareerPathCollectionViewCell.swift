@@ -16,8 +16,8 @@ class CareerPathCollectionViewCell: UICollectionViewCell {
         // Initialization code
     }
     
-    func setUp(careerPath: CareerPath1) {
-        lblCareerPath.text = careerPath.title
+    func setUp(careerPath: String) {
+        lblCareerPath.text = careerPath
         lblCareerPath.textAlignment = .center // Center the text
                 
     }

@@ -5,6 +5,7 @@
 //  Created by Maryam Yousif on 27/11/2024.
 //
 import Foundation
+import FirebaseFirestore
 
 //Maryam Ahmed : I know this will need fixing but i am not using enums since i am working with the database so either i am going to do a collection and a refrence or keep them since they wont change if i kept them here and there the same.
 //currently i am using popup buttons to write them so they wont be altered from user side
@@ -45,7 +46,8 @@ enum Demand: String {
     case low
 }
 
-struct LearningResource: Equatable{
+
+struct LearningResource: Equatable {
     
     static func == (lhs: LearningResource, rhs: LearningResource) -> Bool {
         return lhs.learningResourceId == rhs.learningResourceId
@@ -53,28 +55,37 @@ struct LearningResource: Equatable{
     
     static var resourceIdCounter: Int = 0
     var learningResourceId: Int = 0
-    var type: String = ""
-    var summary: String = ""
-    var link: String = ""
-    var title: String = ""
-    var datePublished = Date()
-    var skillToDevelop: String = "" //since the skill will be displayed in a drop down list there wont be a problem to use its title
+    var type: String? = ""
+    var summary: String? = ""
+    var link: String? = ""
+    var title: String? = ""
+    var datePublished: Date = Date()
+    var skillRef: DocumentReference? // Firestore DocumentReference for the skill
+    var skillToDevelop: String = ""
+    // Default initializer
+    init() {}
     
-    init(){}
-    
-    init(type: String, summary: String, link: String, skillToDevelop: String) {
-        
+    init(type: String, summary: String, link: String, title: String, skillRef: DocumentReference) {
         LearningResource.resourceIdCounter += 1
-        
         self.learningResourceId = LearningResource.resourceIdCounter
         self.type = type
         self.summary = summary
         self.link = link
-        self.skillToDevelop = skillToDevelop
-        
+        self.title = title // Set the title
+        self.skillRef = skillRef
     }
     
-    
+    init(type: String, summary: String, link: String, title: String, skillToDevelop: String) {
+         
+         LearningResource.resourceIdCounter += 1
+        self.title = title
+         self.learningResourceId = LearningResource.resourceIdCounter
+         self.type = type
+         self.summary = summary
+         self.link = link
+         self.skillToDevelop = skillToDevelop
+         
+     }
 }
 
 enum LearningResourceType: String {
@@ -88,11 +99,20 @@ struct Skill: Equatable {
     static func == (lhs: Skill, rhs: Skill) -> Bool {
         return lhs.skillId == rhs.skillId
     }
+    
     static var skillIdCounter: Int = 0
     var skillId: Int
     var title: String
     var description: String
-    var learningResources: [LearningResource] = []
+    var documentReference: DocumentReference? // Firestore DocumentReference for the skill
+
+    init(title: String, description: String, documentReference: DocumentReference) {
+        Skill.skillIdCounter += 1
+        self.skillId = Skill.skillIdCounter
+        self.title = title
+        self.description = description
+        self.documentReference = documentReference // Initialize the DocumentReference
+    }
     
     init(title: String, description: String) {
         Skill.skillIdCounter += 1
@@ -102,7 +122,6 @@ struct Skill: Equatable {
     }
     
 }
-
 struct LearningRequest: Equatable {
     
     static func == (lhs: LearningRequest, rhs: LearningRequest) -> Bool {

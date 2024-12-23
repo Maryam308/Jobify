@@ -75,52 +75,49 @@ class MyLearningResourcesViewController: UIViewController, UICollectionViewDataS
     
     
     func fetchFilteredLearningResources(using publisherRef: DocumentReference) {
-        db.collection("LearningResources")
-            .whereField("publisher", isEqualTo: publisherRef)
-            .getDocuments { snapshot, error in
-                if let error = error {
-                    print("Error fetching learning resources: \(error)")
-                    return
-                }
-                
-                guard let snapshot = snapshot else {
-                    print("No learning resources found.")
-                    return
-                }
-                
-                // Map each document's data into LearningResource structs
-                self.learningResources = snapshot.documents.compactMap { document in
-                    let data = document.data()
-                    let learningResourceId = data["learningResourceId"] as? Int ?? 0
-                    let title = data["title"] as? String ?? ""
-                    let category = data["category"] as? String ?? ""
-                    let datePublished = data["datePublished"] as? Date ?? Date()
-                    let skill = data["skill"] as? String ?? ""
-                    let description = data["description"] as? String ?? ""
-                    let link = data["link"] as? String ?? ""
-                    
-                    var learningResource = LearningResource()
-                    learningResource.title = title
-                    learningResource.learningResourceId = learningResourceId
-                    learningResource.skillToDevelop = skill
-                    learningResource.datePublished = datePublished
-                    learningResource.link = link
-                    learningResource.summary = description
-                    learningResource.type = category
-                    
-                    return learningResource
-                }
-                
-                // Reload the collection view on the main thread
-                DispatchQueue.main.async {
-                    self.myLearningResourcesCollection.reloadData()
-                }
-            }
-    
+           db.collection("LearningResources")
+               .whereField("publisher", isEqualTo: publisherRef)
+               .getDocuments { snapshot, error in
+                   if let error = error {
+                       print("Error fetching learning resources: \(error)")
+                       return
+                   }
+                   
+                   guard let snapshot = snapshot else {
+                       print("No learning resources found.")
+                       return
+                   }
+                   
+                   // Map each document's data into LearningResource structs
+                   self.learningResources = snapshot.documents.compactMap { document in
+                       let data = document.data()
+                       let learningResourceId = data["learningResourceId"] as? Int ?? 0
+                       let title = data["title"] as? String ?? ""
+                       let category = data["category"] as? String ?? ""
+                       let datePublished = data["datePublished"] as? Date ?? Date()
+                       let skill = data["skill"] as? String ?? ""
+                       let description = data["description"] as? String ?? ""
+                       let link = data["link"] as? String ?? ""
+                       
+                       var learningResource = LearningResource()
+                       learningResource.title = title
+                       learningResource.learningResourceId = learningResourceId
+                       learningResource.skillToDevelop = skill
+                       learningResource.datePublished = datePublished
+                       learningResource.link = link
+                       learningResource.summary = description
+                       learningResource.type = category
+                       
+                       return learningResource
+                   }
+                   
+                   // Reload the collection view on the main thread
+                   DispatchQueue.main.async {
+                       self.myLearningResourcesCollection.reloadData()
+                   }
+               }
 
-
-    
-    }
+       }
     
     
     @IBOutlet weak var myLearningResourcesCollection: UICollectionView!

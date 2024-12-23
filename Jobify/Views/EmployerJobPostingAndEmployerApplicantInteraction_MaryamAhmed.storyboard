@@ -390,6 +390,7 @@
         <!--Learning Resources Approval View Controller-->
         <scene sceneID="6RF-kC-buz">
             <objects>
+
                 <viewController id="mYx-pG-Q76" customClass="LearningResourcesApprovalViewController" customModule="Jobify" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="JMx-cR-A0P">
                         <rect key="frame" x="0.0" y="0.0" width="440" height="956"/>
