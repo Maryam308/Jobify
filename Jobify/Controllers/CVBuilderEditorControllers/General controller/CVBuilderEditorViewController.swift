@@ -26,12 +26,14 @@ class CVBuilderEditorViewController: UIViewController, UITableViewDelegate, UITa
         
         // Register CVTableViewCell with myCVsTableView
         myCVsTableView.register(UINib(nibName: "CVTableViewCell", bundle: .main), forCellReuseIdentifier: "CVTableViewCell")
+        
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         myCVsTableView.reloadData()
-        fetchCVs()
+//        fetchCVs()
     }
     
     @IBAction func btnNewCVTapped(_ sender: UIButton) {
@@ -54,7 +56,7 @@ class CVBuilderEditorViewController: UIViewController, UITableViewDelegate, UITa
         // Create a test CV asynchronously
         Task {
             do {
-                let fetchedCVs = try await CVManager.getAllCVs()
+                let fetchedCVs = try await CVManager.getUserAllCVs()
                 DispatchQueue.main.async {
                     self.cvs = fetchedCVs
                     self.myCVsTableView.reloadData()
@@ -77,59 +79,77 @@ class CVBuilderEditorViewController: UIViewController, UITableViewDelegate, UITa
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = myCVsTableView.dequeueReusableCell(withIdentifier: "CVTableViewCell", for: indexPath) as! CVTableViewCell
         let cv = cvs[indexPath.row]
+        
         // Update the favorite button appearance based on isFavorite
         cell.updateFavoriteButton()
         cell.setup(cv)
         
-        //handle delete
+        // Handle delete
         cell.onDelete = { [weak self] in
             self?.deleteCV(at: indexPath)
         }
         
         // Handle favorite action
         cell.favoriteAction = { [weak self] selectedCV in
-            self?.handleFavoriteAction(selectedCV)
+            guard let self = self else { return }
+            Task {
+                do {
+                    try await self.handleFavoriteAction(selectedCV)
+                } catch {
+                    print("Error handling favorite action: \(error)")
+                }
+            }
         }
+        
         return cell
     }
     
     private func deleteCV(at indexPath: IndexPath) {
-          let alert = UIAlertController(title: "Confirm Deletion",
-                                        message: "Are you sure you want to delete? You won't get access to this CV after deletion.",
-                                        preferredStyle: .alert)
+        let alert = UIAlertController(title: "Confirm Deletion",
+                                      message: "Are you sure you want to delete? You won't get access to this CV after deletion.",
+                                      preferredStyle: .alert)
 
-          alert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { [weak self] _ in
-              guard let self = self else { return }
-              guard indexPath.row < self.cvs.count else { return }
+        alert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { [weak self] _ in
+            guard let self = self else { return }
+            guard indexPath.row < self.cvs.count else { return }
 
-              let cvToDelete = self.cvs[indexPath.row]
+            let cvToDelete = self.cvs[indexPath.row]
 
-              if let currentFavorite = self.currentFavoriteCV, currentFavorite.cvID == cvToDelete.cvID {
-                  if self.cvs.count > 2 {
-                      self.promptUserToChooseFavorite(cvToDelete: cvToDelete)
-                      return
-                  } else if self.cvs.count == 2 {
-                      if let otherCVIndex = self.cvs.firstIndex(where: { $0.cvID != cvToDelete.cvID }) {
-                          self.cvs[otherCVIndex].isFavorite = true
-                          self.currentFavoriteCV = self.cvs[otherCVIndex]
-                          self.updateCVInFirestore(cv: self.cvs[otherCVIndex])
-                      }
-                  }
-              }
+            if let currentFavorite = self.currentFavoriteCV, currentFavorite.cvID == cvToDelete.cvID {
+                if self.cvs.count > 2 {
+                    self.promptUserToChooseFavorite(cvToDelete: cvToDelete)
+                    return
+                } else if self.cvs.count == 2 {
+                    if let otherCVIndex = self.cvs.firstIndex(where: { $0.cvID != cvToDelete.cvID }) {
+                        self.cvs[otherCVIndex].isFavorite = true
+                        self.currentFavoriteCV = self.cvs[otherCVIndex]
+//                        self.updateCVInFirestore(cv: self.cvs[otherCVIndex])
+                    }
+                }
+            }
 
-              self.cvs.remove(at: indexPath.row)
-              self.db.collection("CVs").document(cvToDelete.cvID).delete { error in
-                  if let error = error {
-                      print("Error deleting CV: \(error.localizedDescription)")
-                  } else {
-                      self.myCVsTableView.deleteRows(at: [indexPath], with: .automatic)
-                  }
-              }
-          }))
 
-          alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-          present(alert, animated: true, completion: nil)
-      }
+                let cvIDToDelete = cvToDelete.cvID
+            // Prepare the updated CVs array
+            var updatedCVs = self.cvs
+            updatedCVs.remove(at: indexPath.row)
+
+            // Call the delete function asynchronously
+            Task {
+                do {
+                    try await CVManager.deleteCV(cvId: cvIDToDelete)
+                    self.cvs = updatedCVs
+                    self.myCVsTableView.deleteRows(at: [indexPath], with: .automatic)
+                } catch {
+                    print("Error deleting CV: \(error.localizedDescription)")
+                    // Handle the error (e.g., show an alert)
+                }
+            }
+        }))
+
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        present(alert, animated: true, completion: nil)
+    }
 
       private func promptUserToChooseFavorite(cvToDelete: CV) {
           let alert = UIAlertController(title: "Choose a New Favorite",
@@ -138,7 +158,7 @@ class CVBuilderEditorViewController: UIViewController, UITableViewDelegate, UITa
 
           for cv in cvs where cv.cvID != cvToDelete.cvID {
               alert.addAction(UIAlertAction(title: cv.cvTitle, style: .default, handler: { [weak self] _ in
-                  self?.setFavorite(cv: cv)
+//                  self?.setFavorite(cv: cv)
                   self?.deleteCVFromFirestore(cvToDelete: cvToDelete)
               }))
           }
@@ -147,22 +167,22 @@ class CVBuilderEditorViewController: UIViewController, UITableViewDelegate, UITa
           present(alert, animated: true, completion: nil)
       }
       
-      private func setFavorite(cv: CV) {
-          if let currentFavorite = currentFavoriteCV {
-              if let index = cvs.firstIndex(where: { $0.cvID == currentFavorite.cvID }) {
-                  cvs[index].isFavorite = false
-                  updateCVInFirestore(cv: cvs[index])
-              }
-          }
-
-          if let index = cvs.firstIndex(where: { $0.cvID == cv.cvID }) {
-              cvs[index].isFavorite = true
-              currentFavoriteCV = cvs[index]
-              updateCVInFirestore(cv: cvs[index])
-          }
-
-          myCVsTableView.reloadData()
-      }
+//      private func setFavorite(cv: CV) {
+//          if let currentFavorite = currentFavoriteCV {
+//              if let index = cvs.firstIndex(where: { $0.cvID == currentFavorite.cvID }) {
+//                  cvs[index].isFavorite = false
+//                  updateCVInFirestore(cv: cvs[index])
+//              }
+//          }
+//
+//          if let index = cvs.firstIndex(where: { $0.cvID == cv.cvID }) {
+//              cvs[index].isFavorite = true
+//              currentFavoriteCV = cvs[index]
+//              updateCVInFirestore(cv: cvs[index])
+//          }
+//
+//          myCVsTableView.reloadData()
+//      }
 
       private func deleteCVFromFirestore(cvToDelete: CV) {
           db.collection("CVs").document(cvToDelete.cvID).delete { error in
@@ -174,19 +194,19 @@ class CVBuilderEditorViewController: UIViewController, UITableViewDelegate, UITa
           }
       }
 
-      private func updateCVInFirestore(cv: CV) {
-          let cvID = cv.cvID
-          let data: [String: Any] = ["isFavorite": cv.isFavorite ?? false]
-          db.collection("CVs").document(cvID).updateData(data) { error in
-              if let error = error {
-                  print("Error updating CV: \(error.localizedDescription)")
-              } else {
-                  print("CV updated successfully.")
-              }
-          }
-      }
+//      private func updateCVInFirestore(cv: CV) {
+//          let cvID = cv.cvID
+//          let data: [String: Any] = ["isFavorite": cv.isFavorite ?? false]
+//          db.collection("CVs").document(cvID).updateData(data) { error in
+//              if let error = error {
+//                  print("Error updating CV: \(error.localizedDescription)")
+//              } else {
+//                  print("CV updated successfully.")
+//              }
+//          }
+//      }
 
-    private func handleFavoriteAction(_ selectedCV: CV) {
+    private func handleFavoriteAction(_ selectedCV: CV) async throws {
         // First, check if the selected CV is already the current favorite
         if currentFavoriteCV?.cvID == selectedCV.cvID {
             // If it is, do nothing
@@ -196,19 +216,24 @@ class CVBuilderEditorViewController: UIViewController, UITableViewDelegate, UITa
         // Unmark all CVs as favorite
         for i in 0..<cvs.count {
             cvs[i].isFavorite = false
-            updateCVInFirestore(cv: cvs[i]) // Update Firestore for each CV
+            // Call the async function to update existing CVs
+            try await CVManager.updateExistingCV(cvID: cvs[i].cvID, updatedCV: cvs[i])
         }
 
         // Mark the selected CV as favorite
         if let index = cvs.firstIndex(where: { $0.cvID == selectedCV.cvID }) {
             cvs[index].isFavorite = true
             currentFavoriteCV = cvs[index] // Update the current favorite reference
-            updateCVInFirestore(cv: cvs[index]) // Update Firestore
+            // Update the selected CV in Firestore
+            try await CVManager.updateExistingCV(cvID: cvs[index].cvID, updatedCV: cvs[index])
         }
 
         // Refresh the table view to reflect the changes
         myCVsTableView.reloadData()
     }
+    
+    
+    
       func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
           return myCVsTableView.frame.width / 2
       }

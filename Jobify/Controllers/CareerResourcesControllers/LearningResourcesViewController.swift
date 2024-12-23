@@ -90,7 +90,24 @@ class LearningResourcesViewController:  UIViewController, UICollectionViewDataSo
         return CGSize(width: width, height: height)
     }
     
+    
+    @IBAction func btnViewAllResourcesCliked(_ sender: UIButton) {
+        navigateToSkillResources(with: skill!)
+    }
+    
+    private func navigateToSkillResources(with skill: Skill) {
+        // Instantiate the SkillResourcesViewController using its storyboard ID
+        let storyboard = UIStoryboard(name: "CareerResourcesAndSkillDevelopment", bundle: nil)
+        if let skillResourcesVC = storyboard.instantiateViewController(withIdentifier: "viewAllResources") as? AllCareerPathsViewController {
+            skillResourcesVC.skill = skill
+            navigationController?.pushViewController(skillResourcesVC, animated: true)
+        } else {
+            print("Error: Could not instantiate ")
+        }
+    }
+    
 
+    
     private func fetchLearningResources() {
            guard let skillRef = skill?.documentReference else { //
                print("Skill reference is missing.")
