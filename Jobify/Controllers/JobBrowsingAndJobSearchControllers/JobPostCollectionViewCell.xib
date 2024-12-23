@@ -107,8 +107,6 @@
                                 <rect key="frame" x="8" y="110" width="324" height="71"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="71" id="90H-O4-kjw"/>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="71" id="eHU-1O-wYK"/>
-                                    <constraint firstAttribute="width" constant="324" id="k9y-Tc-8ZY"/>
                                 </constraints>
                                 <string key="text">As an IT Support Intern, you will assist the IT department with troubleshooting hardware and software issues, setting up workstations, and maintaining IT systems. This is a hands-on role providing an opportunity to learn about IT infrastructure and support.</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="11"/>
@@ -170,7 +168,6 @@
                             <constraint firstItem="fdX-l0-gCK" firstAttribute="leading" secondItem="TZd-8h-fj4" secondAttribute="leading" id="6ff-7t-Ufo"/>
                             <constraint firstItem="e53-D6-2SM" firstAttribute="top" secondItem="fdX-l0-gCK" secondAttribute="bottom" constant="3" id="Bb8-Ro-Fzg"/>
                             <constraint firstItem="ZTY-QJ-asI" firstAttribute="leading" secondItem="Xth-At-FYz" secondAttribute="leading" id="EhO-fG-Ixa"/>
-                            <constraint firstAttribute="trailing" secondItem="fdX-l0-gCK" secondAttribute="trailing" constant="12" id="GBj-wN-ZeO"/>
                             <constraint firstItem="GN3-Ld-4G2" firstAttribute="leading" secondItem="3nO-om-b2J" secondAttribute="trailing" constant="18" id="I3P-x2-kZk"/>
                             <constraint firstItem="fdX-l0-gCK" firstAttribute="leading" secondItem="3nO-om-b2J" secondAttribute="leading" id="WX9-EX-3RQ"/>
                             <constraint firstItem="fdX-l0-gCK" firstAttribute="top" secondItem="6D9-1e-LSq" secondAttribute="top" constant="110" id="WgT-gI-4ei"/>
@@ -191,7 +188,6 @@
                 <constraints>
                     <constraint firstItem="6D9-1e-LSq" firstAttribute="centerX" secondItem="vRZ-iN-EWo" secondAttribute="centerX" id="dS1-5R-DwB"/>
                     <constraint firstItem="6D9-1e-LSq" firstAttribute="leading" secondItem="vRZ-iN-EWo" secondAttribute="leading" id="duA-Sz-HkX"/>
-                    <constraint firstItem="6D9-1e-LSq" firstAttribute="width" secondItem="vRZ-iN-EWo" secondAttribute="width" id="eDI-07-TQp"/>
                     <constraint firstItem="6D9-1e-LSq" firstAttribute="top" secondItem="vRZ-iN-EWo" secondAttribute="top" id="otQ-ph-fLJ"/>
                     <constraint firstItem="6D9-1e-LSq" firstAttribute="centerY" secondItem="vRZ-iN-EWo" secondAttribute="centerY" constant="0.5" id="qcn-BJ-gkd"/>
                     <constraint firstAttribute="trailing" secondItem="6D9-1e-LSq" secondAttribute="trailing" id="xdY-bl-a82"/>
