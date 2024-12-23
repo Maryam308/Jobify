@@ -130,9 +130,9 @@ class LearningResourcesViewController:  UIViewController, UICollectionViewDataSo
                            print("Error parsing document: \(data)")
                            continue
                        }
-
+                   
                        // Create a LearningResource instance
-                       let learningResource = LearningResource(type: type, summary: summary, link: link, title: title, skillToDevelop: skillToDevelop)
+                       let learningResource = LearningResource(type: type, summary: summary, link: link, title: title, skillRef: skillToDevelop)
 
                        // Categorize resources based on type
                        switch type.lowercased() {

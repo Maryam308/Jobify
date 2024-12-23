@@ -63,10 +63,10 @@ struct LearningResource: Equatable {
         self.skillRef = skillRef
     }
     
-    init(type: String, summary: String, link: String, skillToDevelop: String) {
+    init(type: String, summary: String, link: String, title: String, skillToDevelop: String) {
          
          LearningResource.resourceIdCounter += 1
-         
+        self.title = title
          self.learningResourceId = LearningResource.resourceIdCounter
          self.type = type
          self.summary = summary
