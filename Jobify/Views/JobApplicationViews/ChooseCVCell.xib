@@ -16,9 +16,8 @@
                 <rect key="frame" x="0.0" y="0.0" width="385" height="146"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cAL-K1-NwO">
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cAL-K1-NwO">
                         <rect key="frame" x="10" y="0.0" width="365" height="138"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cwU-5Z-qK0">
                                 <rect key="frame" x="28" y="50" width="0.0" height="0.0"/>
@@ -27,34 +26,43 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="document.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="SCz-t8-oYG">
-                                <rect key="frame" x="20" y="27.333333333333329" width="44" height="44"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="document.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="SCz-t8-oYG">
+                                <rect key="frame" x="20" y="27.333333333333329" width="18" height="44"/>
                                 <color key="tintColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="CV Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Eks-gE-LXy">
-                                <rect key="frame" x="80" y="27" width="201" height="22"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CV Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Eks-gE-LXy" userLabel="CVTitleLabel">
+                                <rect key="frame" x="54" y="27" width="65" height="22"/>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="added date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rve-9K-pyG">
-                                <rect key="frame" x="80" y="50" width="201" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="added date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rve-9K-pyG" userLabel="CVDateLabel">
+                                <rect key="frame" x="54.000000000000007" y="50" width="86.666666666666686" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lvM-LB-NAZ">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lvM-LB-NAZ">
                                 <rect key="frame" x="28" y="86" width="88" height="39"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="tintColor" red="0.1137254902" green="0.1764705882" blue="0.2666666667" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" title="View CV" cornerStyle="capsule"/>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="0.85098039219999999" green="0.85098039219999999" blue="0.85098039219999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="Rve-9K-pyG" firstAttribute="top" secondItem="Eks-gE-LXy" secondAttribute="bottom" constant="1" id="8jB-F4-Y8d"/>
+                            <constraint firstItem="Eks-gE-LXy" firstAttribute="top" secondItem="cAL-K1-NwO" secondAttribute="top" constant="27" id="HOS-Es-dWz"/>
+                            <constraint firstItem="SCz-t8-oYG" firstAttribute="top" secondItem="cAL-K1-NwO" secondAttribute="top" constant="27" id="QfP-tJ-qDy"/>
+                            <constraint firstItem="Eks-gE-LXy" firstAttribute="leading" secondItem="SCz-t8-oYG" secondAttribute="trailing" constant="16" id="TTg-rW-MQx"/>
+                            <constraint firstAttribute="bottom" secondItem="lvM-LB-NAZ" secondAttribute="bottom" constant="13" id="Z5b-aQ-irh"/>
+                            <constraint firstItem="lvM-LB-NAZ" firstAttribute="leading" secondItem="cAL-K1-NwO" secondAttribute="leading" constant="28" id="dQM-wM-5xw"/>
+                            <constraint firstItem="lvM-LB-NAZ" firstAttribute="top" secondItem="SCz-t8-oYG" secondAttribute="bottom" constant="14.67" id="j52-NF-nHq"/>
+                            <constraint firstItem="SCz-t8-oYG" firstAttribute="leading" secondItem="cAL-K1-NwO" secondAttribute="leading" constant="20" symbolic="YES" id="q0H-GS-v3x"/>
+                            <constraint firstItem="lvM-LB-NAZ" firstAttribute="top" secondItem="SCz-t8-oYG" secondAttribute="bottom" constant="14.67" id="xUE-69-DeI"/>
+                            <constraint firstItem="Rve-9K-pyG" firstAttribute="leading" secondItem="SCz-t8-oYG" secondAttribute="trailing" constant="16" id="xqf-Co-h4W"/>
+                            <constraint firstItem="lvM-LB-NAZ" firstAttribute="top" secondItem="Rve-9K-pyG" secondAttribute="bottom" constant="15" id="yZ0-eB-69n"/>
+                        </constraints>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                 <integer key="value" value="20"/>
@@ -62,6 +70,12 @@
                         </userDefinedRuntimeAttributes>
                     </view>
                 </subviews>
+                <constraints>
+                    <constraint firstItem="cAL-K1-NwO" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="GgC-Sj-N9T"/>
+                    <constraint firstItem="cAL-K1-NwO" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="VJ9-AE-PbM"/>
+                    <constraint firstAttribute="trailing" secondItem="cAL-K1-NwO" secondAttribute="trailing" constant="10" id="bzm-km-xvb"/>
+                    <constraint firstAttribute="bottom" secondItem="cAL-K1-NwO" secondAttribute="bottom" constant="8" id="lv4-A6-eVg"/>
+                </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
