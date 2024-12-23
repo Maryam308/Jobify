@@ -9,14 +9,14 @@ import Foundation
 import Firebase
 
 struct User {
-   var userID: String
+   var userID: Int
    var name: String
    var email: String
    var role: UserType
    var seekerDetails: SeekerDetails?
    var employerDetails: EmployerDetails?
    var adminDetails: AdminDetails?
-    init(userID: String, name: String, email: String, role: UserType) {
+    init(userID: Int, name: String, email: String, role: UserType) {
        self.userID = userID
        self.name = name
        self.email = email
@@ -30,5 +30,12 @@ enum UserType: String {
     case admin
 }
 
+class UserSession {
+    static let shared = UserSession() // make the singleton instance
+
+    var loggedInUser: User?
+
+    private init() {} // Private initializer to prevent creating multiple instances
+}
 
 

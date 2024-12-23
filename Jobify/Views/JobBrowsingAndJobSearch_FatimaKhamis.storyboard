@@ -315,7 +315,7 @@
                     <navigationItem key="navigationItem" id="7qE-b9-GZs">
                         <barButtonItem key="leftBarButtonItem" style="plain" id="cX0-vP-nnD">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="NiQ-mD-FCb">
-                                <rect key="frame" x="15.999999999999996" y="5.6666666666666679" width="40.666666666666657" height="33"/>
+                                <rect key="frame" x="16" y="2.6666666666666679" width="49" height="39"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" image="IconHamburgerMenu"/>
@@ -411,11 +411,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="402" height="874"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="LQd-RX-lvB">
                                 <rect key="frame" x="40.666666666666657" y="89" width="320" height="40"/>
+
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tOS-X4-Oe3">
-                                        <rect key="frame" x="0.0" y="0.0" width="150" height="40"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="100" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="150" id="2If-LJ-Ler"/>
                                             <constraint firstAttribute="height" constant="40" id="Dfm-Ye-pdY"/>
@@ -427,7 +429,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pZc-Xn-XDP">
-                                        <rect key="frame" x="170" y="0.0" width="150" height="40"/>
+                                        <rect key="frame" x="120" y="0.0" width="100" height="40"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" image="iconSort" title="Sort" imagePadding="20"/>
                                         <connections>

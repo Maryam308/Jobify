@@ -16,7 +16,7 @@ struct SeekerDetails {
     var jobsApplicationList: [JobApplication] = []
     var notificationList: [Notification] = []
     var selectedJobPosition: String
-
+    var seekerCVs: [CV] = []
     // Custom initializer
     init(
         seekerName: String,
@@ -25,7 +25,8 @@ struct SeekerDetails {
         country: String,
         city: String,
         isMentor: Bool = false,
-        selectedJobPosition: String = ""
+        selectedJobPosition: String = "",
+        seekerCVs: [CV] = []
     ) {
         
 
