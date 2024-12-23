@@ -69,5 +69,53 @@ var jobs: [JobPost] = [
         location: "Remote",
         description: "Description",
         jobDescription: "As an IT Security Specialist, you will safeguard the company’s IT infrastructure by developing and enforcing security policies, monitoring networks for threats, and responding to security incidents. You will also conduct security audits and manage risk assessments."
+    ),
+    JobPost(
+        image: UIImage(named: "Gulf Digital Group Logo"),
+        time: "14:45, 05-12-2024",
+        title: "Data Scientist",
+        date: "05-12-2024",
+        level: "Junior",
+        enrollmentType: "Contract",
+        category: "Data Science",
+        location: "Remote",
+        description: "Description",
+        jobDescription: "As an IT Security Specialist, you will safeguard the company’s IT infrastructure by developing and enforcing security policies, monitoring networks for threats, and responding to security incidents. You will also conduct security audits and manage risk assessments."
+    ),
+    JobPost(
+        image: UIImage(named: "Gulf Digital Group Logo"),
+        time: "14:45, 05-12-2024",
+        title: "Data Scientist",
+        date: "05-12-2024",
+        level: "Junior",
+        enrollmentType: "Contract",
+        category: "Data Science",
+        location: "Remote",
+        description: "Description",
+        jobDescription: "As an IT Security Specialist, you will safeguard the company’s IT infrastructure by developing and enforcing security policies, monitoring networks for threats, and responding to security incidents. You will also conduct security audits and manage risk assessments."
+    ),
+    JobPost(
+        image: UIImage(named: "Gulf Digital Group Logo"),
+        time: "14:45, 05-12-2024",
+        title: "Data Scientist",
+        date: "05-12-2024",
+        level: "Junior",
+        enrollmentType: "Contract",
+        category: "Data Science",
+        location: "Remote",
+        description: "Description",
+        jobDescription: "As an IT Security Specialist, you will safeguard the company’s IT infrastructure by developing and enforcing security policies, monitoring networks for threats, and responding to security incidents. You will also conduct security audits and manage risk assessments."
+    ),
+    JobPost(
+        image: UIImage(named: "Gulf Digital Group Logo"),
+        time: "14:45, 05-12-2024",
+        title: "Data Scientist",
+        date: "05-12-2024",
+        level: "Junior",
+        enrollmentType: "Contract",
+        category: "Data Science",
+        location: "Remote",
+        description: "Description",
+        jobDescription: "As an IT Security Specialist, you will safeguard the company’s IT infrastructure by developing and enforcing security policies, monitoring networks for threats, and responding to security incidents. You will also conduct security audits and manage risk assessments."
     )
 ]
