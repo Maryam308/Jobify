@@ -13,28 +13,42 @@ class ApplicationTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-       
+        createViewBorder()
+        
     }
  
     @IBOutlet weak var introductionText: UITextView!
     @IBOutlet weak var motivationText: UITextView!
     @IBOutlet weak var contributionText: UITextView!
     
+    
+    func createViewBorder() {
+        introductionText.layer.borderColor = UIColor.gray.cgColor
+        introductionText.layer.borderWidth = 1.0
+        introductionText.clipsToBounds = true
+        
+        motivationText.layer.borderColor = UIColor.gray.cgColor
+        motivationText.layer.borderWidth = 1.0
+        motivationText.clipsToBounds = true
+        
+        contributionText.layer.borderColor = UIColor.gray.cgColor
+        contributionText.layer.borderWidth = 1.0
+        contributionText.clipsToBounds = true
+    }
+    
+    
     @IBOutlet weak var attachmentLabel: UILabel!
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-            if segue.identifier == "ShowChooseCV",
-               let destinationVC = segue.destination as? ChooseCVTableViewController {
-                
-                // Set the closure to handle CV selection
+        if segue.identifier == "ShowChooseCV",
+               let navController = segue.destination as? UINavigationController,
+               let destinationVC = navController.topViewController as? ChooseCVTableViewController {
+                // Pass the closure to handle the selected CV
                 destinationVC.onCVSelected = { [weak self] selectedCV in
                     self?.selectedCV = selectedCV
-
-                    // Update the UI to show the selected CV if needed
-                    print("Selected CV: \(selectedCV.cvTitle)")
                     self?.attachmentLabel.text = selectedCV.cvTitle
                 }
             }
+            
         }
     
     @IBAction func sendApplication(_ sender: UIButton) {
@@ -43,16 +57,13 @@ class ApplicationTableViewController: UITableViewController {
                     return
                 }
 
-                let field1 = introductionText.text ?? ""
-                let field2 = motivationText.text ?? ""
-                let field3 = contributionText.text ?? ""
-
+                
                 let applicationData = [
                     "cvTitle": selectedCV.cvTitle,
                     "cvID": selectedCV.cvID,
-                    "field1": field1,
-                    "field2": field2,
-                    "field3": field3
+                    "introduction": introductionText.text ?? "",
+                    "motivation": motivationText.text ?? "",
+                    "contribution": contributionText.text ?? ""
                 ]
 
                 print("Application Data: \(applicationData)")
@@ -117,4 +128,4 @@ class ApplicationTableViewController: UITableViewController {
     }
     */
 
-}
+

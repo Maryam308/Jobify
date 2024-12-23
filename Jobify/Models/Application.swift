@@ -19,7 +19,7 @@ struct JobApplication{
 
 
     //Passed variables from application form
-//  var jobApplicant: Seeker
+    var jobApplicant: SeekerDetails
     var briefIntroduction: String
     var motivation: String
     var contributionToCompany: String
@@ -37,35 +37,37 @@ struct JobApplication{
 
     
     
-//    init(jobApplicant:  inout Seeker,
-//         jobApplied: Job,
-//         applicantCV: CV,
-//         briefIntroduction: String,
-//         motivation: String,
-//         contributionToCompany: String,
-//         applicantCoverLetter: Data?){
-//        
-//        //Auto-generated variables
-//        
-//        JobApplication.applicationIdCounter += 1
-//        applicationId = JobApplication.applicationIdCounter
-//        // Get the current date and time
-//        var currentDate = Date()
-//        
-//        // Extract the date components for the date
-//        var dateComponents = calendar.dateComponents([.day, .month], from: currentDate)
-//        // Create date and time variables and convert date and time components to string
-//        var date = String(format: "%02d-%02d", dateComponents.day!, dateComponents.month!)
-//        
-//        self.applicationDate = date
-//        
-//        self.jobApplicant = jobApplicant
-//        self.jobApplied = jobApplied
-//        self.applicantCV = applicantCV
-//        self.briefIntroduction = briefIntroduction
-//        self.motivation = motivation
-//        self.contributionToCompany = contributionToCompany
-//        self.applicantCoverLetter = applicantCoverLetter
-//        
-//    }
+    init(jobApplicant:  inout SeekerDetails,
+         jobApplied: Job,
+         applicantCV: CV,
+         briefIntroduction: String,
+         motivation: String,
+         contributionToCompany: String
+         ){
+        
+        //Auto-generated variables
+        
+        JobApplication.applicationIdCounter += 1
+        applicationId = JobApplication.applicationIdCounter
+        // Get the current date and time
+        var currentDate = Date()
+        
+        // Extract the date components for the date
+        var dateComponents = calendar.dateComponents([.day, .month], from: currentDate)
+        // Create date and time variables and convert date and time components to string
+        var date = String(format: "%02d-%02d", dateComponents.day!, dateComponents.month!)
+        
+        self.applicationDate = date
+        
+        self.jobApplicant = jobApplicant
+        self.jobApplied = jobApplied
+        self.applicantCV = applicantCV
+        self.briefIntroduction = briefIntroduction
+        self.motivation = motivation
+        self.contributionToCompany = contributionToCompany
+        //self.applicantCoverLetter = applicantCoverLetter
+        
     }
+    }
+
+

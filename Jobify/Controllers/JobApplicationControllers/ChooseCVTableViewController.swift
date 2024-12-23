@@ -19,6 +19,7 @@ class ChooseCVTableViewController: UITableViewController {
     @IBAction func cancelButtonClicked(_ sender: UIBarButtonItem) {
         self.dismiss(animated: true, completion: nil)
     }
+    
     @IBOutlet var ChooseCVTableView: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -84,8 +85,7 @@ class ChooseCVTableViewController: UITableViewController {
             // Call the closure with the selected CV
             onCVSelected?(selectedCV)
 
-            // Dismiss the ChooseCVTableViewController
-            self.dismiss(animated: true, completion: nil)
+        self.navigationController?.dismiss(animated: true, completion: nil)
         }
 
 }
