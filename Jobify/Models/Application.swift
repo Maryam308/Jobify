@@ -12,10 +12,10 @@ struct JobApplication{
     //Auto-generated variables
     static var applicationIdCounter: Int = 0
     var applicationId: Int
-    var applicationDate: String
+    //var applicationDate: String
         
     // Create a Calendar instance to format the date and time
-    var calendar = Calendar.current
+    //var calendar = Calendar.current
 
 
     //Passed variables from application form
@@ -36,7 +36,7 @@ struct JobApplication{
     
 
     
-    
+    // initializer
     init(jobApplicant:  inout SeekerDetails,
          jobApplied: Job,
          applicantCV: CV,
@@ -50,14 +50,14 @@ struct JobApplication{
         JobApplication.applicationIdCounter += 1
         applicationId = JobApplication.applicationIdCounter
         // Get the current date and time
-        var currentDate = Date()
+        //var currentDate = Date()
         
         // Extract the date components for the date
-        var dateComponents = calendar.dateComponents([.day, .month], from: currentDate)
+        //var dateComponents = calendar.dateComponents([.day, .month], from: currentDate)
         // Create date and time variables and convert date and time components to string
-        var date = String(format: "%02d-%02d", dateComponents.day!, dateComponents.month!)
+        //var date = String(format: "%02d-%02d", dateComponents.day!, dateComponents.month!)
         
-        self.applicationDate = date
+        //self.applicationDate = date
         
         self.jobApplicant = jobApplicant
         self.jobApplied = jobApplied
