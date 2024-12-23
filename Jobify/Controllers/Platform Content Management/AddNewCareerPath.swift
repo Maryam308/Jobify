@@ -14,8 +14,17 @@ class AddNewCareerPathViewController: UITableViewController {
     //setup to use firestore database
     let db = Firestore.firestore()
     
-    @IBOutlet weak var btnCareer: UIButton!
-    @IBOutlet weak var btnDemand: UIButton!
+    //in case of editing variables
+    var editCareerPathId: Int? // ID for editing mode
+
+    var editCareerPathTitle: String = ""
+    var editCareerPathCareer: String = ""
+    var editCareerPathRoadMap: String = ""
+    var editCareerPathDemand: String = ""
+    var forEditing: Bool = false
+    
+    @IBOutlet weak var btnCareer: UIButton!//add button
+    @IBOutlet weak var btnDemand: UIButton! //popup button
     //outlets
     @IBOutlet weak var txtViewCareer: UITextView!
     @IBOutlet weak var txtTitle: UITextField!
@@ -66,7 +75,38 @@ class AddNewCareerPathViewController: UITableViewController {
         btnDemand.showsMenuAsPrimaryAction = true // Ensures the menu shows when tapped
 
            // Set the default title (placeholder)
-        btnDemand.setTitle("Choose the Career Demand", for: .normal)
+        btnDemand.setTitle(placeholder.title, for: .normal)
+        
+        
+        //if the screen is made for editing fetch and display the data
+        if let id = editCareerPathId {
+               forEditing = true
+               btnCareer.setTitle("Save Changes", for: .normal)
+               
+               // Fetch details from Firebase for the given ID
+               db.collection("careerPaths")
+                   .whereField("careerPathId", isEqualTo: id)
+                   .getDocuments { snapshot, error in
+                       if let error = error {
+                           print("Error fetching career path: \(error)")
+                           return
+                       }
+                       
+                       guard let document = snapshot?.documents.first else {
+                           print("No matching career path found.")
+                           return
+                       }
+                       
+                       let data = document.data()
+                       self.txtTitle.text = data["title"] as? String
+                       self.txtViewCareer.text = data["description"] as? String
+                       self.txtViewRoadMap.text = data["roadmap"] as? String
+                       if let demand = data["demand"] as? String {
+                           self.btnDemand.setTitle(demand, for: .normal)
+                       }
+                   }
+        }
+
         
     }
     
@@ -117,19 +157,55 @@ class AddNewCareerPathViewController: UITableViewController {
         enteredDemand = selectedTitle
         
            
-        
-        //validate that the textViews are not empty and safely unwrap optional values
+        if let id = editCareerPathId { // Editing mode
+                // Update the existing career path in Firebase
+                db.collection("careerPaths")
+                    .whereField("careerPathId", isEqualTo: id)
+                    .getDocuments { snapshot, error in
+                        if let error = error {
+                            print("Error fetching career path for update: \(error)")
+                            return
+                        }
+                        
+                        guard let document = snapshot?.documents.first else {
+                            print("No matching career path found.")
+                            return
+                        }
+                        
+                        // Update the document
+                        document.reference.updateData([
+                            "title": title,
+                            "description": careerText,
+                            "roadmap": roadMapText,
+                            "demand": selectedTitle
+                        ]) { error in
+                            if let error = error {
+                                print("Error updating career path: \(error)")
+                            } else {
+                                print("Career path updated successfully!")
+                                self.showAlertWithCompletion(title: "Success", message: "Career Path Updated") {
+                                    self.navigationController?.popViewController(animated: true)
+                                }
+                            }
+                        }
+                    }
+        }else{
+            
+            //validate that the fields are not empty and safely unwrap optional values
             if let enteredTitle = txtTitle.text,
                let enteredCareer = txtViewCareer.text,
                let enteredRoadMap = txtViewRoadMap.text {
                 
+                //construct to get an auto incremented
+                let careerPath = CareerPath(careerName: enteredTitle, demand: enteredDemand, roadmap: enteredRoadMap,description: enteredCareer)
                 // Create a dictionary for the career path to add to the firebase document
                 let careerPathData = [
+                    "careerPathId": careerPath.careerId,
                     "title": enteredTitle,
                     "roadmap": enteredRoadMap,
                     "description": enteredCareer,
-                    "demand": enteredDemand
-                ]
+                    "demand": enteredDemand!
+                ] as [String : Any]
                 
                 // Add values to database
                 //in the collection 'careerPaths' using auto generated id
@@ -137,13 +213,38 @@ class AddNewCareerPathViewController: UITableViewController {
                 //3- Add error handling if there is a returned error from firebase and provide feedback
                 db.collection("careerPaths").addDocument(data: careerPathData as [String : Any])
                 { error in if let error = error { print("Error adding document: \(error)") } else { print("Document successfully added!") } }
-
+                
                 //clear input and alert success and navigate back
+                txtTitle.text = ""
+                txtViewRoadMap.text = ""
+                txtViewCareer.text = ""
+                btnDemand.setTitle("Choose the Career Demand", for: .normal)
+                showAlertWithCompletion(title: "Success", message: "Career Path Added"){
+                    self.navigationController?.popViewController(animated: true)
+                }
+                
                 
             }
-        
+        }
         
     }
     
-    //when add button clicked : will take in the values added for a new career path
+
+         
+
+        //alerts that have action after completion
+        func showAlertWithCompletion(title: String, message: String, completion: @escaping () -> Void) {
+            let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "OK", style: .default) { _ in
+                completion()
+            }
+            alertController.addAction(okAction)
+            present(alertController, animated: true)
+        }
+    
+    
 }
+
+
+
+

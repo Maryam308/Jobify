@@ -66,6 +66,13 @@ class LRRequestCollectionCell : UICollectionViewCell {
 }
 
 
+//to tell the view controller that the button has been tapped and send the title
+protocol CareerPathCellDelegate: AnyObject {
+    func didTapEditButton(id: Int)
+    func didTapRemoveButton(id: Int)
+}
+
+
 class ManageCareerPathCollectionViewCell : UICollectionViewCell {
         
     @IBOutlet weak var btnRemoveCareer: UIButton!
@@ -73,6 +80,8 @@ class ManageCareerPathCollectionViewCell : UICollectionViewCell {
     @IBOutlet weak var lblCareerTitle: UILabel!
     @IBOutlet weak var careerTitleView: UIView!
     
+    weak var delegate: CareerPathCellDelegate?
+    private var id: Int? // Store the id
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -83,5 +92,30 @@ class ManageCareerPathCollectionViewCell : UICollectionViewCell {
         
         
     }
+    
+    func configure(with careerPath: CareerPath) {
+        lblCareerTitle.text = careerPath.title
+        id = careerPath.careerId
+        }
+    
+    //actions for tapping the buttons
+    
+    @IBAction func btnEditTapped(_ sender: UIButton) {
+        
+        if let id = id {
+                    delegate?.didTapEditButton(id: id)
+                }
+        
+    }
+    
+    
+    //removing the career path
+    @IBAction func btnRemoveTapped(_ sender: UIButton) {
+        if let id = id {
+                    delegate?.didTapEditButton(id: id)
+                }
+    }
+    
+    
     
 }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="c1g-di-xN4">
     <device id="retina6_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
@@ -10,7 +10,6 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-
         <!--Chat View Controller-->
         <scene sceneID="rAb-Og-nPw">
             <objects>
@@ -299,6 +298,9 @@
                                                             <state key="normal" title="Edit">
                                                                 <color key="titleColor" red="0.93333333330000001" green="0.93333333330000001" blue="0.93333333330000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             </state>
+                                                            <connections>
+                                                                <action selector="btnEditTapped:" destination="iGH-bL-goF" eventType="touchUpInside" id="9ew-4R-M0s"/>
+                                                            </connections>
                                                         </button>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kch-Nb-Xnq">
                                                             <rect key="frame" x="15" y="170" width="130" height="30"/>
@@ -312,6 +314,9 @@
                                                             <state key="normal" title="Remove">
                                                                 <color key="titleColor" red="0.93333333330000001" green="0.93333333330000001" blue="0.93333333330000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             </state>
+                                                            <connections>
+                                                                <action selector="btnRemoveTapped:" destination="iGH-bL-goF" eventType="touchUpInside" id="HM3-Sr-80v"/>
+                                                            </connections>
                                                         </button>
                                                     </subviews>
                                                     <constraints>
@@ -1114,7 +1119,7 @@
         <!--Add New Career Path View Controller-->
         <scene sceneID="5FD-U5-hE2">
             <objects>
-                <tableViewController id="1dm-E4-lic" customClass="AddNewCareerPathViewController" customModule="Jobify" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="AddCareerPath" id="1dm-E4-lic" customClass="AddNewCareerPathViewController" customModule="Jobify" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="omb-z9-vHa">
                         <rect key="frame" x="0.0" y="0.0" width="440" height="956"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1307,21 +1312,16 @@
                                             <rect key="frame" x="0.0" y="0.0" width="440" height="100"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JoM-NV-WPw">
-
                                                     <rect key="frame" x="20" y="9" width="400" height="82"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Demand" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z8q-Mo-6db">
                                                             <rect key="frame" x="25" y="8.0000000000000018" width="64.333333333333329" height="20.666666666666671"/>
-
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-
                                                         <button opaque="NO" contentMode="scaleToFill" showsMenuAsPrimaryAction="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" changesSelectionAsPrimaryAction="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oH4-p3-Pdm">
-
                                                             <rect key="frame" x="20" y="48.666666666666664" width="360" height="29.999999999999993"/>
                                                             <menu key="menu" id="mLx-Eo-wMu">
                                                                 <children>
@@ -1337,7 +1337,6 @@
                                                                 <color key="titleColor" red="0.1137254902" green="0.1764705882" blue="0.2666666667" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <color key="titleShadowColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             </state>
-
                                                         </button>
                                                     </subviews>
                                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -1367,12 +1366,9 @@
                                             <rect key="frame" x="0.0" y="0.0" width="440" height="100"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-
                                                 <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cgR-c9-UNN">
-
                                                     <rect key="frame" x="35" y="27" width="370" height="40"/>
                                                     <color key="backgroundColor" red="0.1137254902" green="0.1764705882" blue="0.2666666667" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-
                                                     <constraints>
                                                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="258" id="GhL-mv-LVj"/>
                                                         <constraint firstAttribute="height" constant="40" id="JGm-kD-uiW"/>
@@ -1405,7 +1401,7 @@
                     <navigationItem key="navigationItem" id="8w5-eN-1IP"/>
                     <connections>
                         <outlet property="btnCareer" destination="cgR-c9-UNN" id="iBR-ia-9ag"/>
-                        <outlet property="btnDemand" destination="cgR-c9-UNN" id="SY9-uj-ce0"/>
+                        <outlet property="btnDemand" destination="oH4-p3-Pdm" id="CyG-mC-MTP"/>
                         <outlet property="txtTitle" destination="DeV-ch-Jmq" id="UYw-yZ-iLB"/>
                         <outlet property="txtViewCareer" destination="6uh-x8-KCb" id="TXk-gE-E35"/>
                         <outlet property="txtViewRoadMap" destination="aBO-iC-EBD" id="xm7-Hc-x9G"/>

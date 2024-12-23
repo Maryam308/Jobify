@@ -19,23 +19,25 @@ struct CareerPath: Equatable {
         return lhs.careerId == rhs.careerId
     }
     
-    static var careerIdCounter: Int = 0
+    static var careerIdCounter: Int = 20 // to avoid conflict with any sample data
     var careerId: Int
     var description: String? = ""
     var title: String
     var demand: String? = ""
     var roadmap: String? = ""
     
-    init(careerName: String, demand: String?, roadmap: String) {
+    init(careerName: String, demand: String?, roadmap: String, description: String) {
         careerId = CareerPath.careerIdCounter + 1
         self.title = careerName
         self.demand = demand
         self.roadmap = roadmap
+        self.description = description
     }
     
-    init(title: String){
-        careerId = CareerPath.careerIdCounter + 1
+    //init for fetching and constructing
+    init(careerId: Int , title: String){
         self.title = title
+        self.careerId = careerId
     }
     
 }
