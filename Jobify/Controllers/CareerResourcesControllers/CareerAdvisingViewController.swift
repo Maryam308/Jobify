@@ -18,6 +18,16 @@ struct CareerPath1 {
            self.demand = demand
        }
 }
+
+
+struct SeekerDetailsTest {
+    var savedLearningResourcesList: [LearningResource] = []
+    var seekerCVs: [CV] = []
+    var isMentor: Bool = false
+    var userID: DocumentReference?
+}
+
+
 import UIKit
 import FirebaseFirestore
 

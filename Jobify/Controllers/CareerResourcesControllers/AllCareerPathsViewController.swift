@@ -7,9 +7,15 @@ class AllCareerPathsViewController: UIViewController, UICollectionViewDataSource
     
     @IBOutlet weak var skillsCollectionView: UICollectionView!
     
+    @IBOutlet weak var learningResourcesCollectionView: UICollectionView!
+    
+    @IBOutlet weak var lblAllLearningResources: UITextView!
+    
+    var skill: Skill? // Property to hold the passed skill
     let db = Firestore.firestore()
     var careerPaths: [CareerPath1] = []
     var skills: [Skill] = []
+    var learningResources: [LearningResource] = []
     var popupVC: PopupViewController?
     
     override func viewDidLoad() {
@@ -29,7 +35,9 @@ class AllCareerPathsViewController: UIViewController, UICollectionViewDataSource
             
             let careerPathNib = UINib(nibName: "CareerPathCollectionViewCell", bundle: nil)
             careerPathCollectionView.register(careerPathNib, forCellWithReuseIdentifier: "CareerPathCollectionViewCell")
+       
             fetchCareerPaths()
+            
             
         } else if self.restorationIdentifier == "skills" {
             skillsCollectionView.collectionViewLayout = layout
@@ -39,6 +47,19 @@ class AllCareerPathsViewController: UIViewController, UICollectionViewDataSource
             let skillsNib = UINib(nibName: "CareerPathCollectionViewCell", bundle: nil)
             skillsCollectionView.register(skillsNib, forCellWithReuseIdentifier: "CareerPathCollectionViewCell")
             fetchSkills()
+        } else if self.restorationIdentifier == "viewAllResources"{
+            learningResourcesCollectionView.collectionViewLayout = layout
+            learningResourcesCollectionView.delegate = self
+            learningResourcesCollectionView.dataSource = self
+            
+            let allResourcesNib = UINib(nibName: "LearningResourcesCollectionViewCell", bundle: nil)
+            learningResourcesCollectionView.register(allResourcesNib, forCellWithReuseIdentifier: "LearningCollectionViewCell")
+            if let skillTitle = skill?.title {
+                lblAllLearningResources.text = "All Learning Resources for \(skillTitle)"
+            } else {
+                lblAllLearningResources.text = "All Learning Resources"
+            }
+            fetchLearningResources()
         }
     }
     
@@ -47,6 +68,8 @@ class AllCareerPathsViewController: UIViewController, UICollectionViewDataSource
             return careerPaths.count
         } else if collectionView == skillsCollectionView {
             return skills.count
+        } else if collectionView == learningResourcesCollectionView {
+            return learningResources.count
         }
         return 0
     }
@@ -57,6 +80,12 @@ class AllCareerPathsViewController: UIViewController, UICollectionViewDataSource
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CareerPathCollectionViewCell", for: indexPath) as! CareerPathCollectionViewCell
             cell.setUp(careerPath: careerPaths[indexPath.item].title)
             return cell
+        } else if collectionView == learningResourcesCollectionView {
+            
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "LearningCollectionViewCell", for: indexPath) as! LearningResourcesCollectionViewCell
+            cell.setup(learningResource: learningResources[indexPath.item])
+            return cell
+            
         } else if collectionView == skillsCollectionView {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CareerPathCollectionViewCell", for: indexPath) as! CareerPathCollectionViewCell
             cell.setUp(careerPath: skills[indexPath.item].title)
@@ -80,12 +109,15 @@ class AllCareerPathsViewController: UIViewController, UICollectionViewDataSource
         } else if collectionView == skillsCollectionView {
             // Calculate width for skillsCollectionView
             width = (skillsCollectionView.frame.width - totalSpacing) / 2
-        } else {
+        } else if collectionView == learningResourcesCollectionView {
+            // Calculate width
+            width = (learningResourcesCollectionView.frame.width - totalSpacing) / 2
+        }else {
             // Default case (should not happen)
             width = 0
         }
 
-        let height = width * 0.9 // Adjust height for the aspect ratio
+        let height = width * 0.9
 
         return CGSize(width: width, height: height)
     }
@@ -97,12 +129,14 @@ class AllCareerPathsViewController: UIViewController, UICollectionViewDataSource
         } else if collectionView == skillsCollectionView {
             let selectedSkill = skills[indexPath.item]
             navigateToSkillResources(with: selectedSkill)
+        } else if collectionView == learningResourcesCollectionView {
+            
         }
     }
 
     private func navigateToSkillResources(with skill: Skill) {
         // Instantiate the SkillResourcesViewController using its storyboard ID
-        let storyboard = UIStoryboard(name: "CareerResourcesAndSkillDevelopment", bundle: nil) // Adjust storyboard name if necessary
+        let storyboard = UIStoryboard(name: "CareerResourcesAndSkillDevelopment", bundle: nil)
         if let skillResourcesVC = storyboard.instantiateViewController(withIdentifier: "skillResources") as? LearningResourcesViewController {
             skillResourcesVC.skill = skill
             navigationController?.pushViewController(skillResourcesVC, animated: true)
@@ -122,7 +156,14 @@ class AllCareerPathsViewController: UIViewController, UICollectionViewDataSource
         popupVC?.openPopUpView()
     }
     
-
+    
+    
+    @IBAction func viewAllResources(_ sender: Any) {
+        
+        
+    }
+ 
+    
     
     private func fetchCareerPaths() {
         db.collection("careerPaths")
@@ -205,4 +246,62 @@ class AllCareerPathsViewController: UIViewController, UICollectionViewDataSource
                 }
             }
     }
+    
+    //fetch learning resources
+    private func fetchLearningResources() {
+           guard let skillRef = skill?.documentReference else { //
+               print("Skill reference is missing.")
+               return
+           }
+            print(skillRef)
+           db.collection("LearningResources")
+               .whereField("skill", isEqualTo: skillRef) // Filter by the skill reference
+               .getDocuments { [weak self] (querySnapshot, error) in
+                   guard let self = self else { return }
+
+                   if let error = error {
+                       print("Error fetching documents: \(error)")
+                       return
+                   }
+
+                   guard let documents = querySnapshot?.documents else {
+                       print("No documents found")
+                       return
+                   }
+
+                   // Clear previous data
+                   self.learningResources.removeAll()
+
+                   for document in documents {
+                       let data = document.data()
+                       print("Document data: \(data)") // Debugging output
+
+                       guard let title = data["title"] as? String,
+                             let summary = data["description"] as? String,
+                             let link = data["link"] as? String,
+                             let type = data["category"] as? String,
+                             let skillToDevelop = data["skill"] as? DocumentReference else {
+                           print("Error parsing document: \(data)")
+                           continue
+                       }
+                   
+                       // Create a LearningResource instance
+                       let learningResource = LearningResource(type: type, summary: summary, link: link, title: title, skillRef: skillToDevelop)
+                       self.learningResources.append(learningResource)
+                   }
+
+                   print("Learning Resources fetched: \(self.learningResources)") // Debugging output
+
+                   // Reload the collection view on the main thread
+                   DispatchQueue.main.async {
+                       self.learningResourcesCollectionView.reloadData()
+
+                   }
+               }
+       }
+    
+    
+    
+    
+    
 }
