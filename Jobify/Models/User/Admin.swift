@@ -177,14 +177,14 @@ struct AdminDetails{
         
     }
     
-    mutating func addCareerPath(careerName: String, demand: Demand, roadmap: String){
-        
-        //create the Career path
-        var newCareerPath = CareerPath(careerName: careerName, demand: demand, roadmap: roadmap)
-        
-        //add to career paths array
-        allCareerPaths.append(newCareerPath)
-    }
+//    mutating func addCareerPath(careerName: String, demand: Demand, roadmap: String){
+//        
+//        //create the Career path
+//        var newCareerPath = CareerPath(careerName: careerName, demand: demand, roadmap: roadmap)
+//        
+//        //add to career paths array
+//        allCareerPaths.append(newCareerPath)
+//    }
     
     
     

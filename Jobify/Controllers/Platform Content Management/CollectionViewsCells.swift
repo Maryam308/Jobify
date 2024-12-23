@@ -44,3 +44,44 @@ class SkillsCollectionViewCells: UICollectionViewCell {
     
     
 }
+
+
+
+class LRRequestCollectionCell : UICollectionViewCell {
+    
+    @IBOutlet weak var lblRequestState: UILabel!
+    @IBOutlet weak var btnTitle: UIButton!
+    
+    @IBOutlet weak var requestView: UIView!
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        requestView.layer.cornerRadius = 15
+        
+        
+        
+    }
+    
+}
+
+
+class ManageCareerPathCollectionViewCell : UICollectionViewCell {
+        
+    @IBOutlet weak var btnRemoveCareer: UIButton!
+    @IBOutlet weak var btnEditCareer: UIButton!
+    @IBOutlet weak var lblCareerTitle: UILabel!
+    @IBOutlet weak var careerTitleView: UIView!
+    
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        careerTitleView.layer.cornerRadius = 15
+        btnEditCareer.layer.cornerRadius = 15
+        btnRemoveCareer.layer.cornerRadius = 15
+        
+        
+    }
+    
+}
