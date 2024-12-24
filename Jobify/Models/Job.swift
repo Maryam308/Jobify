@@ -10,14 +10,15 @@ struct Job: Equatable {
     var time: String
     var title: String
     var companyDetails: EmployerDetails? // Store the company details object
+    var adminDetails: User?
     var level: JobLevel
     var category: CategoryJob
     var employmentType: EmploymentType
-    //var location: String
+    var location: String
     var deadline: Date?
     var desc: String
     var requirement: String
-    var extraAttachments: Data? = nil
+    var extraAttachments: String?
     var applications: [JobApplication] = []
     
     init(
@@ -26,14 +27,15 @@ struct Job: Equatable {
         level: JobLevel,
         category: CategoryJob,
         employmentType: EmploymentType,
-       // location: String,
+        location: String,
         deadline: Date?,
         desc: String,
         requirement: String,
-        extraAttachments: Data?,
+        extraAttachments: String?,
         date: Date,
         time: String
     ) {
+        
         Job.jobIdCounter += 1
         self.jobId = Job.jobIdCounter
         
@@ -44,13 +46,78 @@ struct Job: Equatable {
         self.level = level
         self.category = category
         self.employmentType = employmentType
-       // self.location = location
+        self.location = location
         self.deadline = deadline
         self.desc = desc
         self.requirement = requirement
         self.extraAttachments = extraAttachments
     }
+    
+    // Employer Custom constructor
+        init(
+            jobId: Int,
+            title: String,
+            companyDetails: EmployerDetails?,
+            level: JobLevel,
+            category: CategoryJob,
+            employmentType: EmploymentType,
+            location: String,
+            deadline: Date?,
+            desc: String,
+            requirement: String,
+            extraAttachments: String?,
+            date: Date,
+            time: String
+        ) {
+            
+            self.jobId = jobId
+            self.title = title
+            self.companyDetails = companyDetails
+            self.level = level
+            self.category = category
+            self.employmentType = employmentType
+            self.location = location
+            self.deadline = deadline
+            self.desc = desc
+            self.requirement = requirement
+            self.extraAttachments = extraAttachments
+            self.date = date
+            self.time = time
+        }
+    // Admin Custom constructor
+        init(
+            jobId: Int,
+            title: String,
+            adminDetails: User?,
+            level: JobLevel,
+            category: CategoryJob,
+            employmentType: EmploymentType,
+            location: String,
+            deadline: Date?,
+            desc: String,
+            requirement: String,
+            extraAttachments: String?,
+            date: Date,
+            time: String
+        ) {
+            
+            self.jobId = jobId
+            self.title = title
+            self.adminDetails = adminDetails
+            self.level = level
+            self.category = category
+            self.employmentType = employmentType
+            self.location = location
+            self.deadline = deadline
+            self.desc = desc
+            self.requirement = requirement
+            self.extraAttachments = extraAttachments
+            self.date = date
+            self.time = time
+        }
 }
+
+
 
     // Enums remain unchanged
     

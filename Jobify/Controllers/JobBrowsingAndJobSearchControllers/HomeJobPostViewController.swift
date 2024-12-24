@@ -1,17 +1,34 @@
 //
-//  JobPosViewController.swift
+// HomeJobPostViewController.swift
 //  Jobify
 //
 //  Created by Fatima Ali on 10/12/2024.
 //
 
 import UIKit
+import FirebaseFirestore
 
-class HomeJobPostViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UISearchBarDelegate {
+
+class HomeJobPostViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UISearchBarDelegate, UITableViewDelegate, UITableViewDataSource {
+    
+    
+    
+    struct JobTest {
+        var imageTest: UIImage?
+        var jobTestCompany: String
+        var jobTesttitle: String
+    }
+    
+    var testJobs = [
+        JobTest(imageTest: UIImage(named: "Gulf Digital Group Logo") ?? UIImage(), jobTestCompany: "Job 1", jobTesttitle: "Programmer"),
+        JobTest(imageTest: UIImage(named: "Gulf Digital Group Logo") ?? UIImage(), jobTestCompany: "Job 1", jobTesttitle: "Hacker"),
+        JobTest(imageTest: UIImage(named: "Gulf Digital Group Logo") ?? UIImage(), jobTestCompany: "Job 1", jobTesttitle: "Programming")
+    ]
+    
     
     
     @IBOutlet weak var homeScrollView: UIScrollView!
-
+    
     
     @IBOutlet weak var homeStackView: NSLayoutConstraint!
     
@@ -45,20 +62,23 @@ class HomeJobPostViewController: UIViewController, UICollectionViewDataSource, U
     
     @IBOutlet weak var recentJobPostCollectionView: UICollectionView!
     
+    //search
     @IBOutlet weak var searchBar: UISearchBar!
     
     @IBOutlet weak var searchOverlayView: UIView!
     
     @IBOutlet weak var searchResultsTableView: UITableView!
     
+    var filteredJobs: [JobTest] = []
+    
     
     @IBAction func viewAllRecommendedJobs(_ sender: Any) {
         let storyboard = UIStoryboard(name: "JobBrowsingAndJobSearch_FatimaKhamis", bundle: nil)
-            if let jobPostsVC = storyboard.instantiateViewController(withIdentifier: "JobPostsViewController") as? JobPostsViewController {
-                jobPostsVC.source = .recommendedJobs
-                navigationController?.pushViewController(jobPostsVC, animated: true)
-            } else {
-                print("Failed to instantiate JobPostsViewController")
+        if let jobPostsVC = storyboard.instantiateViewController(withIdentifier: "JobPostsViewController") as? JobPostsViewController {
+            jobPostsVC.source = .recommendedJobs
+            navigationController?.pushViewController(jobPostsVC, animated: true)
+        } else {
+            print("Failed to instantiate JobPostsViewController")
         }
     }
     
@@ -72,11 +92,13 @@ class HomeJobPostViewController: UIViewController, UICollectionViewDataSource, U
         }
     }
     
-
+    
     
     let JobPostCollectionViewCellId = "JobPostCollectionViewCell"
     let JobsCollectionViewCellId = "JobsCollectionViewCell"
     let recentJobPostCollectionViewCellId = "JobPostCollectionViewCell"
+    
+    
     
     @IBOutlet var mainHomeView: UIView!
     
@@ -84,37 +106,47 @@ class HomeJobPostViewController: UIViewController, UICollectionViewDataSource, U
     
     var isHamburgerMenuOpen = false
     
+    var recommendedJobs: [Job] = [] // Array to hold  recommended job postings
+    var recentJobs: [Job] = [] // Array to hold recent job postings
+    let db = Firestore.firestore() // Firestore instance
+    
+    private var dispatchGroup = DispatchGroup() // Declare the DispatchGroup as a property
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         //updated
         //mainHomeView.isHidden = true //because it will hide the view
-       // hamburgerView.isHidden = true
+        // hamburgerView.isHidden = true
+        
         
         // Initially position the hamburgerView off-screen to the left
-            hamburgerView.transform = CGAffineTransform(translationX: -hamburgerView.frame.width, y: 0)
-  
+        hamburgerView.transform = CGAffineTransform(translationX: -hamburgerView.frame.width, y: 0)
+        
         // Log the current frame of recommendedJobView
         print("Initial Category Top Constraint: \(categoryTopConstraint.constant)")
-           print("Initial Recommended Job View Height: \(recommendedJobView.frame.height)")
-        // Set up your initial view
-              // recommendedJobCollectionHide.isHidden = false
-              //  recommendedJobView.isHidden = false
-           // hideRecommendedJobView()
+        print("Initial Recommended Job View Height: \(recommendedJobView.frame.height)")
+        // hideRecommendedJobView()
         
         
         let layout = UICollectionViewFlowLayout()
-            layout.scrollDirection = .horizontal
-            categoryCollectionView.collectionViewLayout = layout
+        layout.scrollDirection = .horizontal
+        categoryCollectionView.collectionViewLayout = layout
         
         // Initially hide the overlay view and table view
-            searchOverlayView.isHidden = true
-            searchResultsTableView.isHidden = true
+        filteredJobs = testJobs
+        searchOverlayView.isHidden = true
+        searchResultsTableView.isHidden = true
         
-            searchBar.delegate = self
-            searchBar.showsCancelButton = false // Initially hide the cancel button
-            searchBar.delegate = self
-           
+        searchBar.delegate = self
+        searchBar.showsCancelButton = false // Initially hide the cancel button
+        searchBar.delegate = self
+        
+        searchResultsTableView.delegate = self
+        searchResultsTableView.dataSource = self
+        
+        
         
         
         //horizontal job post
@@ -128,6 +160,10 @@ class HomeJobPostViewController: UIViewController, UICollectionViewDataSource, U
         //vertical recent job post
         recentJobPostCollectionView.delegate = self
         recentJobPostCollectionView.dataSource = self
+        
+        fetchRecommendedJobs() // Fetch data from Firestore
+        fetchRecentJobs()
+        
         //recent
         // register cell for horizontal job post (recommended)
         let nib = UINib(nibName: JobPostCollectionViewCellId, bundle: nil)
@@ -141,67 +177,116 @@ class HomeJobPostViewController: UIViewController, UICollectionViewDataSource, U
         _ = UINib(nibName: recentJobPostCollectionViewCellId, bundle: nil)
         recentJobPostCollectionView.register(nib, forCellWithReuseIdentifier: recentJobPostCollectionViewCellId)
         
-       
+        
         // Initial reload and height update
-           jobPostCollectionView.reloadData()
-           recentJobPostCollectionView.reloadData()
-           updateParentViewHeight()
+       // jobPostCollectionView.reloadData()
+       // recentJobPostCollectionView.reloadData()
+       // updateParentViewHeight()
     }
     
     //MARK: - Handlers
     
-    /*func hideRecommendedJobView() {
-        let recommendedJobHeight = recommendedJobView.frame.height
-        recommendedJobTopConstraint.constant = 0 // Reset to zero
-        categoryTopConstraint.constant -= recommendedJobHeight
-        recommendedJobView.isHidden = true // Hide the recommended job view
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return filteredJobs.count // Return count of filtered jobs
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! SearchJobsTableViewCell
         
-        homeStackView.constant -= recommendedJobHeight
-
-        UIView.animate(withDuration: 0.3) {
-            self.view.layoutIfNeeded()
-            self.updateScrollViewContentSize()
+        let testJob = filteredJobs[indexPath.row] // Use filtered jobs
+        cell.imgCompany.image = testJob.imageTest
+        cell.lblCompanyName.text = testJob.jobTestCompany
+        cell.lblJobTitle.text = testJob.jobTesttitle
+        
+        return cell
+    }
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        searchOverlayView.isHidden = false
+        searchResultsTableView.isHidden = false
+        searchBar.showsCancelButton = true // Show the cancel button
+        // Make sure to reload data if needed
+        //searchResultsTableView.reloadData()
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchOverlayView.isHidden = true
+        searchResultsTableView.isHidden = true
+        searchBar.text = ""
+        searchBar.showsCancelButton = false
+        searchBar.resignFirstResponder() // Dismiss keyboard and stop the cursor
+        filteredJobs = testJobs // Reset to all jobs
+    }
+    
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchText.isEmpty {
+            filteredJobs = testJobs // Reset to all jobs if search text is empty
+        } else {
+            filteredJobs = testJobs.filter { job in
+                job.jobTesttitle.lowercased().contains(searchText.lowercased()) // Filter by job title
+            }
         }
-    }*/
+        searchResultsTableView.reloadData() // Reload the table view with filtered results
+    }
+    
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        searchBar.showsCancelButton = false // Hide the cancel button when editing ends
+    }
+    
+    
+    /*func hideRecommendedJobView() {
+     let recommendedJobHeight = recommendedJobView.frame.height
+     recommendedJobTopConstraint.constant = 0 // Reset to zero
+     categoryTopConstraint.constant -= recommendedJobHeight
+     recommendedJobView.isHidden = true // Hide the recommended job view
+     
+     homeStackView.constant -= recommendedJobHeight
+     
+     UIView.animate(withDuration: 0.3) {
+     self.view.layoutIfNeeded()
+     self.updateScrollViewContentSize()
+     }
+     }*/
+    
     
     private func updateParentViewHeight() {
         // Calculate the height for the recent job posts collection view
         let recentJobPostHeight = calculateCollectionViewHeight(for: recentJobPostCollectionView)
-
+        
         // Log the height for debugging
         print("Recent Job Post Height: \(recentJobPostHeight)")
-
+        
         // Get the heights of category and recommended job views
         let categoryViewHeight = categoryView.frame.height // Assuming this is set correctly
         let recommendedJobViewHeight = recommendedJobView.frame.height // Assuming this is set correctly
-
+        
         // Log the heights for debugging
         print("Category View Height: \(categoryViewHeight)")
         print("Recommended Job View Height: \(recommendedJobViewHeight)")
-
+        
         // Calculate the total height for the stack view
-        homeStackView.constant = categoryViewHeight + recommendedJobViewHeight + recentJobPostHeight 
-   //commented
+        homeStackView.constant = categoryViewHeight + recommendedJobViewHeight + recentJobPostHeight
+        //commented
         // Log the total height for debugging
         print("Total Stack View Height: \(homeStackView.constant)")
-
+        
         // Animate the height change
         UIView.animate(withDuration: 0.3) {
             self.view.layoutIfNeeded()
         }
     }
-
+    
     private func calculateCollectionViewHeight(for collectionView: UICollectionView) -> CGFloat {
         let numberOfItems = collectionView.numberOfItems(inSection: 0)
         print("Number of Recent Job Items: \(numberOfItems)") // Log the count
-
+        
         let itemHeight: CGFloat = 220 // Adjust based on your cell height
         let spacing: CGFloat = 10 // Space between items
-
+        
         // Calculate total height (spacing only between items)
         let totalHeight = (itemHeight * CGFloat(numberOfItems)) + (spacing * max(0, CGFloat(numberOfItems - 1)))
         print("Calculated Total Height for Recent Job Posts: \(totalHeight)") // Log the calculated height
-
+        
         return max(totalHeight, 0) // Ensure non-negative height
     }
     
@@ -215,87 +300,80 @@ class HomeJobPostViewController: UIViewController, UICollectionViewDataSource, U
         categoryTopConstraint.constant -= recommendedJobHeight
         
         // Ensure category view layout is updated
-            categoryCollectionView.layoutIfNeeded()
-           let categoryViewHeight = categoryCollectionView.collectionViewLayout.collectionViewContentSize.height
-            categoryTopConstraint.constant += categoryViewHeight // Add the height of the category view
-
-
+        categoryCollectionView.layoutIfNeeded()
+        let categoryViewHeight = categoryCollectionView.collectionViewLayout.collectionViewContentSize.height
+        categoryTopConstraint.constant += categoryViewHeight // Add the height of the category view
+        
+        
         // Show the buttons
         btnCreateNewJob.isHidden = false
         btnMyJobPosts.isHidden = false
-
+        
         // Hide the recommended label, button, and collection view
         recommendedJobLabel.isHidden = true
         recommendedJobViewAllbtn.isHidden = true
         recommendedJobCollectionHide.isHidden = true
-
+        
         let recentJobViewHeight = recentJobPostCollectionView.collectionViewLayout.collectionViewContentSize.height
         
         // Set the home stack view height directly based on visible components
         homeStackView.constant -= buttonHeight + categoryViewHeight + recentJobViewHeight + 100 // Total height with spacing
-
         
-      
-
+        
+        
+        
         // Animate the layout changes
         UIView.animate(withDuration: 0.3) {
             self.view.layoutIfNeeded()
             self.updateScrollViewContentSize()
         }
-
+        
     }
     
     func updateScrollViewContentSize() {
-          // Update the scroll view's content size based on the total height of the stack view
-          let totalHeight = homeStackView.constant + homeScrollView.frame.origin.y
-          homeScrollView.contentSize = CGSize(width: homeScrollView.frame.width, height: totalHeight)
-      }
+        // Update the scroll view's content size based on the total height of the stack view
+        let totalHeight = homeStackView.constant + homeScrollView.frame.origin.y
+        homeScrollView.contentSize = CGSize(width: homeScrollView.frame.width, height: totalHeight)
+    }
     
-    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        searchOverlayView.isHidden = false
-        searchResultsTableView.isHidden = false
-        searchBar.showsCancelButton = true // Show the cancel button
-    }
-
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        searchOverlayView.isHidden = true
-        searchResultsTableView.isHidden = true
-        searchBar.text = "" // Clear search text
-        searchBar.showsCancelButton = false // Hide the cancel button
-        view.endEditing(true) // Dismiss keyboard
-    }
-
-    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-        searchBar.showsCancelButton = false // Hide the cancel button when editing ends
-    }
-
-
     
     
     @IBAction func showHamburgerMenu(_ sender: Any) {
+        // Check if the search bar is being edited
+        if searchBar.isFirstResponder {
+            // Dismiss the keyboard and return early
+            searchBar.resignFirstResponder()
+            searchOverlayView.isHidden = false  // Hide the overlay
+            searchResultsTableView.isHidden = false  // Hide the search results
+            return
+        }
+        
         UIView.animate(withDuration: 0.3) {
-               if self.isHamburgerMenuOpen {
-                   // Slide out (to the left)
-                   self.hamburgerView.transform = CGAffineTransform(translationX: -self.hamburgerView.frame.width, y: 0)
-               } else {
-                   // Slide in (to the right)
-                   self.hamburgerView.transform = .identity
-               }
-           }
-           
-           // Toggle state
-           isHamburgerMenuOpen.toggle()
+            if self.isHamburgerMenuOpen {
+                // Slide out (to the left)
+                self.hamburgerView.transform = CGAffineTransform(translationX: -self.hamburgerView.frame.width, y: 0)
+            } else {
+                // Slide in (to the right)
+                self.hamburgerView.transform = .identity
+            }
+        }
+        
+        // Toggle state
+        isHamburgerMenuOpen.toggle()
     }
+    
+    
+    
     
     
     //Recommended Jobs
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == jobPostCollectionView {
-            return jobs.count
+            return recommendedJobs.count
         } else if collectionView == categoryCollectionView {
             return categories.count
         } else if collectionView == recentJobPostCollectionView {
-            return jobs.count
+            return recentJobs.count
         }
         return 0
     }
@@ -303,21 +381,11 @@ class HomeJobPostViewController: UIViewController, UICollectionViewDataSource, U
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if collectionView == jobPostCollectionView {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: JobPostCollectionViewCellId, for: indexPath) as! JobPostCollectionViewCell
-                   let jobPost = jobs[indexPath.row]
-                   
-                   // Fill the cell with job data
-                   cell.jobPostImageView.image = jobPost.image
-                   cell.jobPostTimelbl.text = jobPost.time
-                   cell.jobPostTitlelbl.text = jobPost.title
-                   cell.jobPostDatelbl.text = jobPost.date
-                   cell.jobPostLevellbl.setTitle(jobPost.level, for: .normal)
-                   cell.jobPostEnrollmentTypelbl.setTitle(jobPost.enrollmentType, for: .normal)
-                   cell.jobPostCategorylbl.setTitle(jobPost.category, for: .normal)
-                   cell.joPostLocationlbl.setTitle(jobPost.location, for: .normal)
-                   cell.jobPostDescriptionTitlelbl.text = jobPost.description
-                   cell.jobPostDescriptionlbl.text = jobPost.jobDescription
-                   
-                   return cell
+            let job = recommendedJobs[indexPath.row]
+            
+            configureJobPostCell(cell, with: job)
+            return cell
+            
         } else if collectionView == categoryCollectionView {
             let categoryCell = collectionView.dequeueReusableCell(withReuseIdentifier: JobsCollectionViewCellId, for: indexPath) as! JobsCollectionViewCell
             // Populate information from the categories
@@ -325,24 +393,34 @@ class HomeJobPostViewController: UIViewController, UICollectionViewDataSource, U
             return categoryCell
         } else if collectionView == recentJobPostCollectionView {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: recentJobPostCollectionViewCellId, for: indexPath) as! JobPostCollectionViewCell
-                   let jobPost = jobs[indexPath.row]
-                   
-                   // Fill the cell with job data
-                   cell.jobPostImageView.image = jobPost.image
-                   cell.jobPostTimelbl.text = jobPost.time
-                   cell.jobPostTitlelbl.text = jobPost.title
-                   cell.jobPostDatelbl.text = jobPost.date
-                   cell.jobPostLevellbl.setTitle(jobPost.level, for: .normal)
-                   cell.jobPostEnrollmentTypelbl.setTitle(jobPost.enrollmentType, for: .normal)
-                   cell.jobPostCategorylbl.setTitle(jobPost.category, for: .normal)
-                   cell.joPostLocationlbl.setTitle(jobPost.location, for: .normal)
-                   cell.jobPostDescriptionTitlelbl.text = jobPost.description
-                   cell.jobPostDescriptionlbl.text = jobPost.jobDescription
-                   
-                   return cell
+            
+            let job = recentJobs[indexPath.row]
+            
+            configureJobPostCell(cell, with: job)
+            return cell
         }
         
         return UICollectionViewCell()
+    }
+    
+    private func configureJobPostCell(_ cell: JobPostCollectionViewCell, with job: Job) {
+        // Configure the cell with job data
+        cell.jobPostImageView.image = nil // Set image if available
+        cell.jobPostTimelbl.text = job.time
+        cell.jobPostTitlelbl.text = job.companyDetails?.name ?? "No Company"
+        
+        // Format the date
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .medium
+        cell.jobPostDatelbl.text = dateFormatter.string(from: job.date)
+        
+        cell.jobPostLevellbl.setTitle(job.level.rawValue, for: .normal)
+        cell.jobPostEnrollmentTypelbl.setTitle(job.employmentType.rawValue, for: .normal)
+        cell.jobPostCategorylbl.setTitle(job.category.rawValue, for: .normal)
+        cell.joPostLocationlbl.setTitle(job.location, for: .normal)
+        
+        cell.jobPostDescriptionTitlelbl.text = job.title
+        cell.jobPostDescriptionlbl.text = job.desc
     }
     
     // Adjust the size of collection view cells dynamically
@@ -353,38 +431,35 @@ class HomeJobPostViewController: UIViewController, UICollectionViewDataSource, U
         } else if collectionView == categoryCollectionView {
             // Size for category cells
             let padding: CGFloat = 10 // Adjust padding as needed
-                    let totalSpacing = padding * 2 // Space for left and right edges
-
-                    // Set the width to be smaller; adjust this value as needed
-                    let width = (collectionView.bounds.width - totalSpacing) / 2 // For example, 3 cells in a row
+            let totalSpacing = padding * 2 // Space for left and right edges
+            
+            // Set the width to be smaller; adjust this value as needed
+            let width = (collectionView.bounds.width - totalSpacing) / 2 // For example, 3 cells in a row
             let height: CGFloat = 140 // Set a smaller height for category cells
-                    
             
-                    return CGSize(width: width, height: height)
-                    
+            
+            return CGSize(width: width, height: height)
+            
         } else if collectionView == recentJobPostCollectionView {
-            
             let collectionViewWidth = collectionView.bounds.width
-            let spacing: CGFloat = 0
-            let columns: CGFloat = UIDevice.current.userInterfaceIdiom == .pad ? 2 : 1 // 2 columns for iPad, 1 column for iPhone
+            let spacing: CGFloat = 10 // Adjust the spacing
+            let columns: CGFloat = UIDevice.current.userInterfaceIdiom == .pad ? 2 : 1 // 2 columns for iPad, 1 for iPhone
             
             // Calculate the width of each cell
-            let cellWidth = (collectionViewWidth - spacing) / columns
-            let cellHeight: CGFloat = UIDevice.current.userInterfaceIdiom == .pad ? 260 : 220 // Adjust height for iPad
-
-            return CGSize(width: cellWidth, height: cellHeight)
+            let cellWidth = (collectionViewWidth - (columns - 1) * spacing) / columns
+            return CGSize(width: cellWidth, height: 220) // Set appropriate height
         }
-            
-             
+        
+        
         return CGSize(width: 0, height: 0)
     }
- 
-
-
+    
+    
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 10 // Example spacing
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 10 // Example spacing
     }
@@ -398,7 +473,7 @@ class HomeJobPostViewController: UIViewController, UICollectionViewDataSource, U
             return UIEdgeInsets(top: 5, left: 10, bottom: 20, right: 20)
         }
     }
-
+    
     
     //  did select category
     // didSelectItemAt for categoryCollectionView
@@ -413,14 +488,151 @@ class HomeJobPostViewController: UIViewController, UICollectionViewDataSource, U
             }
         }
     }
+    
+    private func fetchRecommendedJobs() {
+        db.collection("jobPost").order(by: "jobPostDate", descending: false)
+            .getDocuments { (snapshot, error) in
+                if let error = error {
+                    print("Error fetching recommended jobs: \(error.localizedDescription)")
+                    return
+                }
+                self.recommendedJobs = self.handleJobPostFetch(snapshot: snapshot)
+                self.jobPostCollectionView.reloadData() // Reload recommended jobs collection view
+            }
+    }
+    
+    
+    private func fetchRecentJobs() {
+        db.collection("jobPost")
+            .order(by: "jobPostDate", descending: true)
+            .getDocuments { (snapshot, error) in
+                if let error = error {
+                    print("Error fetching recent jobs: \(error.localizedDescription)")
+                    return
+                }
+                self.recentJobs = self.handleJobPostFetch(snapshot: snapshot)
+                self.recentJobPostCollectionView.reloadData() // Reload recent jobs collection view
+            }
+    }
+    
+    
+    private func handleJobPostFetch(snapshot: QuerySnapshot?) -> [Job] {
+        var jobs: [Job] = []
+        
+        guard let documents = snapshot?.documents else {
+            print("No job postings found")
+            return jobs
+        }
+        
+        let dispatchGroup = DispatchGroup() // To wait for asynchronous fetches
+        
+        for document in documents {
+            let data = document.data()
+            
+            guard let title = data["jobTitle"] as? String,
+                  let companyRef = data["companyRef"] as? DocumentReference else {
+                continue // Skip this document if title or companyRef is missing
+            }
+            
+            let jobId = (data["jobId"] as? NSNumber)?.intValue ?? 0
+            
+            // Handle job level
+            guard let levelRaw = data["jobLevel"] as? String,
+                  let level = JobLevel(rawValue: levelRaw) else {
+                print("Invalid job level for document ID: \(document.documentID)")
+                continue
+            }
+            
+            // Handle job category
+            guard let categoryRaw = data["jobCategory"] as? String,
+                  let category = CategoryJob(rawValue: categoryRaw) else {
+                print("Invalid job category for document ID: \(document.documentID)")
+                continue
+            }
+            
+            let city = data["jobLocation"] as? String ?? "Unknown"
+            
+            // Handle employment type
+            guard let employmentTypeRaw = data["jobEmploymentType"] as? String,
+                  let employmentType = EmploymentType(rawValue: employmentTypeRaw) else {
+                print("Invalid employment type for document ID: \(document.documentID)")
+                continue
+            }
+            
+            if let datePosted = data["jobPostDate"] as? Timestamp {
+                let date = datePosted.dateValue()
+                let timePostedString = data["jobPostTime"] as? String ?? "Unknown"
+                let desc = data["jobDescription"] as? String ?? "Unknown"
+                
+                let deadline: Date?
+                if let deadlineTimestamp = data["jobDeadlineDate"] as? Timestamp {
+                    deadline = deadlineTimestamp.dateValue()
+                } else {
+                    deadline = nil
+                }
+                
+                let requirement = data["jobRequirement"] as? String ?? "No requirements specified"
+                
+                var job = Job(
+                    jobId: jobId,
+                    title: title,
+                    companyDetails: nil,
+                    level: level,
+                    category: category,
+                    employmentType: employmentType,
+                    location: city,
+                    deadline: deadline,
+                    desc: desc,
+                    requirement: requirement,
+                    extraAttachments: nil,
+                    date: date,
+                    time: timePostedString
+                )
+                
+                dispatchGroup.enter() // Start waiting for the company details
+                
+                // Fetch company details asynchronously
+                companyRef.getDocument { (companySnapshot, error) in
+                    if let error = error {
+                        print("Error fetching company details: \(error.localizedDescription)")
+                    } else if let companyData = companySnapshot?.data() {
+                        let companyName = companyData["name"] as? String ?? "Unknown"
+                        let userId = companyData["userId"] as? Int ?? 0
+                        let email = companyData["email"] as? String ?? "Unknown"
+                        let city = companyData["city"] as? String ?? "Unknown"
+                        
+                        let companyMainCategory = companyData["companyMainCategory"] as? String
+                        let aboutUs = companyData["aboutUs"] as? String
+                        let employabilityGoals = companyData["employabilityGoals"] as? String
+                        let vision = companyData["vision"] as? String
+                        
+                        let companyDetails = EmployerDetails(
+                            name: companyName,
+                            userId: userId,
+                            email: email,
+                            city: city,
+                            companyMainCategory: companyMainCategory,
+                            aboutUs: aboutUs,
+                            employabilityGoals: employabilityGoals,
+                            vision: vision
+                        )
+                        job.companyDetails = companyDetails
+                    }
+                    
+                    dispatchGroup.leave() // Done fetching company details
+                }
+                
+                jobs.append(job) // Append job to the list immediately
+            }
+        }
+        
+        dispatchGroup.notify(queue: .main) {
+            // This block will be called when all fetch operations are complete
+            self.jobPostCollectionView.reloadData()
+            self.recentJobPostCollectionView.reloadData()
+            self.updateParentViewHeight()
+        }
+        
+        return jobs // Ensure jobs are returned
+    }
 }
-
-    
-
-
-
-
-
-    
-    
-

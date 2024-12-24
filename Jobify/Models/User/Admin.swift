@@ -24,11 +24,11 @@ struct AdminDetails{
 
     
     //admin Id is uniqe and there is only one admin
-//    init(adminName: String, email: String, password: String) {
-//        self.adminName = adminName
-//        self.email = email
-//        self.password = password
-//    }
+    //init(adminName: String, email: String, password: String) {
+    //    self.adminName = adminName
+   //     self.email = email
+   //     self.password = password
+  //  }
     
     //login check email and password
 //    func login(email: String, password: String) -> Bool {

@@ -1,3 +1,9 @@
+//
+//  JobPostsViewController.swift
+//  Jobify
+//
+//  Created by Fatima Ali on 10/12/2024.
+//
 import UIKit
 import FirebaseFirestore
 
@@ -51,10 +57,7 @@ class JobPostsViewController: UIViewController, UICollectionViewDelegate, UIColl
         cell.jobPostLevellbl.setTitle(job.level.rawValue, for: .normal)
         cell.jobPostEnrollmentTypelbl.setTitle(job.employmentType.rawValue, for: .normal)
         cell.jobPostCategorylbl.setTitle(job.category.rawValue, for: .normal)
-        
-        if let location = job.companyDetails?.location {
-            cell.joPostLocationlbl.setTitle(location.city, for: .normal)
-        }
+        cell.joPostLocationlbl.setTitle(job.location, for: .normal)
         
         cell.jobPostDescriptionTitlelbl.text = job.title
         cell.jobPostDescriptionlbl.text = job.desc
@@ -147,6 +150,8 @@ class JobPostsViewController: UIViewController, UICollectionViewDelegate, UIColl
             if let title = data["jobTitle"] as? String,
                let companyRef = data["companyRef"] as? DocumentReference {
                 
+                let jobId = (data["jobId"] as? NSNumber)?.intValue ?? 0
+                
                 let levelRaw = data["jobLevel"] as? String ?? "Unknown"
                 let level = JobLevel(rawValue: levelRaw)
                 
@@ -163,6 +168,7 @@ class JobPostsViewController: UIViewController, UICollectionViewDelegate, UIColl
                     continue
                 }
                 
+                let city = data["jobLocation"] as? String ?? "Unknown"
                 let employmentTypeRaw = data["jobEmploymentType"] as? String ?? "Unknown"
                 let employmentType = EmploymentType(rawValue: employmentTypeRaw)
                 
@@ -186,11 +192,13 @@ class JobPostsViewController: UIViewController, UICollectionViewDelegate, UIColl
                     let requirement = data["jobRequirement"] as? String ?? "No requirements specified"
                     
                     var job = Job(
+                        jobId: jobId,
                         title: title,
                         companyDetails: nil,
                         level: jobLevel,
                         category: jobCategory,
                         employmentType: jobEmploymentType,
+                        location: city,
                         deadline: deadline,
                         desc: desc,
                         requirement: requirement,
@@ -213,13 +221,8 @@ class JobPostsViewController: UIViewController, UICollectionViewDelegate, UIColl
                             let companyName = companyData["name"] as? String ?? "Unknown"
                             let userId = companyData["userId"] as? Int ?? 0
                             let email = companyData["email"] as? String ?? "Unknown"
-                            
-                            var location: EmployerDetails.Location? = nil
-                            if let locationData = companyData["location"] as? [String: Any] {
-                                let country = locationData["country"] as? String ?? "Unknown"
-                                let city = locationData["city"] as? String ?? "Unknown"
-                                location = EmployerDetails.Location(country: country, city: city)
-                            }
+                            let city = companyData["city"] as? String ?? "Unknown"
+                           
                             
                             let companyMainCategory = companyData["companyMainCategory"] as? String
                             let aboutUs = companyData["aboutUs"] as? String
@@ -230,7 +233,7 @@ class JobPostsViewController: UIViewController, UICollectionViewDelegate, UIColl
                                 name: companyName,
                                 userId: userId,
                                 email: email,
-                                location: location,
+                                city: city,
                                 companyMainCategory: companyMainCategory,
                                 aboutUs: aboutUs,
                                 employabilityGoals: employabilityGoals,
@@ -253,5 +256,4 @@ class JobPostsViewController: UIViewController, UICollectionViewDelegate, UIColl
         }
     }
 }
-
 

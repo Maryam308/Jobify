@@ -13,13 +13,8 @@ struct EmployerDetails {
     var image: Data? = nil
     var userId: Int
     var email: String
-    
-    // Location Details
-    struct Location {
-        var country: String
-        var city: String
-    }
-    var location: Location?
+    var city: String
+ 
     
     // Company Details
     var companyMainCategory: String?
@@ -41,7 +36,7 @@ struct EmployerDetails {
         image: Data? = nil,
         userId: Int,
         email: String,
-        location: Location? = nil,
+        city: String,
         companyMainCategory: String? = nil,
         aboutUs: String? = nil,
         employabilityGoals: String? = nil,
@@ -51,7 +46,7 @@ struct EmployerDetails {
         self.image = image
         self.userId = userId
         self.email = email
-        self.location = location
+        self.city = city
         self.companyMainCategory = companyMainCategory
         self.aboutUs = aboutUs
         self.employabilityGoals = employabilityGoals
