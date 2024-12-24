@@ -220,7 +220,7 @@ class AddNewLearningResourceViewController : UITableViewController {
                     if self.currentUserRole == "admin" {
                         
                         //struct a learningResource to generate the id and pass it to the database
-                        var lr = LearningResource(type: selectedCategory, summary: description, link: link, title: title, skillRef: skillDocRef)
+                        let lr = LearningResource(type: selectedCategory, summary: description, link: link, title: title, skillRef: skillDocRef)
                         
                         // Prepare data to be added to Firestore for admin learning resources
                         let learningResourceData: [String: Any] = [
@@ -246,7 +246,7 @@ class AddNewLearningResourceViewController : UITableViewController {
                     } else if self.currentUserRole == "employer" {
                         
                         //construct the request first to get an id
-                        var lrr = LearningRequest(title: title)
+                        let lrr = LearningRequest(title: title)
                         
                         //add the learningRequest
                         let learningRequestData: [String: Any] = [
