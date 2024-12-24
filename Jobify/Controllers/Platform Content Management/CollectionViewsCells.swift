@@ -7,10 +7,16 @@
 
 import UIKit
 
+protocol MyLearningResourcesCellDelegate: AnyObject {
+    func didTapRemoveButton(in cell: MyLearningResourcesCells)
+}
+
 class MyLearningResourcesCells: UICollectionViewCell {
     
+    weak var delegate: MyLearningResourcesCellDelegate? // adding the delegate var
+    
     @IBOutlet weak var lblResourceTitle: UILabel!
-    @IBOutlet weak var btnEdit: UIButton!
+    @IBOutlet weak var btnRemove: UIButton!
     @IBOutlet weak var myTitleView: UIView!
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -19,9 +25,16 @@ class MyLearningResourcesCells: UICollectionViewCell {
         myTitleView.layer.cornerRadius = 15
         
         //set button rounds
-        btnEdit.layer.cornerRadius = 10
+        btnRemove.layer.cornerRadius = 10
         
     }
+    
+    
+    @IBAction func btnRemoveClick(_ sender: Any) {
+        delegate?.didTapRemoveButton(in: self)
+            
+        }
+    
 }
 
 
@@ -37,7 +50,6 @@ class SkillsCollectionViewCells: UICollectionViewCell {
         
         //set view rounds
         skillTitleView.layer.cornerRadius = 15
-        
         
         
     }
