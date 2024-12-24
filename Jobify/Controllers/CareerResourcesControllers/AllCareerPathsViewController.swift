@@ -7,14 +7,14 @@ class AllCareerPathsViewController: UIViewController, UICollectionViewDataSource
     
     @IBOutlet weak var skillsCollectionView: UICollectionView!
     
-    @IBOutlet weak var learningResourcesCollectionView: UICollectionView!
-    
+//    @IBOutlet weak var learningResourcesCollectionView: UICollectionView!
+//    
     
     @IBOutlet weak var savedResourcesCollectionView: UICollectionView!
     
     
-    @IBOutlet weak var lblAllLearningResources: UITextView!
-    
+//    @IBOutlet weak var lblAllLearningResources: UITextView!
+//    
     @IBOutlet weak var lblSavedResources: UILabel!
     
     
@@ -70,19 +70,6 @@ class AllCareerPathsViewController: UIViewController, UICollectionViewDataSource
                 await fetchSavedLearningResources()
             }
             
-        } else if self.restorationIdentifier == "viewAllResources"{
-            learningResourcesCollectionView.collectionViewLayout = layout
-            learningResourcesCollectionView.delegate = self
-            learningResourcesCollectionView.dataSource = self
-            
-            let allResourcesNib = UINib(nibName: "LearningResourcesCollectionViewCell", bundle: nil)
-            learningResourcesCollectionView.register(allResourcesNib, forCellWithReuseIdentifier: "LearningCollectionViewCell")
-            if let skillTitle = skill?.title {
-                lblAllLearningResources.text = "All Learning Resources for \(skillTitle)"
-            } else {
-                lblAllLearningResources.text = "All Learning Resources"
-            }
-            fetchLearningResources()
         }
     }
     
@@ -91,9 +78,7 @@ class AllCareerPathsViewController: UIViewController, UICollectionViewDataSource
             return careerPaths.count
         } else if collectionView == skillsCollectionView {
             return skills.count
-        } else if collectionView == learningResourcesCollectionView {
-            return learningResources.count
-        }else if collectionView == savedResourcesCollectionView {
+        } else if collectionView == savedResourcesCollectionView {
             return savedLearningResources.count
         }
         return 0
@@ -105,15 +90,6 @@ class AllCareerPathsViewController: UIViewController, UICollectionViewDataSource
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CareerPathCollectionViewCell", for: indexPath) as! CareerPathCollectionViewCell
             cell.setUp(careerPath: careerPaths[indexPath.item].title)
             return cell
-        } else if collectionView == learningResourcesCollectionView {
-            
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "LearningCollectionViewCell", for: indexPath) as! LearningResourcesCollectionViewCell
-            // Set up the cell with the resource
-            cell.setup(learningResource: learningResources[indexPath.item])
-
-            return cell
-
-            
         } else if collectionView == skillsCollectionView {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CareerPathCollectionViewCell", for: indexPath) as! CareerPathCollectionViewCell
             cell.setUp(careerPath: skills[indexPath.item].title)
@@ -150,13 +126,7 @@ class AllCareerPathsViewController: UIViewController, UICollectionViewDataSource
             } else{
                 width = (skillsCollectionView.frame.width - totalSpacing) / 2
             }
-        } else if collectionView == learningResourcesCollectionView {
-            if UIDevice.current.userInterfaceIdiom == .pad {
-                width = (learningResourcesCollectionView.frame.width - totalSpacing) / 3
-            } else{
-                width = (learningResourcesCollectionView.frame.width - totalSpacing) / 2
-            }
-        } else if collectionView == savedResourcesCollectionView {
+        }  else if collectionView == savedResourcesCollectionView {
             if UIDevice.current.userInterfaceIdiom == .pad {
                 width = (savedResourcesCollectionView.frame.width - totalSpacing) / 3
             } else{
@@ -179,61 +149,6 @@ class AllCareerPathsViewController: UIViewController, UICollectionViewDataSource
         } else if collectionView == skillsCollectionView {
             let selectedSkill = skills[indexPath.item]
             navigateToSkillResources(with: selectedSkill)
-        } else if collectionView == learningResourcesCollectionView {
-            // Alert
-            let resource: LearningResource = learningResources[indexPath.item]
-            // Create an alert to confirm action
-            Task {
-                do {
-                    let isSaved = try await resourceManager.isResourceSaved(learningResource: resource)
-                    let actionTitle = isSaved ? "Unsave" : "Save"
-                    let alertController = UIAlertController(title: "Choose an action", message: "What would you like to do with \(resource.title ?? "this resource")?", preferredStyle: .alert)
-                    
-                    // Save/Unsave action
-                    let saveAction = UIAlertAction(title: actionTitle, style: .default) { _ in
-                        Task {
-                            do {
-                                // Handle favorite action
-                                try await self.handleFavoriteAction(resource, isCurrentlySaved: isSaved)
-                                
-                                // Show success alert
-                                let successMessage = isSaved ? "Resource unsaved successfully!" : "Resource saved successfully!"
-                                let successAlert = UIAlertController(title: "Success", message: successMessage, preferredStyle: .alert)
-                                successAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-                                self.present(successAlert, animated: true, completion: nil)
-                                
-                            } catch {
-                                print("Failed to save/unsave resource: \(error.localizedDescription)")
-                            }
-                        }
-                    }
-                    alertController.addAction(saveAction)
-                    
-                    // View action
-                    let viewAction = UIAlertAction(title: "View", style: .default) { _ in
-                        let storyboard = UIStoryboard(name: "CareerResourcesAndSkillDevelopment", bundle: nil)
-                        if let detailsVC = storyboard.instantiateViewController(withIdentifier: "resourceDetails") as? ResourceDetailsViewController {
-                            detailsVC.selectedResource = resource
-                            self.navigationController?.pushViewController(detailsVC, animated: true)
-                        } else {
-                            print("Error: Could not instantiate ResourceDetailsViewController with ID resourceDetails")
-                        }
-                    }
-                    
-                    // Cancel action
-                    let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-                    alertController.addAction(viewAction)
-                    alertController.addAction(cancelAction)
-                    
-                    // Add the alert to the view
-                    present(alertController, animated: true, completion: nil)
-                    
-                } catch {
-                    print("Error checking saved state: \(error.localizedDescription)")
-                }
-            }
-        
-        
         } else if collectionView == savedResourcesCollectionView {
             let resource = savedLearningResources[indexPath.item]
             // Create an alert to confirm action
@@ -418,62 +333,7 @@ class AllCareerPathsViewController: UIViewController, UICollectionViewDataSource
                 }
             }
     }
-    
-    //fetch learning resources
-    private func fetchLearningResources() {
-           guard let skillRef = skill?.documentReference else { //
-               print("Skill reference is missing.")
-               return
-           }
-            print(skillRef)
-           db.collection("LearningResources")
-               .whereField("skill", isEqualTo: skillRef) // Filter by the skill reference
-               .getDocuments { [weak self] (querySnapshot, error) in
-                   guard let self = self else { return }
 
-                   if let error = error {
-                       print("Error fetching documents: \(error)")
-                       return
-                   }
-
-                   guard let documents = querySnapshot?.documents else {
-                       print("No documents found")
-                       return
-                   }
-
-                   // Clear previous data
-                   self.learningResources.removeAll()
-
-                   for document in documents {
-                       let data = document.data()
-                       print("Document data: \(data)") // Debugging output
-
-                       guard let title = data["title"] as? String,
-                             let summary = data["description"] as? String,
-                             let link = data["link"] as? String,
-                             let type = data["category"] as? String,
-                             let skillToDevelop = data["skill"] as? DocumentReference else {
-                           print("Error parsing document: \(data)")
-                           continue
-                       }
-                   
-                       // Create a LearningResource instance
-                       let learningResource = LearningResource(type: type, summary: summary, link: link, title: title, skillRef: skillToDevelop)
-                       self.learningResources.append(learningResource)
-                   }
-
-                   print("Learning Resources fetched: \(self.learningResources)") // Debugging output
-
-                   // Reload the collection view on the main thread
-                   DispatchQueue.main.async {
-                       self.learningResourcesCollectionView.reloadData()
-
-                   }
-               }
-       }
-    
-    
-    
     private func fetchSavedLearningResources() async {
         do {
             let userCollectionRef = Firestore.firestore().collection("users")
@@ -534,8 +394,6 @@ class AllCareerPathsViewController: UIViewController, UICollectionViewDataSource
         if UIDevice.current.userInterfaceIdiom == .pad {
             if self.restorationIdentifier == "savedResources" {
                 lblSavedResources.font = lblSavedResources.font?.withSize(28)
-            } else if self.restorationIdentifier == "viewAllResources" {
-                lblAllLearningResources.font = lblAllLearningResources.font?.withSize(28)
             } else if self.restorationIdentifier == "skills" {
                 lblChooseSkill.font = lblChooseSkill.font?.withSize(24)
                 lblChooseSkillPageTitle.font = lblChooseSkillPageTitle.font?.withSize(28)
