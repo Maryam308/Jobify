@@ -22,18 +22,12 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="bookmark.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="OE2-QZ-3x0">
-                        <rect key="frame" x="163" y="8" width="30" height="34"/>
-                        <color key="tintColor" red="0.1137254902" green="0.1764705882" blue="0.2666666667" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    </imageView>
                 </subviews>
                 <color key="backgroundColor" red="0.93333333330000001" green="0.93333333330000001" blue="0.93333333330000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                 <constraints>
-                    <constraint firstAttribute="trailing" secondItem="OE2-QZ-3x0" secondAttribute="trailing" constant="7" id="NB8-O4-nae"/>
                     <constraint firstItem="JjK-KR-FFp" firstAttribute="centerX" secondItem="kfW-Lk-t0T" secondAttribute="centerX" id="UE5-xy-8Lu"/>
                     <constraint firstItem="JjK-KR-FFp" firstAttribute="top" secondItem="kfW-Lk-t0T" secondAttribute="top" constant="38" id="UfA-wX-k8T"/>
                     <constraint firstItem="JjK-KR-FFp" firstAttribute="leading" secondItem="kfW-Lk-t0T" secondAttribute="leading" constant="26" id="UoL-di-p5U"/>
-                    <constraint firstItem="OE2-QZ-3x0" firstAttribute="top" secondItem="kfW-Lk-t0T" secondAttribute="top" constant="8" id="vwv-5E-zDd"/>
                     <constraint firstItem="JjK-KR-FFp" firstAttribute="centerY" secondItem="kfW-Lk-t0T" secondAttribute="centerY" id="zKU-vb-W6e"/>
                 </constraints>
                 <userDefinedRuntimeAttributes>
@@ -50,12 +44,8 @@
             </userDefinedRuntimeAttributes>
             <connections>
                 <outlet property="lblTitle" destination="JjK-KR-FFp" id="0Fe-Ct-laT"/>
-                <outlet property="saveIcon" destination="OE2-QZ-3x0" id="Jt9-nD-zDm"/>
             </connections>
             <point key="canvasLocation" x="103.81679389312977" y="-99.295774647887328"/>
         </collectionViewCell>
     </objects>
-    <resources>
-        <image name="bookmark.fill" catalog="system" width="110" height="128"/>
-    </resources>
 </document>

@@ -13,6 +13,7 @@ class CareerPathCollectionViewCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        adjustFontSizeForDevice()
         // Initialization code
     }
     
@@ -22,4 +23,10 @@ class CareerPathCollectionViewCell: UICollectionViewCell {
                 
     }
 
+    func adjustFontSizeForDevice(){
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            lblCareerPath.font = lblCareerPath.font?.withSize(24)
+
+        }
+    }
 }
