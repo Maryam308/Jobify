@@ -1,19 +1,22 @@
 import Foundation
+
+ 
+
 struct Job: Equatable {
     static func == (lhs: Job, rhs: Job) -> Bool {
         lhs.jobId == rhs.jobId
     }
     
-    static var jobIdCounter = 0
+    static var jobIdCounter = 30 //some job post are already created in the database
+   
     var jobId: Int
     var date: Date // Change to Date type
-    var time: String
     var title: String
     var companyDetails: EmployerDetails? // Store the company details object
     var level: JobLevel
     var category: CategoryJob
     var employmentType: EmploymentType
-    //var location: String
+    var location: String
     var deadline: Date?
     var desc: String
     var requirement: String
@@ -26,7 +29,7 @@ struct Job: Equatable {
         level: JobLevel,
         category: CategoryJob,
         employmentType: EmploymentType,
-       // location: String,
+        location: String,
         deadline: Date?,
         desc: String,
         requirement: String,
@@ -34,27 +37,66 @@ struct Job: Equatable {
         date: Date,
         time: String
     ) {
+        
         Job.jobIdCounter += 1
         self.jobId = Job.jobIdCounter
-        
         self.date = date
-        self.time = time
         self.title = title
         self.companyDetails = companyDetails
         self.level = level
         self.category = category
         self.employmentType = employmentType
-       // self.location = location
+        self.location = location
         self.deadline = deadline
         self.desc = desc
         self.requirement = requirement
         self.extraAttachments = extraAttachments
     }
+    
+    //employer custom constructor
+    init(
+        jobId: Int,
+        title: String,
+        companyDetails: EmployerDetails?,
+        level: JobLevel,
+        category: CategoryJob,
+        employmentType: EmploymentType,
+        location: String,
+        deadline: Date?,
+        desc: String,
+        requirement: String,
+        extraAttachments: Data?,
+        date: Date,
+        time: String
+    ) {
+        
+        self.jobId = jobId
+        self.date = date
+        self.title = title
+        self.companyDetails = companyDetails
+        self.level = level
+        self.category = category
+        self.employmentType = employmentType
+        self.location = location
+        self.deadline = deadline
+        self.desc = desc
+        self.requirement = requirement
+        self.extraAttachments = extraAttachments
+    }
+    
+    
+    // Static method to get and increment the ID
+        static func getNextID() -> Int {
+            Job.jobIdCounter += 1  // Increment the ID each time it's called
+            return Job.jobIdCounter  // Return the current (incremented) ID
+        }
+    
 }
+
 
     // Enums remain unchanged
     
-    enum JobLevel: String {
+    enum JobLevel: String, CaseIterable {
         case entryLevel = "Entry Level"
         case junior = "Junior"
         case midLevel = "Mid-Level"
@@ -66,7 +108,7 @@ struct Job: Equatable {
         case intern = "Intern"
     }
     
-    enum CategoryJob: String {
+    enum CategoryJob: String, CaseIterable   {
         case informationTechnology = "Information Technology"
         case business = "Business"
         case healthcare = "Healthcare"
@@ -80,7 +122,7 @@ struct Job: Equatable {
         case other = "Other"
     }
     
-    enum EmploymentType: String {
+    enum EmploymentType: String, CaseIterable {
         case fullTime = "Full-Time"
         case partTime = "Part-Time"
         case intern = "Intern"
