@@ -17,6 +17,7 @@ class HomeJobPostViewController: UIViewController, UICollectionViewDataSource, U
         var imageTest: UIImage?
         var jobTestCompany: String
         var jobTesttitle: String
+        
     }
     
     var testJobs = [
@@ -69,7 +70,8 @@ class HomeJobPostViewController: UIViewController, UICollectionViewDataSource, U
     
     @IBOutlet weak var searchResultsTableView: UITableView!
     
-    var filteredJobs: [JobTest] = []
+    var filteredJobs: [Job] = []
+    var allJobs: [Job] = [] // Array to hold all job postings for search
     
     
     @IBAction func viewAllRecommendedJobs(_ sender: Any) {
@@ -112,7 +114,9 @@ class HomeJobPostViewController: UIViewController, UICollectionViewDataSource, U
     
     private var dispatchGroup = DispatchGroup() // Declare the DispatchGroup as a property
     
-    
+    // 1. fetch all companies information
+    // list of companies
+    // function: getCompanyDetails(ref)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -135,7 +139,7 @@ class HomeJobPostViewController: UIViewController, UICollectionViewDataSource, U
         categoryCollectionView.collectionViewLayout = layout
         
         // Initially hide the overlay view and table view
-        filteredJobs = testJobs
+        
         searchOverlayView.isHidden = true
         searchResultsTableView.isHidden = true
         
@@ -163,6 +167,7 @@ class HomeJobPostViewController: UIViewController, UICollectionViewDataSource, U
         
         fetchRecommendedJobs() // Fetch data from Firestore
         fetchRecentJobs()
+        fetchAllJobs() // Fetch all jobs for search functionality
         
         //recent
         // register cell for horizontal job post (recommended)
@@ -179,9 +184,9 @@ class HomeJobPostViewController: UIViewController, UICollectionViewDataSource, U
         
         
         // Initial reload and height update
-       // jobPostCollectionView.reloadData()
-       // recentJobPostCollectionView.reloadData()
-       // updateParentViewHeight()
+        // jobPostCollectionView.reloadData()
+        // recentJobPostCollectionView.reloadData()
+        // updateParentViewHeight()
     }
     
     //MARK: - Handlers
@@ -194,12 +199,13 @@ class HomeJobPostViewController: UIViewController, UICollectionViewDataSource, U
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! SearchJobsTableViewCell
         
         let testJob = filteredJobs[indexPath.row] // Use filtered jobs
-        cell.imgCompany.image = testJob.imageTest
-        cell.lblCompanyName.text = testJob.jobTestCompany
-        cell.lblJobTitle.text = testJob.jobTesttitle
+        cell.imgCompany.image = nil // Set an image if available
+        cell.lblCompanyName.text = testJob.companyDetails?.name ?? "By Jobify" // Use `testJob`
+        cell.lblJobTitle.text = testJob.title // Use `testJob`
         
         return cell
     }
+    
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         searchOverlayView.isHidden = false
         searchResultsTableView.isHidden = false
@@ -214,16 +220,16 @@ class HomeJobPostViewController: UIViewController, UICollectionViewDataSource, U
         searchBar.text = ""
         searchBar.showsCancelButton = false
         searchBar.resignFirstResponder() // Dismiss keyboard and stop the cursor
-        filteredJobs = testJobs // Reset to all jobs
+        filteredJobs = allJobs // Reset to all jobs
     }
     
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchText.isEmpty {
-            filteredJobs = testJobs // Reset to all jobs if search text is empty
+            filteredJobs = allJobs // Reset to all jobs if search text is empty
         } else {
-            filteredJobs = testJobs.filter { job in
-                job.jobTesttitle.lowercased().contains(searchText.lowercased()) // Filter by job title
+            filteredJobs = allJobs.filter { job in
+                job.title.lowercased().contains(searchText.lowercased()) // Filter by job title
             }
         }
         searchResultsTableView.reloadData() // Reload the table view with filtered results
@@ -490,38 +496,84 @@ class HomeJobPostViewController: UIViewController, UICollectionViewDataSource, U
         }
     }
     
+    //for search table view
+    private func fetchAllJobs() {
+        db.collection("jobPost")
+            .order(by: "jobPostDate", descending: true)
+            .getDocuments { [weak self] (snapshot, error) in
+                guard let self = self else { return } // Ensure 'self' is not nil
+                
+                if let error = error {
+                    print("Error fetching all jobs: \(error.localizedDescription)")
+                    return
+                }
+                // Now use 'self' to call handleJobPostFetch
+                self.handleJobPostFetch(snapshot: snapshot) { jobs in
+                    // Once the fetch is complete, use the 'jobs' array
+                    print("Fetched \(jobs.count) jobs.")
+                    
+                    // Update the UI with the fetched jobs
+                    self.allJobs = jobs
+                    self.jobPostCollectionView.reloadData()
+                    self.recentJobPostCollectionView.reloadData()
+                    self.updateParentViewHeight()
+                }
+            }
+    }
+    
     private func fetchRecommendedJobs() {
-        db.collection("jobPost").order(by: "jobPostDate", descending: false)
-            .getDocuments { (snapshot, error) in
+        db.collection("jobPost")
+            .order(by: "jobPostDate", descending: false)
+            .getDocuments { [weak self] (snapshot, error) in
+                guard let self = self else { return }
+                
                 if let error = error {
                     print("Error fetching recommended jobs: \(error.localizedDescription)")
                     return
                 }
-                self.recommendedJobs = self.handleJobPostFetch(snapshot: snapshot)
-                self.jobPostCollectionView.reloadData() // Reload recommended jobs collection view
+                self.handleJobPostFetch(snapshot: snapshot) { jobs in
+                    print("Fetched \(jobs.count) jobs.")
+                    
+                    self.recommendedJobs = jobs
+                    self.jobPostCollectionView.reloadData()
+                    self.recentJobPostCollectionView.reloadData()
+                    self.updateParentViewHeight()
+                }
             }
     }
-    
     
     private func fetchRecentJobs() {
         db.collection("jobPost")
             .order(by: "jobPostDate", descending: true)
-            .getDocuments { (snapshot, error) in
+            .getDocuments { [weak self] (snapshot, error) in
+                guard let self = self else { return }
+                
                 if let error = error {
                     print("Error fetching recent jobs: \(error.localizedDescription)")
                     return
                 }
-                self.recentJobs = self.handleJobPostFetch(snapshot: snapshot)
-                self.recentJobPostCollectionView.reloadData() // Reload recent jobs collection view
+                self.handleJobPostFetch(snapshot: snapshot) { jobs in
+                    print("Fetched \(jobs.count) jobs.")
+                    
+                    self.recentJobs = jobs
+                    self.jobPostCollectionView.reloadData()
+                    self.recentJobPostCollectionView.reloadData()
+                    self.updateParentViewHeight()
+                }
             }
     }
- 
-    private func handleJobPostFetch(snapshot: QuerySnapshot?) -> [Job] {
+    
+    
+    
+    
+    
+    private func handleJobPostFetch(snapshot: QuerySnapshot?, completion: @escaping ([Job]) -> Void) {
         var jobs: [Job] = []
         
         guard let documents = snapshot?.documents else {
             print("No job postings found")
-            return jobs
+            completion(jobs) // Return an empty array if no documents
+            return
         }
         
         let dispatchGroup = DispatchGroup() // To wait for asynchronous fetches
@@ -531,19 +583,17 @@ class HomeJobPostViewController: UIViewController, UICollectionViewDataSource, U
             
             guard let title = data["jobTitle"] as? String,
                   let companyRef = data["companyRef"] as? DocumentReference else {
-                continue // Skip this document if title or companyRef is missing
+                continue
             }
             
-            let jobId = (data["jobId"] as? NSNumber)?.intValue ?? 0
+            let jobId = (data["jobPostId"] as? NSNumber)?.intValue ?? 0
             
-            // Handle job level
             guard let levelRaw = data["jobLevel"] as? String,
                   let level = JobLevel(rawValue: levelRaw) else {
                 print("Invalid job level for document ID: \(document.documentID)")
                 continue
             }
             
-            // Handle job category
             guard let categoryRaw = data["jobCategory"] as? String,
                   let category = CategoryJob(rawValue: categoryRaw) else {
                 print("Invalid job category for document ID: \(document.documentID)")
@@ -552,7 +602,6 @@ class HomeJobPostViewController: UIViewController, UICollectionViewDataSource, U
             
             let city = data["jobLocation"] as? String ?? "Unknown"
             
-            // Handle employment type
             guard let employmentTypeRaw = data["jobEmploymentType"] as? String,
                   let employmentType = EmploymentType(rawValue: employmentTypeRaw) else {
                 print("Invalid employment type for document ID: \(document.documentID)")
@@ -560,17 +609,10 @@ class HomeJobPostViewController: UIViewController, UICollectionViewDataSource, U
             }
             
             if let datePosted = data["jobPostDate"] as? Timestamp {
-                let date = datePosted.dateValue()
+                let date = datePosted.dateValue() // Convert Timestamp to Date
                 let timePostedString = data["jobPostTime"] as? String ?? "Unknown"
                 let desc = data["jobDescription"] as? String ?? "Unknown"
-                
-                let deadline: Date?
-                if let deadlineTimestamp = data["jobDeadlineDate"] as? Timestamp {
-                    deadline = deadlineTimestamp.dateValue()
-                } else {
-                    deadline = nil
-                }
-                
+                let deadline = (data["jobDeadlineDate"] as? Timestamp)?.dateValue()
                 let requirement = data["jobRequirement"] as? String ?? "No requirements specified"
                 
                 var job = Job(
@@ -589,59 +631,50 @@ class HomeJobPostViewController: UIViewController, UICollectionViewDataSource, U
                     time: timePostedString
                 )
                 
-                dispatchGroup.enter() // Start waiting for the company details
+                dispatchGroup.enter() // Start waiting for company details
                 
-                // Fetch company details asynchronously
                 companyRef.getDocument { (companySnapshot, error) in
                     if let error = error {
                         print("Error fetching company details: \(error.localizedDescription)")
-                        dispatchGroup.leave() // Leave the group if there's an error
+                        dispatchGroup.leave()
                         return
                     }
-                        if let companyData = companySnapshot?.data() {
-                            let companyName = companyData["name"] as? String ?? "Unknown"
-                            let userId = companyData["userId"] as? Int ?? 0
-                            let email = companyData["email"] as? String ?? "Unknown"
-                            let city = companyData["city"] as? String ?? "Unknown"
-                            
-                            
-                           
-                            
-                            let companyMainCategory = companyData["companyMainCategory"] as? String
-                            let aboutUs = companyData["aboutUs"] as? String
-                            let employabilityGoals = companyData["employabilityGoals"] as? String
-                            let vision = companyData["vision"] as? String
-                            
-                            let companyDetails = EmployerDetails(
-                                name: companyName,
-                                userId: userId,
-                                email: email,
-                                city: city,
-                                companyMainCategory: companyMainCategory,
-                                aboutUs: aboutUs,
-                                employabilityGoals: employabilityGoals,
-                                vision: vision
-                            )
+                    
+                    if let companyData = companySnapshot?.data() {
+                        let companyName = companyData["name"] as? String ?? "Unknown"
+                        let userId = companyData["userId"] as? Int ?? 0
+                        let email = companyData["email"] as? String ?? "Unknown"
+                        let city = companyData["city"] as? String ?? "Unknown"
+                        
+                        let companyMainCategory = companyData["companyMainCategory"] as? String
+                        let aboutUs = companyData["aboutUs"] as? String
+                        let employabilityGoals = companyData["employabilityGoals"] as? String
+                        let vision = companyData["vision"] as? String
+                        
+                        let companyDetails = EmployerDetails(
+                            name: companyName,
+                            userId: userId,
+                            email: email,
+                            city: city,
+                            companyMainCategory: companyMainCategory,
+                            aboutUs: aboutUs,
+                            employabilityGoals: employabilityGoals,
+                            vision: vision
+                        )
+                        
                         job.companyDetails = companyDetails
-                       
-                         
                     }
                     
+                    jobs.append(job) // Append the job to the list after fetching company details
                     dispatchGroup.leave() // Done fetching company details
                 }
-                jobs.append(job) // Append job to the list immediately
             }
             
+            // Notify when all async operations are complete
+            dispatchGroup.notify(queue: .main) {
+                completion(jobs) // Send the jobs array back using the completion handler
+            }
         }
         
-        dispatchGroup.notify(queue: .main) {
-            // This block will be called when all fetch operations are complete
-            
-            self.jobPostCollectionView.reloadData()
-            self.recentJobPostCollectionView.reloadData()
-            self.updateParentViewHeight()
-        }
-        
-        return jobs // Ensure jobs are returned
     }
 }

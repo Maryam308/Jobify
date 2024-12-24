@@ -1,3 +1,4 @@
+
 //
 //  JobPostsViewController.swift
 //  Jobify
@@ -8,9 +9,9 @@ import UIKit
 import FirebaseFirestore
 
 enum JobSource {
-    case recommendedJobs
-    case recentJobs
-    case category(String)
+   case recommendedJobs
+   case recentJobs
+   case category(String)
 }
 
 class JobPostsViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
@@ -73,14 +74,14 @@ class JobPostsViewController: UIViewController, UICollectionViewDelegate, UIColl
         // Calculate the width of each cell
         let cellWidth = (collectionViewWidth - spacing) / columns
         let cellHeight: CGFloat = UIDevice.current.userInterfaceIdiom == .pad ? 260 : 220 // Adjust height for iPad
-
+        
         return CGSize(width: cellWidth, height: cellHeight)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 3 // Set this to a smaller value for less horizontal spacing between cells
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 5 // Set this to a smaller value for less vertical spacing between rows
     }
@@ -150,7 +151,7 @@ class JobPostsViewController: UIViewController, UICollectionViewDelegate, UIColl
             if let title = data["jobTitle"] as? String,
                let companyRef = data["companyRef"] as? DocumentReference {
                 
-                let jobId = (data["jobId"] as? NSNumber)?.intValue ?? 0
+                let jobId = (data["jobPostId"] as? NSNumber)?.intValue ?? 0
                 
                 let levelRaw = data["jobLevel"] as? String ?? "Unknown"
                 let level = JobLevel(rawValue: levelRaw)
@@ -224,7 +225,7 @@ class JobPostsViewController: UIViewController, UICollectionViewDelegate, UIColl
                             let city = companyData["city"] as? String ?? "Unknown"
                             
                             
-                           
+                            
                             
                             let companyMainCategory = companyData["companyMainCategory"] as? String
                             let aboutUs = companyData["aboutUs"] as? String
@@ -258,4 +259,3 @@ class JobPostsViewController: UIViewController, UICollectionViewDelegate, UIColl
         }
     }
 }
-
