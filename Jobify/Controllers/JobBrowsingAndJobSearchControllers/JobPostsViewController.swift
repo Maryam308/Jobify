@@ -47,7 +47,7 @@ class JobPostsViewController: UIViewController, UICollectionViewDelegate, UIColl
         // Configure the cell with job data
         cell.jobPostImageView.image = nil
         cell.jobPostTimelbl.text = job.time
-        cell.jobPostTitlelbl.text = job.companyDetails?.name ?? "No Company"
+        cell.jobPostTitlelbl.text = job.companyDetails?.name ?? "By Jobify"
         
         // Format the date
         let dateFormatter = DateFormatter()
@@ -222,6 +222,8 @@ class JobPostsViewController: UIViewController, UICollectionViewDelegate, UIColl
                             let userId = companyData["userId"] as? Int ?? 0
                             let email = companyData["email"] as? String ?? "Unknown"
                             let city = companyData["city"] as? String ?? "Unknown"
+                            
+                            
                            
                             
                             let companyMainCategory = companyData["companyMainCategory"] as? String

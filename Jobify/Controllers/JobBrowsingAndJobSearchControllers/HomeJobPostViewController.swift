@@ -409,6 +409,7 @@ class HomeJobPostViewController: UIViewController, UICollectionViewDataSource, U
         cell.jobPostTimelbl.text = job.time
         cell.jobPostTitlelbl.text = job.companyDetails?.name ?? "No Company"
         
+        
         // Format the date
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .medium
@@ -514,8 +515,7 @@ class HomeJobPostViewController: UIViewController, UICollectionViewDataSource, U
                 self.recentJobPostCollectionView.reloadData() // Reload recent jobs collection view
             }
     }
-    
-    
+ 
     private func handleJobPostFetch(snapshot: QuerySnapshot?) -> [Job] {
         var jobs: [Job] = []
         
@@ -595,39 +595,48 @@ class HomeJobPostViewController: UIViewController, UICollectionViewDataSource, U
                 companyRef.getDocument { (companySnapshot, error) in
                     if let error = error {
                         print("Error fetching company details: \(error.localizedDescription)")
-                    } else if let companyData = companySnapshot?.data() {
-                        let companyName = companyData["name"] as? String ?? "Unknown"
-                        let userId = companyData["userId"] as? Int ?? 0
-                        let email = companyData["email"] as? String ?? "Unknown"
-                        let city = companyData["city"] as? String ?? "Unknown"
-                        
-                        let companyMainCategory = companyData["companyMainCategory"] as? String
-                        let aboutUs = companyData["aboutUs"] as? String
-                        let employabilityGoals = companyData["employabilityGoals"] as? String
-                        let vision = companyData["vision"] as? String
-                        
-                        let companyDetails = EmployerDetails(
-                            name: companyName,
-                            userId: userId,
-                            email: email,
-                            city: city,
-                            companyMainCategory: companyMainCategory,
-                            aboutUs: aboutUs,
-                            employabilityGoals: employabilityGoals,
-                            vision: vision
-                        )
+                        dispatchGroup.leave() // Leave the group if there's an error
+                        return
+                    }
+                        if let companyData = companySnapshot?.data() {
+                            let companyName = companyData["name"] as? String ?? "Unknown"
+                            let userId = companyData["userId"] as? Int ?? 0
+                            let email = companyData["email"] as? String ?? "Unknown"
+                            let city = companyData["city"] as? String ?? "Unknown"
+                            
+                            
+                           
+                            
+                            let companyMainCategory = companyData["companyMainCategory"] as? String
+                            let aboutUs = companyData["aboutUs"] as? String
+                            let employabilityGoals = companyData["employabilityGoals"] as? String
+                            let vision = companyData["vision"] as? String
+                            
+                            let companyDetails = EmployerDetails(
+                                name: companyName,
+                                userId: userId,
+                                email: email,
+                                city: city,
+                                companyMainCategory: companyMainCategory,
+                                aboutUs: aboutUs,
+                                employabilityGoals: employabilityGoals,
+                                vision: vision
+                            )
                         job.companyDetails = companyDetails
+                       
+                         
                     }
                     
                     dispatchGroup.leave() // Done fetching company details
                 }
-                
                 jobs.append(job) // Append job to the list immediately
             }
+            
         }
         
         dispatchGroup.notify(queue: .main) {
             // This block will be called when all fetch operations are complete
+            
             self.jobPostCollectionView.reloadData()
             self.recentJobPostCollectionView.reloadData()
             self.updateParentViewHeight()
