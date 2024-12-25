@@ -91,12 +91,12 @@ class CVTableViewCell: UITableViewCell {
         lblCVAddDate.text = formattedDate
         
 //        // Set the CV image
-//        if let imageUrl = URL(string: cv.personalDetails.profilePicture) {
-//            loadImage(from: imageUrl)
-//        } else {
-//            cvImage.image = nil // Set to nil if the URL is invalid
-//        }
-//
+        if let imageUrl = URL(string: cv.personalDetails.profilePicture) {
+            loadImage(from: imageUrl)
+        } else {
+            cvImage.image = UIImage(systemName: "person.circle") //set the default image
+        }
+
         
         updateFavoriteButton() // Ensure the button reflects the current favorite state
     }
@@ -119,16 +119,16 @@ class CVTableViewCell: UITableViewCell {
         super.awakeFromNib()
         CVCellView.layer.cornerRadius = contentView.frame.height / 9
         // Shadow configuration
-        CVCellView.layer.shadowColor = UIColor.black.cgColor
-        CVCellView.layer.shadowOpacity = 0.2
-        CVCellView.layer.shadowOffset = CGSize(width: 0, height: 4)
-        CVCellView.layer.shadowRadius = 6
-        CVCellView.layer.shadowPath = UIBezierPath(rect: CVCellView.bounds).cgPath
-        CVCellView.layer.shouldRasterize = false
+//        CVCellView.layer.shadowColor = UIColor.black.cgColor
+//        CVCellView.layer.shadowOpacity = 0.2
+//        CVCellView.layer.shadowOffset = CGSize(width: 0, height: 4)
+//        CVCellView.layer.shadowRadius = 6
+//        CVCellView.layer.shadowPath = UIBezierPath(rect: CVCellView.bounds).cgPath
+//        CVCellView.layer.shouldRasterize = false
         
         //content view configuration
-        contentView.layer.cornerRadius = 10
-        contentView.layer.masksToBounds = true
+//        contentView.layer.cornerRadius = 10
+//        contentView.layer.masksToBounds = true
         contentView.backgroundColor = .white
         backgroundColor = .clear
     }

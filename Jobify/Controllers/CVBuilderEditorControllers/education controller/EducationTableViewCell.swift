@@ -34,12 +34,22 @@ class EducationTableViewCell: UITableViewCell {
     }
     
     func setup(education: Education) {
-        lblDegree.text = "Degree: " + education.degree!;
+        lblDegree.text = "Degree: " + (education.degree ?? "")
         lblInstitution.text = education.institution
-        lblFrom.text = DateFormatter.localizedString(from: education.startDate!, dateStyle: .medium, timeStyle: .none)
-        lblTo.text = education.endDate != nil ? DateFormatter.localizedString(from: education.endDate!, dateStyle: .medium, timeStyle: .none) : "Present"
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MMMM yyyy" // Format for month and year
+        
+        lblFrom.text = dateFormatter.string(from: education.startDate!)
+        
+        if let endDate = education.endDate {
+            if endDate > Date() {
+                lblTo.text = "Present"
+            } else {
+                lblTo.text = dateFormatter.string(from: endDate)
+            }
+        } 
     }
-
 
 
 }

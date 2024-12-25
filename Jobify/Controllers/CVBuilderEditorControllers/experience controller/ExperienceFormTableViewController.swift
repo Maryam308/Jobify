@@ -66,7 +66,7 @@ class ExperienceFormTableViewController: UITableViewController {
            let startDate = experienceFrom.date
            let endDate = experienceTo.date
            
-           guard endDate >= startDate else {
+           guard endDate > startDate else {
                let alert = UIAlertController(title: "Error", message: "End date must be greater than the start date", preferredStyle: .alert)
                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                present(alert, animated: true, completion: nil)

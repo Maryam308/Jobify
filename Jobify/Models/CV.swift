@@ -127,14 +127,14 @@ let currentLoggedInUserID = 99
 final class CVManager {
     
     private init() {} // Singleton
-    private static let CVCollection = Firestore.firestore().collection(DB.FStore.CV.collectionName)
+//    private static let CVCollection = Firestore.firestore().collection(DB.FStore.CV.collectionName)
     //current logged in user - seeker details
     private static let UserCollection = Firestore.firestore().collection("MaryamForTesting")
     // Get documents
-    private static func CVDocument(documentId: String) -> DocumentReference {
-        CVCollection.document(documentId)
-    }
-    
+//    private static func CVDocument(documentId: String) -> DocumentReference {
+//        CVCollection.document(documentId)
+//    }
+//    
     
     static func addNewCV(cv: CV) async throws {
         do {

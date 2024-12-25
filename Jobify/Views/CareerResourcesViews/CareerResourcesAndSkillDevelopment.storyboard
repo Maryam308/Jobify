@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="rs5-Fy-xwa">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Jgg-Tw-FGo">
     <device id="retina6_3" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
@@ -75,11 +75,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="2Sv-KS-4qQ">
-                                <rect key="frame" x="16" y="189" width="370" height="307"/>
+                                <rect key="frame" x="16" y="171" width="370" height="669"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xM4-dy-Xyh">
-                                <rect key="frame" x="254.66666666666663" y="135" width="131.33333333333337" height="39"/>
+                                <rect key="frame" x="254" y="112" width="131.33333333333337" height="39"/>
                                 <color key="backgroundColor" red="0.1137254902" green="0.1764705882" blue="0.2666666667" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="tintColor" red="0.1137254902" green="0.1764705882" blue="0.2666666667" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <state key="normal" title="Button"/>
@@ -95,12 +95,12 @@
                         <viewLayoutGuide key="safeArea" id="Ajk-LJ-QLX"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="2Sv-KS-4qQ" firstAttribute="top" secondItem="xM4-dy-Xyh" secondAttribute="bottom" constant="15" id="3Je-1q-JQh"/>
+                            <constraint firstItem="2Sv-KS-4qQ" firstAttribute="top" secondItem="xM4-dy-Xyh" secondAttribute="bottom" constant="20" id="3Je-1q-JQh"/>
                             <constraint firstItem="Ajk-LJ-QLX" firstAttribute="trailing" secondItem="xM4-dy-Xyh" secondAttribute="trailing" constant="16" id="4Iq-XV-vOd"/>
-                            <constraint firstItem="xM4-dy-Xyh" firstAttribute="top" secondItem="Ajk-LJ-QLX" secondAttribute="top" constant="73" id="7jy-jh-wlm"/>
+                            <constraint firstItem="xM4-dy-Xyh" firstAttribute="top" secondItem="Ajk-LJ-QLX" secondAttribute="top" constant="50" id="7jy-jh-wlm"/>
                             <constraint firstItem="Ajk-LJ-QLX" firstAttribute="trailing" secondItem="2Sv-KS-4qQ" secondAttribute="trailing" constant="16" id="AVM-kP-osB"/>
                             <constraint firstItem="2Sv-KS-4qQ" firstAttribute="leading" secondItem="Ajk-LJ-QLX" secondAttribute="leading" constant="16" id="jAW-Vq-6rG"/>
-                            <constraint firstItem="Ajk-LJ-QLX" firstAttribute="bottom" secondItem="2Sv-KS-4qQ" secondAttribute="bottom" constant="344" id="mCk-Up-dgO"/>
+                            <constraint firstItem="Ajk-LJ-QLX" firstAttribute="bottom" secondItem="2Sv-KS-4qQ" secondAttribute="bottom" id="mCk-Up-dgO"/>
                         </constraints>
                     </view>
                     <connections>
@@ -109,7 +109,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yrw-2g-rxI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5269" y="-2414"/>
+            <point key="canvasLocation" x="5268.6567164179105" y="-2414.41647597254"/>
         </scene>
         <!--Skills-->
         <scene sceneID="QJ8-pY-iRU">
@@ -230,7 +230,7 @@
             <objects>
                 <viewController id="i19-DN-hhc" customClass="EducationViewController" customModule="Jobify" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Cg6-rX-dBA">
-                        <rect key="frame" x="0.0" y="0.0" width="402" height="864"/>
+                        <rect key="frame" x="0.0" y="0.0" width="402" height="874"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Bgc-kH-kU9">
@@ -242,7 +242,7 @@
                                 <color key="sectionIndexBackgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Fill in the details, your CV will be created automatically" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="xOG-YF-zeM">
-                                <rect key="frame" x="21" y="8" width="360" height="177"/>
+                                <rect key="frame" x="21" y="114" width="360" height="71"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <color key="textColor" systemColor="labelColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="19"/>
@@ -265,7 +265,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vyt-yb-WBZ">
-                                <rect key="frame" x="30" y="813" width="343" height="39"/>
+                                <rect key="frame" x="30" y="789" width="343" height="39"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" title="Next">
                                     <color key="baseBackgroundColor" red="0.1137254902" green="0.1764705882" blue="0.2666666667" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -303,14 +303,14 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dx8-nt-8VE" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="7855" y="-1738"/>
+            <point key="canvasLocation" x="8773.1343283582082" y="-1738.2151029748281"/>
         </scene>
         <!--Personal-->
         <scene sceneID="bMF-Je-7wR">
             <objects>
                 <tableViewController storyboardIdentifier="personalDetailVC" useStoryboardIdentifierAsRestorationIdentifier="YES" clearsSelectionOnViewWillAppear="NO" id="P0B-uq-L6k" customClass="CVBuilderEditorTableViewController" customModule="Jobify" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" tag="101" contentMode="scaleToFill" restorationIdentifier="Page1" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="static" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="qqL-3N-T72">
-                        <rect key="frame" x="0.0" y="0.0" width="402" height="864"/>
+                        <rect key="frame" x="0.0" y="0.0" width="402" height="874"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <color key="sectionIndexBackgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -640,7 +640,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YDf-34-PIF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6984" y="-1738"/>
+            <point key="canvasLocation" x="7902.9850746268648" y="-1738.2151029748281"/>
         </scene>
         <!--Experience-->
         <scene sceneID="lsr-ww-IyX">
@@ -787,7 +787,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <datePicker contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" style="compact" translatesAutoresizingMaskIntoConstraints="NO" id="GcS-Vz-fDI">
-                                                    <rect key="frame" x="114" y="12" width="141" height="33"/>
+                                                    <rect key="frame" x="114" y="12" width="141" height="38"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                                     <color key="tintColor" red="0.1137254902" green="0.1764705882" blue="0.2666666667" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </datePicker>
@@ -896,7 +896,7 @@
             <objects>
                 <tableViewController storyboardIdentifier="Page5" useStoryboardIdentifierAsRestorationIdentifier="YES" id="yCG-SQ-lfx" customClass="CVBuilderEditorTableViewController" customModule="Jobify" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" tag="105" contentMode="scaleToFill" restorationIdentifier="Page5" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="static" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="GbY-cz-JjW">
-                        <rect key="frame" x="0.0" y="0.0" width="402" height="864"/>
+                        <rect key="frame" x="0.0" y="0.0" width="402" height="874"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <color key="sectionIndexBackgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1036,7 +1036,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TkL-nl-J5Q" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="10367" y="-1739"/>
+            <point key="canvasLocation" x="11285.074626865671" y="-1739.5881006864988"/>
         </scene>
         <!--My CVs-->
         <scene sceneID="dgm-d7-o8u">
@@ -1047,7 +1047,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Marked CV will be utilized to display information on your profile. " textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IUu-1v-1Uz">
-                                <rect key="frame" x="46" y="65" width="311" height="80"/>
+                                <rect key="frame" x="46" y="109" width="311" height="80"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="80" id="H4b-DS-7KH"/>
@@ -1057,7 +1057,7 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="igI-GY-znw">
-                                <rect key="frame" x="16" y="235" width="370" height="558"/>
+                                <rect key="frame" x="16" y="283" width="370" height="510"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <color key="sectionIndexBackgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="sectionIndexTrackingBackgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1073,7 +1073,7 @@
                                 </prototypes>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e2C-TH-bhh">
-                                <rect key="frame" x="40" y="163" width="322" height="39"/>
+                                <rect key="frame" x="40" y="207" width="322" height="39"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" title="New CV">
                                     <color key="baseBackgroundColor" red="0.1137254902" green="0.1764705882" blue="0.2666666667" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1091,7 +1091,7 @@
                             <constraint firstItem="eyT-vr-4xM" firstAttribute="bottom" secondItem="igI-GY-znw" secondAttribute="bottom" constant="47" id="TqV-Ud-bHs"/>
                             <constraint firstItem="eyT-vr-4xM" firstAttribute="trailing" secondItem="igI-GY-znw" secondAttribute="trailing" constant="16" id="UyR-zB-FIA"/>
                             <constraint firstItem="eyT-vr-4xM" firstAttribute="trailing" secondItem="e2C-TH-bhh" secondAttribute="trailing" constant="40" id="XnY-EQ-qVB"/>
-                            <constraint firstItem="igI-GY-znw" firstAttribute="top" secondItem="e2C-TH-bhh" secondAttribute="bottom" constant="33" id="YwR-6V-5ZI"/>
+                            <constraint firstItem="igI-GY-znw" firstAttribute="top" secondItem="e2C-TH-bhh" secondAttribute="bottom" constant="37" id="YwR-6V-5ZI"/>
                             <constraint firstItem="eyT-vr-4xM" firstAttribute="trailing" secondItem="IUu-1v-1Uz" secondAttribute="trailing" constant="45" id="aIo-RQ-dhI"/>
                             <constraint firstItem="igI-GY-znw" firstAttribute="leading" secondItem="eyT-vr-4xM" secondAttribute="leading" constant="16" id="aYh-Eg-SJT"/>
                             <constraint firstItem="e2C-TH-bhh" firstAttribute="top" secondItem="IUu-1v-1Uz" secondAttribute="bottom" constant="18" id="arj-n9-5dg"/>
@@ -1106,7 +1106,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7ih-jm-yiU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5999" y="-1738"/>
+            <point key="canvasLocation" x="6917.9104477611936" y="-1738.2151029748281"/>
         </scene>
         <!--Education Form-->
         <scene sceneID="Bgl-Zl-aUU">
@@ -1258,15 +1258,15 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" translatesAutoresizingMaskIntoConstraints="NO" id="7gN-ac-kWx">
-                                                    <rect key="frame" x="76.666666666666671" y="12" width="199.33333333333331" height="36.333333333333336"/>
+                                                    <rect key="frame" x="101" y="12" width="143.66666666666666" height="36.333333333333329"/>
                                                     <color key="tintColor" red="0.1137254902" green="0.1764705882" blue="0.2666666667" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </datePicker>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="XM8-Fa-xq0" firstAttribute="top" secondItem="7gN-ac-kWx" secondAttribute="top" id="5zp-tN-bNU"/>
                                                 <constraint firstItem="XM8-Fa-xq0" firstAttribute="leading" secondItem="MNF-XJ-OES" secondAttribute="leadingMargin" id="EJe-Rf-b99"/>
-                                                <constraint firstItem="7gN-ac-kWx" firstAttribute="leading" secondItem="XM8-Fa-xq0" secondAttribute="trailing" constant="38" id="fPE-l5-cmm"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="7gN-ac-kWx" secondAttribute="trailing" constant="106" id="s5d-Ty-QUC"/>
+                                                <constraint firstItem="7gN-ac-kWx" firstAttribute="leading" secondItem="XM8-Fa-xq0" secondAttribute="trailing" constant="62.333333333333329" id="fPE-l5-cmm"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="7gN-ac-kWx" secondAttribute="trailing" constant="137.33333333333334" id="s5d-Ty-QUC"/>
                                                 <constraint firstItem="XM8-Fa-xq0" firstAttribute="top" secondItem="MNF-XJ-OES" secondAttribute="topMargin" id="zeo-80-7Pa"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -1324,7 +1324,7 @@
             <objects>
                 <viewController id="0Kw-nB-YpL" customClass="SkillsViewController" customModule="Jobify" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="lmm-Y7-eX3">
-                        <rect key="frame" x="0.0" y="0.0" width="402" height="864"/>
+                        <rect key="frame" x="0.0" y="0.0" width="402" height="874"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="BcQ-d7-6hG">
@@ -1336,7 +1336,7 @@
                                 <color key="sectionIndexBackgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ETr-iV-q8h">
-                                <rect key="frame" x="30" y="808" width="342" height="39"/>
+                                <rect key="frame" x="30" y="784" width="342" height="39"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" title="Next">
                                     <color key="baseBackgroundColor" red="0.1137254902" green="0.1764705882" blue="0.2666666667" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1346,7 +1346,7 @@
                                 </connections>
                             </button>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Fill in the details, your CV will be created automatically" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Sr7-Ux-21P">
-                                <rect key="frame" x="21" y="8" width="360" height="181"/>
+                                <rect key="frame" x="21" y="114" width="360" height="75"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <color key="textColor" systemColor="labelColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="19"/>
@@ -1397,14 +1397,14 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CpC-HJ-F4g" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="8631" y="-1738"/>
+            <point key="canvasLocation" x="9549.2537313432822" y="-1738.2151029748281"/>
         </scene>
         <!--Experience-->
         <scene sceneID="NuZ-oa-a1c">
             <objects>
                 <viewController id="SBu-vA-AaQ" customClass="ExperienceViewController" customModule="Jobify" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Rxu-nw-7rV">
-                        <rect key="frame" x="0.0" y="0.0" width="402" height="864"/>
+                        <rect key="frame" x="0.0" y="0.0" width="402" height="874"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="cey-hZ-NCn">
@@ -1416,7 +1416,7 @@
                                 <color key="sectionIndexBackgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Fill in the details, your CV will be created automatically" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="lpD-8y-VXm">
-                                <rect key="frame" x="21" y="8" width="360" height="192"/>
+                                <rect key="frame" x="21" y="114" width="360" height="86"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <color key="textColor" systemColor="labelColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="19"/>
@@ -1433,7 +1433,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VyL-VP-b1l">
-                                <rect key="frame" x="30" y="815" width="343" height="39"/>
+                                <rect key="frame" x="30" y="791" width="343" height="39"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" title="Next">
                                     <color key="baseBackgroundColor" red="0.1137254902" green="0.1764705882" blue="0.2666666667" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1477,7 +1477,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4So-MS-UcS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="9496" y="-1739"/>
+            <point key="canvasLocation" x="10414.925373134327" y="-1739.5881006864988"/>
         </scene>
         <!--Career Advising View Controller-->
         <scene sceneID="igU-oP-8jE">
@@ -2291,6 +2291,24 @@ EFNlZWtlckNhcmVlclJlc291cmNlc1ZpZXdDb250cm9sbGVyA
             </objects>
             <point key="canvasLocation" x="6122.3880597014922" y="-973.45537757437069"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="y6z-OJ-Y6k">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Jgg-Tw-FGo" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="FTQ-7a-bwA">
+                        <rect key="frame" x="0.0" y="62" width="402" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="KTx-r0-KP9" kind="relationship" relationship="rootViewController" id="USO-pk-y5Q"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="B0G-dv-oO3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5998.5074626865671" y="-1738.2151029748281"/>
+        </scene>
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="js6-eH-stm"/>
@@ -2299,7 +2317,7 @@ EFNlZWtlckNhcmVlclJlc291cmNlc1ZpZXdDb250cm9sbGVyA
         <image name="LearningResourcesImg" width="332" height="146"/>
         <image name="graduationcap.fill" catalog="system" width="128" height="108"/>
         <image name="header" width="402" height="212"/>
-        <image name="person.circle" catalog="system" width="128" height="123"/>
+        <image name="person.circle" catalog="system" width="32" height="32"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
@@ -2307,7 +2325,7 @@ EFNlZWtlckNhcmVlclJlc291cmNlc1ZpZXdDb250cm9sbGVyA
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemRedColor">
-            <color red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

@@ -20,6 +20,7 @@ class CVViewerTableViewCell: UITableViewCell {
     
     @IBOutlet weak var lblPhone: UILabel!
     
+    @IBOutlet weak var lblCountry: UILabel!
     @IBOutlet weak var txtEducation: UITextView!
     
     
@@ -39,7 +40,7 @@ class CVViewerTableViewCell: UITableViewCell {
            lblTitle.text = cv.preferredTitle
            lblEmail.text = cv.personalDetails.email
            lblPhone.text = cv.personalDetails.phoneNumber
-           
+           lblCountry.text = cv.personalDetails.country
            // Load and display the image from Cloudinary
            if let imageUrl = URL(string: cv.personalDetails.profilePicture) {
                loadImage(from: imageUrl)

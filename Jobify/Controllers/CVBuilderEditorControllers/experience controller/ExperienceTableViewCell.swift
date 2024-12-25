@@ -41,16 +41,20 @@ class ExperienceTableViewCell: UITableViewCell {
     }
     
     func setup(experience: WorkExperience) {
-        lblCompany.text = "Company: " + experience.company!
-        lblRole.text = "Role: " + experience.role!
-        lblFrom.text = "From: " + DateFormatter.localizedString(from: experience.startDate!, dateStyle: .medium, timeStyle: .none)
-
+        lblCompany.text = "Company: " + (experience.company ?? "")
+        lblRole.text = "Role: " + (experience.role ?? "")
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MMMM yyyy" // Format for month and year
+        
+        lblFrom.text = "From: " + dateFormatter.string(from: experience.startDate!)
+        
         // Check if the end date is greater than the current date
         let currentDate = Date()
         if let endDate = experience.endDate, endDate > currentDate {
             lblTo.text = "To: Present"
         } else {
-            lblTo.text = "To: " + DateFormatter.localizedString(from: experience.endDate ?? currentDate, dateStyle: .medium, timeStyle: .none)
+            lblTo.text = "To: " + dateFormatter.string(from: experience.endDate ?? currentDate)
         }
         
         lblKeyResponsibility.text = experience.keyResponsibilities

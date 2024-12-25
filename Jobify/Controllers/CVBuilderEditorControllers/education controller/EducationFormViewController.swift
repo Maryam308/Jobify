@@ -36,19 +36,31 @@ class EducationFormViewController: UITableViewController {
     }
     
     @IBAction func saveEducationTapped(_ sender: UIButton) {
-        checkForValidEducationForm()
-        // Ensure end date is greater than or equal to start date
-        let startDate = from.date
-        let endDate = to.date
-        guard endDate >= startDate else {
-            let alert = UIAlertController(title: "Error", message: "End date must be greater than or equal to start date", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-            present(alert, animated: true, completion: nil)
-            return
-        }
+        // Check for valid education form
+          checkForValidEducationForm()
+          
+          // Ensure all fields are filled
+          guard let degree = txtDegree.text, !degree.isEmpty,
+                let institution = txtInstitution.text, !institution.isEmpty else {
+              let alert = UIAlertController(title: "Error", message: "All fields must be filled out", preferredStyle: .alert)
+              alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+              present(alert, animated: true, completion: nil)
+              return
+          }
 
-        let education = Education(degree: txtDegree.text!, institution: txtInstitution.text!, startDate: startDate, endDate: endDate)
+          // Ensure end date is greater than or equal to start date
+          let startDate = from.date
+          let endDate = to.date
+          
+          guard endDate > startDate else {
+              let alert = UIAlertController(title: "Error", message: "End date must be greater than the start date", preferredStyle: .alert)
+              alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+              present(alert, animated: true, completion: nil)
+              return
+          }
 
+          // Create the Education object
+          let education = Education(degree: degree, institution: institution, startDate: startDate, endDate: endDate)
 
           if let index = editIndex {
               // Editing existing education

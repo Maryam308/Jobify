@@ -16,7 +16,7 @@ struct CloudinaryResponse: Decodable {
 }
 
 //the current logged in user
-let currentUserID = 99
+let currentUserID = UserSession.shared.loggedInUser?.userID ?? 99
 
 // MARK: - Singleton for CV Data
 class CVData {
@@ -137,6 +137,8 @@ class CVBuilderEditorTableViewController: UITableViewController , UIImagePickerC
             txtJobTitle.text = CVData.shared.jobTitle
         }
     }
+    
+
     
     private func loadImage(from url: URL) {
         let task = URLSession.shared.dataTask(with: url) { data, response, error in
@@ -307,7 +309,7 @@ class CVBuilderEditorTableViewController: UITableViewController , UIImagePickerC
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         saveCurrentPageData() // Save data when navigating away
-
+        
     }
     
     //will be called when user exits the personal page back to my CVs page
@@ -330,14 +332,24 @@ class CVBuilderEditorTableViewController: UITableViewController , UIImagePickerC
         txtCity.text = ""
         txtCVTitle.text = ""
         txtJobTitle.text = ""
+        //clear the CV image
+        CVImage.image = nil
     }
     
     //only enable the go to education button when all fields are valid
-    func checkForValidPersonalForm(){
-        if nameErr.isHidden && emailErr.isHidden && phoneErr.isHidden && countryErr.isHidden && cityErr.isHidden{
-            btnGoToEducation.isEnabled = true
-        }else{
-            btnGoToEducation.isEnabled = false
+    func checkForValidPersonalForm() {
+        let defaultImage = UIImage(systemName: "person.circle") //the default image
+        
+        // Check if there are no errors and if the image is the default image
+        if nameErr.isHidden && emailErr.isHidden && phoneErr.isHidden && countryErr.isHidden && cityErr.isHidden {
+            if CVImage.image != defaultImage {
+                //if the current image is not equal to the default image, this means that the user chose an image
+                btnGoToEducation.isEnabled = true
+            } else {
+                btnGoToEducation.isEnabled = false //if the current image is the default image, disable the button
+            }
+        } else {
+            btnGoToEducation.isEnabled = false //if any error label is not hiddedn, disable the button
         }
     }
     
@@ -382,10 +394,6 @@ class CVBuilderEditorTableViewController: UITableViewController , UIImagePickerC
         let set = CharacterSet(charactersIn: value)
         if !CharacterSet.decimalDigits.isSuperset(of: set){
             return "Must contain digits only"
-        }
-        
-        if value.count != 8 {
-            return "Must be 8 digits"
         }
         return nil
     }
