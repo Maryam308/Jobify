@@ -45,15 +45,15 @@ struct AdminDetails{
 //    }
     
     //add the admin as the message sender
-    mutating func sendMessage(messageBody:String, reciever: Any){
-        
-        let messageFromAdmin = Message(messageSender: self, messageReceiver: reciever, messageBody: messageBody)  // sender reciever are added also
-        
-        adminMessageList.append(messageFromAdmin)
-        
-        
-        
-    }
+//    mutating func sendMessage(messageBody:String, reciever: Any){
+//        
+//        let messageFromAdmin = Message(messageSender: self, messageReceiver: reciever, messageBody: messageBody)  // sender reciever are added also
+//        
+//        adminMessageList.append(messageFromAdmin)
+//        
+//        
+//        
+//    }
     
     //combined with adding a job post
 //    mutating func createJobPostA(

@@ -19,19 +19,7 @@ class MessageCell: UITableViewCell{
     
     @IBOutlet weak var lblSentMessageContent: UILabel!
     
-    //dummy data
-    
-//    //an array of names
-//    let userNames: [String] = ["maryam","zainab","zahra", "fatima"]
-//
-//    //an array of messages
-//    let messagesOne: [String] = ["hello","hi","who","me"]
-//
-//    //second array
-//    let messagesTwo: [String] = ["hello","hi","who","me"]
-//
-//    //third array
-//    let messageThree: [String] = ["hello","hi","who","me"]
+ 
     
     
     override func awakeFromNib() {
