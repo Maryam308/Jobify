@@ -74,7 +74,7 @@ class JopPostCreationSecondScreenViewController: UITableViewController, UIImageP
             let deadline = datePickerDeadline.date
             
             // Ensure jobPostId is valid
-            guard let jobPostId = jopPostId else {
+        guard jopPostId != nil else {
                 showAlert(message: "Job post ID is missing. Please go back and try again.")
                 return
             }
