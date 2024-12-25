@@ -15,6 +15,9 @@ struct CloudinaryResponse: Decodable {
     let secure_url: String
 }
 
+//the current logged in user
+let currentUserID = 99
+
 // MARK: - Singleton for CV Data
 class CVData {
     static let shared = CVData()
@@ -216,7 +219,7 @@ class CVBuilderEditorTableViewController: UITableViewController , UIImagePickerC
                       )
                       
                       // Update the CV in Firestore
-                      try await CVManager.updateExistingCV(cvID: existingCV.cvID, cv: updatedCV)
+                      try await CVManager.updateExistingCV(cvID: existingCV.cvID, updatedCV: updatedCV)
                       print("CV updated successfully.")
                       CVData.shared.cvToEdit = nil // Clear the editing context
                       
@@ -247,7 +250,7 @@ class CVBuilderEditorTableViewController: UITableViewController , UIImagePickerC
                       )
                       
                       // Create the new CV in Firestore
-                      try await CVManager.createNewCV(cv: newCV)
+                      try await CVManager.addNewCV(cv: newCV)
                       print("CV created successfully.")
                   }
                   

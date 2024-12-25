@@ -19,23 +19,25 @@ struct CareerPath: Equatable {
         return lhs.careerId == rhs.careerId
     }
     
-    static var careerIdCounter: Int = 0
+    static var careerIdCounter: Int = 20 // to avoid conflict with any sample data
     var careerId: Int
     var description: String? = ""
     var title: String
     var demand: String? = ""
     var roadmap: String? = ""
     
-    init(careerName: String, demand: String?, roadmap: String) {
+    init(careerName: String, demand: String?, roadmap: String, description: String) {
         careerId = CareerPath.careerIdCounter + 1
         self.title = careerName
         self.demand = demand
         self.roadmap = roadmap
+        self.description = description
     }
     
-    init(title: String){
-        careerId = CareerPath.careerIdCounter + 1
+    //init for fetching and constructing
+    init(careerId: Int , title: String){
         self.title = title
+        self.careerId = careerId
     }
     
 }
@@ -47,13 +49,13 @@ enum Demand: String {
 }
 
 
-struct LearningResource: Equatable {
+struct LearningResource: Equatable, Codable {
     
     static func == (lhs: LearningResource, rhs: LearningResource) -> Bool {
         return lhs.learningResourceId == rhs.learningResourceId
     }
     
-    static var resourceIdCounter: Int = 0
+    static var resourceIdCounter: Int = 20
     var learningResourceId: Int = 0
     var type: String? = ""
     var summary: String? = ""
@@ -63,7 +65,12 @@ struct LearningResource: Equatable {
     var skillRef: DocumentReference? // Firestore DocumentReference for the skill
     var skillToDevelop: String = ""
     // Default initializer
-    init() {}
+    init() {
+        //will generate an id in the learning resources counter for the request to be resource
+        LearningResource.resourceIdCounter += 1
+        self.learningResourceId = LearningResource.resourceIdCounter
+        
+    }
     
     init(type: String, summary: String, link: String, title: String, skillRef: DocumentReference) {
         LearningResource.resourceIdCounter += 1
@@ -75,9 +82,19 @@ struct LearningResource: Equatable {
         self.skillRef = skillRef
     }
     
-    init(type: String, summary: String, link: String, title: String, skillToDevelop: String) {
+
+    init(id: Int,type: String, summary: String, link: String, title: String, skillRef: DocumentReference){
+        self.learningResourceId = id
+        self.type = type
+        self.summary = summary
+        self.link = link
+        self.title = title // Set the title
+        self.skillRef = skillRef
+    }
+
+    init( id: Int , type: String, summary: String, link: String, title: String, skillToDevelop: String) {
          
-         LearningResource.resourceIdCounter += 1
+        self.learningResourceId = id
         self.title = title
          self.learningResourceId = LearningResource.resourceIdCounter
          self.type = type
@@ -86,6 +103,7 @@ struct LearningResource: Equatable {
          self.skillToDevelop = skillToDevelop
          
      }
+
 }
 
 enum LearningResourceType: String {
@@ -128,7 +146,7 @@ struct LearningRequest: Equatable {
         return lhs.requestId == rhs.requestId
     }
     
-    static var requestIdCounter: Int = 0
+    static var requestIdCounter: Int = 30
     var requestId: Int
     var title: String = ""
     var isApproved: Bool?
@@ -138,11 +156,10 @@ struct LearningRequest: Equatable {
     var requester: User?
     var skillToDevelop: String? //since the skill will be displayed in a drop down list there wont be a problem to use its title
     
-    init(isApproved: Bool?, type: String, summary: String, link: String, requester: User?, skillToDevelop: String) {
+    init( type: String, summary: String, link: String, requester: User?, skillToDevelop: String) {
         
         LearningRequest.requestIdCounter += 1
         requestId = LearningRequest.requestIdCounter
-        self.isApproved = isApproved
         self.type = type
         self.summary = summary
         self.link = link
@@ -151,10 +168,16 @@ struct LearningRequest: Equatable {
         
     }
     
-    init(title: String, isApproved: Bool?){
-        
+    init(title: String){
         LearningRequest.requestIdCounter += 1
         requestId = LearningRequest.requestIdCounter
+        self.title = title
+        isApproved = nil
+    }
+    
+    init(requestId: Int, title: String, isApproved: Bool?){
+
+        self.requestId = requestId
         self.title = title
         self.isApproved = isApproved
         
@@ -168,3 +191,149 @@ struct LearningRequest: Equatable {
 //    case Approved
 //    case Rejected
 //}
+
+
+final class resourceManager {
+
+    private init() {} // Singleton
+
+    // Current logged in user - seeker details
+    private static let UserCollection = Firestore.firestore().collection("MaryamForTesting")
+    
+    static func saveLearningResource(learningResource: LearningResource) async throws {
+        do {
+            // Get a reference to the Firestore collection
+            let userCollectionRef = Firestore.firestore().collection("users")
+            
+            // Query to find the document with the specific userId
+            let userQuerySnapshot = try await userCollectionRef.whereField("userId", isEqualTo: currentLoggedInUserID).getDocuments()
+            
+            // Check if a user document is found
+            guard let userDocument = userQuerySnapshot.documents.first else {
+                print("No user document found with userId = \(currentLoggedInUserID)")
+                return
+            }
+            
+            // Extract the user reference
+            let userReference = userDocument.reference
+            
+            // Get the MaryamForTesting collection reference
+            let testingCollectionRef = Firestore.firestore().collection("MaryamForTesting")
+            
+            // Query to find the document with the user reference
+            let testingQuerySnapshot = try await testingCollectionRef.whereField("userID", isEqualTo: userReference).getDocuments()
+            
+            // Loop through the documents to find the correct one
+            for document in testingQuerySnapshot.documents {
+ 
+                let resourceData = try DB.encoder.encode(learningResource)
+                
+                // Append the resource array in the found document
+                try await document.reference.updateData([
+                    "savedLearningResourcesList": FieldValue.arrayUnion([resourceData])
+                ])
+                
+                print("Resource added successfully")
+                return // Exit after adding the resource ID
+            }
+            
+            print("No document found in MaryamForTesting with userID reference.")
+            
+        } catch {
+            print("Error adding resource: \(error.localizedDescription)")
+            throw error // Re-throw the error for further handling
+        }
+    }
+
+    
+    static func isResourceSaved(learningResource: LearningResource) async throws -> Bool {
+        // Get a reference to the Firestore collections
+        let userCollectionRef = Firestore.firestore().collection("users")
+        
+        // Get user ID from the currently logged-in user
+        let userQuerySnapshot = try await userCollectionRef.whereField("userId", isEqualTo: currentLoggedInUserID).getDocuments()
+        
+        // Check if a user document is found
+        guard let userDocument = userQuerySnapshot.documents.first else {
+            print("No user document found with userId = \(currentLoggedInUserID)")
+            return false
+        }
+        
+        // Extract the user reference
+        let userReference = userDocument.reference
+        
+        // Get the MaryamForTesting collection reference
+        let testingCollectionRef = Firestore.firestore().collection("MaryamForTesting")
+        
+        // Query to find the document with the user reference
+        let testingQuerySnapshot = try await testingCollectionRef.whereField("userID", isEqualTo: userReference).getDocuments()
+        
+        // Loop through the documents to find the correct one
+        for document in testingQuerySnapshot.documents {
+            // Get saved learning resources from the document
+            let savedResources = document.data()["savedLearningResourcesList"] as? [[String: Any]] ?? []
+            
+            // Check if the learning resource exists in the savedResources array
+            for resourceData in savedResources {
+                if let savedResourceId = resourceData["learningResourceId"] as? Int,
+                   savedResourceId == learningResource.learningResourceId {
+                    return true // Resource is saved
+                }
+            }
+        }
+        
+        return false // Resource not found in saved resources
+    }
+   
+    static func removeLearningResource(learningResource: LearningResource) async throws {
+        do {
+            // Get a reference to the Firestore collection
+            let userCollectionRef = Firestore.firestore().collection("users")
+            
+            // Query to find the document with the specific userId
+            let userQuerySnapshot = try await userCollectionRef.whereField("userId", isEqualTo: currentLoggedInUserID).getDocuments()
+            
+            // Check if a user document is found
+            guard let userDocument = userQuerySnapshot.documents.first else {
+                print("No user document found with userId = \(currentLoggedInUserID)")
+                return
+            }
+            
+            // Extract the user reference
+            let userReference = userDocument.reference
+            
+            // Get the MaryamForTesting collection reference
+            let testingCollectionRef = Firestore.firestore().collection("MaryamForTesting")
+            
+            // Query to find the document with the user reference
+            let testingQuerySnapshot = try await testingCollectionRef.whereField("userID", isEqualTo: userReference).getDocuments()
+            
+            // Loop through the documents to find the correct one
+            for document in testingQuerySnapshot.documents {
+                // Get saved learning resources from the document
+                let savedResources = document.data()["savedLearningResourcesList"] as? [[String: Any]] ?? []
+                
+                // Find the resource with the same learningResourceId
+                if let index = savedResources.firstIndex(where: { ($0["learningResourceId"] as? Int) == learningResource.learningResourceId }) {
+                    // Remove the resource from the array
+                    var updatedResources = savedResources
+                    updatedResources.remove(at: index)
+                    
+                    // Update the Firestore document with the new array
+                    try await document.reference.updateData([
+                        "savedLearningResourcesList": updatedResources
+                    ])
+                    
+                    print("Resource removed successfully")
+                    return
+                }
+            }
+            
+            print("Resource not found in saved resources.")
+            
+        } catch {
+            print("Error removing resource: \(error.localizedDescription)")
+            throw error // Re-throw the error for further handling
+        }
+    }
+}

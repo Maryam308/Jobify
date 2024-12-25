@@ -93,17 +93,17 @@ struct SeekerDetails {
     
     
     //Creating the message object, then adding it for bothe the sender's messages list.
-    mutating func sendMessage(messageBody: String, messageReceiver: Any) {
-       
-        let message = Message(
-            messageSender: self,
-            messageReceiver: messageReceiver,
-            messageBody: messageBody)
-        
-        // Add to sender list
-        seekerMessageList.append(message)
-    }
-    
+//    mutating func sendMessage(messageBody: String, messageReceiver: Any) {
+//       
+//        let message = Message(
+//            messageSender: self,
+//            messageReceiver: messageReceiver,
+//            messageBody: messageBody)
+//        
+//        // Add to sender list
+//        seekerMessageList.append(message)
+//    }
+//    
     
     //===================================================================================================================//
     

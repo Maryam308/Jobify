@@ -8,13 +8,13 @@
 import UIKit
 import FirebaseFirestore
 
-class MyLearningResourcesViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate  {
+class MyLearningResourcesViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, MyLearningResourcesCellDelegate  {
     
     let db = Firestore.firestore()
     //fetch the singleton user session user
-    let currentUserId = 1 /*UserSession.shared.loggedInUser?.userID*/
+    let currentUserId = UserSession.shared.loggedInUser?.userID ?? 1
     
-    //fetch the users' learning resources
+    // an  array to fetch the users' learning resources
     var learningResources: [LearningResource] = []
     
     // the number of items to be displayed using the cells in the collection view
@@ -27,15 +27,13 @@ class MyLearningResourcesViewController: UIViewController, UICollectionViewDataS
     //what to do in each cell : display title of each learning resources added
         func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
             
-            //fetch the cell to reuse using the specified one from the in
+            //fetch the cell to reuse
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MyLearningResourceCell", for: indexPath) as! MyLearningResourcesCells
             
             //set the title label to the learning resource title
             cell.lblResourceTitle.text = learningResources[indexPath.item].title
-            
-            //add target to the edit button
-            cell.btnEdit.addTarget(self, action: #selector(btnEditClick(_:)), for: .touchUpInside)
-               
+            cell.delegate = self // Set the delegate
+
             //return the ready cell
             return cell
             
@@ -44,17 +42,21 @@ class MyLearningResourcesViewController: UIViewController, UICollectionViewDataS
     
         // what will happen after the user select it
         func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-            
+            // for testing purposes
             print("Selected \(learningResources[indexPath.item].learningResourceId)")
             
         }
     
     
     func fetchUserReference(by userId: Int, completion: @escaping (DocumentReference?) -> Void) {
+        
+        // this function will fetch to the user reference in the database using the user ID of the current user passed in the parameter
+        
             db.collection("users")
                 .whereField("userId", isEqualTo: userId)
                 .getDocuments { snapshot, error in
                     if let error = error {
+                        // error handling
                         print("Error fetching user document: \(error)")
                         completion(nil)
                         return
@@ -66,7 +68,7 @@ class MyLearningResourcesViewController: UIViewController, UICollectionViewDataS
                         return
                     }
 
-                    // Return the reference to the found user document
+                    // after completion the the function will  return the reference to the found user document
                     completion(document.reference)
                 }
         }
@@ -75,10 +77,13 @@ class MyLearningResourcesViewController: UIViewController, UICollectionViewDataS
     
     
     func fetchFilteredLearningResources(using publisherRef: DocumentReference) {
+        
+        // this function will filter the learning resources in the collection by comparing the publisher reference to the current user reference
+        
            db.collection("LearningResources")
                .whereField("publisher", isEqualTo: publisherRef)
                .getDocuments { snapshot, error in
-                   if let error = error {
+                   if let error = error {// error handling and testing
                        print("Error fetching learning resources: \(error)")
                        return
                    }
@@ -88,25 +93,18 @@ class MyLearningResourcesViewController: UIViewController, UICollectionViewDataS
                        return
                    }
                    
-                   // Map each document's data into LearningResource structs
+                   // use compact map to map the document data
                    self.learningResources = snapshot.documents.compactMap { document in
                        let data = document.data()
+                       // since the learning resource  is already created the ID will be fetched
                        let learningResourceId = data["learningResourceId"] as? Int ?? 0
                        let title = data["title"] as? String ?? ""
-                       let category = data["category"] as? String ?? ""
-                       let datePublished = data["datePublished"] as? Date ?? Date()
-                       let skill = data["skill"] as? String ?? ""
-                       let description = data["description"] as? String ?? ""
-                       let link = data["link"] as? String ?? ""
-                       
+
+                       // start that needed data only which are the ID and the title
                        var learningResource = LearningResource()
                        learningResource.title = title
                        learningResource.learningResourceId = learningResourceId
-                       learningResource.skillToDevelop = skill
-                       learningResource.datePublished = datePublished
-                       learningResource.link = link
-                       learningResource.summary = description
-                       learningResource.type = category
+
                        
                        return learningResource
                    }
@@ -139,20 +137,51 @@ class MyLearningResourcesViewController: UIViewController, UICollectionViewDataS
             
         }
 
-    
-    
-    @IBAction func btnEditClick(_ sender: Any) {
-    
-        // Find the index path of the cell where the button was tapped
-        if let cell = (sender as AnyObject).superview as? UICollectionViewCell,
-           let indexPath = myLearningResourcesCollection.indexPath(for: cell) {
-            let selectedTitle = learningResources[indexPath.item].type
-                   // Perform segue to the next screen and pass the title
-                   performSegue(withIdentifier: "showDetail", sender: selectedTitle)
-               }
-        
-        
-            }
+  
+    // Implement the delegate method
+        func didTapRemoveButton(in cell: MyLearningResourcesCells) {
+            guard let indexPath = myLearningResourcesCollection.indexPath(for: cell) else { return }
+            let selectedResourceId = learningResources[indexPath.item].learningResourceId
+            
+            // Show confirmation alert
+            let alertController = UIAlertController(
+                title: "Delete Learning Resource",
+                message: "Are you sure you want to delete this learning resource?",
+                preferredStyle: .alert
+            )
+            
+            alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+            alertController.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { _ in
+                // Perform the deletion logic
+                let resourcesCollection = Firestore.firestore().collection("LearningResources")
+                resourcesCollection.whereField("learningResourceId", isEqualTo: selectedResourceId)
+                    .getDocuments { snapshot, error in
+                        if let error = error {
+                            print("Error fetching document: \(error.localizedDescription)")
+                            return
+                        }
+                        guard let documents = snapshot?.documents, let document = documents.first else {
+                            print("No matching document found for learningResourceId \(selectedResourceId)")
+                            return
+                        }
+                        
+                        document.reference.delete { error in
+                            if let error = error {
+                                print("Error deleting document: \(error.localizedDescription)")
+                            } else {
+                                print("Document deleted successfully.")
+                                // Remove the resource from the local array and update the collection view
+                                self.learningResources.remove(at: indexPath.item)
+                                DispatchQueue.main.async {
+                                    self.myLearningResourcesCollection.deleteItems(at: [indexPath])
+                                }
+                            }
+                        }
+                    }
+            }))
+            
+            self.present(alertController, animated: true, completion: nil)
+        }
     
     
 }

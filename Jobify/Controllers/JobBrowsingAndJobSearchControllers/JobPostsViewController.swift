@@ -137,6 +137,7 @@ class JobPostsViewController: UIViewController, UICollectionViewDelegate, UIColl
         
         // Configure the cell with job data
         cell.jobPostImageView.image = nil
+
         cell.jobPostTimelbl.text = job.time
         cell.jobPostTitlelbl.text = job.companyDetails?.name ?? "By Jobify"
         
