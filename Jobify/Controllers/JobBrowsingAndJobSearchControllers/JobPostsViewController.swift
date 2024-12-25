@@ -40,7 +40,7 @@ class JobPostsViewController: UIViewController, UICollectionViewDelegate, UIColl
         
         // Configure the cell with job data
         cell.jobPostImageView.image = nil
-        cell.jobPostTimelbl.text = job.time
+//        cell.jobPostTimelbl.text = job.time
         cell.jobPostTitlelbl.text = job.companyDetails?.name ?? "No Company"
         
         // Format the date
@@ -190,7 +190,7 @@ class JobPostsViewController: UIViewController, UICollectionViewDelegate, UIColl
                         companyDetails: nil,
                         level: jobLevel,
                         category: jobCategory,
-                        employmentType: jobEmploymentType,
+                        employmentType: jobEmploymentType, location: "",
                         deadline: deadline,
                         desc: desc,
                         requirement: requirement,
