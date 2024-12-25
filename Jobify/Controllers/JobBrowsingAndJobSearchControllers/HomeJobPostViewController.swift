@@ -188,6 +188,22 @@ class HomeJobPostViewController: UIViewController, UICollectionViewDataSource, U
         return cell
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // Get the selected job from the filtered jobs
+        let selectedJob = filteredJobs[indexPath.row]
+        
+        // Load the storyboard containing JobDetailsTableViewController
+        let storyboard = UIStoryboard(name: "JobDetailsAndJobRecommendations_FatimaKhamis", bundle: nil) // Ensure this matches your storyboard name
+        if let jobDetailsVC = storyboard.instantiateViewController(withIdentifier: "showJobDetails") as? JobDetailsTableViewController { // Use the correct storyboard ID
+            jobDetailsVC.job = selectedJob // Pass the selected job to the JobDetailsTableViewController
+            
+            // Push the JobDetailsTableViewController onto the navigation stack
+            navigationController?.pushViewController(jobDetailsVC, animated: true)
+        } else {
+            print("Failed to instantiate JobDetailsTableViewController")
+        }
+    }
+    
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         searchOverlayView.isHidden = false
         searchResultsTableView.isHidden = false
@@ -204,7 +220,7 @@ class HomeJobPostViewController: UIViewController, UICollectionViewDataSource, U
         searchResultsTableView.isHidden = true
         searchBar.text = ""
         searchBar.showsCancelButton = false
-        searchBar.resignFirstResponder() // Dismiss keyboard and stop the cursor
+        //searchBar.resignFirstResponder() // Dismiss keyboard and stop the cursor
         filteredJobs = allJobs // Reset to all jobs
     }
     
@@ -497,15 +513,39 @@ class HomeJobPostViewController: UIViewController, UICollectionViewDataSource, U
     // didSelectItemAt for categoryCollectionView
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView == categoryCollectionView {
+            // Handle category selection
             let selectedCategory = categories[indexPath.row].title
-            
             let storyboard = UIStoryboard(name: "JobBrowsingAndJobSearch_FatimaKhamis", bundle: nil)
             if let jobPostsVC = storyboard.instantiateViewController(withIdentifier: "JobPostsViewController") as? JobPostsViewController {
                 jobPostsVC.source = .category(selectedCategory) // Pass the selected category
                 navigationController?.pushViewController(jobPostsVC, animated: true)
+            } else {
+                print("Failed to instantiate JobPostsViewController")
+            }
+        } else {
+            // Handle job selection for recommended or recent jobs
+            var selectedJob: Job?
+
+            if collectionView == jobPostCollectionView {
+                selectedJob = recommendedJobs[indexPath.item]
+            } else if collectionView == recentJobPostCollectionView {
+                selectedJob = recentJobs[indexPath.item]
+            }
+
+            // Navigate to JobDetails if a job was selected
+            if selectedJob != nil {
+                // Load the storyboard containing JobDetailsTableViewController
+                let storyboard = UIStoryboard(name: "JobDetailsAndJobRecommendations_FatimaKhamis", bundle: nil) // Ensure this matches your storyboard name
+                if let jobDetailsVC = storyboard.instantiateViewController(withIdentifier: "showJobDetails") as? JobDetailsTableViewController { // Use the correct storyboard ID
+                    jobDetailsVC.job = selectedJob
+                    navigationController?.pushViewController(jobDetailsVC, animated: true)
+                } else {
+                    print("Failed to instantiate JobDetailsViewController")
+                }
             }
         }
     }
+   
     
     //for search table view
     private func fetchAllJobs() {

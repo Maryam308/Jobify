@@ -82,13 +82,16 @@ class JobPostsViewController: UIViewController, UICollectionViewDelegate, UIColl
         let db = Firestore.firestore() // Firestore instance
         
         var source: JobSource?
+        var selectedJob: Job?
+    
+        private let showJobDetailsSegueIdentifier = "showJobDetails"
         
         override func viewDidLoad() {
             super.viewDidLoad()
             
             // Set up your custom collection view layout
-                let layout = CustomFlowLayout()
-                jobPostCollectionView.collectionViewLayout = layout
+                //let layout = CustomFlowLayout()
+               // jobPostCollectionView.collectionViewLayout = layout
             
             fetchJobPostings() // Fetch data from Firestore only once
             
@@ -105,7 +108,7 @@ class JobPostsViewController: UIViewController, UICollectionViewDelegate, UIColl
             filterVC.delegate = self
         } else if segue.identifier == "showSortPage", let sortVC = segue.destination as? SortViewController {
             sortVC.delegate = self
-        }
+        } 
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -153,7 +156,23 @@ class JobPostsViewController: UIViewController, UICollectionViewDelegate, UIColl
         return cell
     }
     
-    /*func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        selectedJob = jobs[indexPath.row]  // Store the selected job
+
+            
+        // Load the storyboard containing JobDetailsTableViewController
+        let storyboard = UIStoryboard(name: "JobDetailsAndJobRecommendations_FatimaKhamis", bundle: nil) // Ensure this matches your storyboard name
+        if let jobDetailsVC = storyboard.instantiateViewController(withIdentifier: "showJobDetails") as? JobDetailsTableViewController { // Use the correct storyboard ID
+            jobDetailsVC.job = selectedJob
+            
+            // Push the JobDetailsTableViewController onto the navigation stack
+            navigationController?.pushViewController(jobDetailsVC, animated: true)
+        } else {
+            print("Failed to instantiate JobDetailsTableViewController")
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let collectionViewWidth = collectionView.bounds.width
         let spacing: CGFloat = 0
         let columns: CGFloat = UIDevice.current.userInterfaceIdiom == .pad ? 2 : 1 // 2 columns for iPad, 1 column for iPhone
@@ -181,7 +200,7 @@ class JobPostsViewController: UIViewController, UICollectionViewDelegate, UIColl
             // Insets for iPhone
             return UIEdgeInsets(top: 5, left: 10, bottom: 20, right: 20)
         }
-    }*/
+    }
     
     func fetchJobPostings() {
         switch source {
@@ -363,11 +382,13 @@ class JobPostsViewController: UIViewController, UICollectionViewDelegate, UIColl
             }
         }
     }
+    
+    
 
 }
 
 
-class CustomFlowLayout: UICollectionViewFlowLayout {
+/*class CustomFlowLayout: UICollectionViewFlowLayout {
     override func layoutAttributesForItem(at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
         let attributes = super.layoutAttributesForItem(at: indexPath)
 
@@ -401,4 +422,4 @@ class CustomFlowLayout: UICollectionViewFlowLayout {
         self.itemSize = CGSize(width: itemWidth, height: itemHeight)
         self.sectionInset = UIEdgeInsets(top: 5, left: 10, bottom: 20, right: 10) // Set your desired section insets
     }
-}
+ }*/
