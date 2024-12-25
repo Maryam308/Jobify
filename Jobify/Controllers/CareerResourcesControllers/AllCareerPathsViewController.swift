@@ -8,13 +8,13 @@ class AllCareerPathsViewController: UIViewController, UICollectionViewDataSource
     @IBOutlet weak var skillsCollectionView: UICollectionView!
     
 //    @IBOutlet weak var learningResourcesCollectionView: UICollectionView!
-//    
+//
     
     @IBOutlet weak var savedResourcesCollectionView: UICollectionView!
     
     
 //    @IBOutlet weak var lblAllLearningResources: UITextView!
-//    
+//
     @IBOutlet weak var lblSavedResources: UILabel!
     
     

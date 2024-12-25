@@ -31,14 +31,12 @@ struct SeekerDetailsTest {
 import UIKit
 import FirebaseFirestore
 
-import FirebaseFirestore
 
 
 
 class CareerAdvisingViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     // Property to hold the fetched career paths
     var careerPaths: [CareerPath1] = []
-    var mentors: [User] = []
     //outlets
     @IBOutlet weak var careerPathCollectionView: UICollectionView!
     @IBOutlet weak var txtView: UITextView!
