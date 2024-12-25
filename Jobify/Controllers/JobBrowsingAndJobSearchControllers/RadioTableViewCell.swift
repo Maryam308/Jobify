@@ -15,7 +15,7 @@ class RadioTableViewCell: UITableViewCell {
     @IBOutlet weak var btnOption1: UIButton!
     @IBOutlet weak var btnOption2: UIButton!
     
-    
+    var onOptionSelected: ((Int) -> Void)?
     // Configure the cell with option titles
         func setOptionsTitleFrom(_ options: [String]) {
             guard options.count >= 2 else { return } // Ensure there are at least 2 options
@@ -31,10 +31,12 @@ class RadioTableViewCell: UITableViewCell {
     
     @IBAction func option1Selected(_ sender: UIButton) {
         setOptionSelected(true)
+        onOptionSelected?(0) // Notify that option 1 is selected
     }
     
     @IBAction func option2Selected(_ sender: UIButton) {
-        setOptionSelected(false)
+            setOptionSelected(false)
+            onOptionSelected?(1) // Notify that option 2 is selected
     }
     
     

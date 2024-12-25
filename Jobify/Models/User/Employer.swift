@@ -10,16 +10,11 @@ import Foundation
 struct EmployerDetails {
     // Basic Information
     var name: String
-    var image: Data? = nil
+    var imageURL: String?
     var userId: Int
     var email: String
-    
-    // Location Details
-    struct Location {
-        var country: String
-        var city: String
-    }
-    var location: Location?
+    var city: String
+ 
     
     // Company Details
     var companyMainCategory: String?
@@ -38,20 +33,20 @@ struct EmployerDetails {
     // Custom Initializer
     init(
         name: String,
-        image: Data? = nil,
+        image: String? = nil,
         userId: Int,
         email: String,
-        location: Location? = nil,
+        city: String,
         companyMainCategory: String? = nil,
         aboutUs: String? = nil,
         employabilityGoals: String? = nil,
         vision: String? = nil
     ) {
         self.name = name
-        self.image = image
+        self.imageURL = image
         self.userId = userId
         self.email = email
-        self.location = location
+        self.city = city
         self.companyMainCategory = companyMainCategory
         self.aboutUs = aboutUs
         self.employabilityGoals = employabilityGoals

@@ -13,6 +13,7 @@ struct Job: Equatable {
     var date: Date // Change to Date type
     var title: String
     var companyDetails: EmployerDetails? // Store the company details object
+    var adminDetails: User?
     var level: JobLevel
     var category: CategoryJob
     var employmentType: EmploymentType
@@ -20,7 +21,7 @@ struct Job: Equatable {
     var deadline: Date?
     var desc: String
     var requirement: String
-    var extraAttachments: Data? = nil
+    var extraAttachments: String?
     var applications: [JobApplication] = []
     
     init(
@@ -33,7 +34,7 @@ struct Job: Equatable {
         deadline: Date?,
         desc: String,
         requirement: String,
-        extraAttachments: Data?,
+        extraAttachments: String?,
         date: Date,
         time: String
     ) {
@@ -82,7 +83,10 @@ struct Job: Equatable {
         self.desc = desc
         self.requirement = requirement
         self.extraAttachments = extraAttachments
+        self.date = date
+        self.time = time
     }
+
     
     
     // Static method to get and increment the ID
@@ -92,6 +96,7 @@ struct Job: Equatable {
         }
     
 }
+
 
 
     // Enums remain unchanged
@@ -108,7 +113,11 @@ struct Job: Equatable {
         case intern = "Intern"
     }
     
+
+    enum CategoryJob: String, CaseIterable {
+
     enum CategoryJob: String, CaseIterable   {
+
         case informationTechnology = "Information Technology"
         case business = "Business"
         case healthcare = "Healthcare"
@@ -130,4 +139,4 @@ struct Job: Equatable {
         case remote = "Remote"
     }
     
-
+    
