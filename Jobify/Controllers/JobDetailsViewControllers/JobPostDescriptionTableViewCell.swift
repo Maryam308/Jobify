@@ -8,16 +8,15 @@
 import UIKit
 
 class JobPostDescriptionTableViewCell: UITableViewCell {
+    
+    @IBOutlet weak var lblJobDescrption: UITextView!
+    
 
     override func awakeFromNib() {
         super.awakeFromNib()
+        lblJobDescrption.isEditable = false // Make sure the text view is read-only
         // Initialization code
     }
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
 
 }

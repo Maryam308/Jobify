@@ -8,16 +8,14 @@
 import UIKit
 
 class JobPostRequirementTableViewCell: UITableViewCell {
+    
+    @IBOutlet weak var lblJobRequirement: UITextView!
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        lblJobRequirement.isEditable = false // Make sure the text view is read-only
     }
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
+    
 
 }

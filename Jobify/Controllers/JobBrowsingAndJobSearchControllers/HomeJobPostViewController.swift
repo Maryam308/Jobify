@@ -13,21 +13,6 @@ class HomeJobPostViewController: UIViewController, UICollectionViewDataSource, U
     
     
     
-    struct JobTest {
-        var imageTest: UIImage?
-        var jobTestCompany: String
-        var jobTesttitle: String
-        
-    }
-    
-    var testJobs = [
-        JobTest(imageTest: UIImage(named: "Gulf Digital Group Logo") ?? UIImage(), jobTestCompany: "Job 1", jobTesttitle: "Programmer"),
-        JobTest(imageTest: UIImage(named: "Gulf Digital Group Logo") ?? UIImage(), jobTestCompany: "Job 1", jobTesttitle: "Hacker"),
-        JobTest(imageTest: UIImage(named: "Gulf Digital Group Logo") ?? UIImage(), jobTestCompany: "Job 1", jobTesttitle: "Programming")
-    ]
-    
-    
-    
     @IBOutlet weak var homeScrollView: UIScrollView!
     
     
@@ -149,10 +134,7 @@ class HomeJobPostViewController: UIViewController, UICollectionViewDataSource, U
         
         searchResultsTableView.delegate = self
         searchResultsTableView.dataSource = self
-        
-        
-        
-        
+       
         //horizontal job post
         jobPostCollectionView.delegate = self
         jobPostCollectionView.dataSource = self
@@ -210,6 +192,9 @@ class HomeJobPostViewController: UIViewController, UICollectionViewDataSource, U
         searchOverlayView.isHidden = false
         searchResultsTableView.isHidden = false
         searchBar.showsCancelButton = true // Show the cancel button
+        
+        // Hide the tab bar
+           self.tabBarController?.tabBar.isHidden = true
         // Make sure to reload data if needed
         //searchResultsTableView.reloadData()
     }
@@ -238,6 +223,32 @@ class HomeJobPostViewController: UIViewController, UICollectionViewDataSource, U
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         searchBar.showsCancelButton = false // Hide the cancel button when editing ends
     }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+            // Dismiss the keyboard
+            searchBar.resignFirstResponder()
+
+            // Navigate to JobPostsViewController
+            navigateToJobPosts()
+        }
+
+        func navigateToJobPosts() {
+            let storyboard = UIStoryboard(name: "JobBrowsingAndJobSearch_FatimaKhamis", bundle: nil)
+            if let jobPostsVC = storyboard.instantiateViewController(withIdentifier: "JobPostsViewController") as? JobPostsViewController {
+                if let searchText = searchBar.text, !searchText.isEmpty {
+                    // Filter jobs based on search text
+                    filteredJobs = allJobs.filter { job in
+                        job.title.lowercased().contains(searchText.lowercased())
+                    }
+                    jobPostsVC.jobs = filteredJobs // Pass the filtered jobs
+                } else {
+                    jobPostsVC.jobs = allJobs // Pass all jobs if nothing is typed
+                }
+                navigationController?.pushViewController(jobPostsVC, animated: true)
+            } else {
+                print("Failed to instantiate JobPostsViewController")
+            }
+        }
     
     
     /*func hideRecommendedJobView() {
@@ -413,7 +424,7 @@ class HomeJobPostViewController: UIViewController, UICollectionViewDataSource, U
         // Configure the cell with job data
         cell.jobPostImageView.image = nil // Set image if available
         cell.jobPostTimelbl.text = job.time
-        cell.jobPostTitlelbl.text = job.companyDetails?.name ?? "No Company"
+        cell.jobPostTitlelbl.text = job.companyDetails?.name ?? "By Jobify"
         
         
         // Format the date
@@ -562,11 +573,6 @@ class HomeJobPostViewController: UIViewController, UICollectionViewDataSource, U
                 }
             }
     }
-    
-    
-    
-    
-    
     private func handleJobPostFetch(snapshot: QuerySnapshot?, completion: @escaping ([Job]) -> Void) {
         var jobs: [Job] = []
         
@@ -633,10 +639,11 @@ class HomeJobPostViewController: UIViewController, UICollectionViewDataSource, U
                 
                 dispatchGroup.enter() // Start waiting for company details
                 
+                // Fetch company details asynchronously
                 companyRef.getDocument { (companySnapshot, error) in
                     if let error = error {
                         print("Error fetching company details: \(error.localizedDescription)")
-                        dispatchGroup.leave()
+                        dispatchGroup.leave() // Leave the group if there's an error
                         return
                     }
                     
@@ -646,35 +653,65 @@ class HomeJobPostViewController: UIViewController, UICollectionViewDataSource, U
                         let email = companyData["email"] as? String ?? "Unknown"
                         let city = companyData["city"] as? String ?? "Unknown"
                         
-                        let companyMainCategory = companyData["companyMainCategory"] as? String
-                        let aboutUs = companyData["aboutUs"] as? String
-                        let employabilityGoals = companyData["employabilityGoals"] as? String
-                        let vision = companyData["vision"] as? String
+                        // Fetch userType from the userType collection
+                        let userTypeRef = companyData["userType"] as? DocumentReference
                         
-                        let companyDetails = EmployerDetails(
-                            name: companyName,
-                            userId: userId,
-                            email: email,
-                            city: city,
-                            companyMainCategory: companyMainCategory,
-                            aboutUs: aboutUs,
-                            employabilityGoals: employabilityGoals,
-                            vision: vision
-                        )
-                        
-                        job.companyDetails = companyDetails
+                        userTypeRef?.getDocument { (userTypeSnapshot, error) in
+                            if let error = error {
+                                print("Error fetching userType: \(error.localizedDescription)")
+                                dispatchGroup.leave()
+                                return
+                            }
+                            
+                            if let userTypeData = userTypeSnapshot?.data(),
+                               let userType = userTypeData["userType"] as? String {
+                                if userType == "admin" || userId == 1 {
+                                    // Set companyDetails to nil for admin or userId == 1
+                                    job.companyDetails = nil
+                                } else if userType == "employer" {
+                                    // Create companyDetails if employer
+                                    let companyMainCategory = companyData["companyMainCategory"] as? String
+                                    let aboutUs = companyData["aboutUs"] as? String
+                                    let employabilityGoals = companyData["employabilityGoals"] as? String
+                                    let vision = companyData["vision"] as? String
+                                    
+                                    let companyDetails = EmployerDetails(
+                                        name: companyName,
+                                        userId: userId,
+                                        email: email,
+                                        city: city,
+                                        companyMainCategory: companyMainCategory,
+                                        aboutUs: aboutUs,
+                                        employabilityGoals: employabilityGoals,
+                                        vision: vision
+                                    )
+                                    
+                                    job.companyDetails = companyDetails
+                                }
+                            }
+                            
+                            // Append the job after all async fetches are completed
+                            jobs.append(job)
+                            dispatchGroup.leave() // Done fetching user and company details
+                        }
+                    } else {
+                        print("Company data not found for document ID: \(document.documentID)")
+                        dispatchGroup.leave() // If company data is missing, leave the group
                     }
-                    
-                    jobs.append(job) // Append the job to the list after fetching company details
-                    dispatchGroup.leave() // Done fetching company details
                 }
-            }
-            
-            // Notify when all async operations are complete
-            dispatchGroup.notify(queue: .main) {
-                completion(jobs) // Send the jobs array back using the completion handler
             }
         }
         
+        // Notify when all async operations are complete
+        dispatchGroup.notify(queue: .main) {
+            if jobs.isEmpty {
+                print("No jobs were fetched.")
+            } else {
+                print("Successfully fetched \(jobs.count) job postings.")
+            }
+            completion(jobs) // Send the jobs array back using the completion handler
+        }
     }
+
+
 }

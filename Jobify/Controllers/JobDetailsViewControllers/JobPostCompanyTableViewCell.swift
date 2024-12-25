@@ -8,16 +8,28 @@
 import UIKit
 
 class JobPostCompanyTableViewCell: UITableViewCell {
+    
+    @IBOutlet weak var imgProfilePic: UIImageView!
+    
+    @IBOutlet weak var lblCompanyName: UILabel!
+    
+    @IBOutlet weak var lblDateJobPosted: UILabel!
+    
+    @IBOutlet weak var lblTimeJobPosted: UILabel!
+    
+    @IBOutlet weak var lblLevel: UIButton!
+    
+    @IBOutlet weak var lblEmploymentType: UIButton!
+    
+    @IBOutlet weak var lblCategory: UIButton!
+    
+    @IBOutlet weak var lblJobLocation: UIButton!
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        
     }
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
+    
 
 }

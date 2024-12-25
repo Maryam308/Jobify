@@ -7,17 +7,15 @@
 
 import UIKit
 
-class JobPostInfoableViewCell: UITableViewCell {
+class JobPostInfoTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var lblJobTitle: UILabel!
+    @IBOutlet weak var lblJopPostDeadlineDate: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
     }
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
-
+   
 }

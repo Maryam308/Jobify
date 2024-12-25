@@ -54,74 +54,108 @@ struct Job: Equatable {
     }
     
     // Employer Custom constructor
-        init(
-            jobId: Int,
-            title: String,
-            companyDetails: EmployerDetails?,
-            level: JobLevel,
-            category: CategoryJob,
-            employmentType: EmploymentType,
-            location: String,
-            deadline: Date?,
-            desc: String,
-            requirement: String,
-            extraAttachments: String?,
-            date: Date,
-            time: String
-        ) {
-            
-            self.jobId = jobId
-            self.title = title
-            self.companyDetails = companyDetails
-            self.level = level
-            self.category = category
-            self.employmentType = employmentType
-            self.location = location
-            self.deadline = deadline
-            self.desc = desc
-            self.requirement = requirement
-            self.extraAttachments = extraAttachments
-            self.date = date
-            self.time = time
-        }
+    init(
+        jobId: Int,
+        title: String,
+        companyDetails: EmployerDetails?,
+        level: JobLevel,
+        category: CategoryJob,
+        employmentType: EmploymentType,
+        location: String,
+        deadline: Date?,
+        desc: String,
+        requirement: String,
+        extraAttachments: String?,
+        date: Date,
+        time: String
+    ) {
+        
+        self.jobId = jobId
+        self.title = title
+        self.companyDetails = companyDetails
+        self.level = level
+        self.category = category
+        self.employmentType = employmentType
+        self.location = location
+        self.deadline = deadline
+        self.desc = desc
+        self.requirement = requirement
+        self.extraAttachments = extraAttachments
+        self.date = date
+        self.time = time
+    }
     // Admin Custom constructor
-        init(
-            jobId: Int,
-            title: String,
-            adminDetails: User?,
-            level: JobLevel,
-            category: CategoryJob,
-            employmentType: EmploymentType,
-            location: String,
-            deadline: Date?,
-            desc: String,
-            requirement: String,
-            extraAttachments: String?,
-            date: Date,
-            time: String
-        ) {
-            
-            self.jobId = jobId
-            self.title = title
-            self.adminDetails = adminDetails
-            self.level = level
-            self.category = category
-            self.employmentType = employmentType
-            self.location = location
-            self.deadline = deadline
-            self.desc = desc
-            self.requirement = requirement
-            self.extraAttachments = extraAttachments
-            self.date = date
-            self.time = time
-        }
+    init(
+        jobId: Int,
+        title: String,
+        adminDetails: User?,
+        level: JobLevel,
+        category: CategoryJob,
+        employmentType: EmploymentType,
+        location: String,
+        deadline: Date?,
+        desc: String,
+        requirement: String,
+        extraAttachments: String?,
+        date: Date,
+        time: String
+    ) {
+        
+        self.jobId = jobId
+        self.title = title
+        self.adminDetails = adminDetails
+        self.level = level
+        self.category = category
+        self.employmentType = employmentType
+        self.location = location
+        self.deadline = deadline
+        self.desc = desc
+        self.requirement = requirement
+        self.extraAttachments = extraAttachments
+        self.date = date
+        self.time = time
+    }
+    
+    // Custom initializer with conditional companyDetails or adminDetails based on userType
+    init(
+        jobId: Int,
+        title: String,
+        userType: UserType,
+        companyDetails: EmployerDetails? = nil,
+        adminDetails: User? = nil,
+        level: JobLevel,
+        category: CategoryJob,
+        employmentType: EmploymentType,
+        location: String,
+        deadline: Date?,
+        desc: String,
+        requirement: String,
+        extraAttachments: String?,
+        date: Date,
+        time: String
+    ) {
+        self.jobId = jobId
+        self.title = title
+        self.level = level
+        self.category = category
+        self.employmentType = employmentType
+        self.location = location
+        self.deadline = deadline
+        self.desc = desc
+        self.requirement = requirement
+        self.extraAttachments = extraAttachments
+        self.date = date
+        self.time = time
+        
+    }
+    
 }
-
-
-
+    
+    
+    
     // Enums remain unchanged
     
-    enum JobLevel: String {
+    enum JobLevel: String, CaseIterable {
         case entryLevel = "Entry Level"
         case junior = "Junior"
         case midLevel = "Mid-Level"
@@ -133,7 +167,7 @@ struct Job: Equatable {
         case intern = "Intern"
     }
     
-    enum CategoryJob: String {
+    enum CategoryJob: String, CaseIterable {
         case informationTechnology = "Information Technology"
         case business = "Business"
         case healthcare = "Healthcare"
@@ -147,7 +181,7 @@ struct Job: Equatable {
         case other = "Other"
     }
     
-    enum EmploymentType: String {
+    enum EmploymentType: String, CaseIterable {
         case fullTime = "Full-Time"
         case partTime = "Part-Time"
         case intern = "Intern"
@@ -155,4 +189,4 @@ struct Job: Equatable {
         case remote = "Remote"
     }
     
-
+    
