@@ -83,7 +83,7 @@ class PopupViewController: UIViewController {
         view.backgroundColor = backgroundColor
         view.layer.cornerRadius = 15
         view.layer.masksToBounds = true
-        adjustFontSizeForDevice()
+
         setupCloseButton()
         setupScrollViewAndContent()
         
@@ -192,16 +192,6 @@ class PopupViewController: UIViewController {
             self.view.removeFromSuperview()
             self.popUpViewIsOpen = false
             self.removeFromParent()
-        }
-    }
-    
-    func adjustFontSizeForDevice(){
-        if UIDevice.current.userInterfaceIdiom == .pad {
-            titleLabel.font = titleLabel.font?.withSize(26)
-            descriptionLabel.font = descriptionLabel.font?.withSize(24)
-            roadmapLabel.font = roadmapLabel.font?.withSize(24)
-            demandLabel.font = demandLabel.font?.withSize(24)
-            closeButton.titleLabel?.font = UIFont.systemFont(ofSize: 22)
         }
     }
 }

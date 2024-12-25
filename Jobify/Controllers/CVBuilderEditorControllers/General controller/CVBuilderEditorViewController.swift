@@ -167,6 +167,22 @@ class CVBuilderEditorViewController: UIViewController, UITableViewDelegate, UITa
           present(alert, animated: true, completion: nil)
       }
       
+//      private func setFavorite(cv: CV) {
+//          if let currentFavorite = currentFavoriteCV {
+//              if let index = cvs.firstIndex(where: { $0.cvID == currentFavorite.cvID }) {
+//                  cvs[index].isFavorite = false
+//                  updateCVInFirestore(cv: cvs[index])
+//              }
+//          }
+//
+//          if let index = cvs.firstIndex(where: { $0.cvID == cv.cvID }) {
+//              cvs[index].isFavorite = true
+//              currentFavoriteCV = cvs[index]
+//              updateCVInFirestore(cv: cvs[index])
+//          }
+//
+//          myCVsTableView.reloadData()
+//      }
 
       private func deleteCVFromFirestore(cvToDelete: CV) {
           db.collection("CVs").document(cvToDelete.cvID).delete { error in
@@ -178,7 +194,17 @@ class CVBuilderEditorViewController: UIViewController, UITableViewDelegate, UITa
           }
       }
 
-
+//      private func updateCVInFirestore(cv: CV) {
+//          let cvID = cv.cvID
+//          let data: [String: Any] = ["isFavorite": cv.isFavorite ?? false]
+//          db.collection("CVs").document(cvID).updateData(data) { error in
+//              if let error = error {
+//                  print("Error updating CV: \(error.localizedDescription)")
+//              } else {
+//                  print("CV updated successfully.")
+//              }
+//          }
+//      }
 
     private func handleFavoriteAction(_ selectedCV: CV) async throws {
         // First, check if the selected CV is already the current favorite
