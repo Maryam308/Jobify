@@ -57,7 +57,7 @@ class LearningResourcesApprovalViewController: UIViewController, UICollectionVie
         let selectedRequest = requests[indexPath.item]
         
         // Check if the request is not pending (either approved or rejected)
-            if let reviewed = selectedRequest.isApproved {
+        if selectedRequest.isApproved != nil {
                 // If the request is not pending (approved or rejected), do nothing
                 // Just return from the function to prevent navigation
                 return
