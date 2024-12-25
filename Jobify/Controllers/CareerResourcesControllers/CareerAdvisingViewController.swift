@@ -39,13 +39,23 @@ class CareerAdvisingViewController: UIViewController, UICollectionViewDataSource
     // Property to hold the fetched career paths
     var careerPaths: [CareerPath1] = []
     var mentors: [User] = []
-    
+    //outlets
     @IBOutlet weak var careerPathCollectionView: UICollectionView!
+    @IBOutlet weak var txtView: UITextView!
+    @IBOutlet weak var lblLearningResources: UILabel!
+    @IBOutlet weak var pageTitle: UILabel!
+    @IBOutlet weak var btnSavedResources: UIButton!
+    @IBOutlet weak var btnViewResources: UIButton!
+    @IBOutlet weak var lblCareerPaths: UILabel!
+    @IBOutlet weak var lblViewAll: UIButton!
+    
+    
     let careerPathCollectionViewCellId = "CareerPathCollectionViewCell"
     override func viewDidLoad() {
         super.viewDidLoad()
+        adjustFontSizeForDevice()
         let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .horizontal
+        layout.scrollDirection = .vertical
         careerPathCollectionView.collectionViewLayout = layout
         
         careerPathCollectionView.delegate = self
@@ -57,7 +67,7 @@ class CareerAdvisingViewController: UIViewController, UICollectionViewDataSource
         fetchCareerPaths()
     }
     
-    
+
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return careerPaths.count
@@ -91,7 +101,7 @@ class CareerAdvisingViewController: UIViewController, UICollectionViewDataSource
     
     private func fetchCareerPaths() {
         db.collection("careerPaths")
-            .limit(to: 5)
+            .limit(to: 8)
             .getDocuments { [weak self] (querySnapshot, error) in
                 guard let self = self else { return }
                 
@@ -121,10 +131,16 @@ class CareerAdvisingViewController: UIViewController, UICollectionViewDataSource
                     let careerPath = CareerPath1(careerName: title, description: "", roadmap: roadmap, demand: demandString)
                     self.careerPaths.append(careerPath)
                 }
-                
-             /*   print("Career paths fetched: \(self.careerPaths)")*/ // Debugging output
                 self.careerPathCollectionView.reloadData()
             }
     }
     
+    func adjustFontSizeForDevice(){
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            txtView.font = txtView.font?.withSize(24)
+            pageTitle.font = pageTitle.font?.withSize(30)
+            lblLearningResources.font = lblLearningResources.font?.withSize(28)
+            lblCareerPaths.font = lblCareerPaths.font?.withSize(28)
+        }
+    }
 }
