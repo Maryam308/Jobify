@@ -55,7 +55,7 @@ struct LearningResource: Equatable, Codable {
         return lhs.learningResourceId == rhs.learningResourceId
     }
     
-    static var resourceIdCounter: Int = 0
+    static var resourceIdCounter: Int = 20
     var learningResourceId: Int = 0
     var type: String? = ""
     var summary: String? = ""
@@ -65,7 +65,12 @@ struct LearningResource: Equatable, Codable {
     var skillRef: DocumentReference? // Firestore DocumentReference for the skill
     var skillToDevelop: String = ""
     // Default initializer
-    init() {}
+    init() {
+        //will generate an id in the learning resources counter for the request to be resource
+        LearningResource.resourceIdCounter += 1
+        self.learningResourceId = LearningResource.resourceIdCounter
+        
+    }
     
     init(type: String, summary: String, link: String, title: String, skillRef: DocumentReference) {
         LearningResource.resourceIdCounter += 1
@@ -77,6 +82,7 @@ struct LearningResource: Equatable, Codable {
         self.skillRef = skillRef
     }
     
+
     init(id: Int,type: String, summary: String, link: String, title: String, skillRef: DocumentReference){
         self.learningResourceId = id
         self.type = type
@@ -85,6 +91,19 @@ struct LearningResource: Equatable, Codable {
         self.title = title // Set the title
         self.skillRef = skillRef
     }
+
+    init( id: Int , type: String, summary: String, link: String, title: String, skillToDevelop: String) {
+         
+        self.learningResourceId = id
+        self.title = title
+         self.learningResourceId = LearningResource.resourceIdCounter
+         self.type = type
+         self.summary = summary
+         self.link = link
+         self.skillToDevelop = skillToDevelop
+         
+     }
+
 }
 
 enum LearningResourceType: String {
@@ -127,7 +146,7 @@ struct LearningRequest: Equatable {
         return lhs.requestId == rhs.requestId
     }
     
-    static var requestIdCounter: Int = 0
+    static var requestIdCounter: Int = 30
     var requestId: Int
     var title: String = ""
     var isApproved: Bool?
@@ -137,11 +156,10 @@ struct LearningRequest: Equatable {
     var requester: User?
     var skillToDevelop: String? //since the skill will be displayed in a drop down list there wont be a problem to use its title
     
-    init(isApproved: Bool?, type: String, summary: String, link: String, requester: User?, skillToDevelop: String) {
+    init( type: String, summary: String, link: String, requester: User?, skillToDevelop: String) {
         
         LearningRequest.requestIdCounter += 1
         requestId = LearningRequest.requestIdCounter
-        self.isApproved = isApproved
         self.type = type
         self.summary = summary
         self.link = link
@@ -150,10 +168,16 @@ struct LearningRequest: Equatable {
         
     }
     
-    init(title: String, isApproved: Bool?){
-        
+    init(title: String){
         LearningRequest.requestIdCounter += 1
         requestId = LearningRequest.requestIdCounter
+        self.title = title
+        isApproved = nil
+    }
+    
+    init(requestId: Int, title: String, isApproved: Bool?){
+
+        self.requestId = requestId
         self.title = title
         self.isApproved = isApproved
         
