@@ -13,6 +13,7 @@ class ChooseCVCell: UITableViewCell {
     @IBOutlet var cvDateLabel: UILabel!
     @IBOutlet var viewCVButton: UIButton!
     
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

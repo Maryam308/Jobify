@@ -11,6 +11,8 @@ class ChooseCVTableViewController: UITableViewController {
 
     //array of user's CVs
     var cvs: [CV] = []
+    
+    
  
     // Closure for passing selected CV back
         var onCVSelected: ((CV) -> Void)?
@@ -77,7 +79,15 @@ class ChooseCVTableViewController: UITableViewController {
         }
     
     @objc func viewCVTapped(_ sender: UIButton) {
+        // Use the sender's tag to identify the selected CV
+            let selectedCV = cvs[sender.tag]
         
+        let storyboard = UIStoryboard(name: "CareerResourcesAndSkillDevelopment", bundle: nil)
+        if let cvViewerVC = storyboard.instantiateViewController(withIdentifier: "cvViewer") as? CVViewerViewController {
+            cvViewerVC.cv = selectedCV // Pass data
+            navigationController?.pushViewController(cvViewerVC, animated: true)
+        }
+
     }
     
     

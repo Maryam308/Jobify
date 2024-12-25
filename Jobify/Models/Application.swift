@@ -6,68 +6,56 @@
 //
 
 import Foundation
+import Firebase
+import FirebaseFirestore
 
-struct JobApplication{
-    
-    //Auto-generated variables
+struct JobApplication {
     static var applicationIdCounter: Int = 0
+    
     var applicationId: Int
-    //var applicationDate: String
-        
-    // Create a Calendar instance to format the date and time
-    //var calendar = Calendar.current
-
-
-    //Passed variables from application form
-    var jobApplicant: SeekerDetails
+    var applicationDate: String
+    
+    var jobApplicant: SeekerDetails // Store as object
+    var jobApplied: Job // Store as object
     var briefIntroduction: String
     var motivation: String
     var contributionToCompany: String
-    var applicantCV: CV
-    //var applicantCoverLetter: Data?
-    var jobApplied: Job
-
-    enum ApplicationStatus: String, Codable{
+    var applicantCVId: String // Use an identifier for the CV
+    
+    enum ApplicationStatus: String {
         case notReviewed = "Not Reviewed"
         case reviewed = "Reviewed"
         case approved = "Approved"
         case rejected = "Rejected"
     }
     
+    var status: ApplicationStatus = .notReviewed
 
-    
-    // initializer
-    init(jobApplicant:  inout SeekerDetails,
+    // Initializer
+    init(jobApplicant: SeekerDetails,
          jobApplied: Job,
-         applicantCV: CV,
+         applicantCVId: String,
          briefIntroduction: String,
          motivation: String,
-         contributionToCompany: String
-         ){
-        
-        //Auto-generated variables
+         contributionToCompany: String) {
         
         JobApplication.applicationIdCounter += 1
-        applicationId = JobApplication.applicationIdCounter
-        // Get the current date and time
-        //var currentDate = Date()
+        self.applicationId = JobApplication.applicationIdCounter
         
-        // Extract the date components for the date
-        //var dateComponents = calendar.dateComponents([.day, .month], from: currentDate)
-        // Create date and time variables and convert date and time components to string
-        //var date = String(format: "%02d-%02d", dateComponents.day!, dateComponents.month!)
-        
-        //self.applicationDate = date
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd-MM-yyyy"
+        self.applicationDate = dateFormatter.string(from: Date())
         
         self.jobApplicant = jobApplicant
         self.jobApplied = jobApplied
-        self.applicantCV = applicantCV
+        self.applicantCVId = applicantCVId
         self.briefIntroduction = briefIntroduction
         self.motivation = motivation
         self.contributionToCompany = contributionToCompany
-        //self.applicantCoverLetter = applicantCoverLetter
-        
     }
-    }
+
+    
+}
+
 
 
