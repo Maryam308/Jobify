@@ -50,7 +50,7 @@ class JobDetailsTableViewController: UITableViewController {
         
         self.tabBarController?.tabBar.isHidden = true
                // Update UI with job details
-              updateUI()
+              updateUI()//for upda
         
     }
     
