@@ -81,7 +81,7 @@ class HomeJobPostViewController: UIViewController, UICollectionViewDataSource, U
         }
     }
     
-    
+    // this has been  updated
     @IBAction func viewMyJobPosts(_ sender: Any) {
             let storyboard = UIStoryboard(name: "JobBrowsingAndJobSearch_FatimaKhamis", bundle: nil)
             if let jobPostsVC = storyboard.instantiateViewController(withIdentifier: "JobPostsViewController") as? JobPostsViewController {
