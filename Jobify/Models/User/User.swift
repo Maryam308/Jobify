@@ -10,6 +10,7 @@ import Firebase
 
 struct User {
    var userID: Int
+   static var userIdCounter: Int = 150
    var name: String
    var email: String
    var role: UserType
@@ -22,6 +23,16 @@ struct User {
        self.email = email
        self.role = role
    }
+    
+    init( name: String, email: String, role: UserType) {
+        User.userIdCounter += 1
+//        let randomMaxInteger = Int.random(in: 1...Int.max)
+       self.userID =  User.userIdCounter
+       self.name = name
+       self.email = email
+       self.role = role
+   }
+    
 }
 
 enum UserType: String {
