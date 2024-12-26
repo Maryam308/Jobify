@@ -64,6 +64,7 @@ class HomeJobPostViewController: UIViewController, UICollectionViewDataSource, U
         if let jobPostsVC = storyboard.instantiateViewController(withIdentifier: "JobPostsViewController") as? JobPostsViewController {
             //jobPostsVC.source = .recommendedJobs
             jobPostsVC.jobs = recommendedJobs
+            jobPostsVC.originalJobs = recommendedJobs
             navigationController?.pushViewController(jobPostsVC, animated: true)
         } else {
             print("Failed to instantiate JobPostsViewController")
@@ -202,19 +203,15 @@ class HomeJobPostViewController: UIViewController, UICollectionViewDataSource, U
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.tabBarController?.tabBar.isHidden = false
+        searchOverlayView.isHidden = true
+        searchResultsTableView.isHidden = true
+        searchBar.text = ""
+        searchBar.showsCancelButton = false
+        searchBar.resignFirstResponder() // Dismiss the keyboard
+
     }
     
-    func didFinishViewingJobPosts() {
-            // Hide the search overlay or reset any UI related to search
-            searchOverlayView.isHidden = true
-            searchResultsTableView.isHidden = true
-            searchBar.text = ""
-            searchBar.showsCancelButton = false
-            searchBar.resignFirstResponder() // Dismiss the keyboard
-
-            // Optionally, reset any other necessary UI elements
-            // For example, refresh the home view
-        }
+   
         
     //MARK: - Handlers
     
