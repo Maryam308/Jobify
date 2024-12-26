@@ -146,12 +146,12 @@ class SelectCategoryViewConroller: UITableViewController {
             return
         }
         
-        fetchUserReference(by: currentUserId) { [weak self] userRef in
-            guard let self = self, let userRef = userRef else {
-                print("Failed to fetch user reference")
-                return
-            }
-        }
+//        fetchUserReference(by: currentUserId) { [weak self] userRef in
+//            guard let self = self, let userRef = userRef else {
+//                print("Failed to fetch user reference")
+//                return
+//            }
+//        }
     }
 }
         
