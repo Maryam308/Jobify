@@ -16,6 +16,7 @@ class AddNewSkillViewController: UITableViewController {
     let db = Firestore.firestore()
     
     //these variables will be null if the screen has it passed for editing an existing skill
+    var editSkillId: Int? = nil
     var editSkillTitle: String? = ""
     var editSkillDescription: String? = ""
     var edittingMode: Bool = false
@@ -43,7 +44,8 @@ class AddNewSkillViewController: UITableViewController {
         txtSkillDescription.textContainerInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         
         // If the skillTitle and skillDescription are set, it means you're editing
-                if let title = editSkillTitle, let description = editSkillDescription {
+        if let title = editSkillTitle, !title.isEmpty,
+               let description = editSkillDescription, !description.isEmpty  {
                     edittingMode = true
                     txtSkillTitle.text = title
                     txtSkillDescription.text = description
@@ -84,7 +86,7 @@ class AddNewSkillViewController: UITableViewController {
             // Editing existing skill
                     // Find the existing skill and update its data
                     
-            db.collection("skills").whereField("title", isEqualTo: editSkillTitle!).getDocuments { snapshot, error in
+            db.collection("skills").whereField("skillId", isEqualTo: editSkillId!).getDocuments { snapshot, error in
                 if let error = error {
                     print("Error fetching skill to update: \(error)")
                     return
@@ -112,10 +114,13 @@ class AddNewSkillViewController: UITableViewController {
             
         }else {
             
+            let skill = Skill(title: skillTitle, description: skillDescription)
+            
             // Create a dictionary to add directly to the skill document
                 let skillData: [String: Any] = [
-                    "title": skillTitle,
-                    "description": skillDescription,
+                    "skillId": skill.skillId,
+                    "title": skill.title,
+                    "description": skill.description,
             ]
             
             

@@ -45,6 +45,9 @@ class SkillsCollectionViewCells: UICollectionViewCell {
     
     @IBOutlet weak var skillTitleView: UIView!
     
+    // Store the skillId in the cell
+        var skillId: Int?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         
@@ -53,6 +56,23 @@ class SkillsCollectionViewCells: UICollectionViewCell {
         
         
     }
+    
+    // Method to configure the cell with the skill data
+        func configure(with skill: Skill) {
+            //set the title button to the skill title
+            self.btnSkillTitle.setTitle(skill.title, for: .normal )
+            self.skillId = skill.skillId
+        }
+    
+    
+    @IBAction func showActions(_ sender: UIButton) {
+           // When the button is clicked, call the action sheet method in the view controller
+           guard let skillId = skillId else { return }
+           if let viewController = self.parentViewController as? LearningResourcesSkillsViewController {
+               viewController.showActionSheet(skillId: skillId)
+           }
+       }
+    
     
     
 }
