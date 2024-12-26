@@ -138,7 +138,7 @@ class JobPostsViewController: UIViewController, UICollectionViewDelegate, UIColl
         // Configure the cell with job data
         cell.jobPostImageView.image = nil
 
-        cell.jobPostTimelbl.text = job.time
+//        cell.jobPostTimelbl.text = job.time
         cell.jobPostTitlelbl.text = job.companyDetails?.name ?? "By Jobify"
         
         // Format the date
@@ -312,8 +312,8 @@ class JobPostsViewController: UIViewController, UICollectionViewDelegate, UIColl
                         desc: desc,
                         requirement: requirement,
                         extraAttachments: nil,
-                        date: date,
-                        time: timePostedString
+                        date: date/*,*/
+//                        time: timePostedString
                     )
                     
                     dispatchGroup.enter() // Start waiting for the company details

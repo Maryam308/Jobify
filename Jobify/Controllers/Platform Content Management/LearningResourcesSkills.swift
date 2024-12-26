@@ -21,8 +21,9 @@ class LearningResourcesSkillsViewController: UIViewController, UICollectionViewD
         //fetch the cell to reuse using the specified one from the in
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "skillCell", for: indexPath) as! SkillsCollectionViewCells
         
-        //set the title button to the skill title
-        cell.btnSkillTitle.setTitle(skills[indexPath.item].title, for: .normal )
+        // Configure the cell with the skill data title and store the id
+        cell.configure(with: skills[indexPath.item])
+        
         
         //return the ready cell
         return cell
@@ -58,13 +59,13 @@ class LearningResourcesSkillsViewController: UIViewController, UICollectionViewD
                 
                 self.skills = snapshot.documents.map { document in
                     let data = document.data()
-                    
+                    let id = data["skillId"] as? Int ?? 0
                     let title = data["title"] as? String ?? "Untitled"
                     let description = data["description"] as? String ?? "No description"
                     let documentReference = document.reference // Get the DocumentReference
                     
                     // Initialize Skill with title, description, and document reference
-                    return Skill(title: title, description: description, documentReference: documentReference)
+                    return Skill(skillId: id , title: title, description: description, documentReference: documentReference)
                 }
                 
                 // Reload the collection view or perform any additional actions
@@ -77,11 +78,8 @@ class LearningResourcesSkillsViewController: UIViewController, UICollectionViewD
     
     
     
-    @IBAction func showActions(_ sender: UIButton) {
-        guard let skillTitle = sender.currentTitle else {
-                print("Error: Button title not found")
-                return
-            }
+    func showActionSheet(skillId: Int){
+       
         
         // Create the action sheet
         let actionSheet = UIAlertController(title: nil, message: "Choose an option", preferredStyle: .actionSheet)
@@ -89,13 +87,13 @@ class LearningResourcesSkillsViewController: UIViewController, UICollectionViewD
         // Add "Edit" action
         let editAction = UIAlertAction(title: "Edit Skill", style: .default) { _ in
             print("Edit action selected")
-            self.performEditAction(skillTitle: skillTitle) // Call your edit function here
+            self.performEditAction(skillId: skillId) // Call your edit function here
         }
         
         // Add "Remove" action
         let removeAction = UIAlertAction(title: "Remove Skill", style: .destructive) { _ in
             print("Remove action selected")
-            self.RemoveSkill(skillTitle: skillTitle) // Call your remove function here
+            self.RemoveSkill(skillId: skillId) // Call your remove function here
         }
         
         // Add "Cancel" action
@@ -108,32 +106,34 @@ class LearningResourcesSkillsViewController: UIViewController, UICollectionViewD
         
         // Present the action sheet
         present(actionSheet, animated: true)
-    }
         
+    }
     
     
-    func performEditAction(skillTitle: String){
+    func performEditAction(skillId: Int){
         
         //will navigate to an edit screen passing the skill title along
-        db.collection("skills").whereField("title", isEqualTo: skillTitle).getDocuments { (snapshot, error) in
+        db.collection("skills").whereField("skillId", isEqualTo: skillId).getDocuments { (snapshot, error) in
                 if let error = error {
                     print("Error fetching skill: \(error)")
                     return
                 }
                 
                 guard let document = snapshot?.documents.first else {
-                    print("No skill found with the title: \(skillTitle)")
+                    print("No skill found with the id: \(skillId)")
                     return
                 }
                 
                 // fetch the skill descriptioin
                 let skillData = document.data()
+                let skillTitle = skillData["title"] as? String ?? ""
                 let skillDescription = skillData["description"] as? String ?? ""
                 
                 // Create the AddNewSkillViewController instance
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
                 if let addNewSkillVC = storyboard.instantiateViewController(withIdentifier: "AddNewSkillViewController") as? AddNewSkillViewController {
                     // Pass the data (title and description) to the next screen
+                    addNewSkillVC.editSkillId = skillId
                     addNewSkillVC.editSkillTitle = skillTitle
                     addNewSkillVC.editSkillDescription = skillDescription
                     
@@ -148,7 +148,7 @@ class LearningResourcesSkillsViewController: UIViewController, UICollectionViewD
     
     
     //a function to remove the skill and all its related learning resources
-    func RemoveSkill(skillTitle: String){
+    func RemoveSkill(skillId: Int){
         
         //will navigate to an edit screen passing the skill title along
         
@@ -157,7 +157,7 @@ class LearningResourcesSkillsViewController: UIViewController, UICollectionViewD
             
             // Step 1: Find the skill document by title
             skillsCollection
-                .whereField("title", isEqualTo: skillTitle)
+                .whereField("skillId", isEqualTo: skillId)
                 .getDocuments { snapshot, error in
                     if let error = error {
                         print("Error fetching skill document: \(error)")
@@ -165,7 +165,7 @@ class LearningResourcesSkillsViewController: UIViewController, UICollectionViewD
                     }
                     
                     guard let skillDoc = snapshot?.documents.first else {
-                        print("No skill document found for title: \(skillTitle)")
+                        print("No skill document found for title: \(skillId)")
                         return
                     }
                     
@@ -190,7 +190,7 @@ class LearningResourcesSkillsViewController: UIViewController, UICollectionViewD
                                 }
                                 
                                 guard let resourceDocs = snapshot?.documents else {
-                                    print("No associated learning resources found for skill: \(skillTitle)")
+                                    print("No associated learning resources found for skill: \(skillId)")
                                     return
                                 }
                                 
