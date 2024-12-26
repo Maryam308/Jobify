@@ -57,6 +57,9 @@
                                                                         </fragment>
                                                                     </attributedString>
                                                                 </buttonConfiguration>
+                                                                <connections>
+                                                                    <action selector="createJobPosts:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="Nal-Ko-Ltv"/>
+                                                                </connections>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VVe-pg-o33">
                                                                 <rect key="frame" x="150" y="0.0" width="135" height="40"/>
@@ -370,6 +373,7 @@
                             <constraint firstItem="qnd-J1-Fyh" firstAttribute="trailing" secondItem="vDu-zF-Fre" secondAttribute="trailing" id="zfF-If-TrV"/>
                         </constraints>
                     </view>
+                    <tabBarItem key="tabBarItem" title="" image="house.fill" catalog="system" selectedImage="house.fill" id="aS2-7d-tHf"/>
                     <navigationItem key="navigationItem" id="7qE-b9-GZs">
                         <barButtonItem key="leftBarButtonItem" id="cX0-vP-nnD">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="NiQ-mD-FCb">
@@ -851,6 +855,9 @@
                                             <string key="title">Manage Career 
 Paths</string>
                                         </buttonConfiguration>
+                                        <connections>
+                                            <action selector="ManageCareerPaths:" destination="f3I-ll-6mg" eventType="touchUpInside" id="K3S-Vf-gjJ"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ji0-gu-s9s">
                                         <rect key="frame" x="0.0" y="72.333333333333371" width="218.66666666666666" height="62.333333333333343"/>
@@ -860,12 +867,18 @@ Paths</string>
                                             <string key="title">Learning Resources 
 Requests</string>
                                         </buttonConfiguration>
+                                        <connections>
+                                            <action selector="LearningResourcesRequests:" destination="f3I-ll-6mg" eventType="touchUpInside" id="CTf-Xe-IP1"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cLn-xm-Us9">
                                         <rect key="frame" x="0.0" y="144.66666666666669" width="167.66666666666666" height="38.333333333333343"/>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" image="IconManageSkills" imagePlacement="leading" title="Manage Skills" imagePadding="20"/>
+                                        <connections>
+                                            <action selector="ManageSkills:" destination="f3I-ll-6mg" eventType="touchUpInside" id="iB0-AU-PfH"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FEf-bq-hxl">
                                         <rect key="frame" x="0.0" y="193.00000000000006" width="127" height="38.333333333333343"/>
@@ -918,6 +931,7 @@ Requests</string>
         <image name="IconManageCareerPaths" width="20" height="16.666666030883789"/>
         <image name="IconManageSkills" width="19" height="16.666666030883789"/>
         <image name="IconSettings" width="20" height="16.666666030883789"/>
+        <image name="house.fill" catalog="system" width="128" height="104"/>
         <image name="iconFilter" width="18" height="18"/>
         <image name="iconSort" width="16.666666030883789" height="16.666666030883789"/>
         <systemColor name="systemBackgroundColor">

@@ -94,6 +94,21 @@ class HomeJobPostViewController: UIViewController, UICollectionViewDataSource, U
     
     
     
+    @IBAction func createJobPosts(_ sender: Any) {
+        // Get a reference to the storyboard by its name
+            let storyboard = UIStoryboard(name: "EmployerJobPostingAndEmployerApplicantInteraction_MaryamAhmed", bundle: nil)
+
+        // Instantiate the view controller by its identifier
+
+        if let viewController = storyboard.instantiateViewController(withIdentifier: "JobPostCreation") as? JopPostCreationFirstScreenViewController {
+            // Navigate to the target view controller
+
+            self.navigationController?.pushViewController(viewController, animated: true)
+
+            } else { print("Error: Could not find view controller with identifier 'TargetViewControllerIdentifier'") }
+    }
+    
+    
     let JobPostCollectionViewCellId = "JobPostCollectionViewCell"
     let JobsCollectionViewCellId = "JobsCollectionViewCell"
     let recentJobPostCollectionViewCellId = "JobPostCollectionViewCell"

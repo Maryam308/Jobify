@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="AXr-KW-N6N">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="gHQ-ek-1n4">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
@@ -106,7 +106,6 @@
                         <outlet property="ProgressLineView" destination="sJE-Ro-Txv" id="00W-mV-H0S"/>
                         <outlet property="imgLogo" destination="hD1-8I-hL8" id="n6t-ed-pJU"/>
                         <outlet property="progressLineWidthConstraint" destination="8t8-OQ-gG0" id="D32-P4-GLL"/>
-                        <segue destination="gHQ-ek-1n4" kind="presentation" identifier="finishAnimation" modalPresentationStyle="fullScreen" id="G9c-bI-JQI"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qvH-yY-Ofm" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
