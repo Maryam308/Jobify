@@ -20,12 +20,15 @@ class MessageCell: UITableViewCell{
     @IBOutlet weak var lblSentMessageContent: UILabel!
     
  
+    @IBOutlet weak var lblSentTime: UILabel!
     
+    @IBOutlet weak var lblRecieveTime: UILabel!
     
     override func awakeFromNib() {
             super.awakeFromNib()
-            // Set corner radius for the cell's content view
         
+            // Set corner radius for the cell's content view
+            //tag number is set to deal with two views each of one prototype cell
         if let firstContainer = self.viewWithTag(1) {
                 firstContainer.layer.cornerRadius = 10
                 firstContainer.clipsToBounds = true
