@@ -126,7 +126,7 @@ class HomeJobPostViewController: UIViewController, UICollectionViewDataSource, U
         // hamburgerView.isHidden = true
         
         //fetch the current user role
-       /* if(currentUserRole == "employer" || currentUserRole  == "admin"){
+       if(currentUserRole == "employer" || currentUserRole  == "admin"){
             hideRecommendedJobView()
             fetchRecentJobs()
             fetchAllJobs() // Fetch all jobs for search functionality
@@ -135,11 +135,11 @@ class HomeJobPostViewController: UIViewController, UICollectionViewDataSource, U
             fetchRecentJobs()
             fetchAllJobs() // Fetch all jobs for search functionality
             
-        }*/
+        }
         
-        fetchRecommendedJobs() // Fetch data from Firestore
-        fetchRecentJobs()
-        fetchAllJobs() // Fetch all jobs for search functionality
+        //fetchRecommendedJobs() // Fetch data from Firestore
+        //fetchRecentJobs()
+        //fetchAllJobs() // Fetch all jobs for search functionality
         
         
         // Initially position the hamburgerView off-screen to the left
