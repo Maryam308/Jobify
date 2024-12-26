@@ -35,8 +35,7 @@ struct Job: Equatable {
         desc: String,
         requirement: String,
         extraAttachments: String?,
-        date: Date,
-        time: String
+        date: Date
     ) {
         
         Job.jobIdCounter += 1
@@ -66,9 +65,9 @@ struct Job: Equatable {
         deadline: Date?,
         desc: String,
         requirement: String,
-        extraAttachments: Data?,
-        date: Date,
-        time: String
+        extraAttachments: String?,
+        date: Date
+  
     ) {
         
         self.jobId = jobId
@@ -84,7 +83,7 @@ struct Job: Equatable {
         self.requirement = requirement
         self.extraAttachments = extraAttachments
         self.date = date
-        self.time = time
+   
     }
 
     
@@ -114,7 +113,6 @@ struct Job: Equatable {
     }
     
 
-    enum CategoryJob: String, CaseIterable {
 
     enum CategoryJob: String, CaseIterable   {
 

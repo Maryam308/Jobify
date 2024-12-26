@@ -23,8 +23,6 @@ class FilterViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Hide tab bar when navigating to Filter
-        self.tabBarController?.tabBar.isHidden = true
         setupFilterSections()
         configureTableView()
     }
@@ -33,13 +31,9 @@ class FilterViewController: UIViewController {
            super.viewWillAppear(animated)
            // Ensure the tab bar is visible when returning to this controller
            self.tabBarController?.tabBar.isHidden = true
+        
        }
 
-       override func viewWillDisappear(_ animated: Bool) {
-           super.viewWillDisappear(animated)
-           // Ensure the tab bar is visible when leaving this controller
-           self.tabBarController?.tabBar.isHidden = false
-       }
     
     private func setupFilterSections() {
         // Static sections

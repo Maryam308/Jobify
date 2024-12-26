@@ -73,6 +73,9 @@
                                                                         </fragment>
                                                                     </attributedString>
                                                                 </buttonConfiguration>
+                                                                <connections>
+                                                                    <action selector="viewMyJobPosts:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="Tb4-aa-a1Y"/>
+                                                                </connections>
                                                             </button>
                                                         </subviews>
                                                     </stackView>
@@ -355,7 +358,6 @@
                             <constraint firstItem="cV8-gn-Ibt" firstAttribute="width" secondItem="vDu-zF-Fre" secondAttribute="width" multiplier="1.00509" id="OM1-p0-He8"/>
                             <constraint firstItem="skS-pV-yUb" firstAttribute="trailing" secondItem="qnd-J1-Fyh" secondAttribute="trailing" id="U7g-He-XgE"/>
                             <constraint firstItem="cV8-gn-Ibt" firstAttribute="leading" secondItem="5EZ-qb-Rvc" secondAttribute="leadingMargin" constant="-17" id="UGb-pT-9j5"/>
-                            <constraint firstItem="skS-pV-yUb" firstAttribute="leading" secondItem="qnd-J1-Fyh" secondAttribute="leading" id="YzX-0z-ML2"/>
                             <constraint firstAttribute="bottom" secondItem="VK4-QT-LrE" secondAttribute="bottom" id="dd1-dm-awQ"/>
                             <constraint firstItem="cV8-gn-Ibt" firstAttribute="centerX" secondItem="skS-pV-yUb" secondAttribute="centerX" id="eTx-CI-8Ll"/>
                             <constraint firstItem="skS-pV-yUb" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="fqB-rB-fhP"/>
@@ -369,11 +371,12 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="7qE-b9-GZs">
-                        <barButtonItem key="leftBarButtonItem" style="plain" id="cX0-vP-nnD">
+                        <barButtonItem key="leftBarButtonItem" id="cX0-vP-nnD">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="NiQ-mD-FCb">
                                 <rect key="frame" x="15.999999999999996" y="2.6666666666666679" width="40.666666666666657" height="39"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" title="Button" image="IconHamburgerMenu"/>
                                 <buttonConfiguration key="configuration" style="plain" image="IconHamburgerMenu"/>
                                 <connections>
                                     <action selector="showHamburgerMenu:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="wXC-ss-BGb"/>
@@ -921,13 +924,13 @@ Requests</string>
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemBlueColor">
-            <color red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemBrownColor">
-            <color red="0.63529411759999999" green="0.51764705879999995" blue="0.36862745099999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.63529411764705879" green="0.51764705882352946" blue="0.36862745098039218" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGreenColor">
-            <color red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

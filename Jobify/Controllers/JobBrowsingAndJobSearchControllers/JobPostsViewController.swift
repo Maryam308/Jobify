@@ -12,6 +12,8 @@ enum JobSource {
    case recommendedJobs
    case recentJobs
    case category(String)
+   case myJobPosts
+  
 }
 
 enum SortOrder {
@@ -70,10 +72,11 @@ class JobPostsViewController: UIViewController, UICollectionViewDelegate, UIColl
     }
     
     @IBOutlet weak var jobPostCollectionView: UICollectionView!
-    
+  
     
    
-    
+        var currentUserId: Int = UserSession.shared.loggedInUser?.userID ?? 7
+        var currentUserRole: String = UserSession.shared.loggedInUser?.role.rawValue ?? "seeker"
         let JobPostCollectionViewCellId = "JobPostCollectionViewCell"
         var currentSortOrder: SortOrder? = .newestToOldest // Set default sort order
         var originalJobs: [Job] = [] // hold original job to allow repeated filtering
@@ -122,8 +125,7 @@ class JobPostsViewController: UIViewController, UICollectionViewDelegate, UIColl
            // Ensure the tab bar is visible when leaving this controller
            self.tabBarController?.tabBar.isHidden = false
        }
-    
-    
+ 
     
 
     
@@ -138,7 +140,7 @@ class JobPostsViewController: UIViewController, UICollectionViewDelegate, UIColl
         // Configure the cell with job data
         cell.jobPostImageView.image = nil
 
-        cell.jobPostTimelbl.text = job.time
+        cell.jobPostTimelbl.text = nil
         cell.jobPostTitlelbl.text = job.companyDetails?.name ?? "By Jobify"
         
         // Format the date
@@ -205,6 +207,35 @@ class JobPostsViewController: UIViewController, UICollectionViewDelegate, UIColl
     
     func fetchJobPostings() {
         switch source {
+        case .myJobPosts:
+            let userId = currentUserId
+            print("userId: \(userId)")
+            //to get the user refrence
+            db.collection("users")
+                .whereField("userId", isEqualTo: userId)
+                      .getDocuments { (userSnapshot, error) in
+                          if let error = error {
+                              print("Error fetching user document: \(error.localizedDescription)")
+                              return
+                          }
+                          
+                          guard let userDocument = userSnapshot?.documents.first else {
+                              print("User document not found.")
+                              return
+                          }
+                          
+                          let userRef = userDocument.reference
+
+                            // Now fetch job posts where companyRef matches this user's reference
+                            self.db.collection("jobPost").whereField("companyRef", isEqualTo: userRef).order(by: "jobPostDate", descending: true).getDocuments { (snapshot, error) in
+                                if let error = error {
+                                    print("Error fetching job posts for user:\(error.localizedDescription)")
+                                return
+                                                    
+                        }
+                        self.handleJobPostFetch(snapshot: snapshot, error: nil)
+                    }
+            }
         case .recentJobs:
             db.collection("jobPost").order(by: "jobPostDate", descending: true).getDocuments { (snapshot, error) in
                 if let error = error {
@@ -288,7 +319,6 @@ class JobPostsViewController: UIViewController, UICollectionViewDelegate, UIColl
                 
                 if let datePosted = data["jobPostDate"] as? Timestamp {
                     let date = datePosted.dateValue() // Convert Timestamp to Date
-                    let timePostedString = data["jobPostTime"] as? String ?? "Unknown"
                     let desc = data["jobDescription"] as? String ?? "Unknown"
                     
                     let deadline: Date?
@@ -312,8 +342,7 @@ class JobPostsViewController: UIViewController, UICollectionViewDelegate, UIColl
                         desc: desc,
                         requirement: requirement,
                         extraAttachments: nil,
-                        date: date,
-                        time: timePostedString
+                        date: date
                     )
                     
                     dispatchGroup.enter() // Start waiting for the company details
