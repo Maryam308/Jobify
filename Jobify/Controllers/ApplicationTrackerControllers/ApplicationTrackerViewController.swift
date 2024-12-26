@@ -37,23 +37,16 @@ class ApplicationTrackerViewController: UIViewController, UITableViewDelegate, U
         print("Application at index \(indexPath.row): \(application)")
         print("Job Title: \(application.jobApplied?.title ?? "No Title")")
         print("Company Name: \(application.jobApplied?.companyDetails?.name ?? "No Company")")
-        //print("Location: \(application.jobApplied?. ?? "No Location")")
+        print("Location: \(application.jobApplied?.companyDetails?.city ?? "No Location")")
         // Retrieve job type or ID from jobs dictionary or a similar source
          
-        cell.companyLabel.text = application.jobApplied?.companyDetails?.name
-        cell.typeLabel.text = application.jobApplied?.employmentType.rawValue
+        cell.companyLabel.text = application.jobApplied?.companyDetails?.name ?? "No Name"
+        cell.typeLabel.text = application.jobApplied?.employmentType.rawValue ?? "No Type"
         
-        //print("jobs: \(jobs)")
-        cell.positionLabel.text = application.jobApplied?.title
+        print("jobs: \(jobs)")
+        cell.positionLabel.text = application.jobApplied?.title ?? "No Title"
+        cell.locationLabel.text = application.jobApplied?.companyDetails?.city ?? "No location"
         
-        if let jobApplied = application.jobApplied,
-           let companyDetails = jobApplied.companyDetails,
-           let location = companyDetails.location {
-            // Replace 'address' with the actual string property of Location you want
-            cell.locationLabel.text = location.city // or location.city, etc.
-        } else {
-            cell.locationLabel.text = "Location not available"
-        }
         
         cell.statusButton.setTitle(application.status.rawValue, for: .normal)
         // Set the button background color based on status
@@ -658,7 +651,6 @@ class ApplicationTrackerViewController: UIViewController, UITableViewDelegate, U
                             
                             if let datePosted = jobData["jobPostDate"] as? Timestamp {
                                 let date = datePosted.dateValue() // Convert Timestamp to Date
-                                let timePostedString = jobData["jobPostTime"] as? String ?? "Unknown"
                                 let desc = jobData["jobDescription"] as? String ?? "Unknown"
                                 let deadline = (jobData["jobDeadlineDate"] as? Timestamp)?.dateValue()
                                 let requirement = jobData["jobRequirement"] as? String ?? "No requirements specified"
@@ -670,19 +662,18 @@ class ApplicationTrackerViewController: UIViewController, UITableViewDelegate, U
                                 }
                                 
                                 var job = Job(
-                                    //jobId: jobPostId,
+                                    jobId: jobPostId,
                                     title: jobTitle,
                                     companyDetails: nil,
                                     level: level,
                                     category: category,
                                     employmentType: employmentType,
-                                    //location: jobLocation,
+                                    location: jobLocation,
                                     deadline: deadline,
                                     desc: desc,
                                     requirement: requirement,
                                     extraAttachments: nil,
-                                    date: date,
-                                    time: timePostedString
+                                    date: date
                                 )
                                 
                                 // Fetch company details using the company reference
@@ -725,7 +716,7 @@ class ApplicationTrackerViewController: UIViewController, UITableViewDelegate, U
                                                         name: companyName,
                                                         userId: userId,
                                                         email: email,
-                                                        //city: city,
+                                                        city: city,
                                                         companyMainCategory: companyMainCategory,
                                                         aboutUs: aboutUs,
                                                         employabilityGoals: employabilityGoals,
