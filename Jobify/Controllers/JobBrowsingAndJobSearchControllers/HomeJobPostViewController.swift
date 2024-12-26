@@ -439,7 +439,7 @@ class HomeJobPostViewController: UIViewController, UICollectionViewDataSource, U
     private func configureJobPostCell(_ cell: JobPostCollectionViewCell, with job: Job) {
         // Configure the cell with job data
         cell.jobPostImageView.image = nil // Set image if available
-        cell.jobPostTimelbl.text = job.time
+//        cell.jobPostTimelbl.text = job.time
         cell.jobPostTitlelbl.text = job.companyDetails?.name ?? "By Jobify"
         
         
@@ -673,8 +673,8 @@ class HomeJobPostViewController: UIViewController, UICollectionViewDataSource, U
                     desc: desc,
                     requirement: requirement,
                     extraAttachments: nil,
-                    date: date,
-                    time: timePostedString
+                    date: date
+//                    time: timePostedString
                 )
                 
                 dispatchGroup.enter() // Start waiting for company details

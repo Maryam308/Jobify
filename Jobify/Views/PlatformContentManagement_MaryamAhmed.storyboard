@@ -988,7 +988,7 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Learning Resources Skills" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ot6-m9-Jj4">
-                                <rect key="frame" x="66" y="109" width="262" height="27"/>
+                                <rect key="frame" x="15" y="109" width="363" height="27"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="27" id="47Z-hZ-kJ4"/>
                                 </constraints>
@@ -1024,7 +1024,7 @@
                                                                 <color key="titleColor" red="0.1137254902" green="0.1764705882" blue="0.2666666667" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             </state>
                                                             <connections>
-                                                                <action selector="showActions:" destination="lKH-li-m9P" eventType="touchUpInside" id="YPV-K9-GVd"/>
+                                                                <action selector="showActions:" destination="LjH-w4-x19" eventType="touchUpInside" id="AfQ-Kp-g8V"/>
                                                             </connections>
                                                         </button>
                                                     </subviews>
@@ -1077,13 +1077,13 @@
                             <constraint firstItem="rlb-qT-UoH" firstAttribute="leading" secondItem="L5I-1m-icd" secondAttribute="leading" id="2cy-Ug-Ais"/>
                             <constraint firstItem="F8x-Sn-xLO" firstAttribute="leading" secondItem="L5I-1m-icd" secondAttribute="leading" constant="20" id="4Gm-y5-uIY"/>
                             <constraint firstItem="rlb-qT-UoH" firstAttribute="trailing" secondItem="L5I-1m-icd" secondAttribute="trailing" id="7Kh-HX-kMx"/>
-                            <constraint firstItem="Ot6-m9-Jj4" firstAttribute="leading" secondItem="L5I-1m-icd" secondAttribute="leading" constant="66" id="HJF-ZZ-r7y"/>
+                            <constraint firstItem="Ot6-m9-Jj4" firstAttribute="leading" secondItem="L5I-1m-icd" secondAttribute="leading" constant="15" id="HJF-ZZ-r7y"/>
                             <constraint firstItem="AtZ-Wn-KAm" firstAttribute="centerX" secondItem="AML-cy-EHX" secondAttribute="centerX" id="HYu-qk-7ui"/>
                             <constraint firstItem="Ot6-m9-Jj4" firstAttribute="top" secondItem="L5I-1m-icd" secondAttribute="top" constant="50" id="M2A-BK-sOb"/>
                             <constraint firstAttribute="trailing" secondItem="F8x-Sn-xLO" secondAttribute="trailing" constant="20" id="P3i-AN-gtv"/>
                             <constraint firstItem="rlb-qT-UoH" firstAttribute="top" secondItem="AML-cy-EHX" secondAttribute="top" id="S5l-Nr-YKC"/>
                             <constraint firstItem="AtZ-Wn-KAm" firstAttribute="leading" secondItem="L5I-1m-icd" secondAttribute="leading" constant="40" id="ZIj-ya-pDd"/>
-                            <constraint firstItem="Ot6-m9-Jj4" firstAttribute="trailing" secondItem="L5I-1m-icd" secondAttribute="trailing" constant="-65" id="gwW-gY-eYm"/>
+                            <constraint firstItem="Ot6-m9-Jj4" firstAttribute="trailing" secondItem="L5I-1m-icd" secondAttribute="trailing" constant="-15" id="gwW-gY-eYm"/>
                             <constraint firstItem="AtZ-Wn-KAm" firstAttribute="top" secondItem="F8x-Sn-xLO" secondAttribute="bottom" constant="20" id="pfu-Jw-4t1"/>
                             <constraint firstItem="F8x-Sn-xLO" firstAttribute="top" secondItem="rlb-qT-UoH" secondAttribute="bottom" constant="35" id="qLO-bl-NTr"/>
                             <constraint firstItem="AtZ-Wn-KAm" firstAttribute="trailing" secondItem="L5I-1m-icd" secondAttribute="trailing" constant="-40" id="sII-Wu-UmQ"/>

@@ -59,7 +59,7 @@ class JobDetailsTableViewController: UITableViewController {
 
             // Populate the UI elements with job data
             lblCompanyName.text = job.companyDetails?.name ?? "By Jobify"
-            lblTimePosted.text = job.time
+//            lblTimePosted.text = job.time
             lblDatePosted.text = DateFormatter.localizedString(from: job.date, dateStyle: .medium, timeStyle: .short)
             lblLevel.setTitle(job.level.rawValue, for: .normal)
             lblCategory.setTitle(job.category.rawValue, for: .normal)

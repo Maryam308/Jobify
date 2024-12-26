@@ -118,7 +118,7 @@ struct Skill: Equatable {
         return lhs.skillId == rhs.skillId
     }
     
-    static var skillIdCounter: Int = 0
+    static var skillIdCounter: Int = 30
     var skillId: Int
     var title: String
     var description: String
@@ -138,6 +138,16 @@ struct Skill: Equatable {
         self.title = title
         self.description = description
     }
+    
+    //for fetching skills
+    init(skillId: Int, title: String, description: String, documentReference: DocumentReference) {
+
+        self.skillId = skillId
+        self.title = title
+        self.description = description
+        self.documentReference = documentReference // Initialize the DocumentReference
+    }
+    
     
 }
 struct LearningRequest: Equatable {
