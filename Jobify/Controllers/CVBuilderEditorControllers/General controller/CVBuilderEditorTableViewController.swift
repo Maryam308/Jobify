@@ -10,15 +10,16 @@ import Alamofire
 import Firebase
 import FirebaseFirestore
 
-// MARK: - Cloudinary Response Struct
+//the current logged in user
+let currentUserID = UserSession.shared.loggedInUser?.userID ?? 99
+
+// Cloudinary Response Struct
 struct CloudinaryResponse: Decodable {
     let secure_url: String
 }
 
-//the current logged in user
-let currentUserID = UserSession.shared.loggedInUser?.userID ?? 99
 
-// MARK: - Singleton for CV Data
+// Singleton for CV Data
 class CVData {
     static let shared = CVData()
     // Personal Details
@@ -51,6 +52,7 @@ class CVData {
 class CVBuilderEditorTableViewController: UITableViewController , UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     var educationRecords: [(degree: String, institution: String, from: Date, to: Date)] = []
+    
     //personal page outlets
     @IBOutlet weak var txtName: UITextField!
     @IBOutlet weak var txtEmail: UITextField!
@@ -64,6 +66,12 @@ class CVBuilderEditorTableViewController: UITableViewController , UIImagePickerC
     @IBOutlet weak var countryErr: UILabel!
     @IBOutlet weak var cityErr: UILabel!
     @IBOutlet weak var btnGoToEducation: UIButton!
+    @IBOutlet weak var personalPageHeader: UITextView!
+    @IBOutlet weak var lblName: UILabel!
+    @IBOutlet weak var lblEmail: UILabel!
+    @IBOutlet weak var lblPhone: UILabel!
+    @IBOutlet weak var lblCountry: UILabel!
+    @IBOutlet weak var lblCity: UILabel!
     
     
     //Titles page outlets
@@ -72,6 +80,43 @@ class CVBuilderEditorTableViewController: UITableViewController , UIImagePickerC
     @IBOutlet weak var txtJobTitle: UITextField!
     @IBOutlet weak var jobTitleErr: UILabel!
     @IBOutlet weak var btnPublish: UIButton!
+    @IBOutlet weak var titlesPageHeader: UITextView!
+    @IBOutlet weak var lblChooseCV: UILabel!
+    @IBOutlet weak var lblJobTitle: UILabel!
+    
+    func adjustFontSizeForDevice() {
+        guard UIDevice.current.userInterfaceIdiom == .pad else { return }
+        if self.restorationIdentifier == "personalDetailVC" {
+            // Personal Page Outlets
+            txtName.font = txtName.font?.withSize(20)
+            txtEmail.font = txtEmail.font?.withSize(20)
+            txtPhone.font = txtPhone.font?.withSize(20)
+            txtCountry.font = txtCountry.font?.withSize(20)
+            txtCity.font = txtCity.font?.withSize(20)
+            nameErr.font = nameErr.font?.withSize(16)
+            emailErr.font = emailErr.font?.withSize(16)
+            phoneErr.font = phoneErr.font?.withSize(16)
+            countryErr.font = countryErr.font?.withSize(16)
+            cityErr.font = cityErr.font?.withSize(16)
+            btnGoToEducation.titleLabel?.font = btnGoToEducation.titleLabel?.font.withSize(20)
+            personalPageHeader.font = personalPageHeader.font?.withSize(22)
+            lblName.font = lblName.font?.withSize(18)
+            lblEmail.font = lblEmail.font?.withSize(18)
+            lblPhone.font = lblPhone.font?.withSize(18)
+            lblCountry.font = lblCountry.font?.withSize(18)
+            lblCity.font = lblCity.font?.withSize(18)
+        } else if self.restorationIdentifier == "Page5" {
+            // Titles Page Outlets
+            txtCVTitle.font = txtCVTitle.font?.withSize(20)
+            cvTitleErr.font = cvTitleErr.font?.withSize(16)
+            txtJobTitle.font = txtJobTitle.font?.withSize(20)
+            jobTitleErr.font = jobTitleErr.font?.withSize(16)
+            btnPublish.titleLabel?.font = btnPublish.titleLabel?.font.withSize(20)
+            titlesPageHeader.font = titlesPageHeader.font?.withSize(22)
+            lblChooseCV.font = lblChooseCV.font?.withSize(18)
+            lblJobTitle.font = lblJobTitle.font?.withSize(18)
+        }
+    }
     
     @IBAction func btnAddPhotoTapped(_ sender: UIButton) {
         let picker = UIImagePickerController()
@@ -303,7 +348,9 @@ class CVBuilderEditorTableViewController: UITableViewController , UIImagePickerC
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        adjustFontSizeForDevice()
         restoreCurrentPageData()
+        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -336,6 +383,7 @@ class CVBuilderEditorTableViewController: UITableViewController , UIImagePickerC
         CVImage.image = nil
     }
     
+    // MARK: VALIDATION
     //only enable the go to education button when all fields are valid
     func checkForValidPersonalForm() {
         let defaultImage = UIImage(systemName: "person.circle") //the default image
@@ -584,5 +632,5 @@ class CVBuilderEditorTableViewController: UITableViewController , UIImagePickerC
         }
     }
     
-
+    
 }

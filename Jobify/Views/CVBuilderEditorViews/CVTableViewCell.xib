@@ -17,9 +17,8 @@
                 <rect key="frame" x="0.0" y="0.0" width="358" height="127"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Zve-cU-EDV">
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zve-cU-EDV">
                         <rect key="frame" x="-8" y="-12" width="377" height="145"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fvz-kZ-g4c">
                                 <rect key="frame" x="28" y="50" width="0.0" height="0.0"/>
@@ -103,8 +102,21 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                 </subviews>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="Zve-cU-EDV" secondAttribute="bottom" constant="-6" id="Qh3-fc-6Iy"/>
+                    <constraint firstAttribute="trailing" secondItem="Zve-cU-EDV" secondAttribute="trailing" constant="-11" id="clR-aH-edF"/>
+                    <constraint firstItem="Zve-cU-EDV" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="-12" id="iEK-C5-Kdn"/>
+                    <constraint firstItem="Zve-cU-EDV" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="-8" id="nNj-RR-iMz"/>
+                </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <constraints>
+                <constraint firstItem="Zve-cU-EDV" firstAttribute="bottom" secondItem="njF-e1-oar" secondAttribute="bottom" constant="6" id="F3a-fi-WiM"/>
+                <constraint firstItem="Zve-cU-EDV" firstAttribute="width" secondItem="KGk-i7-Jjw" secondAttribute="width" multiplier="1.05307" id="I9h-8R-5ix"/>
+                <constraint firstItem="njF-e1-oar" firstAttribute="leading" secondItem="Zve-cU-EDV" secondAttribute="leading" constant="8" id="mhS-cc-Ejs"/>
+                <constraint firstItem="njF-e1-oar" firstAttribute="top" secondItem="Zve-cU-EDV" secondAttribute="top" constant="12" id="oc8-iZ-aRT"/>
+                <constraint firstItem="Zve-cU-EDV" firstAttribute="trailing" secondItem="njF-e1-oar" secondAttribute="trailing" constant="11" id="u5N-2m-zpW"/>
+            </constraints>
             <connections>
                 <outlet property="CVCellView" destination="Zve-cU-EDV" id="Ilp-6Z-6RZ"/>
                 <outlet property="cvImage" destination="WsG-Bk-E8a" id="aNZ-h9-n1E"/>

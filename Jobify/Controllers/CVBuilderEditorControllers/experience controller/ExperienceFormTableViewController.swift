@@ -13,22 +13,35 @@ protocol ExperienceFormDelegate: AnyObject {
 class ExperienceFormTableViewController: UITableViewController {
     
     @IBOutlet weak var txtCompany: UITextField!
-    
     @IBOutlet weak var txtRole: UITextField!
-    
-
     @IBOutlet weak var experienceFrom: UIDatePicker!
-    
     @IBOutlet weak var experienceTo: UIDatePicker!
-    
-    
     @IBOutlet weak var txtResponsibility: UITextView!
-    
     @IBOutlet weak var companyErr: UILabel!
-    
     @IBOutlet weak var roleErr: UILabel!
-    
     @IBOutlet weak var responsibilityErr: UILabel!
+    @IBOutlet weak var lblCompany: UILabel!
+    @IBOutlet weak var lblRole: UILabel!
+    @IBOutlet weak var lblFrom: UILabel!
+    @IBOutlet weak var lblTo: UILabel!
+    @IBOutlet weak var lblResponsibility: UILabel!
+    
+    func adjustFontSize() {
+        guard UIDevice.current.userInterfaceIdiom == .pad else { return }
+        txtCompany.font = txtCompany.font?.withSize(20)
+        txtRole.font = txtRole.font?.withSize(20)
+        txtResponsibility.font = txtResponsibility.font?.withSize(18)
+
+        companyErr.font = companyErr.font?.withSize(16)
+        roleErr.font = roleErr.font?.withSize(16)
+        responsibilityErr.font = responsibilityErr.font?.withSize(16)
+
+        lblCompany.font = lblCompany.font?.withSize(18)
+        lblRole.font = lblRole.font?.withSize(18)
+        lblFrom.font = lblFrom.font?.withSize(18)
+        lblTo.font = lblTo.font?.withSize(18)
+        lblResponsibility.font = lblResponsibility.font?.withSize(18)
+    }
     
     @IBOutlet weak var btnSaveExperience: UIButton!
     weak var delegate: ExperienceFormDelegate?
@@ -36,6 +49,7 @@ class ExperienceFormTableViewController: UITableViewController {
     var editIndex: Int?       // The index of the experience being edited
     override func viewDidLoad() {
         super.viewDidLoad()
+        adjustFontSize()
         addBorderToTextView()
         // Populate the text field if editing
         if let experienceToEdit = experienceToEdit {
@@ -43,6 +57,7 @@ class ExperienceFormTableViewController: UITableViewController {
             txtRole.text = experienceToEdit.role
             experienceFrom.date = experienceToEdit.startDate!
             experienceTo.date = experienceToEdit.endDate!
+            txtResponsibility.text = experienceToEdit.keyResponsibilities
         }
 
     }

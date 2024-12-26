@@ -19,13 +19,30 @@ class EducationFormViewController: UITableViewController {
     @IBOutlet weak var degreeErr: UILabel!
     @IBOutlet weak var institutionErr: UILabel!
     @IBOutlet weak var btnSaveEducation: UIButton!
+    @IBOutlet weak var lblDegree: UILabel!
+    @IBOutlet weak var lblInstitution: UILabel!
+    @IBOutlet weak var lblFrom: UILabel!
+    @IBOutlet weak var lblTo: UILabel!
+    
+    func adjustFontSizeForDevice() {
+        guard UIDevice.current.userInterfaceIdiom == .pad else { return }
+        txtDegree.font = txtDegree.font?.withSize(20)
+        txtInstitution.font = txtInstitution.font?.withSize(20)
+        degreeErr.font = degreeErr.font?.withSize(16)
+        institutionErr.font = institutionErr.font?.withSize(16)
+        btnSaveEducation.titleLabel?.font = btnSaveEducation.titleLabel?.font.withSize(20)
+        lblDegree.font = lblDegree.font?.withSize(18)
+        lblInstitution.font = lblInstitution.font?.withSize(18)
+        lblFrom.font = lblFrom.font?.withSize(18)
+        lblTo.font = lblTo.font?.withSize(18)
+    }
     
     weak var delegate: EducationFormDelegate?
     var degreeToEdit: Education? // The degree to edit (if editing)
     var editIndex: Int?       // The index of the degree being edited
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        adjustFontSizeForDevice()
         // Populate the text field if editing
         if let degreeToEdit = degreeToEdit {
             txtDegree.text = degreeToEdit.degree
@@ -52,7 +69,7 @@ class EducationFormViewController: UITableViewController {
           let startDate = from.date
           let endDate = to.date
           
-          guard endDate > startDate else {
+          guard endDate >= startDate else {
               let alert = UIAlertController(title: "Error", message: "End date must be greater than the start date", preferredStyle: .alert)
               alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
               present(alert, animated: true, completion: nil)

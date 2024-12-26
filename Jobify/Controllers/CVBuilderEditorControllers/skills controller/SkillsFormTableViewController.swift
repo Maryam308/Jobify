@@ -15,8 +15,16 @@ protocol SkillsFormDelegate: AnyObject {
 class SkillsFormTableViewController: UITableViewController {
     //outlet for the skill text field
     @IBOutlet weak var txtSkillTitle: UITextField!
-    
     @IBOutlet weak var skillErr: UILabel!
+    @IBOutlet weak var lblSkill: UILabel!
+    
+    func adjustFontSize() {
+       guard UIDevice.current.userInterfaceIdiom == .pad else { return }
+       txtSkillTitle.font = txtSkillTitle.font?.withSize(20)
+       skillErr.font = skillErr.font?.withSize(16)
+       lblSkill.font = lblSkill.font?.withSize(18)
+   }
+    
     
     @IBOutlet weak var btnSaveSkill: UIButton!
     weak var delegate: SkillsFormDelegate?
@@ -25,7 +33,7 @@ class SkillsFormTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        adjustFontSize()
         // Populate the text field if editing
         if let skillToEdit = skillToEdit {
             txtSkillTitle.text = skillToEdit.skillTitle

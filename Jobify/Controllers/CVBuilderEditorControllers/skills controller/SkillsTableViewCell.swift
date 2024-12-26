@@ -12,7 +12,15 @@ class SkillsTableViewCell: UITableViewCell {
     
     @IBOutlet weak var skillsView: UIView!
     @IBOutlet weak var lblSkill: UILabel!
+    
+    func adjustFontSizeForSkillLabel() {
+        guard UIDevice.current.userInterfaceIdiom == .pad else { return }
+        
+        lblSkill.font = lblSkill.font?.withSize(22) // Adjust font size for iPad
+    }
+    
     override func awakeFromNib() {
+        adjustFontSizeForSkillLabel()
         super.awakeFromNib()
         // Add padding to the content view (internal margin for the cell)
         contentView.layoutMargins = UIEdgeInsets(top: 10, left: 15, bottom: 10, right: 15)

@@ -11,37 +11,52 @@ import Firebase
 
 class CVBuilderEditorViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
+    // Firestore database reference
     let db = Firestore.firestore()
-    //array of user's CVs
+    
+    // Array to hold user's CVs
     var cvs: [CV] = []
-    var currentFavoriteCV: CV?
+    var currentFavoriteCV: CV? //the current favorite CV
+    
+    
+    //outlets
     @IBOutlet weak var myCVsTableView: UITableView!
+    @IBOutlet weak var pageHeader: UITextView!
+    
+    
     override func viewDidLoad()  {
         super.viewDidLoad()
+        // Adjust font size for iPads
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            pageHeader.font = pageHeader.font!.withSize(24)
+        }
         
-        // Fetch user CVs
-    
+        // Fetch user CVs from Firestore
         fetchCVs()
+        
+        // Set the table view data source and delegate
         myCVsTableView.dataSource = self
         myCVsTableView.delegate = self
         
-        // Register CVTableViewCell with myCVsTableView
+        // Register custom cell
         myCVsTableView.register(UINib(nibName: "CVTableViewCell", bundle: .main), forCellReuseIdentifier: "CVTableViewCell")
     }
+    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         myCVsTableView.reloadData()
     }
     
-    //reset data when new cv button is tapped
+    
+    // Reset data when new CV button is tapped
     @IBAction func btnNewCVTapped(_ sender: UIButton) {
         CVData.shared.name = ""
         CVData.shared.email = ""
         CVData.shared.phone = ""
         CVData.shared.country = ""
         CVData.shared.city = ""
-        CVData.shared.profileImage = UIImage(systemName: "person.circle") //reset the image to the default
+        CVData.shared.profileImage = UIImage(systemName: "person.circle") // Reset the image to the default
         CVData.shared.profileImageURL = ""
         CVData.shared.education = []
         CVData.shared.experience = []
@@ -51,23 +66,8 @@ class CVBuilderEditorViewController: UIViewController, UITableViewDelegate, UITa
     }
     
     
-    // Fetch user CVs logic
-    func fetchCVs() {
-        Task {
-            do {
-                let fetchedCVs = try await CVManager.getUserAllCVs()
-                DispatchQueue.main.async {
-                    self.cvs = fetchedCVs
-                    self.myCVsTableView.reloadData()
-                }
-            } catch {
-                print("Error fetching CVs: \(error.localizedDescription)")
-            }
-        }
-    }
     
-    
-    //my CVs table view configurations
+    // Table view data source method: number of rows in section
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if cvs.isEmpty {
                  setEmptyMessage("You don't have CVs")
@@ -79,6 +79,8 @@ class CVBuilderEditorViewController: UIViewController, UITableViewDelegate, UITa
     }
     
     // MARK: - Helper Methods
+    
+    // Set an empty message when there are no CVs
        func setEmptyMessage(_ message: String) {
            let messageLabel = UILabel()
            messageLabel.text = message
@@ -90,17 +92,32 @@ class CVBuilderEditorViewController: UIViewController, UITableViewDelegate, UITa
            myCVsTableView.backgroundView = messageLabel
            myCVsTableView.separatorStyle = .none
        }
-
+    
+    // Restore the table view's original state
        func restoreTableView() {
            myCVsTableView.backgroundView = nil
            myCVsTableView.separatorStyle = .singleLine
        }
-    
-    
+
+    // Table view data source method: height for row
+   func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+       // Check if the current device is an iPad
+       if UIDevice.current.userInterfaceIdiom == .pad {
+           // Return a smaller height for iPad
+           return myCVsTableView.frame.width / 5  // Decrease height for iPad
+       } else {
+           // Use default height for other devices (iPhone)
+           return myCVsTableView.frame.width / 3
+       }
+   }
+    // Table view data source method: width for row
     func tableView(_ tableView: UITableView, widthForRowAt indexPath: IndexPath) -> CGFloat {
-        return myCVsTableView.frame.width 
+        // Return the full width of the table view
+        return tableView.frame.width
     }
+
     
+    // Table view data source method: cell for row
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = myCVsTableView.dequeueReusableCell(withIdentifier: "CVTableViewCell", for: indexPath) as! CVTableViewCell
         let cv = cvs[indexPath.row]
@@ -109,7 +126,7 @@ class CVBuilderEditorViewController: UIViewController, UITableViewDelegate, UITa
         cell.updateFavoriteButton()
         cell.setup(cv)
         
-        // Handle delete
+        // Handle delete action
         cell.onDelete = { [weak self] in
             self?.deleteCV(at: indexPath)
         }
@@ -129,9 +146,13 @@ class CVBuilderEditorViewController: UIViewController, UITableViewDelegate, UITa
         return cell
     }
     
+    
+    // Delete CV at specified index path
     private func deleteCV(at indexPath: IndexPath) {
+        
         let cvToDelete = cvs[indexPath.row]
-
+        
+        // Check if the CV to delete is the current favorite
         if let currentFavorite = currentFavoriteCV, currentFavorite.cvID == cvToDelete.cvID {
             if cvs.count > 2 {
                 // Prompt user to choose a new favorite
@@ -157,6 +178,8 @@ class CVBuilderEditorViewController: UIViewController, UITableViewDelegate, UITa
         performCVDeletion(cvToDelete: cvToDelete, indexPath: indexPath)
     }
     
+    
+    // Perform the actual CV deletion
     private func performCVDeletion(cvToDelete: CV, indexPath: IndexPath) {
         let cvIDToDelete = cvToDelete.cvID
 
@@ -171,16 +194,30 @@ class CVBuilderEditorViewController: UIViewController, UITableViewDelegate, UITa
                 DispatchQueue.main.async {
                     self.cvs = updatedCVs
                     self.myCVsTableView.deleteRows(at: [indexPath], with: .automatic)
-
+                    // Show success alert after deletion
+                    self.showAlert(title: "Success", message: "CV deleted successfully.")
                 }
             } catch {
                 print("Error deleting CV: \(error.localizedDescription)")
-                // Handle the error (e.g., show an alert)
+                // Handle the error by showing an alert
+                DispatchQueue.main.async {
+                    self.showAlert(title: "Error", message: "Failed to delete CV: \(error.localizedDescription)")
+                }
             }
         }
             self.myCVsTableView.reloadData()
     }
     
+    
+    // Function to display an alert
+    private func showAlert(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        present(alert, animated: true, completion: nil)
+    }
+    
+    
+    //A function to prompt the user to choose a new favorite CV
     private func promptUserToChooseFavorite(cvToDelete: CV, indexPath: IndexPath) {
         let alert = UIAlertController(title: "Choose a New Favorite",
                                       message: "Please select a new favorite CV before deleting the current favorite.",
@@ -212,6 +249,8 @@ class CVBuilderEditorViewController: UIViewController, UITableViewDelegate, UITa
         present(alert, animated: true, completion: nil)
     }
   
+    
+    // A function to handle favorite action for a selected CV
     private func handleFavoriteAction(_ selectedCV: CV) async throws {
         //  check if the selected CV is already the current favorite
         if currentFavoriteCV?.cvID == selectedCV.cvID {
@@ -238,9 +277,19 @@ class CVBuilderEditorViewController: UIViewController, UITableViewDelegate, UITa
         myCVsTableView.reloadData()
     }
     
-    
-    
-      func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-          return myCVsTableView.frame.width / 3
-      }
+    // Fetch user CVs from Firestore
+    func fetchCVs() {
+        Task {
+            do {
+                let fetchedCVs = try await CVManager.getUserAllCVs()
+                DispatchQueue.main.async {
+                    self.cvs = fetchedCVs
+                    self.myCVsTableView.reloadData()
+                }
+            } catch {
+                print("Error fetching CVs: \(error.localizedDescription)")
+            }
+        }
+    }
+
   }

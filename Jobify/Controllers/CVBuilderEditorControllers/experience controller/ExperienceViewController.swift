@@ -8,11 +8,21 @@
 import UIKit
 
 class ExperienceViewController:  UIViewController, UITableViewDelegate, UITableViewDataSource {
-    
+    //outlets
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var pageHeader: UITextView!
+    @IBOutlet weak var sectionTitle: UILabel!
+    
+    
     var experienceData:[WorkExperience]=[]
     override func viewDidLoad() {
         super.viewDidLoad()
+        // Adjust font size for iPads
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            pageHeader.font = pageHeader.font!.withSize(24)
+            sectionTitle.font = sectionTitle.font.withSize(20)
+        }
+        
         tableView.delegate = self
         tableView.dataSource = self
         
@@ -58,7 +68,11 @@ class ExperienceViewController:  UIViewController, UITableViewDelegate, UITableV
       }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return tableView.frame.width / 2 + 50
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            return tableView.frame.width / 3
+        } else {
+            return tableView.frame.width / 2 + 50
+        }
     }
 
     // MARK: - TableView Delegate
@@ -86,6 +100,12 @@ class ExperienceViewController:  UIViewController, UITableViewDelegate, UITableV
         alertController.addAction(editAction)
         alertController.addAction(deleteAction)
         alertController.addAction(cancelAction)
+
+        // Configure popover for iPad
+        if let popoverController = alertController.popoverPresentationController {
+            popoverController.sourceView = tableView // The source view from which the popover will pop up
+            popoverController.sourceRect = tableView.rectForRow(at: indexPath) // Use the selected row as the anchor
+        }
 
         present(alertController, animated: true, completion: nil)
     }

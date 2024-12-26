@@ -7,35 +7,45 @@
 
 import UIKit
 
+// Custom UITableViewCell subclass for displaying CV information
 class CVTableViewCell: UITableViewCell {
-    //creating outlets
-    var onDelete: (() -> Void)?
-    var cv: CV? //a reference to the CV object
+    // MARK: - Properties
+    var onDelete: (() -> Void)? // Closure to handle delete action
+    var cv: CV? // Reference to the CV object
     var favoriteAction: ((CV) -> Void)? // Closure to handle favorite action
     
-    @IBOutlet weak var CVCellView: UIView!
     
-    @IBOutlet weak var lblCVTitle: UILabel!
+    // UI Outlets
+    @IBOutlet weak var CVCellView: UIView! // Container view for the cell
+    @IBOutlet weak var lblCVTitle: UILabel!  // Label for CV title
+    @IBOutlet weak var lblCVAddDate: UILabel! // Label for CV addition date
+    @IBOutlet weak var favoriteCVBtn: UIButton! // Button for marking CV as favorite
+    @IBOutlet weak var cvImage: UIImageView! // ImageView for displaying CV image
     
-    @IBOutlet weak var lblCVAddDate: UILabel!
+    func adjustFontSizeForCVLabels() {
+        guard UIDevice.current.userInterfaceIdiom == .pad else { return }
+
+        lblCVTitle.font = lblCVTitle.font?.withSize(22)
+        lblCVAddDate.font = lblCVAddDate.font?.withSize(20)
+    }
     
-    @IBOutlet weak var favoriteCVBtn: UIButton!
-    
-    
-    @IBOutlet weak var cvImage: UIImageView!
-    //creating actions for buttons
+    // MARK: - Button Actions
+    // Action for viewing the CV details
     @IBAction func btnViewCVTapped(_ sender: UIButton) {
         guard let cv = cv else { return }
          navigateToCVView(cv: cv)
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        // Ensure the content view fills the cell
-        contentView.frame = bounds
-    }
-    
-    
+    //Helper function:  Navigate to the CV view controller with the selected CV
+    private func navigateToCVView(cv: CV) {
+          // Get the view controller from the storyboard
+        if let viewController = self.parentViewController?.storyboard?.instantiateViewController(withIdentifier: "cvViewer") as? CVViewerViewController {
+              viewController.cv = cv // Pass the entire CV object to the next view controller
+              self.parentViewController?.navigationController?.pushViewController(viewController, animated: true)
+          }
+      }
+
+    // Action for editing the CV
     @IBAction func btnEditTapped(_ sender: UIButton) {
         guard let cv = cv else { return }
           
@@ -62,39 +72,49 @@ class CVTableViewCell: UITableViewCell {
           }
     }
     
-    
+    // Action for deleting the CV
     @IBAction func btnDeleteCVTapped(_ sender: UIButton) {
         onDelete?()
     }
     
-    
+    // Action for marking the CV as favorite
     @IBAction func btnFavoriteCVTapped(_ sender: UIButton) {
         guard let cv = cv else { return }
          favoriteAction?(cv)
     }
     
+    
+    // MARK: - Layout Handling
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        // Ensure the content view fills the cell
+        contentView.frame = bounds
+    }
+    
+    // Function to Update the appearance of the favorite button based on the CV's favorite status
     func updateFavoriteButton() {
          // Update the favorite button appearance based on isFavorite
          let starImageName = cv?.isFavorite == true ? "star.fill" : "star"
          favoriteCVBtn.setImage(UIImage(systemName: starImageName), for: .normal)
      }
     
-    // Setup the cell
+    // Setup the cell with CV data
     func setup(_ cv: CV) {
         self.cv = cv // Store the CV reference
-        lblCVTitle.text = cv.cvTitle
+        lblCVTitle.text = cv.cvTitle // Set CV title
         
+        // Format and set the addition date
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .medium
         dateFormatter.timeStyle = .none
         let formattedDate = dateFormatter.string(from: cv.creationDate)
         lblCVAddDate.text = formattedDate
         
-//        // Set the CV image
+        // Load the CV image from the URL
         if let imageUrl = URL(string: cv.personalDetails.profilePicture) {
-            loadImage(from: imageUrl)
+            loadImage(from: imageUrl) // Load image asynchronously
         } else {
-            cvImage.image = UIImage(systemName: "person.circle") //set the default image
+            cvImage.image = UIImage(systemName: "person.circle") // Set default image if URL is invalid
         }
 
         
@@ -102,56 +122,43 @@ class CVTableViewCell: UITableViewCell {
     }
     
        
+    // Function to Load image asynchronously from a URL
        private func loadImage(from url: URL) {
            let task = URLSession.shared.dataTask(with: url) { data, response, error in
                guard let data = data, error == nil else {
-                   return
+                   return // Exit if there's an error
                }
                DispatchQueue.main.async {
-                   self.cvImage.image = UIImage(data: data)
+                   self.cvImage.image = UIImage(data: data) // Update image on the main thread
                }
            }
            task.resume()
        }
     
     
+    // MARK: - Lifecycle Methods
     override func awakeFromNib() {
         super.awakeFromNib()
-        CVCellView.layer.cornerRadius = contentView.frame.height / 9
-        // Shadow configuration
-//        CVCellView.layer.shadowColor = UIColor.black.cgColor
-//        CVCellView.layer.shadowOpacity = 0.2
-//        CVCellView.layer.shadowOffset = CGSize(width: 0, height: 4)
-//        CVCellView.layer.shadowRadius = 6
-//        CVCellView.layer.shadowPath = UIBezierPath(rect: CVCellView.bounds).cgPath
-//        CVCellView.layer.shouldRasterize = false
+        adjustFontSizeForCVLabels()
+        CVCellView.layer.cornerRadius = contentView.frame.height / 9 // Round corners of the cell view
+
+        contentView.backgroundColor = .white // Set background color
+        backgroundColor = .clear // Set cell background to clear
         
-        //content view configuration
-//        contentView.layer.cornerRadius = 10
-//        contentView.layer.masksToBounds = true
-        contentView.backgroundColor = .white
-        backgroundColor = .clear
     }
 
-    private func navigateToCVView(cv: CV) {
-          // Get the view controller from the storyboard
-        if let viewController = self.parentViewController?.storyboard?.instantiateViewController(withIdentifier: "cvViewer") as? CVViewerViewController {
-              viewController.cv = cv // Pass the entire CV object to the next view controller
-              self.parentViewController?.navigationController?.pushViewController(viewController, animated: true)
-          }
-      }
   }
 
-  // Extension to get the parent view controller
+// MARK: - Extension to get the parent view controller
   extension UIView {
       var parentViewController: UIViewController? {
           var parentResponder: UIResponder? = self
           while let responder = parentResponder {
               if let viewController = responder as? UIViewController {
-                  return viewController
+                  return viewController // Return the parent view controller if found
               }
-              parentResponder = responder.next
+              parentResponder = responder.next // Move up the responder chain
           }
-          return nil
+          return nil // Return nil if no parent view controller is found
       }
   }

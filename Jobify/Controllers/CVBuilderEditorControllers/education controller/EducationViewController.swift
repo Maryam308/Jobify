@@ -8,11 +8,22 @@
 import UIKit
 
 class EducationViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-
+    //outlets
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var pageHeader: UITextView!
+    @IBOutlet weak var sectionTitle: UILabel!
+    
+    
     var educationData:[Education]=[]
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Adjust font size for iPads
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            pageHeader.font = pageHeader.font!.withSize(24)
+            sectionTitle.font = sectionTitle.font.withSize(20)
+        }
+        
         tableView.delegate = self
          tableView.dataSource = self
 
@@ -58,35 +69,41 @@ class EducationViewController: UIViewController, UITableViewDelegate, UITableVie
         return cell
       }
 
-      // MARK: - TableView Delegate
-      func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-          tableView.deselectRow(at: indexPath, animated: true)
+    // MARK: - TableView Delegate
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
 
-          // Show options for Edit or Delete
-          let alertController = UIAlertController(title: "Options", message: "What would you like to do?", preferredStyle: .actionSheet)
+        // Show options for Edit or Delete
+        let alertController = UIAlertController(title: "Options", message: "What would you like to do?", preferredStyle: .actionSheet)
 
-          // Edit Action
-          let editAction = UIAlertAction(title: "Edit", style: .default) { _ in
-              let selectedDegree = self.educationData[indexPath.row]
-              self.navigateToEducationForm(with: selectedDegree, at: indexPath.row)
-          }
+        // Edit Action
+        let editAction = UIAlertAction(title: "Edit", style: .default) { _ in
+            let selectedDegree = self.educationData[indexPath.row]
+            self.navigateToEducationForm(with: selectedDegree, at: indexPath.row)
+        }
 
-          // Delete Action
-          let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { _ in
-              self.educationData.remove(at: indexPath.row)
-              self.tableView.reloadData()
-          }
+        // Delete Action
+        let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { _ in
+            self.educationData.remove(at: indexPath.row)
+            self.tableView.reloadData()
+        }
 
-          // Cancel Action
-          let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        // Cancel Action
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
 
-          alertController.addAction(editAction)
-          alertController.addAction(deleteAction)
-          alertController.addAction(cancelAction)
+        alertController.addAction(editAction)
+        alertController.addAction(deleteAction)
+        alertController.addAction(cancelAction)
 
-          present(alertController, animated: true, completion: nil)
-      }
+        // Configure popover for iPad
+        if let popoverController = alertController.popoverPresentationController {
+            popoverController.sourceView = tableView // The source view from which the popover will pop up
+            popoverController.sourceRect = tableView.rectForRow(at: indexPath) // Use the selected row as the anchor
+        }
 
+        present(alertController, animated: true, completion: nil)
+    }
+    
       // Navigate to Education Form for Add or Edit
     func navigateToEducationForm(with education: Education?, at index: Int?) {
           let storyboard = UIStoryboard(name: "CareerResourcesAndSkillDevelopment", bundle: nil)
@@ -99,7 +116,11 @@ class EducationViewController: UIViewController, UITableViewDelegate, UITableVie
       }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return tableView.frame.width / 2  // Added extra space for margin between cells
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            return tableView.frame.width / 4.5
+        } else {
+            return tableView.frame.width / 2
+        }
     }
 
   }

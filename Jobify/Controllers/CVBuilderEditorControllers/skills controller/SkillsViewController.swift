@@ -8,12 +8,22 @@
 import UIKit
 
 class SkillsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-
+    //outlets
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var pageHeader: UITextView!
+    @IBOutlet weak var sectionTitle: UILabel!
+    
     var skillsData:[cvSkills]=[]
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Adjust font size for iPads
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            pageHeader.font = pageHeader.font!.withSize(24)
+            sectionTitle.font = sectionTitle.font.withSize(20)
+        }
+        
         tableView.delegate = self
         tableView.dataSource = self
 
@@ -60,7 +70,11 @@ class SkillsViewController: UIViewController, UITableViewDelegate, UITableViewDa
       }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return tableView.frame.width / 5
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            return tableView.frame.width / 7
+        } else {
+            return tableView.frame.width / 5
+        }
     }
     
     
@@ -89,9 +103,16 @@ class SkillsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         alertController.addAction(editAction)
         alertController.addAction(deleteAction)
         alertController.addAction(cancelAction)
-        
+
+        // Configure popover for iPad
+        if let popoverController = alertController.popoverPresentationController {
+            popoverController.sourceView = tableView // The source view from which the popover will pop up
+            popoverController.sourceRect = tableView.rectForRow(at: indexPath) // Use the selected row as the anchor
+        }
+
         present(alertController, animated: true, completion: nil)
     }
+    
 
     // Navigate to Education Form for Add or Edit
     func navigateToSkillsForm(with skill: cvSkills?, at index: Int?) {

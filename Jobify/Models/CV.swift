@@ -129,7 +129,7 @@ final class CVManager {
     private init() {} // Singleton
 //    private static let CVCollection = Firestore.firestore().collection(DB.FStore.CV.collectionName)
     //current logged in user - seeker details
-    private static let UserCollection = Firestore.firestore().collection("MaryamForTesting")
+    private static let UserCollection = Firestore.firestore().collection("seekerDetails")
     // Get documents
 //    private static func CVDocument(documentId: String) -> DocumentReference {
 //        CVCollection.document(documentId)
@@ -161,8 +161,8 @@ final class CVManager {
             // Extract the user reference
             let userReference = userDocument.reference
             
-            // Get the MaryamForTesting collection reference
-            let testingCollectionRef = Firestore.firestore().collection("MaryamForTesting")
+            // Get the seekerDetails collection reference
+            let testingCollectionRef = Firestore.firestore().collection("seekerDetails")
             
             // Query to find the document with the user reference
             let testingQuerySnapshot = try await testingCollectionRef.whereField("userID", isEqualTo: userReference).getDocuments()
@@ -181,7 +181,7 @@ final class CVManager {
                 return // Exit after adding the CV
             }
             
-            print("No document found in MaryamForTesting with userID reference.")
+            print("No document found in seekerDetails with userID reference.")
             
         } catch {
             print("Error adding CV: \(error.localizedDescription)")
@@ -206,8 +206,8 @@ final class CVManager {
         // Extract the user reference
         let userReference = userDocument.reference
         
-        // Get the MaryamForTesting collection reference
-        let testingCollectionRef = Firestore.firestore().collection("MaryamForTesting")
+        // Get the seekerDetails collection reference
+        let testingCollectionRef = Firestore.firestore().collection("seekerDetails")
         
         // Query to find the document with the user reference
         let testingQuerySnapshot = try await testingCollectionRef.whereField("userID", isEqualTo: userReference).getDocuments()
@@ -256,8 +256,8 @@ final class CVManager {
             // Extract the user reference
             let userReference = userDocument.reference
             
-            // Get the MaryamForTesting collection reference
-            let testingCollectionRef = Firestore.firestore().collection("MaryamForTesting")
+            // Get the seekerDetails collection reference
+            let testingCollectionRef = Firestore.firestore().collection("seekerDetails")
             
             // Query to find the document with the user reference
             let testingQuerySnapshot = try await testingCollectionRef.whereField("userID", isEqualTo: userReference).getDocuments()
@@ -289,7 +289,7 @@ final class CVManager {
                 }
             }
             
-            print("No document found in MaryamForTesting with userID reference.")
+            print("No document found in seekerDetails with userID reference.")
             
         } catch {
             print("Error updating CV: \(error.localizedDescription)")
@@ -313,8 +313,8 @@ final class CVManager {
         // Extract the user reference
         let userReference = userDocument.reference
         
-        // Get the MaryamForTesting collection reference
-        let testingCollectionRef = Firestore.firestore().collection("MaryamForTesting")
+        // Get the seekerDetails collection reference
+        let testingCollectionRef = Firestore.firestore().collection("seekerDetails")
         
         // Query to find the document with the user reference
         let testingQuerySnapshot = try await testingCollectionRef.whereField("userID", isEqualTo: userReference).getDocuments()

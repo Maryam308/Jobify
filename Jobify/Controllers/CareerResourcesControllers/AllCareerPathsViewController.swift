@@ -345,7 +345,7 @@ class AllCareerPathsViewController: UIViewController, UICollectionViewDataSource
             }
 
             let userReference = userDocument.reference
-            let savedResourcesRef = Firestore.firestore().collection("MaryamForTesting")
+            let savedResourcesRef = Firestore.firestore().collection("seekerDetails")
             let savedResourcesQuerySnapshot = try await savedResourcesRef.whereField("userID", isEqualTo: userReference).getDocuments()
             
             self.savedLearningResources.removeAll()

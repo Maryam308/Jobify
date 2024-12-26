@@ -15,12 +15,8 @@ class CVViewerViewController: UIViewController, UITableViewDelegate, UITableView
     @IBOutlet weak var tableView: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
-
-    
              if let cv = cv {
-                 // Use cv to display its details
                  print("CV Title: \(cv.cvTitle)")
-                 // Display other details as needed
              }
         
         tableView.dataSource = self
@@ -28,9 +24,11 @@ class CVViewerViewController: UIViewController, UITableViewDelegate, UITableView
         
         // Register tableView with cv viewer cell
         tableView.register(UINib(nibName: "CVViewerTableViewCell", bundle: .main), forCellReuseIdentifier: "CVViewerTableViewCell")
-        // Do any additional setup after loading the view.
+        
     }
     
+    
+    // MARK: - UITableViewDataSource Methods
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1
     }
@@ -53,6 +51,7 @@ class CVViewerViewController: UIViewController, UITableViewDelegate, UITableView
               createPDF(cv: cv)
     }
     
+    // MARK: - Export PDF
    // reference: https://developer.apple.com/library/archive/documentation/2DDrawing/Conceptual/DrawingPrintingiOS/GeneratingPDF/GeneratingPDF.html
    // https://stackoverflow.com/questions/70337689/create-pdf-with-wkwebview-pdfconfiguration
     
