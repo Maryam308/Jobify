@@ -15,8 +15,8 @@ class AddNewLearningResourceViewController : UITableViewController {
     let db = Firestore.firestore()
     var skillTitles: [String] = [] //to store skill titles and add to the popup button
         // to fetch the current user and the current user role
-    var currentUserId: Int = UserSession.shared.loggedInUser?.userID ?? 2
-    var currentUserRole: String = UserSession.shared.loggedInUser?.role.rawValue ?? "employer"
+    var currentUserId: Int = UserSession.shared.loggedInUser?.userID ?? 1
+    var currentUserRole: String = UserSession.shared.loggedInUser?.role.rawValue ?? "admin"
     var selectedSkillTitle: [String] = []
     
     //UI elements outlets
@@ -84,8 +84,8 @@ class AddNewLearningResourceViewController : UITableViewController {
         
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
         //check if the user is an admin or an employer
         
@@ -240,6 +240,7 @@ class AddNewLearningResourceViewController : UITableViewController {
                                 print("Error adding document: \(error)")
                                 self.showAlert(  title: "Error"  , message: "Failed to add learning resource.")
                             } else {
+                                self.clearInputs()
                                 self.showAlert( title: "Successful" ,message: "Learning resource added successfully.")
                             }
                         }
@@ -269,7 +270,7 @@ class AddNewLearningResourceViewController : UITableViewController {
                                 print("Error adding document: \(error)")
                                 self.showAlert( title: "Error" ,message: "Failed to request learning resource.")
                             } else {
-                                
+                                self.clearInputs()
                                 self.showAlertAndNavigateBack( title: "Successful" ,message: "Learning resource request successfully submitted!")
                                 
                             }
@@ -279,7 +280,14 @@ class AddNewLearningResourceViewController : UITableViewController {
             }
         }
 
-    
+    func clearInputs() {
+        // Reset all input fields
+        btnCategory.setTitle("Choose learning resource category", for: .normal)
+        btnSkill.setTitle("Choose the skill to develop", for: .normal)
+        txtLink.text = ""
+        txtTitle.text = ""
+        txtViewDescriptio.text = ""
+    }
     
     
     func fetchskillDocumentRefrence (by skillTitle: String, completion: @escaping (DocumentReference?) -> Void) {

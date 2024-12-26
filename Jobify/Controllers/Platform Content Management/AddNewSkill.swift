@@ -43,7 +43,8 @@ class AddNewSkillViewController: UITableViewController {
         txtSkillDescription.textContainerInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         
         // If the skillTitle and skillDescription are set, it means you're editing
-                if let title = editSkillTitle, let description = editSkillDescription {
+        if let title = editSkillTitle, !title.isEmpty,
+               let description = editSkillDescription, !description.isEmpty  {
                     edittingMode = true
                     txtSkillTitle.text = title
                     txtSkillDescription.text = description
