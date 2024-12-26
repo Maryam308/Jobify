@@ -7,10 +7,16 @@
 
 import UIKit
 
+protocol MyLearningResourcesCellDelegate: AnyObject {
+    func didTapRemoveButton(in cell: MyLearningResourcesCells)
+}
+
 class MyLearningResourcesCells: UICollectionViewCell {
     
+    weak var delegate: MyLearningResourcesCellDelegate? // adding the delegate var
+    
     @IBOutlet weak var lblResourceTitle: UILabel!
-    @IBOutlet weak var btnEdit: UIButton!
+    @IBOutlet weak var btnRemove: UIButton!
     @IBOutlet weak var myTitleView: UIView!
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -19,9 +25,16 @@ class MyLearningResourcesCells: UICollectionViewCell {
         myTitleView.layer.cornerRadius = 15
         
         //set button rounds
-        btnEdit.layer.cornerRadius = 10
+        btnRemove.layer.cornerRadius = 10
         
     }
+    
+    
+    @IBAction func btnRemoveClick(_ sender: Any) {
+        delegate?.didTapRemoveButton(in: self)
+            
+        }
+    
 }
 
 
@@ -32,6 +45,9 @@ class SkillsCollectionViewCells: UICollectionViewCell {
     
     @IBOutlet weak var skillTitleView: UIView!
     
+    // Store the skillId in the cell
+        var skillId: Int?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         
@@ -39,8 +55,24 @@ class SkillsCollectionViewCells: UICollectionViewCell {
         skillTitleView.layer.cornerRadius = 15
         
         
-        
     }
+    
+    // Method to configure the cell with the skill data
+        func configure(with skill: Skill) {
+            //set the title button to the skill title
+            self.btnSkillTitle.setTitle(skill.title, for: .normal )
+            self.skillId = skill.skillId
+        }
+    
+    
+    @IBAction func showActions(_ sender: UIButton) {
+           // When the button is clicked, call the action sheet method in the view controller
+           guard let skillId = skillId else { return }
+           if let viewController = self.parentViewController as? LearningResourcesSkillsViewController {
+               viewController.showActionSheet(skillId: skillId)
+           }
+       }
+    
     
     
 }
@@ -66,6 +98,13 @@ class LRRequestCollectionCell : UICollectionViewCell {
 }
 
 
+//to tell the view controller that the button has been tapped and send the title
+protocol CareerPathCellDelegate: AnyObject {
+    func didTapEditButton(id: Int)
+    func didTapRemoveButton(id: Int)
+}
+
+
 class ManageCareerPathCollectionViewCell : UICollectionViewCell {
         
     @IBOutlet weak var btnRemoveCareer: UIButton!
@@ -73,6 +112,8 @@ class ManageCareerPathCollectionViewCell : UICollectionViewCell {
     @IBOutlet weak var lblCareerTitle: UILabel!
     @IBOutlet weak var careerTitleView: UIView!
     
+    weak var delegate: CareerPathCellDelegate?
+    private var id: Int? // Store the id
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -83,5 +124,30 @@ class ManageCareerPathCollectionViewCell : UICollectionViewCell {
         
         
     }
+    
+    func configure(with careerPath: CareerPath) {
+        lblCareerTitle.text = careerPath.title
+        id = careerPath.careerId
+        }
+    
+    //actions for tapping the buttons
+    
+    @IBAction func btnEditTapped(_ sender: UIButton) {
+        
+        if let id = id {
+                    delegate?.didTapEditButton(id: id)
+                }
+        
+    }
+    
+    
+    //removing the career path
+    @IBAction func btnRemoveTapped(_ sender: UIButton) {
+        if let id = id {
+                    delegate?.didTapEditButton(id: id)
+                }
+    }
+    
+    
     
 }

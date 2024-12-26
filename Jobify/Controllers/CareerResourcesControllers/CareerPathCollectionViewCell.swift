@@ -13,13 +13,20 @@ class CareerPathCollectionViewCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        adjustFontSizeForDevice()
         // Initialization code
     }
     
-    func setUp(careerPath: CareerPath1) {
-        lblCareerPath.text = careerPath.title
+    func setUp(careerPath: String) {
+        lblCareerPath.text = careerPath
         lblCareerPath.textAlignment = .center // Center the text
                 
     }
 
+    func adjustFontSizeForDevice(){
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            lblCareerPath.font = lblCareerPath.font?.withSize(24)
+
+        }
+    }
 }

@@ -16,7 +16,7 @@ struct SeekerDetails {
     var jobsApplicationList: [JobApplication] = []
     var notificationList: [Notification] = []
     var selectedJobPosition: String
-
+    var seekerCVs: [CV] = []
     // Custom initializer
     init(
         seekerName: String,
@@ -25,7 +25,8 @@ struct SeekerDetails {
         country: String,
         city: String,
         isMentor: Bool = false,
-        selectedJobPosition: String = ""
+        selectedJobPosition: String = "",
+        seekerCVs: [CV] = []
     ) {
         
 
@@ -92,17 +93,17 @@ struct SeekerDetails {
     
     
     //Creating the message object, then adding it for bothe the sender's messages list.
-    mutating func sendMessage(messageBody: String, messageReceiver: Any) {
-       
-        let message = Message(
-            messageSender: self,
-            messageReceiver: messageReceiver,
-            messageBody: messageBody)
-        
-        // Add to sender list
-        seekerMessageList.append(message)
-    }
-    
+//    mutating func sendMessage(messageBody: String, messageReceiver: Any) {
+//       
+//        let message = Message(
+//            messageSender: self,
+//            messageReceiver: messageReceiver,
+//            messageBody: messageBody)
+//        
+//        // Add to sender list
+//        seekerMessageList.append(message)
+//    }
+//    
     
     //===================================================================================================================//
     

@@ -23,7 +23,9 @@ class LoginViewController: UITableViewController {
     //bouttons outlets
     
     //as if the admin has logged in
+
     //var currentUser: User = User(userID: 1, name: "John Doe", email: "adminMaster@jobify.com", role: UserType.admin)
+
     
     
     override func viewDidLoad() {

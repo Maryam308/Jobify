@@ -15,6 +15,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
+            // Hex color code: 1D2D44
+            let hexCode: Int = 0x1D2D44
+
+            // Extract RGB components
+            let red = CGFloat((hexCode >> 16) & 0xFF) / 255.0   // Extract red component
+            let green = CGFloat((hexCode >> 8) & 0xFF) / 255.0  // Extract green component
+            let blue = CGFloat(hexCode & 0xFF) / 255.0          // Extract blue component
+
+            // Create the UIColor
+            let customColor = UIColor(red: red, green: green, blue: blue, alpha: 1.0)
+
+            // Apply the color to the tab bar items
+            UITabBar.appearance().tintColor = customColor
         
         // Override point for customization after application launch.
         FirebaseApp.configure()
@@ -35,7 +48,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
-
 
 }
 

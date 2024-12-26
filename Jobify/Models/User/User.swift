@@ -13,15 +13,17 @@ struct User {
    static var userIdCounter: Int = 150
    var name: String
    var email: String
+    var imageURL: String? = nil
    var role: UserType
    var seekerDetails: SeekerDetails?
    var employerDetails: EmployerDetails?
    var adminDetails: AdminDetails?
-    init(userID: Int, name: String, email: String, role: UserType) {
+    init(userID: Int, name: String, email: String, role: UserType, imageURL: String?) {
        self.userID = userID
        self.name = name
        self.email = email
        self.role = role
+        self.imageURL = imageURL
    }
     
     init( name: String, email: String, role: UserType) {
@@ -36,7 +38,7 @@ struct User {
 }
 
 enum UserType: String {
-    case seeker
+    case seeker 
     case employer
     case admin
 }

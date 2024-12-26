@@ -17,7 +17,7 @@
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="aJO-6X-y9i">
-                        <rect key="frame" x="0.0" y="0.0" width="208" height="195"/>
+                        <rect key="frame" x="0.0" y="0.0" width="208" height="200"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wJm-jl-ffJ">
@@ -33,7 +33,7 @@
                     <constraint firstItem="wJm-jl-ffJ" firstAttribute="leading" secondItem="GHK-UL-U0i" secondAttribute="leading" constant="16" id="6R7-9u-kDN"/>
                     <constraint firstItem="aJO-6X-y9i" firstAttribute="centerX" secondItem="GHK-UL-U0i" secondAttribute="centerX" id="81Z-I1-aA6"/>
                     <constraint firstItem="wJm-jl-ffJ" firstAttribute="top" secondItem="GHK-UL-U0i" secondAttribute="top" constant="40" id="KF7-sG-Bjl"/>
-                    <constraint firstAttribute="bottom" secondItem="aJO-6X-y9i" secondAttribute="bottom" constant="5" id="RxE-bB-iAM"/>
+                    <constraint firstAttribute="bottom" secondItem="aJO-6X-y9i" secondAttribute="bottom" id="RxE-bB-iAM"/>
                     <constraint firstItem="aJO-6X-y9i" firstAttribute="top" secondItem="GHK-UL-U0i" secondAttribute="top" id="c4N-t0-QIL"/>
                     <constraint firstItem="aJO-6X-y9i" firstAttribute="centerX" secondItem="wJm-jl-ffJ" secondAttribute="centerX" constant="-4" id="jLQ-LF-gOq"/>
                     <constraint firstItem="wJm-jl-ffJ" firstAttribute="centerY" secondItem="GHK-UL-U0i" secondAttribute="centerY" constant="2" id="mXU-6V-u1m"/>
@@ -45,7 +45,7 @@
                 <outlet property="jobCategoryImageView" destination="aJO-6X-y9i" id="pR5-8d-gox"/>
                 <outlet property="jobCategorytitleLbl" destination="wJm-jl-ffJ" id="sKn-Uy-PNX"/>
             </connections>
-            <point key="canvasLocation" x="55" y="-84"/>
+            <point key="canvasLocation" x="54.961832061068698" y="-84.507042253521135"/>
         </collectionViewCell>
     </objects>
 </document>

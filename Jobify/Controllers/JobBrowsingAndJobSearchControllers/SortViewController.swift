@@ -9,7 +9,11 @@ import UIKit
 
 class SortViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
-   // let sortArray: [String] = ["Newest to oldest", "Oldest to newest"]
+    protocol SortViewControllerDelegate: AnyObject {
+        func didSelectSortOrder(_ sortOrder: String)
+    }
+    
+  
     
     // Array of options to display in the table view
     private let options = ["Newest to Oldest", "Oldest to Newest"]
@@ -18,10 +22,30 @@ class SortViewController: UIViewController, UITableViewDataSource, UITableViewDe
 
     @IBOutlet weak var sortTableView: UITableView!
     
+    @IBAction func applySort(_ sender: Any) {
+        // Check if an option is selected
+            guard let selectedIndex = selectedOptionIndex else {
+                // Optionally show an alert if no option is selected
+                let alert = UIAlertController(title: "Error", message: "Please select a sort option.", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                present(alert, animated: true, completion: nil)
+                return
+            }
+            
+            // Notify the delegate of the selected sort order
+            delegate?.didSelectSortOrder(options[selectedIndex])
+            
+            // Dismiss the SortViewController
+            self.navigationController?.popViewController(animated: true)
+        }
+    
+    
     let RadioTableViewCellId = "RadioTableViewCell"
+    weak var delegate: SortViewControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
         
         //responsible for handling interactions and providing data for the table
         sortTableView.dataSource = self
@@ -47,28 +71,48 @@ class SortViewController: UIViewController, UITableViewDataSource, UITableViewDe
         sortTableView.reloadData()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+           super.viewWillAppear(animated)
+           // Ensure the tab bar is visible when returning to this controller
+           self.tabBarController?.tabBar.isHidden = true
+       }
+
+       override func viewWillDisappear(_ animated: Bool) {
+           super.viewWillDisappear(animated)
+           // Ensure the tab bar is visible when leaving this controller
+           self.tabBarController?.tabBar.isHidden = false
+       }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // num of rows to show on table (table cell)
         return 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-         let cell = tableView.dequeueReusableCell(withIdentifier: RadioTableViewCellId, for: indexPath) as! RadioTableViewCell
-         
-         // Set titles for options from the array
-         cell.setOptionsTitleFrom(options)
-         
-         // Set the selected state for the cell
+        let cell = tableView.dequeueReusableCell(withIdentifier: RadioTableViewCellId, for: indexPath) as! RadioTableViewCell
+        
+        // Set titles for options from the array
+        cell.setOptionsTitleFrom(options)
+
+        // Set the selected state for the cell
         cell.setOptionSelected((selectedOptionIndex == indexPath.row))
-         
-         return cell
-     }
+        
+        // Set the closure to handle option selection
+        cell.onOptionSelected = { [weak self] selectedIndex in
+            self?.selectedOptionIndex = selectedIndex
+            tableView.reloadData() // Reloading the table to refresh selected states
+        }
+        
+        return cell
+    }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-            // Update the selected option index
-            selectedOptionIndex = indexPath.row
-            tableView.reloadData() // Reload data to refresh cell states
-        }
-    
+        // Update the selected option index
+        selectedOptionIndex = indexPath.row // Set the index of the selected option
+        tableView.reloadData() // Reload data to refresh cell states
+
+        // Notify delegate of the selected sort order
+        delegate?.didSelectSortOrder(options[selectedOptionIndex!])
+    }
   
 }

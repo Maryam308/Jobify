@@ -3,6 +3,7 @@
     <device id="retina6_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -67,8 +68,53 @@
             </objects>
             <point key="canvasLocation" x="1644" y="-399"/>
         </scene>
+        <!--Animation View Controller-->
+        <scene sceneID="9jK-ce-Fxw">
+            <objects>
+                <viewController id="AXr-KW-N6N" customClass="AnimationViewController" customModule="Jobify" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="EqV-up-Par">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sJE-Ro-Txv">
+                                <rect key="frame" x="45" y="416" width="0.0" height="20"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="0BF-Rm-XWA"/>
+                                    <constraint firstAttribute="width" id="8t8-OQ-gG0"/>
+                                </constraints>
+                            </view>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AnimationImage" translatesAutoresizingMaskIntoConstraints="NO" id="hD1-8I-hL8">
+                                <rect key="frame" x="111.66666666666669" y="236" width="170" height="150"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="170" id="PlJ-C8-JRc"/>
+                                    <constraint firstAttribute="height" constant="150" id="jnn-uE-QYh"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="jke-pq-FNZ"/>
+                        <color key="backgroundColor" red="0.086274504660000001" green="0.1764705926" blue="0.2588235438" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <color key="tintColor" red="0.1137254902" green="0.1764705882" blue="0.2666666667" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="sJE-Ro-Txv" firstAttribute="centerY" secondItem="EqV-up-Par" secondAttribute="centerY" id="5ks-IJ-nVB"/>
+                            <constraint firstItem="sJE-Ro-Txv" firstAttribute="top" secondItem="hD1-8I-hL8" secondAttribute="bottom" constant="30" id="bra-1V-NoI"/>
+                            <constraint firstItem="hD1-8I-hL8" firstAttribute="centerX" secondItem="EqV-up-Par" secondAttribute="centerX" id="o8J-99-7qo"/>
+                            <constraint firstItem="sJE-Ro-Txv" firstAttribute="leading" secondItem="jke-pq-FNZ" secondAttribute="leading" constant="45" id="rvh-EC-FWo"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="ProgressLineView" destination="sJE-Ro-Txv" id="00W-mV-H0S"/>
+                        <outlet property="imgLogo" destination="hD1-8I-hL8" id="n6t-ed-pJU"/>
+                        <outlet property="progressLineWidthConstraint" destination="8t8-OQ-gG0" id="D32-P4-GLL"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qvH-yY-Ofm" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-654" y="-651"/>
+        </scene>
     </scenes>
     <resources>
+        <image name="AnimationImage" width="559" height="549"/>
         <image name="house.fill" catalog="system" width="128" height="104"/>
     </resources>
 </document>

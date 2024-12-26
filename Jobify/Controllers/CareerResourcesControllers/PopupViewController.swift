@@ -1,3 +1,10 @@
+//
+//  PopupViewController.swift
+//  Jobify
+//
+//  Created by Maryam Yousif on 22/12/2024.
+//
+
 import UIKit
 
 class PopupViewController: UIViewController {
@@ -76,9 +83,10 @@ class PopupViewController: UIViewController {
         view.backgroundColor = backgroundColor
         view.layer.cornerRadius = 15
         view.layer.masksToBounds = true
-
+        adjustFontSizeForDevice()
         setupCloseButton()
         setupScrollViewAndContent()
+        
     }
 
     // MARK: - UI Setup
@@ -176,7 +184,7 @@ class PopupViewController: UIViewController {
         demandLabel.text = "Demand:\n\(careerPath.demand)"
     }
 
-    @objc private func closePopUpDialog() {
+    @objc func closePopUpDialog() {
         UIView.animate(withDuration: 0.55, animations: {
             self.view.alpha = 0
             self.view.frame.origin.y = UIScreen.main.bounds.height // Slide down out of view
@@ -184,6 +192,16 @@ class PopupViewController: UIViewController {
             self.view.removeFromSuperview()
             self.popUpViewIsOpen = false
             self.removeFromParent()
+        }
+    }
+    
+    func adjustFontSizeForDevice(){
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            titleLabel.font = titleLabel.font?.withSize(26)
+            descriptionLabel.font = descriptionLabel.font?.withSize(24)
+            roadmapLabel.font = roadmapLabel.font?.withSize(24)
+            demandLabel.font = demandLabel.font?.withSize(24)
+            closeButton.titleLabel?.font = UIFont.systemFont(ofSize: 22)
         }
     }
 }

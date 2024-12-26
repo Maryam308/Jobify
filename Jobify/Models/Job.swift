@@ -1,90 +1,140 @@
-//
-//  Job.swift
-//  Jobify
-//
-//  Created by Maryam Yousif on 27/11/2024.
-//
-
 import Foundation
 
+ 
 
-struct Job : Equatable {
-    
+struct Job: Equatable {
     static func == (lhs: Job, rhs: Job) -> Bool {
         lhs.jobId == rhs.jobId
     }
     
-    
-    // Auto-generated variables
-    static var jobIdCounter = 0
+    static var jobIdCounter = 30 //some job post are already created in the database
+   
     var jobId: Int
-    var date: String
-    var time: String
-    // Create a Calendar instance to format the date and time
-    var calendar = Calendar.current
-
-    // Passed variables
+    var date: Date // Change to Date type
     var title: String
-//    var company: Employer
-    var level: String
+    var companyDetails: EmployerDetails? // Store the company details object
+    var adminDetails: User?
+    var level: JobLevel
+    var category: CategoryJob
+    var employmentType: EmploymentType
     var location: String
+    var deadline: Date?
     var desc: String
     var requirement: String
-    var extraAttachments: Data? = nil
-    var employmentType: EmploymentType
-    var deadline: Date
-
+    var extraAttachments: String?
     var applications: [JobApplication] = []
-
-    // Custom initializer
+    
     init(
         title: String,
-//        company: inout Employer,
-        level: String,
+        companyDetails: EmployerDetails?,
+        level: JobLevel,
+        category: CategoryJob,
+        employmentType: EmploymentType,
         location: String,
+        deadline: Date?,
         desc: String,
         requirement: String,
-        extraAttachments: Data?,
-        employmentType: EmploymentType,
-        deadline: Date
+        extraAttachments: String?,
+        date: Date
     ) {
-        // Auto-generated variables
-        // Increment the counter and assign it as jobId
+        
         Job.jobIdCounter += 1
         self.jobId = Job.jobIdCounter
-
-        // Get the current date and time
-        let currentDate = Date()
-
-        // Extract the date components for the date
-        let dateComponents = self.calendar.dateComponents([.day, .month], from: currentDate)
-        let timeComponents = self.calendar.dateComponents([.hour, .minute], from: currentDate)
-
-        // Create date and time variables and convert date and time components to string
-        self.date = String(format: "%02d-%02d", dateComponents.day ?? 0, dateComponents.month ?? 0)
-        self.time = String(format: "%02d:%02d", timeComponents.hour ?? 0, timeComponents.minute ?? 0)
-
-        // Assign other properties
+        self.date = date
         self.title = title
-//        self.company = company
+        self.companyDetails = companyDetails
         self.level = level
+        self.category = category
+        self.employmentType = employmentType
         self.location = location
+        self.deadline = deadline
         self.desc = desc
         self.requirement = requirement
-        self.employmentType = employmentType
-        self.deadline = deadline
-
-        // Handle extraAttachments
-        if let attachment = extraAttachments {
-            self.extraAttachments = attachment
-        } else {
-            self.extraAttachments = nil
-        }
+        self.extraAttachments = extraAttachments
     }
-    enum EmploymentType: String {
+    
+    //employer custom constructor
+    init(
+        jobId: Int,
+        title: String,
+        companyDetails: EmployerDetails?,
+        level: JobLevel,
+        category: CategoryJob,
+        employmentType: EmploymentType,
+        location: String,
+        deadline: Date?,
+        desc: String,
+        requirement: String,
+        extraAttachments: String?,
+        date: Date
+  
+    ) {
+        
+        self.jobId = jobId
+        self.date = date
+        self.title = title
+        self.companyDetails = companyDetails
+        self.level = level
+        self.category = category
+        self.employmentType = employmentType
+        self.location = location
+        self.deadline = deadline
+        self.desc = desc
+        self.requirement = requirement
+        self.extraAttachments = extraAttachments
+        self.date = date
+   
+    }
+
+    
+    
+    // Static method to get and increment the ID
+        static func getNextID() -> Int {
+            Job.jobIdCounter += 1  // Increment the ID each time it's called
+            return Job.jobIdCounter  // Return the current (incremented) ID
+        }
+    
+}
+
+
+
+    // Enums remain unchanged
+    
+    enum JobLevel: String, CaseIterable {
+        case entryLevel = "Entry Level"
+        case junior = "Junior"
+        case midLevel = "Mid-Level"
+        case senior = "Senior"
+        case lead = "Lead"
+        case manager = "Manager"
+        case director = "Director"
+        case executive = "Executive"
+        case intern = "Intern"
+    }
+    
+
+
+    enum CategoryJob: String, CaseIterable   {
+
+        case informationTechnology = "Information Technology"
+        case business = "Business"
+        case healthcare = "Healthcare"
+        case education = "Education"
+        case engineering = "Engineering"
+        case marketing = "Marketing"
+        case architectureAndConstruction = "Architecture & Construction"
+        case interiorDesign = "Interior Design"
+        case finance = "Finance"
+        case arts = "Arts"
+        case other = "Other"
+    }
+    
+    enum EmploymentType: String, CaseIterable {
         case fullTime = "Full-Time"
         case partTime = "Part-Time"
         case intern = "Intern"
         case contract = "Contract"
+        case remote = "Remote"
     }
-}
+    
+    
