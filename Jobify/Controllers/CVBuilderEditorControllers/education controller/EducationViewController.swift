@@ -48,7 +48,7 @@ class EducationViewController: UIViewController, UITableViewDelegate, UITableVie
     
 
     @IBAction func addeducationTapped(_ sender: Any) {
-        let storyboard = UIStoryboard(name: "CareerResourcesAndSkillDevelopment", bundle: nil)
+        let storyboard = UIStoryboard(name: "CVBuilderAndEditor_MaryamMohsen", bundle: nil)
              if let educationVC = storyboard.instantiateViewController(identifier: "EducationFormVC") as? EducationFormViewController {
                  educationVC.delegate = self
                  navigationController?.pushViewController(educationVC, animated: true)
@@ -106,7 +106,7 @@ class EducationViewController: UIViewController, UITableViewDelegate, UITableVie
     
       // Navigate to Education Form for Add or Edit
     func navigateToEducationForm(with education: Education?, at index: Int?) {
-          let storyboard = UIStoryboard(name: "CareerResourcesAndSkillDevelopment", bundle: nil)
+          let storyboard = UIStoryboard(name: "CVBuilderAndEditor_MaryamMohsen", bundle: nil)
           if let educationVC = storyboard.instantiateViewController(identifier: "EducationFormVC") as? EducationFormViewController {
               educationVC.delegate = self
               educationVC.degreeToEdit = education // Pass the degree to edit

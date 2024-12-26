@@ -4,134 +4,120 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" restorationIdentifier="CVTableViewCell" selectionStyle="default" indentationWidth="10" rowHeight="127" id="KGk-i7-Jjw" customClass="CVTableViewCell" customModule="Jobify" customModuleProvider="target">
+        <tableViewCell contentMode="scaleToFill" restorationIdentifier="CVTableViewCell" selectionStyle="default" indentationWidth="10" rowHeight="127" id="xnt-Da-jHh" customClass="CVTableViewCell" customModule="Jobify" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="358" height="127"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="xnt-Da-jHh" id="eMp-P8-fwD">
                 <rect key="frame" x="0.0" y="0.0" width="358" height="127"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zve-cU-EDV">
-                        <rect key="frame" x="-8" y="-12" width="377" height="145"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fvz-kZ-g4c">
-                                <rect key="frame" x="28" y="50" width="0.0" height="0.0"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="document.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="WsG-Bk-E8a">
-                                <rect key="frame" x="20" y="27.333333333333329" width="44" height="44"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="tintColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <integer key="value" value="22"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                            </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="CV Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xJj-RV-WRf">
-                                <rect key="frame" x="80" y="27" width="201" height="22"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="added date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="31N-hv-9Tu">
-                                <rect key="frame" x="80" y="50" width="201" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="obu-XE-6yK">
-                                <rect key="frame" x="28" y="86" width="88" height="39"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="tintColor" red="0.1137254902" green="0.1764705882" blue="0.2666666667" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="filled" title="View CV">
-                                    <color key="baseBackgroundColor" red="0.1137254902" green="0.1764705882" blue="0.2666666667" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </buttonConfiguration>
-                                <connections>
-                                    <action selector="btnViewCVTapped:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="9Tn-dh-epv"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pju-KD-9D9">
-                                <rect key="frame" x="133" y="86" width="109" height="39"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="tintColor" red="0.1137254902" green="0.1764705882" blue="0.2666666667" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="filled" title="Edit CV">
-                                    <color key="baseBackgroundColor" red="0.1137254902" green="0.1764705882" blue="0.2666666667" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </buttonConfiguration>
-                                <connections>
-                                    <action selector="btnEditTapped:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="h2R-xH-5GD"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xQs-78-2ue">
-                                <rect key="frame" x="256" y="86" width="101" height="39"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="tintColor" red="0.1137254902" green="0.1764705882" blue="0.2666666667" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="filled" title="Delete CV">
-                                    <color key="baseBackgroundColor" red="0.1137254902" green="0.1764705882" blue="0.2666666667" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </buttonConfiguration>
-                                <connections>
-                                    <action selector="btnDeleteCVTapped:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Tfo-vA-SEz"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GtE-Iu-luG">
-                                <rect key="frame" x="305" y="20" width="52" height="35"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="tintColor" red="0.1137254902" green="0.1764705882" blue="0.2666666667" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" image="star" catalog="system"/>
-                                <connections>
-                                    <action selector="btnFavoriteCVTapped:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="bYJ-9c-NSC"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                    </view>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="document.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="weo-HG-ucG">
+                        <rect key="frame" x="14" y="7.3333333333333286" width="54" height="54"/>
+                        <color key="tintColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                <integer key="value" value="27"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CV Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kyJ-kK-Qdl">
+                        <rect key="frame" x="99" y="6.9999999999999982" width="65" height="22.333333333333329"/>
+                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GmT-eI-MUq">
+                        <rect key="frame" x="296" y="10" width="52" height="35"/>
+                        <color key="tintColor" red="0.1137254902" green="0.1764705882" blue="0.2666666667" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <state key="normal" title="Button"/>
+                        <buttonConfiguration key="configuration" style="plain" image="star" catalog="system"/>
+                        <connections>
+                            <action selector="btnFavoriteCVTapped:" destination="xnt-Da-jHh" eventType="touchUpInside" id="cM9-kv-cIu"/>
+                        </connections>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UjG-nN-8a7">
+                        <rect key="frame" x="234" y="76" width="101" height="39"/>
+                        <color key="tintColor" red="0.1137254902" green="0.1764705882" blue="0.2666666667" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <state key="normal" title="Button"/>
+                        <buttonConfiguration key="configuration" style="filled" title="Delete CV">
+                            <color key="baseBackgroundColor" red="0.1137254902" green="0.1764705882" blue="0.2666666667" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </buttonConfiguration>
+                        <connections>
+                            <action selector="btnDeleteCVTapped:" destination="xnt-Da-jHh" eventType="touchUpInside" id="GN3-Cx-vKE"/>
+                        </connections>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1J4-28-gBk">
+                        <rect key="frame" x="145.66666666666666" y="77" width="80.333333333333343" height="39"/>
+                        <color key="tintColor" red="0.1137254902" green="0.1764705882" blue="0.2666666667" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <state key="normal" title="Button"/>
+                        <buttonConfiguration key="configuration" style="filled" title="Edit CV">
+                            <color key="baseBackgroundColor" red="0.1137254902" green="0.1764705882" blue="0.2666666667" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </buttonConfiguration>
+                        <connections>
+                            <action selector="btnEditTapped:" destination="xnt-Da-jHh" eventType="touchUpInside" id="NHy-kx-AnO"/>
+                        </connections>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ez2-B7-kUd">
+                        <rect key="frame" x="51" y="78" width="88" height="38.333333333333343"/>
+                        <color key="tintColor" red="0.1137254902" green="0.1764705882" blue="0.2666666667" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <state key="normal" title="Button"/>
+                        <buttonConfiguration key="configuration" style="filled" title="View CV">
+                            <color key="baseBackgroundColor" red="0.1137254902" green="0.1764705882" blue="0.2666666667" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </buttonConfiguration>
+                        <connections>
+                            <action selector="btnViewCVTapped:" destination="xnt-Da-jHh" eventType="touchUpInside" id="J56-V4-mUx"/>
+                        </connections>
+                    </button>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" verticalCompressionResistancePriority="751" text="added date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sbh-GF-KND">
+                        <rect key="frame" x="99" y="33.666666666666664" width="214" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="214" id="pOp-Kc-4Gd"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="bottom" secondItem="Zve-cU-EDV" secondAttribute="bottom" constant="-6" id="Qh3-fc-6Iy"/>
-                    <constraint firstAttribute="trailing" secondItem="Zve-cU-EDV" secondAttribute="trailing" constant="-11" id="clR-aH-edF"/>
-                    <constraint firstItem="Zve-cU-EDV" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="-12" id="iEK-C5-Kdn"/>
-                    <constraint firstItem="Zve-cU-EDV" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="-8" id="nNj-RR-iMz"/>
+                    <constraint firstItem="Sbh-GF-KND" firstAttribute="leading" secondItem="eMp-P8-fwD" secondAttribute="leading" constant="99" id="GwZ-tO-UTy"/>
+                    <constraint firstItem="1J4-28-gBk" firstAttribute="leading" secondItem="ez2-B7-kUd" secondAttribute="trailing" constant="6.6666666666666572" id="OJj-PR-9dB"/>
+                    <constraint firstItem="kyJ-kK-Qdl" firstAttribute="leading" secondItem="weo-HG-ucG" secondAttribute="trailing" constant="31" id="RFw-fV-UEF"/>
+                    <constraint firstItem="ez2-B7-kUd" firstAttribute="firstBaseline" secondItem="UjG-nN-8a7" secondAttribute="baseline" constant="1.3333333333333428" id="Rrd-Rz-KsZ"/>
+                    <constraint firstItem="UjG-nN-8a7" firstAttribute="leading" secondItem="1J4-28-gBk" secondAttribute="trailing" constant="8" id="Scc-hY-VWa"/>
+                    <constraint firstItem="Sbh-GF-KND" firstAttribute="top" secondItem="kyJ-kK-Qdl" secondAttribute="bottom" constant="4.3333333333333286" id="Yaq-dD-Jja"/>
+                    <constraint firstItem="ez2-B7-kUd" firstAttribute="baseline" secondItem="UjG-nN-8a7" secondAttribute="baseline" constant="1.3333333333333428" id="ayh-qJ-hJQ"/>
+                    <constraint firstItem="Sbh-GF-KND" firstAttribute="leading" secondItem="kyJ-kK-Qdl" secondAttribute="leading" id="cvT-Tu-J79"/>
+                    <constraint firstItem="ez2-B7-kUd" firstAttribute="top" secondItem="weo-HG-ucG" secondAttribute="bottom" constant="16.666666666666671" id="dz2-Q2-aiL"/>
                 </constraints>
             </tableViewCellContentView>
-            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <viewLayoutGuide key="safeArea" id="i2C-Xa-fL6"/>
             <constraints>
-                <constraint firstItem="Zve-cU-EDV" firstAttribute="bottom" secondItem="njF-e1-oar" secondAttribute="bottom" constant="6" id="F3a-fi-WiM"/>
-                <constraint firstItem="Zve-cU-EDV" firstAttribute="width" secondItem="KGk-i7-Jjw" secondAttribute="width" multiplier="1.05307" id="I9h-8R-5ix"/>
-                <constraint firstItem="njF-e1-oar" firstAttribute="leading" secondItem="Zve-cU-EDV" secondAttribute="leading" constant="8" id="mhS-cc-Ejs"/>
-                <constraint firstItem="njF-e1-oar" firstAttribute="top" secondItem="Zve-cU-EDV" secondAttribute="top" constant="12" id="oc8-iZ-aRT"/>
-                <constraint firstItem="Zve-cU-EDV" firstAttribute="trailing" secondItem="njF-e1-oar" secondAttribute="trailing" constant="11" id="u5N-2m-zpW"/>
+                <constraint firstItem="kyJ-kK-Qdl" firstAttribute="top" secondItem="i2C-Xa-fL6" secondAttribute="top" constant="7" id="4tS-mJ-Gc0"/>
+                <constraint firstItem="weo-HG-ucG" firstAttribute="leading" secondItem="i2C-Xa-fL6" secondAttribute="leading" constant="14" id="F4d-cq-rJh"/>
+                <constraint firstItem="i2C-Xa-fL6" firstAttribute="bottom" secondItem="1J4-28-gBk" secondAttribute="bottom" constant="11" id="VO6-Ip-Uka"/>
+                <constraint firstItem="GmT-eI-MUq" firstAttribute="top" secondItem="i2C-Xa-fL6" secondAttribute="top" constant="10" id="Xs3-Zk-7tM"/>
+                <constraint firstItem="i2C-Xa-fL6" firstAttribute="bottom" secondItem="UjG-nN-8a7" secondAttribute="bottom" constant="12" id="fag-cx-rJG"/>
+                <constraint firstItem="weo-HG-ucG" firstAttribute="top" secondItem="i2C-Xa-fL6" secondAttribute="top" constant="6.9999999999999964" id="hqu-IK-voO"/>
+                <constraint firstItem="i2C-Xa-fL6" firstAttribute="trailing" secondItem="GmT-eI-MUq" secondAttribute="trailing" constant="10" id="l9l-1A-SAR"/>
+                <constraint firstItem="i2C-Xa-fL6" firstAttribute="trailing" secondItem="UjG-nN-8a7" secondAttribute="trailing" constant="23" id="zHP-2N-ys4"/>
             </constraints>
             <connections>
-                <outlet property="CVCellView" destination="Zve-cU-EDV" id="Ilp-6Z-6RZ"/>
-                <outlet property="cvImage" destination="WsG-Bk-E8a" id="aNZ-h9-n1E"/>
-                <outlet property="favoriteCVBtn" destination="GtE-Iu-luG" id="Gc5-Fu-Zxn"/>
-                <outlet property="lblCVAddDate" destination="31N-hv-9Tu" id="WSZ-f0-YSM"/>
-                <outlet property="lblCVTitle" destination="xJj-RV-WRf" id="V2c-UU-T2v"/>
+                <outlet property="cvImage" destination="weo-HG-ucG" id="AKh-a3-Yfl"/>
+                <outlet property="favoriteCVBtn" destination="GmT-eI-MUq" id="KK6-mq-ZaC"/>
+                <outlet property="lblCVAddDate" destination="Sbh-GF-KND" id="7of-p9-3MM"/>
+                <outlet property="lblCVTitle" destination="kyJ-kK-Qdl" id="VOp-6s-zX1"/>
             </connections>
-            <point key="canvasLocation" x="29.007633587786259" y="-3.8732394366197185"/>
+            <point key="canvasLocation" x="-99.236641221374043" y="-22.183098591549296"/>
         </tableViewCell>
     </objects>
     <resources>
         <image name="document.fill" catalog="system" width="115" height="128"/>
         <image name="star" catalog="system" width="128" height="116"/>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
     </resources>
 </document>

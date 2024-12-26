@@ -79,15 +79,45 @@ class CareerAdvisingAdminEmployerViewController: UIViewController, UICollectionV
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if self.restorationIdentifier == "EmployerCareerResourcesViewController" {
-            return careerPaths.count
+            return handleCareerPathsState()
         } else if self.restorationIdentifier == "allResourcesEmployerAdmin" {
-            if collectionView == onlineCoursesCollectionView {
-                return onlineCourses.count
-            } else if collectionView == articlesCollectionView {
-                return articles.count
-            } else if collectionView == certificationCollectionView {
-                return certifications.count
+            return handleEmptyState(for: collectionView)
+        }
+        return 0
+    }
+
+    // MARK: - Helper Methods
+    private func handleCareerPathsState() -> Int {
+        if careerPaths.isEmpty {
+            setEmptyMessage("No career paths available", for: careerPathsCollectionView)
+            return 0
+        }
+        restoreCollectionView(careerPathsCollectionView)
+        return careerPaths.count
+    }
+
+    private func handleEmptyState(for collectionView: UICollectionView) -> Int {
+        if collectionView == onlineCoursesCollectionView {
+            if onlineCourses.isEmpty {
+                setEmptyMessage("No online courses available", for: onlineCoursesCollectionView)
+                return 0
             }
+            restoreCollectionView(onlineCoursesCollectionView)
+            return onlineCourses.count
+        } else if collectionView == articlesCollectionView {
+            if articles.isEmpty {
+                setEmptyMessage("No articles available", for: articlesCollectionView)
+                return 0
+            }
+            restoreCollectionView(articlesCollectionView)
+            return articles.count
+        } else if collectionView == certificationCollectionView {
+            if certifications.isEmpty {
+                setEmptyMessage("No certifications available", for: certificationCollectionView)
+                return 0
+            }
+            restoreCollectionView(certificationCollectionView)
+            return certifications.count
         }
         return 0
     }
@@ -181,6 +211,24 @@ class CareerAdvisingAdminEmployerViewController: UIViewController, UICollectionV
         popupVC.openPopUpView()
     }
     
+    // MARK: - Helper Methods
+    // Set an empty message when there are no resources
+    func setEmptyMessage(_ message: String, for collectionView: UICollectionView) {
+        let messageLabel = UILabel()
+        messageLabel.text = message
+        messageLabel.textColor = .gray
+        messageLabel.textAlignment = .center
+        messageLabel.font = UIFont.systemFont(ofSize: 17)
+        messageLabel.numberOfLines = 0
+        messageLabel.sizeToFit()
+        collectionView.backgroundView = messageLabel
+    }
+
+    // Restore the collection view's original state
+    func restoreCollectionView(_ collectionView: UICollectionView) {
+        collectionView.backgroundView = nil
+    }
+    
     private func fetchCareerPaths() {
         db.collection("careerPaths")
             .limit(to: 8)
@@ -215,8 +263,9 @@ class CareerAdvisingAdminEmployerViewController: UIViewController, UICollectionV
             }
     }
     
+    
+    
     private func fetchLearningResources() {
-
         db.collection("LearningResources")
             .getDocuments { [weak self] (querySnapshot, error) in
                 guard let self = self else { return }
@@ -228,6 +277,11 @@ class CareerAdvisingAdminEmployerViewController: UIViewController, UICollectionV
 
                 guard let documents = querySnapshot?.documents else {
                     print("No documents found")
+                    DispatchQueue.main.async {
+                        self.onlineCoursesCollectionView.reloadData()
+                        self.articlesCollectionView.reloadData()
+                        self.certificationCollectionView.reloadData()
+                    }
                     return
                 }
 
@@ -237,8 +291,6 @@ class CareerAdvisingAdminEmployerViewController: UIViewController, UICollectionV
                 self.articles.removeAll()
                 self.certifications.removeAll()
                
-                var fetchedResources: [LearningResource] = []
-
                 for document in documents {
                     let data = document.data()
                     guard let title = data["title"] as? String,
@@ -250,9 +302,8 @@ class CareerAdvisingAdminEmployerViewController: UIViewController, UICollectionV
                         print("Error parsing document: \(data)")
                         continue
                     }
-                    let learningResource = LearningResource(id: id,type: type, summary: summary, link: link, title: title, skillRef: skillToDevelop)
-                    fetchedResources.append(learningResource)
-
+                    let learningResource = LearningResource(id: id, type: type, summary: summary, link: link, title: title, skillRef: skillToDevelop)
+                    
                     switch type.lowercased() {
                     case "online course":
                         self.onlineCourses.append(learningResource)
@@ -264,8 +315,6 @@ class CareerAdvisingAdminEmployerViewController: UIViewController, UICollectionV
                         print("Unknown resource type: \(type)")
                     }
                 }
-                
-                print("Learning Resources: \(fetchedResources)")
 
                 DispatchQueue.main.async {
                     self.onlineCoursesCollectionView.reloadData()

@@ -140,7 +140,7 @@ class CVTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         adjustFontSizeForCVLabels()
-        CVCellView.layer.cornerRadius = contentView.frame.height / 9 // Round corners of the cell view
+ 
 
         contentView.backgroundColor = .white // Set background color
         backgroundColor = .clear // Set cell background to clear

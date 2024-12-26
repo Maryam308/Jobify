@@ -48,7 +48,7 @@ class SkillsViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
 
     @IBAction func btnAddSkillTapped(_ sender: UIButton) {
-        let storyboard = UIStoryboard(name: "CareerResourcesAndSkillDevelopment", bundle: nil)
+        let storyboard = UIStoryboard(name: "CVBuilderAndEditor_MaryamMohsen", bundle: nil)
              if let skillsVC = storyboard.instantiateViewController(identifier: "SkillsFormVC") as? SkillsFormTableViewController {
                  skillsVC.delegate = self
                  navigationController?.pushViewController(skillsVC, animated: true)
@@ -116,7 +116,7 @@ class SkillsViewController: UIViewController, UITableViewDelegate, UITableViewDa
 
     // Navigate to Education Form for Add or Edit
     func navigateToSkillsForm(with skill: cvSkills?, at index: Int?) {
-        let storyboard = UIStoryboard(name: "CareerResourcesAndSkillDevelopment", bundle: nil)
+        let storyboard = UIStoryboard(name: "CVBuilderAndEditor_MaryamMohsen", bundle: nil)
         if let skillsVC = storyboard.instantiateViewController(identifier: "SkillsFormVC") as? SkillsFormTableViewController {
             skillsVC.delegate = self
             skillsVC.skillToEdit = skill // Pass the skill to edit

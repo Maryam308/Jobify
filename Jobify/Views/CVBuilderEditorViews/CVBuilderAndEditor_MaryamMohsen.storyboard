@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="XLB-PP-7gp">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
@@ -51,7 +51,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VXP-tB-JU8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5268.6567164179105" y="-2414.41647597254"/>
+            <point key="canvasLocation" x="5267.93893129771" y="-2414.7887323943664"/>
         </scene>
         <!--Skills-->
         <scene sceneID="1A6-FJ-W1T">
@@ -254,7 +254,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7fT-OS-Rx6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="8773.1343283582082" y="-1738.2151029748281"/>
+            <point key="canvasLocation" x="8491" y="-1739"/>
         </scene>
         <!--Personal-->
         <scene sceneID="2cu-8f-9Qk">
@@ -597,7 +597,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="skb-LP-OZg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="7902.9850746268648" y="-1738.2151029748281"/>
+            <point key="canvasLocation" x="7686" y="-1739"/>
         </scene>
         <!--Experience-->
         <scene sceneID="8cO-rU-RXd">
@@ -958,15 +958,15 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="363" id="8ha-Zz-hdJ">
-                                        <rect key="frame" x="0.0" y="305" width="393" height="363"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="362" id="8ha-Zz-hdJ">
+                                        <rect key="frame" x="0.0" y="305" width="393" height="362"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="8ha-Zz-hdJ" id="kSr-i3-SVQ">
-                                            <rect key="frame" x="0.0" y="0.0" width="393" height="363"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="393" height="362"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5tE-P9-MJs">
-                                                    <rect key="frame" x="52" y="275" width="290" height="53"/>
+                                                    <rect key="frame" x="51" y="309" width="290" height="53"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="53" id="c1v-Yl-LYG"/>
                                                     </constraints>
@@ -980,9 +980,9 @@
                                                 </button>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="trailingMargin" secondItem="5tE-P9-MJs" secondAttribute="trailing" constant="31" id="LB2-j5-ya2"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="5tE-P9-MJs" secondAttribute="bottom" constant="23" id="iZN-eg-1QW"/>
-                                                <constraint firstItem="5tE-P9-MJs" firstAttribute="leading" secondItem="kSr-i3-SVQ" secondAttribute="leadingMargin" constant="32" id="oGe-RR-PC9"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="5tE-P9-MJs" secondAttribute="trailing" constant="32" id="LB2-j5-ya2"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="5tE-P9-MJs" secondAttribute="bottom" constant="-12" id="iZN-eg-1QW"/>
+                                                <constraint firstItem="5tE-P9-MJs" firstAttribute="leading" secondItem="kSr-i3-SVQ" secondAttribute="leadingMargin" constant="31" id="oGe-RR-PC9"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -1008,7 +1008,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wc4-pR-L7o" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="11285.074626865671" y="-1739.5881006864988"/>
+            <point key="canvasLocation" x="11074" y="-1740"/>
         </scene>
         <!--My CVs-->
         <scene sceneID="WS3-el-jKy">
@@ -1382,7 +1382,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3A2-ob-fAW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="9547.7611940298502" y="-1738.2151029748281"/>
+            <point key="canvasLocation" x="9312" y="-1739"/>
         </scene>
         <!--Experience-->
         <scene sceneID="2wn-f9-9oP">
@@ -1470,7 +1470,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YPp-tm-hSe" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="10413.432835820895" y="-1739.5881006864988"/>
+            <point key="canvasLocation" x="10137" y="-1740"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="4ja-up-pbA">
@@ -1488,11 +1488,11 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1qC-Gr-jrv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5998.5074626865671" y="-1738.2151029748281"/>
+            <point key="canvasLocation" x="6050" y="-1740"/>
         </scene>
     </scenes>
     <resources>
-        <image name="person.circle" catalog="system" width="32" height="32"/>
+        <image name="person.circle" catalog="system" width="128" height="123"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
@@ -1500,7 +1500,7 @@
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemRedColor">
-            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

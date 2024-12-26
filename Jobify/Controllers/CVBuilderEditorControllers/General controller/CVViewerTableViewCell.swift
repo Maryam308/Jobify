@@ -27,18 +27,18 @@ class CVViewerTableViewCell: UITableViewCell {
     func adjustFontSize() {
         guard UIDevice.current.userInterfaceIdiom == .pad else { return }
 
-        lblName.font = lblName.font?.withSize(24)
+        lblName.font = lblName.font?.withSize(28)
         lblTitle.font = lblTitle.font?.withSize(22)
         lblEmail.font = lblEmail.font?.withSize(20)
         lblPhone.font = lblPhone.font?.withSize(20)
         lblCountry.font = lblCountry.font?.withSize(20)
-        lblEducation.font = lblEducation.font?.withSize(22)
-        lblSkills.font = lblSkills.font?.withSize(22)
-        lblExperience.font = lblExperience.font?.withSize(22)
+        lblEducation.font = lblEducation.font?.withSize(28)
+        lblSkills.font = lblSkills.font?.withSize(28)
+        lblExperience.font = lblExperience.font?.withSize(28)
         
-        txtEducation.font = txtEducation.font?.withSize(18)
-        txtSkills.font = txtSkills.font?.withSize(18)
-        txtExperience.font = txtExperience.font?.withSize(18)
+        txtEducation.font = txtEducation.font?.withSize(24)
+        txtSkills.font = txtSkills.font?.withSize(24)
+        txtExperience.font = txtExperience.font?.withSize(24)
     }
     
     
@@ -73,13 +73,19 @@ class CVViewerTableViewCell: UITableViewCell {
            // Set skills details
            txtSkills.text = cv.skills.map { $0.skillTitle ?? "Skill" }.joined(separator: ", ")
            
-           // Set experience details
-           txtExperience.text = cv.workExperience.map { experience in
-               let endDate = experience.endDate ?? Date() // Use current date if endDate is nil
-               let endDateString = Calendar.current.isDateInToday(endDate) || endDate > Date() ? "Present" : formatDate(endDate)
-               let startDateString = formatDate(experience.startDate)
-               return "\(experience.company ?? "Company") - \(experience.role ?? "Role") (\(startDateString) - \(endDateString))"
-           }.joined(separator: "\n")
+        if cv.workExperience.count == 0 {
+            //hide the experience label if the user has no experience
+            lblExperience.isHidden = true
+            txtExperience.text = ""
+        } else {
+            // Set experience details
+            txtExperience.text = cv.workExperience.map { experience in
+                let endDate = experience.endDate ?? Date() // Use current date if endDate is nil
+                let endDateString = Calendar.current.isDateInToday(endDate) || endDate > Date() ? "Present" : formatDate(endDate)
+                let startDateString = formatDate(experience.startDate)
+                return "\(experience.company ?? "Company") - \(experience.role ?? "Role") (\(startDateString) - \(endDateString))"
+            }.joined(separator: "\n")
+        }
        }
           
     // MARK: - Image Loading

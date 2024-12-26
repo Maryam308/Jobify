@@ -106,11 +106,13 @@ class EducationFormViewController: UITableViewController {
             return "Must not be empty"
         }
 
-        // Check if the degree name contains only letters and spaces
-        let allowedCharacterSet = CharacterSet.letters.union(CharacterSet.whitespaces)
+        // Check if the degree name contains only letters, spaces, hyphens, dots, commas, and apostrophes
+        let allowedCharacterSet = CharacterSet.letters
+            .union(CharacterSet.whitespaces)
+            .union(CharacterSet(charactersIn: "-.,'"))
         let set = CharacterSet(charactersIn: value)
         if !allowedCharacterSet.isSuperset(of: set) {
-            return "Must contain letters and spaces only"
+            return "Contains invalid character"
         }
 
         // Check for minimum length

@@ -46,7 +46,7 @@ class ExperienceViewController:  UIViewController, UITableViewDelegate, UITableV
     }
     
     @IBAction func btnAddExperienceTapped(_ sender: UIButton) {
-        let storyboard = UIStoryboard(name: "CareerResourcesAndSkillDevelopment", bundle: nil)
+        let storyboard = UIStoryboard(name: "CVBuilderAndEditor_MaryamMohsen", bundle: nil)
         if let experienceVC = storyboard.instantiateViewController(identifier: "ExperienceFormVC") as? ExperienceFormTableViewController {
             experienceVC.delegate = self
             navigationController?.pushViewController(experienceVC, animated: true)
@@ -71,7 +71,7 @@ class ExperienceViewController:  UIViewController, UITableViewDelegate, UITableV
         if UIDevice.current.userInterfaceIdiom == .pad {
             return tableView.frame.width / 3
         } else {
-            return tableView.frame.width / 2 + 50
+            return tableView.frame.width / 2 + 75
         }
     }
 
@@ -112,7 +112,7 @@ class ExperienceViewController:  UIViewController, UITableViewDelegate, UITableV
 
     // Navigate to Experience Form for Add or Edit
     func navigateToExperienceForm(with experience: WorkExperience?, at index: Int?) {
-        let storyboard = UIStoryboard(name: "CareerResourcesAndSkillDevelopment", bundle: nil)
+        let storyboard = UIStoryboard(name: "CVBuilderAndEditor_MaryamMohsen", bundle: nil)
         if let experienceVC = storyboard.instantiateViewController(identifier: "ExperienceFormVC") as? ExperienceFormTableViewController {
             experienceVC.delegate = self
             experienceVC.experienceToEdit = experience // Pass the experience to edit

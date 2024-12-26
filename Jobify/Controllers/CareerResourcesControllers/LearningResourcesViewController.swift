@@ -257,5 +257,4 @@ class LearningResourcesViewController:  UIViewController, UICollectionViewDataSo
         }
     }
 
-
 }

@@ -1,3 +1,5 @@
+let currentLoggedInUserID = 99
+
 import Foundation
 import Firebase
 import FirebaseFirestore
@@ -123,7 +125,7 @@ struct DB{
         }
     }
 }
-let currentLoggedInUserID = 99
+
 final class CVManager {
     
     private init() {} // Singleton

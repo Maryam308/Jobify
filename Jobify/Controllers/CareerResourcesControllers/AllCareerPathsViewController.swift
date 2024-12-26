@@ -1,27 +1,25 @@
+//
+//  CareerAdvisingAdminEmployerViewController.swift
+//  Jobify
+//
+//  Created by Maryam Yousif on 24/12/2024.
+//
+
 import UIKit
 import FirebaseFirestore
 
 class AllCareerPathsViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
+    // MARK: - Outlets
     @IBOutlet weak var careerPathCollectionView: UICollectionView!
-    
     @IBOutlet weak var skillsCollectionView: UICollectionView!
-    
-//    @IBOutlet weak var learningResourcesCollectionView: UICollectionView!
-//
-    
     @IBOutlet weak var savedResourcesCollectionView: UICollectionView!
-    
-    
-//    @IBOutlet weak var lblAllLearningResources: UITextView!
-//
     @IBOutlet weak var lblSavedResources: UILabel!
-    
-    
     @IBOutlet weak var lblChooseSkillPageTitle: UILabel!
     @IBOutlet weak var lblChooseSkill: UILabel!
     
     
+    // MARK: - Properties
     var skill: Skill? // Property to hold the passed skill
     let db = Firestore.firestore()
     var careerPaths: [CareerPath1] = []
@@ -30,6 +28,8 @@ class AllCareerPathsViewController: UIViewController, UICollectionViewDataSource
     var savedLearningResources: [LearningResource] = []
     var popupVC: PopupViewController?
     
+    
+    // MARK: - Lifecycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
         adjustFontSizeForDevice()
@@ -73,17 +73,53 @@ class AllCareerPathsViewController: UIViewController, UICollectionViewDataSource
         }
     }
     
+    // MARK: - UICollectionViewDataSource Methods
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == careerPathCollectionView {
-            return careerPaths.count
-        } else if collectionView == skillsCollectionView {
-            return skills.count
+            if careerPaths.isEmpty {
+                setEmptyMessage("No career paths available", for: careerPathCollectionView)
+                return 0
+            } else {
+                restoreCollectionView(careerPathCollectionView)
+                return careerPaths.count
+            }
+        }  else if collectionView == skillsCollectionView {
+            if skills.isEmpty {
+                setEmptyMessage("No skills available", for: skillsCollectionView)
+                return 0
+            } else {
+                restoreCollectionView(skillsCollectionView)
+                return skills.count
+            }
         } else if collectionView == savedResourcesCollectionView {
-            return savedLearningResources.count
+            if savedLearningResources.isEmpty {
+                      setEmptyMessage("You don't have saved resources", for: savedResourcesCollectionView)
+                      return 0
+                  } else {
+                      restoreCollectionView(savedResourcesCollectionView)
+                      return savedLearningResources.count
+                  }
         }
         return 0
     }
     
+    // MARK: - Helper Methods
+    // Set an empty message when there are no saved resources
+    func setEmptyMessage(_ message: String, for collectionView: UICollectionView) {
+        let messageLabel = UILabel()
+        messageLabel.text = message
+        messageLabel.textColor = .gray
+        messageLabel.textAlignment = .center
+        messageLabel.font = UIFont.systemFont(ofSize: 17)
+        messageLabel.numberOfLines = 0
+        messageLabel.sizeToFit()
+        collectionView.backgroundView = messageLabel
+    }
+
+    // Restore the collection view's original state
+    func restoreCollectionView(_ collectionView: UICollectionView) {
+        collectionView.backgroundView = nil
+    }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if collectionView == careerPathCollectionView {
@@ -105,6 +141,7 @@ class AllCareerPathsViewController: UIViewController, UICollectionViewDataSource
         return UICollectionViewCell()
     }
     
+    // MARK: - UICollectionViewDelegateFlowLayout Methods
     // Configure size for each item
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let padding: CGFloat = 4 // Spacing between cells and edges
@@ -142,6 +179,8 @@ class AllCareerPathsViewController: UIViewController, UICollectionViewDataSource
         return CGSize(width: width, height: height)
     }
 
+    
+    // MARK: - UICollectionViewDelegate Methods
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView == careerPathCollectionView {
             let selectedCareerPath = careerPaths[indexPath.item]
@@ -221,6 +260,7 @@ class AllCareerPathsViewController: UIViewController, UICollectionViewDataSource
         }
     }
 
+    // MARK: - Navigation Methods
     private func navigateToSkillResources(with skill: Skill) {
         // Instantiate the SkillResourcesViewController using its storyboard ID
         let storyboard = UIStoryboard(name: "CareerResourcesAndSkillDevelopment", bundle: nil)
@@ -251,39 +291,41 @@ class AllCareerPathsViewController: UIViewController, UICollectionViewDataSource
     }
  
     
-    
+    // MARK: - Resource Fetching
     private func fetchCareerPaths() {
         db.collection("careerPaths")
             .getDocuments { [weak self] (querySnapshot, error) in
                 guard let self = self else { return }
-
+                
                 if let error = error {
                     print("Error fetching documents: \(error)")
                     return
                 }
-
+                
                 guard let documents = querySnapshot?.documents else {
                     print("No documents found")
+                    self.careerPaths.removeAll()
+                    self.careerPathCollectionView.reloadData()
                     return
                 }
-
+                
                 self.careerPaths.removeAll()
-
+                
                 for document in documents {
                     let data = document.data()
                     print("Document data: \(data)") // Debugging output
-
+                    
                     guard let title = data["title"] as? String, !title.isEmpty,
                           let demandString = data["demand"] as? String, !demandString.isEmpty,
                           let roadmap = data["roadmap"] as? String, !roadmap.isEmpty else {
                         print("Error parsing document: \(data)")
                         continue
                     }
-
+                    
                     let careerPath = CareerPath1(careerName: title, description: "", roadmap: roadmap, demand: demandString)
                     self.careerPaths.append(careerPath)
                 }
-
+                
                 print("Career paths fetched: \(self.careerPaths)") // Debugging output
                 
                 // Reload the collection view on the main thread
@@ -297,34 +339,38 @@ class AllCareerPathsViewController: UIViewController, UICollectionViewDataSource
         db.collection("skills")
             .getDocuments { [weak self] (querySnapshot, error) in
                 guard let self = self else { return }
-
+                
                 if let error = error {
                     print("Error fetching documents: \(error)")
                     return
                 }
-
+                
                 guard let documents = querySnapshot?.documents else {
                     print("No documents found")
+                    self.skills.removeAll()
+                    DispatchQueue.main.async {
+                        self.skillsCollectionView.reloadData()
+                    }
                     return
                 }
-
+                
                 self.skills.removeAll()
-
+                
                 for document in documents {
                     let data = document.data()
                     print("Document data: \(data)") // Debugging output
-
+                    
                     guard let title = data["title"] as? String, !title.isEmpty,
                           let description = data["description"] as? String, !description.isEmpty else {
                         print("Error parsing document: \(data)")
                         continue
                     }
-
+                    
                     let documentReference = document.reference // Get the document reference
                     let skill = Skill(title: title, description: description, documentReference: documentReference) // Initialize with reference
                     self.skills.append(skill)
                 }
-
+                
                 print("Skills fetched: \(self.skills)")
                 
                 // Reload the collection view on the main thread
