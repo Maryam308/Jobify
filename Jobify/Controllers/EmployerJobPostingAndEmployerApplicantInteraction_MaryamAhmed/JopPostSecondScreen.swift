@@ -147,6 +147,7 @@ class JopPostCreationSecondScreenViewController: UITableViewController, UIImageP
                         self?.showAlert(message: "Job post updated successfully!", completion: {
                             // Reset all data
                             self?.resetFields()
+//                            self?.navigateToHomeScreen()
                         })
                     }
                 }
@@ -174,13 +175,15 @@ class JopPostCreationSecondScreenViewController: UITableViewController, UIImageP
     }
     
     private func navigateToHomeScreen() {
-        // Instantiate the HomeScreenViewController using its storyboard identifier
-        if let homeVC = storyboard?.instantiateViewController(withIdentifier: "HomeScreenViewController") {
-            // Replace the current navigation stack with the home screen
-            navigationController?.setViewControllers([homeVC], animated: true)
-        } else {
-            print("Error: HomeScreenViewController could not be instantiated.")
+        // Step 1: Instantiate the Home storyboard
+        let homeStoryboard = UIStoryboard(name: "HomeStoryboard", bundle: nil)
+
+        // Step 2: Instantiate the HomeViewController from the Home storyboard
+        if let homeVC = homeStoryboard.instantiateViewController(withIdentifier: "HomeViewController") as? HomeJobPostViewController {
+            // Step 3: Push the HomeViewController onto the navigation stack
+            self.navigationController?.pushViewController(homeVC, animated: true)
         }
+
     }
 
     //when upload button is clicked
@@ -256,6 +259,24 @@ class JopPostCreationSecondScreenViewController: UITableViewController, UIImageP
         }
     }
 
-    
+    @objc func keyboardWasShown(_ notification: NSNotification) {
+        guard let info = notification.userInfo,
+              let keyboardFrameValue = info[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue else {
+            return
+        }
+        
+        let keyboardFrame = keyboardFrameValue.cgRectValue
+        let keyboardSize = keyboardFrame.size
+        let contentInsets = UIEdgeInsets(top: 0.0, left: 0.0, bottom: keyboardSize.height, right: 0.0)
+        
+        tableView.contentInset = contentInsets
+        tableView.scrollIndicatorInsets = contentInsets
+    }
+
+    @objc func keyboardWillBeHidden(_ notification: NSNotification) {
+        let contentInsets = UIEdgeInsets.zero
+        tableView.contentInset = contentInsets
+        tableView.scrollIndicatorInsets = contentInsets
+    }
 
 }

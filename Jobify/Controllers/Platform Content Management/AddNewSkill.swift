@@ -114,34 +114,38 @@ class AddNewSkillViewController: UITableViewController {
             
         }else {
             
-            let skill = Skill(title: skillTitle, description: skillDescription)
-            
-            // Create a dictionary to add directly to the skill document
-                let skillData: [String: Any] = [
-                    "skillId": skill.skillId,
-                    "title": skill.title,
-                    "description": skill.description,
-            ]
-            
-            
-            //add to the skills collection
-            db.collection("skills").addDocument(data: skillData) { error in
-                if let error = error {
-                    print("Error adding skill: \(error)")
-                    self.showAlert(title: "Error while adding to skill" ,message: "Failed to add skill. Please try again.")
-                } else {
-                    // Clear the form inputs
-                    self.txtSkillTitle.text = ""
-                    self.txtSkillDescription.text = ""
-                    
-                    // Show a success alert and navigate back after dismissal
-                    self.showAlertWithCompletion(title: "Success", message: "Skill has been added successfully.") {
-                        self.navigationController?.popViewController(animated: true)
+            Skill.fetchAndSetID {
+                let skill = Skill(title: skillTitle, description: skillDescription)
+                
+                // Create a dictionary to add directly to the skill document
+                    let skillData: [String: Any] = [
+                        "skillId": skill.skillId,
+                        "title": skill.title,
+                        "description": skill.description,
+                ]
+                
+                
+                //add to the skills collection
+                self.db.collection("skills").addDocument(data: skillData) { error in
+                    if let error = error {
+                        print("Error adding skill: \(error)")
+                        self.showAlert(title: "Error while adding to skill" ,message: "Failed to add skill. Please try again.")
+                    } else {
+                        // Clear the form inputs
+                        self.txtSkillTitle.text = ""
+                        self.txtSkillDescription.text = ""
                         
-                        
+                        // Show a success alert and navigate back after dismissal
+                        self.showAlertWithCompletion(title: "Success", message: "Skill has been added successfully.") {
+                            self.navigationController?.popViewController(animated: true)
+                            
+                            
+                        }
                     }
                 }
             }
+            
+            
             
             
         }
@@ -167,7 +171,25 @@ class AddNewSkillViewController: UITableViewController {
         present(alertController, animated: true)
     }
     
-   
+    @objc func keyboardWasShown(_ notification: NSNotification) {
+        guard let info = notification.userInfo,
+              let keyboardFrameValue = info[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue else {
+            return
+        }
+        
+        let keyboardFrame = keyboardFrameValue.cgRectValue
+        let keyboardSize = keyboardFrame.size
+        let contentInsets = UIEdgeInsets(top: 0.0, left: 0.0, bottom: keyboardSize.height, right: 0.0)
+        
+        tableView.contentInset = contentInsets
+        tableView.scrollIndicatorInsets = contentInsets
+    }
+
+    @objc func keyboardWillBeHidden(_ notification: NSNotification) {
+        let contentInsets = UIEdgeInsets.zero
+        tableView.contentInset = contentInsets
+        tableView.scrollIndicatorInsets = contentInsets
+    }
     
     
 }

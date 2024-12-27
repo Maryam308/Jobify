@@ -92,11 +92,6 @@ class JopPostCreationFirstScreenViewController: UITableViewController {
     
     @IBAction func btnNextClick(_ sender: Any) {
         
-        //validate all text fields are not empty and all popup buttons has valid options selected
-        
-        
-        //fetch all the inputs as strings
-        
         
         // Validate all fields are not empty and valid options are selected
            guard let positionTitle = txtPositionTitle.text, !positionTitle.isEmpty else {
@@ -135,9 +130,11 @@ class JopPostCreationFirstScreenViewController: UITableViewController {
                 return
             }
         
-        
+        var jobId: Int = 0
         //increment the jobId +=1 and assighn it as the jobId
-            let jobId: Int = Job.getNextID() + 1
+            Job.fetchAndSetID {
+                jobId = Job.jobIdCounter + 1
+            
            
            // Create a dictionary to pass to the next screen
            let jobData: [String: Any] = [
@@ -161,17 +158,26 @@ class JopPostCreationFirstScreenViewController: UITableViewController {
                         print("Job post added successfully!")
                         
                         
-                        // 5. Navigate to second screen with jobId
+                        // Navigate to the second screen if it's not already in the stack
                         if let secondScreenVC = self.storyboard?.instantiateViewController(withIdentifier: "JopPostCreationSecondScreenViewController") as? JopPostCreationSecondScreenViewController {
-                            secondScreenVC.jopPostId = jobId //Pass the jobId to the next screen
+                            secondScreenVC.jopPostId = jobId
                             print(jobId)
-                            self.navigationController?.pushViewController(secondScreenVC, animated: true)
+                            
+                            if let existingVC = self.navigationController?.viewControllers.first(where: { $0 is JopPostCreationSecondScreenViewController }) {
+                                // If the view controller is already in the stack, pop to it
+                                self.navigationController?.popToViewController(existingVC, animated: true)
+                            } else {
+                                // Otherwise, push the new instance
+                                self.navigationController?.pushViewController(secondScreenVC, animated: true)
+                            }
                         }
+
+                            
                     }
                 }
            }
         
-        
+        }
         
         
        }
@@ -206,6 +212,27 @@ class JopPostCreationFirstScreenViewController: UITableViewController {
                     completion(document.reference)
                 }
         }
+    
+    
+    @objc func keyboardWasShown(_ notification: NSNotification) {
+        guard let info = notification.userInfo,
+              let keyboardFrameValue = info[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue else {
+            return
+        }
+        
+        let keyboardFrame = keyboardFrameValue.cgRectValue
+        let keyboardSize = keyboardFrame.size
+        let contentInsets = UIEdgeInsets(top: 0.0, left: 0.0, bottom: keyboardSize.height, right: 0.0)
+        
+        tableView.contentInset = contentInsets
+        tableView.scrollIndicatorInsets = contentInsets
+    }
+
+    @objc func keyboardWillBeHidden(_ notification: NSNotification) {
+        let contentInsets = UIEdgeInsets.zero
+        tableView.contentInset = contentInsets
+        tableView.scrollIndicatorInsets = contentInsets
+    }
     
     
 }

@@ -219,62 +219,67 @@ class AddNewLearningResourceViewController : UITableViewController {
 
                     if self.currentUserRole == "admin" {
                         
-                        //struct a learningResource to generate the id and pass it to the database
-                        let lr = LearningResource(type: selectedCategory, summary: description, link: link, title: title, skillRef: skillDocRef)
-                        
-                        // Prepare data to be added to Firestore for admin learning resources
-                        let learningResourceData: [String: Any] = [
-                            "learningResourceId": lr.learningResourceId,
-                            "title": title,
-                            "skill": skillDocRef,
-                            "link": link,
-                            "description": description,
-                            "category": selectedCategory,
-                            "datePublished": Date(),
-                            "publisher": userRef
-                        ]
-                        
-                        // Add directly to LearningResources collection
-                        self.db.collection("LearningResources").addDocument(data: learningResourceData) { error in
-                            if let error = error {
-                                print("Error adding document: \(error)")
-                                self.showAlert(  title: "Error"  , message: "Failed to add learning resource.")
-                            } else {
-                                self.clearInputs()
-                                self.showAlert( title: "Successful" ,message: "Learning resource added successfully.")
-                            }
-                        }
+                        LearningResource.fetchAndSetID(){
+                            
+                            //struct a learningResource to generate the id and pass it to the database
+                            let lr = LearningResource(type: selectedCategory, summary: description, link: link, title: title, skillRef: skillDocRef)
+                            
+                            // Prepare data to be added to Firestore for admin learning resources
+                            let learningResourceData: [String: Any] = [
+                                "learningResourceId": lr.learningResourceId,
+                                "title": title,
+                                "skill": skillDocRef,
+                                "link": link,
+                                "description": description,
+                                "category": selectedCategory,
+                                "datePublished": Date(),
+                                "publisher": userRef
+                            ]
+                            
+                            // Add directly to LearningResources collection
+                            self.db.collection("LearningResources").addDocument(data: learningResourceData) { error in
+                                if let error = error {
+                                    print("Error adding document: \(error)")
+                                    self.showAlert(  title: "Error"  , message: "Failed to add learning resource.")
+                                } else {
+                                    self.clearInputs()
+                                    self.showAlert( title: "Successful" ,message: "Learning resource added successfully.")
+                                }
+                            }}
                     } else if self.currentUserRole == "employer" {
                         
-                        //construct the request first to get an id
-                        let lrr = LearningRequest(title: title)
-                        
-                        //add the learningRequest
-                        let learningRequestData: [String: Any] = [
-                            "requestId": lrr.requestId,
-                            "title": title,
-                            "skill": skillDocRef,
-                            "link": link,
-                            "description": description,
-                            "category": selectedCategory,
-                            "datePublished": Date(),
-                            "publisher": userRef
-                        ]
-                        
-                        
-                        // Add to LearningResourcesRequests collection
-                        var employerData = learningRequestData
-                        employerData["isApproved"] = NSNull() // Approval status is null initially
-                        self.db.collection("LearningResourcesRequests").addDocument(data: employerData) { error in
-                            if let error = error {
-                                print("Error adding document: \(error)")
-                                self.showAlert( title: "Error" ,message: "Failed to request learning resource.")
-                            } else {
-                                self.clearInputs()
-                                self.showAlertAndNavigateBack( title: "Successful" ,message: "Learning resource request successfully submitted!")
-                                
+                        LearningRequest.fetchAndSetID {
+                            //construct the request first to get an id
+                            let lrr = LearningRequest(title: title)
+                            
+                            //add the learningRequest
+                            let learningRequestData: [String: Any] = [
+                                "requestId": lrr.requestId,
+                                "title": title,
+                                "skill": skillDocRef,
+                                "link": link,
+                                "description": description,
+                                "category": selectedCategory,
+                                "datePublished": Date(),
+                                "publisher": userRef
+                            ]
+                            
+                            
+                            // Add to LearningResourcesRequests collection
+                            var employerData = learningRequestData
+                            employerData["isApproved"] = NSNull() // Approval status is null initially
+                            self.db.collection("LearningResourcesRequests").addDocument(data: employerData) { error in
+                                if let error = error {
+                                    print("Error adding document: \(error)")
+                                    self.showAlert( title: "Error" ,message: "Failed to request learning resource.")
+                                } else {
+                                    self.clearInputs()
+                                    self.showAlertAndNavigateBack( title: "Successful" ,message: "Learning resource request successfully submitted!")
+                                    
+                                }
                             }
                         }
+                        
                     }
                 }
             }
@@ -334,5 +339,27 @@ class AddNewLearningResourceViewController : UITableViewController {
                     completion(document.reference)
                 }
         }
+    
+    
+    @objc func keyboardWasShown(_ notification: NSNotification) {
+        guard let info = notification.userInfo,
+              let keyboardFrameValue = info[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue else {
+            return
+        }
+        
+        let keyboardFrame = keyboardFrameValue.cgRectValue
+        let keyboardSize = keyboardFrame.size
+        let contentInsets = UIEdgeInsets(top: 0.0, left: 0.0, bottom: keyboardSize.height, right: 0.0)
+        
+        tableView.contentInset = contentInsets
+        tableView.scrollIndicatorInsets = contentInsets
+    }
+
+    @objc func keyboardWillBeHidden(_ notification: NSNotification) {
+        let contentInsets = UIEdgeInsets.zero
+        tableView.contentInset = contentInsets
+        tableView.scrollIndicatorInsets = contentInsets
+    }
+    
     
 }

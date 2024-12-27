@@ -182,17 +182,22 @@ class chatViewController: UIViewController,
             // Use the current date and time as timestamp
             let timestamp = Date()
 
-        var message = Message(isSent: true, messageBody: messageBody, timeStamp: timestamp)
-        let newMessageId = generateUniqueMessageId() // Generate unique ID
-        message.messageId = newMessageId
-        messages.append(message)
-        
-            // Add the message to Firestore (do not add to local array yet)
-        addMessageToDB(messageBody: messageBody, timestamp: timestamp, messageId: newMessageId)
+        Message.fetchAndSetID {
+            var message = Message(isSent: true, messageBody: messageBody, timeStamp: timestamp)
             
-            // Clear the text view after sending the message
-            txtMessagToSent.text = ""
+                        
+            let newMessageId = self.generateUniqueMessageId() // Generate unique ID
+            message.messageId = newMessageId
+            self.messages.append(message)
+            
+                // Add the message to Firestore (do not add to local array yet)
+            self.addMessageToDB(messageBody: messageBody, timestamp: timestamp, messageId: newMessageId)
+                
+                // Clear the text view after sending the message
+            self.txtMessagToSent.text = ""
+        }
         
+                
     }
     
     func sortMessagesByTimestamp() {

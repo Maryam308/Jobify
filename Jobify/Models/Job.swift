@@ -1,5 +1,5 @@
 import Foundation
-
+import Firebase
  
 
 struct Job: Equatable {
@@ -92,6 +92,29 @@ struct Job: Equatable {
         static func getNextID() -> Int {
             Job.jobIdCounter += 1  // Increment the ID each time it's called
             return Job.jobIdCounter  // Return the current (incremented) ID
+        }
+    
+    static func fetchAndSetID(completion: @escaping () -> Void) {
+            let db = Firestore.firestore()
+
+            db.collection("jobPost")
+                .order(by: "jobPostId", descending: true)
+                .limit(to: 1)
+                .getDocuments { querySnapshot, error in
+                    if let error = error {
+                        print("Error fetching documents: \(error)")
+                        jobIdCounter = 200 // Default
+                    } else if let snapshot = querySnapshot, let document = snapshot.documents.first {
+                        if let highestId = document.data()["jobPostId"] as? Int {
+                            jobIdCounter = highestId
+                        } else {
+                            jobIdCounter = 200 // Default if missing or invalid
+                        }
+                    } else {
+                        jobIdCounter = 200 // Default if no documents
+                    }
+                    completion() // Notify when done
+                }
         }
     
 }
