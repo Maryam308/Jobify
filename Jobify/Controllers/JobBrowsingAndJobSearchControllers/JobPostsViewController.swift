@@ -87,8 +87,8 @@ class JobPostsViewController: UIViewController, UICollectionViewDelegate, UIColl
 
     
     
-        var currentUserId: Int = UserSession.shared.loggedInUser?.userID ?? 1
-        var currentUserRole: String = UserSession.shared.loggedInUser?.role.rawValue ?? "admin"
+        var currentUserId: Int = currentLoggedInUserID
+       // var currentUserRole: String = UserSession.shared.loggedInUser?.role.rawValue ?? "admin"
         let JobPostCollectionViewCellId = "JobPostCollectionViewCell"
         var currentSortOrder: SortOrder? = .newestToOldest // Set default sort order
         var originalJobs: [Job] = [] // hold original job to allow repeated filtering

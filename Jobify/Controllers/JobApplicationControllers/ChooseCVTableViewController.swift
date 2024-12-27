@@ -82,7 +82,7 @@ class ChooseCVTableViewController: UITableViewController {
         // Use the sender's tag to identify the selected CV
             let selectedCV = cvs[sender.tag]
         
-        let storyboard = UIStoryboard(name: "CareerResourcesAndSkillDevelopment", bundle: nil)
+        let storyboard = UIStoryboard(name: "CVBuilderAndEditor_MaryamMohsen", bundle: nil)
         if let cvViewerVC = storyboard.instantiateViewController(withIdentifier: "cvViewer") as? CVViewerViewController {
             cvViewerVC.cv = selectedCV // Pass data
             navigationController?.pushViewController(cvViewerVC, animated: true)

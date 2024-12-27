@@ -34,8 +34,9 @@ class ApplicationDetailTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        currentUserId = UserSession.shared.loggedInUser?.userID
-            currentUserRole = UserSession.shared.loggedInUser?.role.rawValue
+        
+        currentUserId = currentLoggedInUserID
+        //currentUserRole = UserSession.shared.loggedInUser?.role.rawValue
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 

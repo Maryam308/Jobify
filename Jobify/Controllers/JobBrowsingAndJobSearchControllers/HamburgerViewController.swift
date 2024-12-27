@@ -17,8 +17,8 @@ class HamburgerViewController: UIViewController {
     @IBOutlet weak var learningResources: UIButton!
     @IBOutlet weak var manageSkills: UIButton!
     
-    var currentUserId: Int = UserSession.shared.loggedInUser?.userID ?? 7
-    var currentUserRole: String = UserSession.shared.loggedInUser?.role.rawValue ?? "seeker"
+    var currentUserId: Int = currentLoggedInUserID
+    //var currentUserRole: String = currentUserRole
     var currentUserName: String = UserSession.shared.loggedInUser?.name ?? "Gulf Digital Group"
     var welcomeMessage: String = ""
     
@@ -123,6 +123,38 @@ class HamburgerViewController: UIViewController {
 
             } else { print("Error: Could not find view controller with identifier 'TargetViewControllerIdentifier'") }
 
+    }
+    
+    
+    @IBAction func btnProfile(_ sender: Any) {
+        
+        // Show or hide the delete button based on the current user role
+        if currentUserRole == "admin"  {
+            let storyboard = UIStoryboard(name: "UserProfileAndSettings_ZainabAlawi", bundle: nil)
+
+                   if let adminProfileVC = storyboard.instantiateViewController(identifier: "AdminProfileViewController") as? AdminProfileViewController {
+
+                            navigationController?.pushViewController(adminProfileVC, animated: true)
+
+                        }
+            
+        } else if currentUserRole == "seeker" {
+            let storyboard = UIStoryboard(name: "UserProfileAndSettings_ZainabAlawi", bundle: nil)
+
+                   if let seekerProfileVC = storyboard.instantiateViewController(identifier: "SeekerProfileViewController") as? SeekerProfileViewControllerWithCV {
+
+                            navigationController?.pushViewController(seekerProfileVC, animated: true)
+
+                        }
+        } else if currentUserRole == "employer" {
+            let storyboard = UIStoryboard(name: "UserProfileAndSettings_ZainabAlawi", bundle: nil)
+
+                   if let employerProfileVC = storyboard.instantiateViewController(identifier: "CompanyProfileViewController") as? CompanyProfileViewController2 {
+
+                            navigationController?.pushViewController(employerProfileVC, animated: true)
+
+                        }
+        }
     }
     
 

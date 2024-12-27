@@ -376,7 +376,7 @@ Under PDPL, you have the right to access, correct, and request the deletion of y
         <!--Admin Profile Screen-->
         <scene sceneID="n83-Zd-lTp">
             <objects>
-                <viewController title="Admin Profile Screen" id="hJF-Ss-AY9" customClass="AdminProfileViewController" customModule="Jobify" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AdminProfileViewController" title="Admin Profile Screen" id="hJF-Ss-AY9" customClass="AdminProfileViewController" customModule="Jobify" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="eQ3-bY-cMg">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -989,8 +989,6 @@ Q3.  How can I change my password ?
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
-
-
                                                                 </subviews>
                                                             </stackView>
                                                         </subviews>
@@ -1178,9 +1176,7 @@ Q3.  How can I change my password ?
                         <outlet property="skillsTextView" destination="B4z-3d-QWR" id="EUW-Yr-EpY"/>
                     </connections>
                 </viewController>
-
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W52-hg-Ycq" sceneMemberID="firstResponder"/>
-
             </objects>
             <point key="canvasLocation" x="3793.636363636364" y="1405.8577405857741"/>
         </scene>

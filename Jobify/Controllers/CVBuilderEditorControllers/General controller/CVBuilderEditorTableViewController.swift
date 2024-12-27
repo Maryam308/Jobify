@@ -11,7 +11,7 @@ import Firebase
 import FirebaseFirestore
 
 //the current logged in user
-let currentUserID = UserSession.shared.loggedInUser?.userID ?? 99
+let currentUserID = currentLoggedInUserID
 
 // Cloudinary Response Struct
 struct CloudinaryResponse: Decodable {

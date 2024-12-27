@@ -201,7 +201,7 @@
         <!--Application Table View Controller-->
         <scene sceneID="OFL-QE-S6x">
             <objects>
-                <tableViewController id="z67-qk-01w" customClass="ApplicationTableViewController" customModule="Jobify" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="ApplicationTableViewController" id="z67-qk-01w" customClass="ApplicationTableViewController" customModule="Jobify" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" id="uel-oO-6wZ">
                         <rect key="frame" x="0.0" y="0.0" width="440" height="956"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

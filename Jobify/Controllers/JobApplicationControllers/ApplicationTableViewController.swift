@@ -14,7 +14,7 @@ class ApplicationTableViewController: UITableViewController {
     //creates a variable to save the objects passed from different pages
     var selectedCV: CV?
     var job: Job?
-    var currentUserId: Int = UserSession.shared.loggedInUser?.userID ?? 0
+    var currentUserId: Int = currentLoggedInUserID
     var seekerDetails: SeekerDetails?
     
     let db = Firestore.firestore()

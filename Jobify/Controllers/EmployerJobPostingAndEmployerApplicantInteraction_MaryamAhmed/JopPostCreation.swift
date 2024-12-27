@@ -121,7 +121,7 @@ class JopPostCreationFirstScreenViewController: UITableViewController {
         
         
         //fetch the user refrence //and add it to the jobdata
-        let currentId = UserSession.shared.loggedInUser?.userID ?? 1
+        let currentId = currentLoggedInUserID
         
         
         fetchUserReference(by: currentId) { userRef in

@@ -120,8 +120,8 @@ class HomeJobPostViewController: UIViewController, UICollectionViewDataSource, U
     
     var isHamburgerMenuOpen = false
     
-    var currentUserId: Int = UserSession.shared.loggedInUser?.userID ?? 1
-    var currentUserRole: String = UserSession.shared.loggedInUser?.role.rawValue ?? "admin"
+    var currentUserId: Int = currentLoggedInUserID
+    //var currentUserRole: String = UserSession.shared.loggedInUser?.role.rawValue ?? "admin"
     
     var recommendedJobs: [Job] = [] // Array to hold  recommended job postings
     var recentJobs: [Job] = [] // Array to hold recent job postings
