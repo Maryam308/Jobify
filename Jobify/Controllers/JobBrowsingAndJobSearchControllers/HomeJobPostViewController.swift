@@ -62,9 +62,7 @@ class HomeJobPostViewController: UIViewController, UICollectionViewDataSource, U
     @IBAction func viewAllRecommendedJobs(_ sender: Any) {
         let storyboard = UIStoryboard(name: "JobBrowsingAndJobSearch_FatimaKhamis", bundle: nil)
         if let jobPostsVC = storyboard.instantiateViewController(withIdentifier: "JobPostsViewController") as? JobPostsViewController {
-            //jobPostsVC.source = .recommendedJobs
-            jobPostsVC.jobs = recommendedJobs
-            jobPostsVC.originalJobs = recommendedJobs
+            jobPostsVC.source = .recommendedJobs
             navigationController?.pushViewController(jobPostsVC, animated: true)
         } else {
             print("Failed to instantiate JobPostsViewController")
@@ -128,33 +126,27 @@ class HomeJobPostViewController: UIViewController, UICollectionViewDataSource, U
     var recentJobs: [Job] = [] // Array to hold recent job postings
     let db = Firestore.firestore() // Firestore instance
     
-    private var dispatchGroup = DispatchGroup() // Declare the DispatchGroup as a property
-    
-    // 1. fetch all companies information
-    // list of companies
-    // function: getCompanyDetails(ref)
+   // private var dispatchGroup = DispatchGroup() // Declare the DispatchGroup as a property
+    let currentTimestamp = Timestamp(date: Date())
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //updated
-        //mainHomeView.isHidden = true //because it will hide the view
-        // hamburgerView.isHidden = true
         
-        //fetch the current user role
-       /* if(currentUserRole == "employer" || currentUserRole  == "admin"){
+        
+        if(currentUserRole == "employer" || currentUserRole  == "admin"){
             hideRecommendedJobView()
             fetchRecentJobs()
             fetchAllJobs() // Fetch all jobs for search functionality
-        } else {
+        } else if(currentUserRole == "jobseeker") {
+            // Hide the buttons
+            btnCreateNewJob.isHidden = true
+            btnMyJobPosts.isHidden = true
             fetchRecommendedJobs() // Fetch data from Firestore
             fetchRecentJobs()
             fetchAllJobs() // Fetch all jobs for search functionality
             
-        }*/
+        }
         
-        fetchRecommendedJobs() // Fetch data from Firestore
-        fetchRecentJobs()
-        fetchAllJobs() // Fetch all jobs for search functionality
         
         
         // Initially position the hamburgerView off-screen to the left
@@ -217,15 +209,38 @@ class HomeJobPostViewController: UIViewController, UICollectionViewDataSource, U
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+         if(currentUserRole == "employer" || currentUserRole  == "admin"){
+             fetchRecentJobs()
+             fetchAllJobs() // Fetch all jobs for search functionality
+         } else if currentUserRole == "seeker" {
+             // Hide the buttons
+             btnCreateNewJob.isHidden = true
+             btnMyJobPosts.isHidden = true
+             fetchRecommendedJobs() // Fetch data from Firestore
+             fetchRecentJobs()
+             fetchAllJobs() // Fetch all jobs for search functionality
+             
+         }
         self.tabBarController?.tabBar.isHidden = false
         searchOverlayView.isHidden = true
         searchResultsTableView.isHidden = true
         searchBar.text = ""
         searchBar.showsCancelButton = false
         searchBar.resignFirstResponder() // Dismiss the keyboard
+        
+        // Fetch the latest job postings when the view appears
+        /*fetchRecommendedJobs()
+        fetchRecentJobs()
+        fetchAllJobs() // Fetch all jobs for search functionality
+
+        // Optionally, reload the collection views here if necessary
+        jobPostCollectionView.reloadData()
+        recentJobPostCollectionView.reloadData()*/
+        
+        
 
     }
-    
+   
    
         
     //MARK: - Handlers
@@ -279,6 +294,9 @@ class HomeJobPostViewController: UIViewController, UICollectionViewDataSource, U
         searchBar.showsCancelButton = false
         searchBar.resignFirstResponder() // Dismiss keyboard and stop the cursor
         filteredJobs = allJobs // Reset to all jobs
+        self.tabBarController?.tabBar.isHidden = false
+        self.tabBarController?.tabBar.isHidden = false
+        
     }
     
     
@@ -514,6 +532,18 @@ class HomeJobPostViewController: UIViewController, UICollectionViewDataSource, U
         
         cell.jobPostDescriptionTitlelbl.text = job.title
         cell.jobPostDescriptionlbl.text = job.desc
+        
+        // Show or hide the delete button based on the current user role
+            if currentUserRole == "admin" {
+                cell.btnDelete.isHidden = false
+                
+            } else if currentUserRole == "seeker" {
+                cell.btnDelete.isHidden = true
+            } else if currentUserRole == "employer" && currentUserId == job.companyDetails?.userId {
+                cell.btnDelete.isHidden = false
+            } else {
+                cell.btnDelete.isHidden = true // Hide the button for other roles
+            }
     }
     
     // Adjust the size of collection view cells dynamically
@@ -608,8 +638,7 @@ class HomeJobPostViewController: UIViewController, UICollectionViewDataSource, U
     
     //for search table view
     private func fetchAllJobs() {
-        db.collection("jobPost")
-            .order(by: "jobPostDate", descending: true)
+        db.collection("jobPost").whereField("jobDeadlineDate", isGreaterThanOrEqualTo: currentTimestamp) .order(by: "jobPostDate", descending: true)
             .getDocuments { [weak self] (snapshot, error) in
                 guard let self = self else { return } // Ensure 'self' is not nil
                 
@@ -752,9 +781,8 @@ class HomeJobPostViewController: UIViewController, UICollectionViewDataSource, U
 
         for category in categories {
             dispatchGroup.enter()
-            db.collection("jobPost")
-                .whereField("jobCategory", isEqualTo: category)
-                .getDocuments { (snapshot, error) in
+            db.collection("jobPost").whereField("jobDeadlineDate", isGreaterThanOrEqualTo: currentTimestamp)
+                .whereField("jobCategory", isEqualTo: category).order(by: "jobPostDate", descending: true).getDocuments { (snapshot, error) in
                     defer { dispatchGroup.leave() }
 
                     if let error = error {
@@ -877,8 +905,7 @@ class HomeJobPostViewController: UIViewController, UICollectionViewDataSource, U
    
     
     private func fetchRecentJobs() {
-        db.collection("jobPost")
-            .order(by: "jobPostDate", descending: true)
+        db.collection("jobPost").whereField("jobDeadlineDate", isGreaterThanOrEqualTo: currentTimestamp).order(by: "jobPostDate", descending: true)
             .getDocuments { [weak self] (snapshot, error) in
                 guard let self = self else { return }
                 

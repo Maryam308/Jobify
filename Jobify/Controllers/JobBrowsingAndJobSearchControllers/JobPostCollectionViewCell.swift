@@ -23,6 +23,9 @@ class JobPostCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var jobPostDescriptionTitlelbl: UILabel!
     @IBOutlet weak var jobPostDescriptionlbl: UILabel!
     
+    @IBOutlet weak var btnDelete: UIButton!
+    
+    
     override func awakeFromNib() {
         super.awakeFromNib()
        

@@ -42,8 +42,11 @@ class JobDetailsTableViewController: UITableViewController {
     @IBOutlet weak var txtRequirement: UITextView!
     
     
+    @IBOutlet weak var btnApplyForJobPosition: UIButton!
     
     var job: Job?
+    var currentUserId: Int = UserSession.shared.loggedInUser?.userID ?? 7
+    var currentUserRole: String = UserSession.shared.loggedInUser?.role.rawValue ?? "seeker"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -70,6 +73,13 @@ class JobDetailsTableViewController: UITableViewController {
             txtDescription.text = job.desc
             txtRequirement.text = job.requirement
             
+        // Show or hide the delete button based on the current user role
+            if (currentUserRole == "admin" || currentUserRole == "employer") {
+                btnApplyForJobPosition.isHidden = true
+                
+            } else if currentUserRole == "seeker" {
+                btnApplyForJobPosition.isHidden = false
+            }
             // Load company profile picture
             loadProfileImage()
         }

@@ -113,31 +113,23 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <stackView opaque="NO" contentMode="scaleToFill" layoutMarginsFollowReadableWidth="YES" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="e53-D6-2SM">
+                            <stackView opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceLeftToRight" layoutMarginsFollowReadableWidth="YES" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="e53-D6-2SM">
                                 <rect key="frame" x="202" y="184" width="130" height="20"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PE2-jY-3sd">
-                                        <rect key="frame" x="0.0" y="0.0" width="60" height="20"/>
-                                        <color key="backgroundColor" red="0.1137254902" green="0.1764705882" blue="0.2666666667" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="130" height="20"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="60" id="AFS-gU-vux"/>
                                             <constraint firstAttribute="height" constant="20" id="HTS-YJ-wYL"/>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="20" id="gE0-UO-riD"/>
                                         </constraints>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain">
-                                            <attributedString key="attributedTitle">
-                                                <fragment content="Delete">
-                                                    <attributes>
-                                                        <font key="NSFont" size="11" name="Helvetica"/>
-                                                        <font key="NSOriginalFont" size="12" name="Helvetica"/>
-                                                    </attributes>
-                                                </fragment>
-                                            </attributedString>
+                                            <attributedString key="attributedTitle"/>
                                         </buttonConfiguration>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DPl-Iz-3xT">
-                                        <rect key="frame" x="70" y="0.0" width="60" height="20"/>
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DPl-Iz-3xT">
+                                        <rect key="frame" x="0.0" y="0.0" width="60" height="20"/>
                                         <color key="backgroundColor" red="0.1137254902" green="0.1764705882" blue="0.2666666667" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="20" id="75R-FZ-d3h"/>
@@ -147,16 +139,23 @@
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain">
                                             <attributedString key="attributedTitle">
-                                                <fragment content="Edit">
+                                                <fragment content="Delete">
                                                     <attributes>
-                                                        <font key="NSFont" size="11" name="Helvetica"/>
-                                                        <font key="NSOriginalFont" size="12" name="Helvetica"/>
+                                                        <font key="NSFont" metaFont="smallSystem"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                     </attributes>
                                                 </fragment>
                                             </attributedString>
                                         </buttonConfiguration>
                                     </button>
                                 </subviews>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="PE2-jY-3sd" secondAttribute="trailing" id="AU2-zx-CVk"/>
+                                    <constraint firstItem="PE2-jY-3sd" firstAttribute="top" secondItem="e53-D6-2SM" secondAttribute="top" id="eiq-ZW-alD"/>
+                                    <constraint firstItem="PE2-jY-3sd" firstAttribute="leading" secondItem="e53-D6-2SM" secondAttribute="leading" id="n1i-7J-hdC"/>
+                                    <constraint firstAttribute="bottom" secondItem="PE2-jY-3sd" secondAttribute="bottom" id="npE-G5-hdU"/>
+                                </constraints>
                             </stackView>
                         </subviews>
                         <color key="backgroundColor" red="0.85098039219999999" green="0.85098039219999999" blue="0.85098039219999999" alpha="1" colorSpace="calibratedRGB"/>
@@ -173,6 +172,7 @@
                             <constraint firstItem="fdX-l0-gCK" firstAttribute="top" secondItem="6D9-1e-LSq" secondAttribute="top" constant="110" id="WgT-gI-4ei"/>
                             <constraint firstItem="ZTY-QJ-asI" firstAttribute="top" secondItem="GN3-Ld-4G2" secondAttribute="bottom" constant="3.6666666666666714" id="XGe-pf-Zis"/>
                             <constraint firstItem="3nO-om-b2J" firstAttribute="top" secondItem="6D9-1e-LSq" secondAttribute="top" constant="12" id="ebg-Nr-CaC"/>
+                            <constraint firstAttribute="width" constant="344" id="f2l-WN-5vh"/>
                             <constraint firstItem="fdX-l0-gCK" firstAttribute="leading" secondItem="6D9-1e-LSq" secondAttribute="leadingMargin" id="fuP-Sv-g4E"/>
                             <constraint firstItem="Xth-At-FYz" firstAttribute="top" secondItem="ZTY-QJ-asI" secondAttribute="bottom" constant="8.3333333333333712" id="hZA-4A-mk5"/>
                             <constraint firstAttribute="bottom" secondItem="e53-D6-2SM" secondAttribute="bottom" constant="16" id="hxI-tu-Fun"/>
@@ -180,12 +180,16 @@
                             <constraint firstItem="fdX-l0-gCK" firstAttribute="top" secondItem="TZd-8h-fj4" secondAttribute="bottom" constant="0.6666666666666714" id="og9-Pr-jme"/>
                             <constraint firstAttribute="trailing" secondItem="e53-D6-2SM" secondAttribute="trailing" constant="12" id="p28-y4-36M"/>
                             <constraint firstItem="e53-D6-2SM" firstAttribute="leading" secondItem="6D9-1e-LSq" secondAttribute="leading" constant="202" id="pD7-qc-g0k"/>
+                            <constraint firstAttribute="height" constant="220" id="vXr-DS-9TL"/>
                             <constraint firstItem="iqq-ut-vV3" firstAttribute="leading" secondItem="ZTY-QJ-asI" secondAttribute="trailing" constant="4.3333333333333144" id="x5a-wL-XUR"/>
                             <constraint firstItem="ZTY-QJ-asI" firstAttribute="centerY" secondItem="iqq-ut-vV3" secondAttribute="centerY" id="zcJ-dc-nxg"/>
                         </constraints>
                     </view>
                 </subviews>
                 <constraints>
+                    <constraint firstAttribute="trailing" secondItem="6D9-1e-LSq" secondAttribute="trailing" id="6Ae-vt-FfX"/>
+                    <constraint firstItem="6D9-1e-LSq" firstAttribute="leading" secondItem="vRZ-iN-EWo" secondAttribute="leading" id="RBJ-hP-g3w"/>
+                    <constraint firstItem="6D9-1e-LSq" firstAttribute="top" secondItem="vRZ-iN-EWo" secondAttribute="top" id="az4-Il-Kd2"/>
                     <constraint firstItem="6D9-1e-LSq" firstAttribute="centerX" secondItem="vRZ-iN-EWo" secondAttribute="centerX" id="dS1-5R-DwB"/>
                     <constraint firstItem="6D9-1e-LSq" firstAttribute="leading" secondItem="vRZ-iN-EWo" secondAttribute="leading" id="duA-Sz-HkX"/>
                     <constraint firstItem="6D9-1e-LSq" firstAttribute="top" secondItem="vRZ-iN-EWo" secondAttribute="top" id="otQ-ph-fLJ"/>
@@ -195,6 +199,7 @@
             </collectionViewCellContentView>
             <size key="customSize" width="300" height="193"/>
             <connections>
+                <outlet property="btnDelete" destination="DPl-Iz-3xT" id="KE8-8i-L98"/>
                 <outlet property="joPostLocationlbl" destination="yPu-q6-IDI" id="gkR-9r-VQy"/>
                 <outlet property="jobPostCategorylbl" destination="Vci-EA-kdY" id="kSc-tm-K87"/>
                 <outlet property="jobPostDatelbl" destination="iqq-ut-vV3" id="13Z-uG-jmB"/>

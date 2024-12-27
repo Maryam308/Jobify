@@ -30,15 +30,27 @@ class JobPostsViewController: UIViewController, UICollectionViewDelegate, UIColl
             let matchesLevel = filters["Level"]?.isEmpty ?? true || filters["Level"]?.contains(job.level.rawValue) ?? false
             let matchesEmploymentType = filters["Employment Type"]?.isEmpty ?? true || filters["Employment Type"]?.contains(job.employmentType.rawValue) ?? false
             let matchesCategory = filters["Category"]?.isEmpty ?? true || filters["Category"]?.contains(job.category.rawValue) ?? false
-            let matchesCompany = filters["Company"]?.isEmpty ?? true || filters["Company"]?.contains(job.companyDetails?.name ?? "By Jobify") ?? false
+           /* let matchesCompany = filters["Company"]?.isEmpty ?? true || filters["Company"]?.contains(job.companyDetails?.name ?? "By Jobify") ?? false*/
             let matchesLocation = filters["Location"]?.isEmpty ?? true || filters["Location"]?.contains(job.location) ?? false
+            // Initialize matchesCompany
+            let matchesCompany: Bool
             
+            // Check if "Admin" is selected as a filter
+            if filters["Company"]?.contains("Admin") == true {
+                // Include jobs with nil company details when "Admin" is selected
+                matchesCompany = job.companyDetails?.name == nil // true if companyName is nil
+            } else {
+                let companyName = job.companyDetails?.name
+                matchesCompany = filters["Company"]?.isEmpty ?? true || (companyName != nil && filters["Company"]?.contains(companyName!) ?? false)
+            }
             return matchesLevel && matchesEmploymentType && matchesCategory && matchesCompany && matchesLocation
+            
         }
         
         // Use the filtered list for displaying the jobs
         self.jobs = filteredJobPosts
         jobPostCollectionView.reloadData() // Reload to display filtered jobs
+        
     }
     
     
@@ -88,6 +100,7 @@ class JobPostsViewController: UIViewController, UICollectionViewDelegate, UIColl
         var selectedJob: Job?
     
         private let showJobDetailsSegueIdentifier = "showJobDetails"
+        let currentTimestamp = Timestamp(date: Date())
         
         override func viewDidLoad() {
             super.viewDidLoad()
@@ -104,6 +117,7 @@ class JobPostsViewController: UIViewController, UICollectionViewDelegate, UIColl
             // Register the job cell for collection view
             let nib = UINib(nibName: JobPostCollectionViewCellId, bundle: nil)
             jobPostCollectionView.register(nib, forCellWithReuseIdentifier: JobPostCollectionViewCellId)
+
         }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -120,14 +134,12 @@ class JobPostsViewController: UIViewController, UICollectionViewDelegate, UIColl
            self.tabBarController?.tabBar.isHidden = true
        }
 
-       override func viewWillDisappear(_ animated: Bool) {
-           super.viewWillDisappear(animated)
-           // Ensure the tab bar is visible when leaving this controller
-           self.tabBarController?.tabBar.isHidden = false
-       }
- 
-    
-
+    func showAlert(message: String) {
+        let alertController = UIAlertController(title: "Alert", message: message, preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        self.present(alertController, animated: true, completion: nil)
+    }
+       
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return jobs.count
@@ -155,6 +167,18 @@ class JobPostsViewController: UIViewController, UICollectionViewDelegate, UIColl
         
         cell.jobPostDescriptionTitlelbl.text = job.title
         cell.jobPostDescriptionlbl.text = job.desc
+        
+        // Show or hide the delete button based on the current user role
+            if currentUserRole == "admin" {
+                cell.btnDelete.isHidden = false
+                
+            } else if currentUserRole == "seeker" {
+                cell.btnDelete.isHidden = true
+            } else if currentUserRole == "employer" && currentUserId == job.companyDetails?.userId {
+                cell.btnDelete.isHidden = false
+            } else {
+                cell.btnDelete.isHidden = true // Hide the button for other roles
+            }
         
         return cell
     }
@@ -227,7 +251,7 @@ class JobPostsViewController: UIViewController, UICollectionViewDelegate, UIColl
                           let userRef = userDocument.reference
 
                             // Now fetch job posts where companyRef matches this user's reference
-                            self.db.collection("jobPost").whereField("companyRef", isEqualTo: userRef).order(by: "jobPostDate", descending: true).getDocuments { (snapshot, error) in
+                          self.db.collection("jobPost").whereField("companyRef", isEqualTo: userRef).whereField("jobDeadlineDate", isGreaterThanOrEqualTo: self.currentTimestamp).order(by: "jobPostDate", descending: true).getDocuments { (snapshot, error) in
                                 if let error = error {
                                     print("Error fetching job posts for user:\(error.localizedDescription)")
                                 return
@@ -237,7 +261,7 @@ class JobPostsViewController: UIViewController, UICollectionViewDelegate, UIColl
                     }
             }
         case .recentJobs:
-            db.collection("jobPost").order(by: "jobPostDate", descending: true).getDocuments { (snapshot, error) in
+            db.collection("jobPost").whereField("jobDeadlineDate", isGreaterThanOrEqualTo: currentTimestamp).order(by: "jobPostDate", descending: true).getDocuments { (snapshot, error) in
                 if let error = error {
                     print("Error fetching recent jobs: \(error.localizedDescription)")
                     return
@@ -253,20 +277,260 @@ class JobPostsViewController: UIViewController, UICollectionViewDelegate, UIColl
                         print("Error fetching jobs for category \(category): \(error.localizedDescription)")
                         return
                     }
+                    // Check if there are any job postings
+                    guard let documents = snapshot?.documents, !documents.isEmpty else {
+                        self.showAlert(message: "No job postings available in the selected category.")
+                        return
+                    }
                     self.handleJobPostFetch(snapshot: snapshot, error: nil)
                 }
         case .recommendedJobs:
-            db.collection("jobPost").order(by: "jobPostDate", descending: true).getDocuments { (snapshot, error) in
-                if let error = error {
-                    print("Error fetching recommended jobs: \(error.localizedDescription)")
-                    return
-                }
-                self.handleJobPostFetch(snapshot: snapshot, error: nil)
-            }
+            fetchRecommendedJobs()
         case nil:
             print("No source provided.")
         }
     }
+    
+    private func fetchRecommendedJobs() {
+        print("fetchRecommendedJobs() called")
+        let userId = currentUserId
+        print("userId: \(userId)")
+
+        // Fetch user reference
+        db.collection("users")
+            .whereField("userId", isEqualTo: userId)
+            .getDocuments { (userSnapshot, error) in
+                if let error = error {
+                    print("Error fetching user document: \(error.localizedDescription)")
+                    return
+                }
+                
+                guard let userDocument = userSnapshot?.documents.first else {
+                    print("User document not found.")
+                    return
+                }
+                
+                let userRef = userDocument.reference
+                
+                // Step 1: Fetch the user's selected job categories
+                self.db.collection("selectedJobCategories")
+                    .whereField("userRef", isEqualTo: userRef)
+                    .getDocuments { [weak self] (categorySnapshot, error) in
+                        guard let self = self else { return }
+                        
+                        if let error = error {
+                            print("Error fetching selected job categories: \(error.localizedDescription)")
+                            return
+                        }
+                        
+                        print("Number of documents fetched: \(categorySnapshot?.documents.count ?? 0)")
+
+                        var chosenCategories: [String] = []
+                        
+                        // Inspect the documents in selectedJobCategories
+                        for categoryDocument in categorySnapshot?.documents ?? [] {
+                            let documentData = categoryDocument.data()
+                            print("Document Data: \(documentData)")  // Debugging print to inspect the document structure
+
+                            // Check if "selectedJobCategories" field exists and is an array of strings
+                            if let categories = documentData["selectedJobCategories"] as? [String] {
+                                print("Categories found: \(categories)")  // Debugging print to inspect categories
+                                chosenCategories.append(contentsOf: categories)
+                            } else {
+                                print("No 'selectedJobCategories' field found or it's not an array: \(documentData)")  // Debugging print to check the data
+                            }
+                        }
+                        
+                        // Debugging print to check the final categories array
+                        print("Chosen Categories: \(chosenCategories)")
+                        
+                        // Step 2: Fetch job applications for the user with the chosen categories
+                        self.fetchJobApplications(for: userRef, chosenCategories: chosenCategories)
+                    }
+            }
+    }
+
+
+    private func fetchJobApplications(for userRef: DocumentReference, chosenCategories: [String]) {
+        print("here is the passed chosen categories: \(chosenCategories)")
+        db.collection("jobApplication")
+            .whereField("userRef", isEqualTo: userRef)
+            .getDocuments { [weak self] (applicationSnapshot, error) in
+                guard let self = self else { return }
+                
+                if let error = error {
+                    print("Error fetching job applications: \(error.localizedDescription)")
+                    return
+                }
+                
+                var appliedJobPostRefs: [DocumentReference] = []
+                for applicationDocument in applicationSnapshot?.documents ?? [] {
+                    if let jobPostRef = applicationDocument.data()["jobPostRef"] as? DocumentReference {
+                        appliedJobPostRefs.append(jobPostRef)
+                    }
+                }
+                
+                // Step 3: Fetch categories for the applied job posts
+                self.fetchCategoriesForJobPosts(appliedJobPostRefs: appliedJobPostRefs, chosenCategories: chosenCategories)
+            }
+    }
+    
+    
+    private func fetchCategoriesForJobPosts(appliedJobPostRefs: [DocumentReference], chosenCategories: [String]) {
+        var appliedCategories: Set<String> = []
+        let dispatchGroup = DispatchGroup()
+
+        for jobPostRef in appliedJobPostRefs {
+            dispatchGroup.enter()
+            jobPostRef.getDocument { (jobPostSnapshot, error) in
+                defer { dispatchGroup.leave() }
+
+                if let error = error {
+                    print("Error fetching job post: \(error.localizedDescription)")
+                    return
+                }
+
+                if let jobPostData = jobPostSnapshot?.data(),
+                   let jobCategory = jobPostData["jobCategory"] as? String {
+                    appliedCategories.insert(jobCategory) // Ensure uniqueness
+                }
+            }
+        }
+
+        // Combine chosen and applied categories and fetch job posts
+        dispatchGroup.notify(queue: .main) {
+            let combinedCategories = Array(Set(chosenCategories).union(appliedCategories)) // Unique categories
+            print("Combined Categories: \(combinedCategories)")
+
+            // Step 4: Fetch job posts based on combined categories
+            self.fetchJobPosts(for: combinedCategories)
+        }
+    }
+
+    private func fetchJobPosts(for categories: [String]) {
+        let dispatchGroup = DispatchGroup()
+        var recommendedJobs: [Job] = []
+
+        for category in categories {
+            dispatchGroup.enter()
+            db.collection("jobPost").whereField("jobDeadlineDate", isGreaterThanOrEqualTo: currentTimestamp).whereField("jobCategory", isEqualTo: category).order(by: "jobPostDate", descending: true).getDocuments { (snapshot, error) in
+                    defer { dispatchGroup.leave() }
+
+                    if let error = error {
+                        print("Error fetching job posts for category \(category): \(error.localizedDescription)")
+                        return
+                    }
+
+                    guard let documents = snapshot?.documents else { return }
+
+                    for document in documents {
+                        let data = document.data()
+                        if let job = self.createJob(from: data, document: document) {
+                            recommendedJobs.append(job)
+                            
+                        }
+                    }
+                }
+        }
+
+        dispatchGroup.notify(queue: .main) {
+            print("Fetched \(recommendedJobs.count) recommended jobs based on categories.")
+            self.originalJobs = recommendedJobs
+            self.jobs = recommendedJobs
+            self.jobPostCollectionView.reloadData()
+           
+        }
+    }
+
+    private func createJob(from data: [String: Any], document: DocumentSnapshot) -> Job? {
+        guard let title = data["jobTitle"] as? String,
+              let companyRef = data["companyRef"] as? DocumentReference,
+              let jobPostId = (data["jobPostId"] as? NSNumber)?.intValue,
+              let levelRaw = data["jobLevel"] as? String,
+              let level = JobLevel(rawValue: levelRaw),
+              let categoryRaw = data["jobCategory"] as? String,
+              let category = CategoryJob(rawValue: categoryRaw),
+              let city = data["jobLocation"] as? String,
+              let employmentTypeRaw = data["jobEmploymentType"] as? String,
+              let employmentType = EmploymentType(rawValue: employmentTypeRaw),
+              let datePosted = data["jobPostDate"] as? Timestamp else {
+            print("Invalid data for document ID: \(document.documentID)")
+            return nil
+        }
+
+        let date = datePosted.dateValue()
+        let desc = data["jobDescription"] as? String ?? "Unknown"
+        let deadline = (data["jobDeadlineDate"] as? Timestamp)?.dateValue()
+        let requirement = data["jobRequirement"] as? String ?? "No requirements specified"
+
+        var job = Job(
+            jobId: jobPostId,
+            title: title,
+            companyDetails: nil,
+            level: level,
+            category: category,
+            employmentType: employmentType,
+            location: city,
+            deadline: deadline,
+            desc: desc,
+            requirement: requirement,
+            extraAttachments: nil,
+            date: date
+        )
+
+        // Fetch company details asynchronously
+        companyRef.getDocument { (companySnapshot, error) in
+            if let error = error {
+                print("Error fetching company details: \(error.localizedDescription)")
+                return
+            }
+
+            if let companyData = companySnapshot?.data() {
+                let companyName = companyData["name"] as? String ?? "Unknown"
+                let userId = companyData["userId"] as? Int ?? 0
+                let email = companyData["email"] as? String ?? "Unknown"
+                let city = companyData["city"] as? String ?? "Unknown"
+                let userTypeRef = companyData["userType"] as? DocumentReference
+
+                userTypeRef?.getDocument { (userTypeSnapshot, error) in
+                    if let error = error {
+                        print("Error fetching userType: \(error.localizedDescription)")
+                        return
+                    }
+
+                    if let userTypeData = userTypeSnapshot?.data(),
+                       let userType = userTypeData["userType"] as? String {
+                        if userType == "admin" || userId == 1 {
+                            job.companyDetails = nil // Set to nil for admin or userId == 1
+                        } else if userType == "employer" {
+                            // Create companyDetails if employer
+                            let companyMainCategory = companyData["companyMainCategory"] as? String
+                            let aboutUs = companyData["aboutUs"] as? String
+                            let employabilityGoals = companyData["employabilityGoals"] as? String
+                            let vision = companyData["vision"] as? String
+
+                            let companyDetails = EmployerDetails(
+                                name: companyName,
+                                userId: userId,
+                                email: email,
+                                city: city,
+                                companyMainCategory: companyMainCategory,
+                                aboutUs: aboutUs,
+                                employabilityGoals: employabilityGoals,
+                                vision: vision
+                            )
+                            job.companyDetails = companyDetails
+                        }
+                    }
+                }
+            } else {
+                print("Company data not found for document ID: \(document.documentID)")
+            }
+        }
+
+        return job
+    }
+
     
     private func handleJobPostFetch(snapshot: QuerySnapshot?, error: Error?) {
         if let error = error {
@@ -416,6 +680,8 @@ class JobPostsViewController: UIViewController, UICollectionViewDelegate, UIColl
     
 
 }
+
+
 
 
 /*class CustomFlowLayout: UICollectionViewFlowLayout {

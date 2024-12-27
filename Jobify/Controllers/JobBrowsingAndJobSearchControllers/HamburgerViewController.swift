@@ -12,12 +12,38 @@ class HamburgerViewController: UIViewController {
     @IBOutlet weak var imgProfile: UIImageView!
     @IBOutlet weak var lblWelcomeMessage: UILabel!
     
+    
+    @IBOutlet weak var manageCareerPaths: UIButton!
+    @IBOutlet weak var learningResources: UIButton!
+    @IBOutlet weak var manageSkills: UIButton!
+    
+    var currentUserId: Int = UserSession.shared.loggedInUser?.userID ?? 7
+    var currentUserRole: String = UserSession.shared.loggedInUser?.role.rawValue ?? "seeker"
+    var currentUserName: String = UserSession.shared.loggedInUser?.name ?? "Gulf Digital Group"
+    var welcomeMessage: String = ""
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupProfilePic()
-
+        
+        let name = currentUserName
+        welcomeMessage = "Welcome \(name)!"
+        
+        lblWelcomeMessage.text = welcomeMessage
+        
+        
+        // Show or hide the delete button based on the current user role
+        if currentUserRole == "admin"  {
+            manageCareerPaths.isHidden = false
+            learningResources.isHidden = false
+            manageSkills.isHidden = false
+            
+        } else {
+            manageCareerPaths.isHidden = true
+            learningResources.isHidden = true
+            manageSkills.isHidden = true
+        }
     }
-    
     private func setupProfilePic() {
         imgProfile.layer.cornerRadius = imgProfile.frame.height / 2
     }

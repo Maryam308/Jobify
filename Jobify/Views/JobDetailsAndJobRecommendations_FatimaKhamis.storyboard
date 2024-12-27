@@ -400,6 +400,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" id="sFz-e5-Zum"/>
                     <connections>
+                        <outlet property="btnApplyForJobPosition" destination="UY8-fU-PJt" id="8fx-73-Jgp"/>
                         <outlet property="imgExtraAttachment" destination="KOP-dI-Agc" id="Uv3-a9-s45"/>
                         <outlet property="imgProfilePic" destination="gOe-Qb-nuF" id="sOi-Cr-PpH"/>
                         <outlet property="lblCategory" destination="kD3-mU-GDS" id="Z0c-aM-h1G"/>
