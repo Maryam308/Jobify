@@ -325,7 +325,7 @@ class CareerAdvisingAdminEmployerViewController: UIViewController, UICollectionV
     }
     
     
-    
+    //
     func adjustFontSizeForDevice(){
         if UIDevice.current.userInterfaceIdiom == .pad {
             if self.restorationIdentifier == "allResourcesEmployerAdmin" {
