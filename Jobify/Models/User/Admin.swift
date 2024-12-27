@@ -24,11 +24,11 @@ struct AdminDetails{
 
     
     //admin Id is uniqe and there is only one admin
-//    init(adminName: String, email: String, password: String) {
-//        self.adminName = adminName
-//        self.email = email
-//        self.password = password
-//    }
+    //init(adminName: String, email: String, password: String) {
+    //    self.adminName = adminName
+   //     self.email = email
+   //     self.password = password
+  //  }
     
     //login check email and password
 //    func login(email: String, password: String) -> Bool {
@@ -45,15 +45,15 @@ struct AdminDetails{
 //    }
     
     //add the admin as the message sender
-    mutating func sendMessage(messageBody:String, reciever: Any){
-        
-        let messageFromAdmin = Message(messageSender: self, messageReceiver: reciever, messageBody: messageBody)  // sender reciever are added also
-        
-        adminMessageList.append(messageFromAdmin)
-        
-        
-        
-    }
+//    mutating func sendMessage(messageBody:String, reciever: Any){
+//        
+//        let messageFromAdmin = Message(messageSender: self, messageReceiver: reciever, messageBody: messageBody)  // sender reciever are added also
+//        
+//        adminMessageList.append(messageFromAdmin)
+//        
+//        
+//        
+//    }
     
     //combined with adding a job post
 //    mutating func createJobPostA(

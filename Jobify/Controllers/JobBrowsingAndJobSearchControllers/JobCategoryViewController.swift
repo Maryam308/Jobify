@@ -53,4 +53,18 @@ class JobCategoryViewController: UIViewController, UICollectionViewDataSource, U
            collectionView.collectionViewLayout = layout
         
     }
+    
+    //  did select category
+    // didSelectItemAt for categoryCollectionView
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if collectionView == collectionView {
+            let selectedCategory = categories[indexPath.row].title
+            
+            let storyboard = UIStoryboard(name: "JobBrowsingAndJobSearch_FatimaKhamis", bundle: nil)
+            if let jobPostsVC = storyboard.instantiateViewController(withIdentifier: "JobPostsViewController") as? JobPostsViewController {
+                jobPostsVC.source = .category(selectedCategory) // Pass the selected category
+                navigationController?.pushViewController(jobPostsVC, animated: true)
+            }
+        }
+    }
 }

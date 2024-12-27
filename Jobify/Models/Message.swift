@@ -6,68 +6,75 @@
 //
 
 import Foundation
+import Firebase
 
 struct Message{
-    static var messageIdCounter = 0
-    var messageId: Int
-    //will be the sender name and then there will be a search throught the users since we dont have polymorphism (to have admin - employer - seeker) the same for reciever
-    var messageSender: Any
-    var messageReceiver: Any
-    var messageBody: String
-    var messageDate: String
-    var messageTime: String
-    //the constructed for first time message will be the sent message
-    //the 
-    var messageIsRead: Bool? = nil
-    // Create a Calendar instance to format the date and time
-    var calendar = Calendar.current
     
     
-    init(messageSender: Any, messageReceiver: Any, messageBody: String) {
+    static var messageIdCounter: Int = 200
+    var messageId: Int?
+    var messageSender: User?
+    var messageReceiver: User?
+    var messageBody: String?
+    var messageDate: Date? //a timestamp of the time the message is constructed
+    var otheruserName: String?
+    var unreadCount: Int?
+    var isRead: Bool = false
+    var otherUserRefrence: DocumentReference?
+    var isSent: Bool = false
+    
+    init(messageSender: User?, messageReceiver: User?, messageBody: String) {
         Message.messageIdCounter += 1
         self.messageId = Message.messageIdCounter
         self.messageSender = messageSender
         self.messageReceiver = messageReceiver
         self.messageBody = messageBody
-        
-        // Get the current date and time
-        var currentDate = Date()
-
-        
-        // Extract the date components for the date
-        var dateComponents = calendar.dateComponents([.day, .month], from: currentDate)
-
-        // Extract the time components for the time
-        var timeComponents = calendar.dateComponents([.hour, .minute], from: currentDate)
-        
-        // Create date and time variables and convert date and time components to string
-        var date = String(format: "%02d-%02d", dateComponents.day!, dateComponents.month!)
-        var time = String(format: "%02d:%02d", timeComponents.hour!, timeComponents.minute!)
-        
-        self.messageDate = date
-        self.messageTime = time
-        
-//        if var theReciever = messageReceiver as? Employer {
-//                //then the reciever is an employer and the message will be added to the arraylist of meesage inn the employer
-//            
-//                //theReciever.seekerMessageList.append(self)
-//            
-//            } else if var theReciever = messageReceiver as? Admin {
-//                //then the reciever is an employer and the message will be added to the arraylist of meesage inn the employer
-//            
-//                theReciever.adminMessageList.append(self)
-//                
-//            } else if var theReciever = messageReceiver as? Seeker {
-//                //then the reciever is an employer and the message will be added to the arraylist of meesage inn the employer
-//            
-//                //theReciever.seekerMessageList.append(self)
-//                
-//            } else {
-//                print("Unknown type")
-//            }
+      
         
         
     }
     
+    // a constructer to fetch the messages without all details and display them in users chats
+    init(otherUserName: String,unreadCount: Int, messageBody: String, otherUserRefrence: DocumentReference){
+        self.messageBody = messageBody
+        self.otheruserName = otherUserName
+        self.unreadCount = unreadCount
+        self.otherUserRefrence = otherUserRefrence
+        
+    }
+    
+    //a constructor to fetch messages for a single screen
+    init(isSent: Bool, messageBody: String, timeStamp: Date){
+
+        Message.messageIdCounter += 1
+        self.messageId = Message.messageIdCounter
+        self.isSent = isSent
+        self.messageBody = messageBody
+        self.messageDate = timeStamp
+        
+    }
+    
+    static func fetchAndSetID(completion: @escaping () -> Void) {
+            let db = Firestore.firestore()
+
+            db.collection("Messages")
+                .order(by: "messageId", descending: true)
+                .limit(to: 1)
+                .getDocuments { querySnapshot, error in
+                    if let error = error {
+                        print("Error fetching documents: \(error)")
+                        messageIdCounter = 200 // Default
+                    } else if let snapshot = querySnapshot, let document = snapshot.documents.first {
+                        if let highestId = document.data()["messageId"] as? Int {
+                            messageIdCounter = highestId
+                        } else {
+                            messageIdCounter = 200 // Default if missing or invalid
+                        }
+                    } else {
+                        messageIdCounter = 200 // Default if no documents
+                    }
+                    completion() // Notify when done
+                }
+        }
     
 }

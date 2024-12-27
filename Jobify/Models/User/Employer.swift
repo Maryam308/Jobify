@@ -5,27 +5,23 @@
 //  Created by Maryam Yousif on 27/11/2024.
 //
 
+import Firebase
 import Foundation
 
 struct EmployerDetails {
+    
     // Basic Information
     var name: String
-    var image: Data? = nil
-    var userId: Int
     var email: String
-    
-    // Location Details
-    struct Location {
-        var country: String
-        var city: String
-    }
-    var location: Location?
+    var city: String
+    var userId: Int
     
     // Company Details
     var companyMainCategory: String?
     var aboutUs: String?
     var employabilityGoals: String?
     var vision: String?
+    var imageURL: String?
     
     // Lists
     var employerMessageList: [Message] = []
@@ -38,25 +34,27 @@ struct EmployerDetails {
     // Custom Initializer
     init(
         name: String,
-        image: Data? = nil,
         userId: Int,
         email: String,
-        location: Location? = nil,
+        city: String,
         companyMainCategory: String? = nil,
         aboutUs: String? = nil,
         employabilityGoals: String? = nil,
         vision: String? = nil
     ) {
         self.name = name
-        self.image = image
         self.userId = userId
         self.email = email
-        self.location = location
+        self.city = city
         self.companyMainCategory = companyMainCategory
         self.aboutUs = aboutUs
         self.employabilityGoals = employabilityGoals
         self.vision = vision
     }
+    
+    
+    
+    
 }
 
     //===================================================================================================================//

@@ -19,25 +19,16 @@ class MessageCell: UITableViewCell{
     
     @IBOutlet weak var lblSentMessageContent: UILabel!
     
-    //dummy data
+ 
+    @IBOutlet weak var lblSentTime: UILabel!
     
-//    //an array of names
-//    let userNames: [String] = ["maryam","zainab","zahra", "fatima"]
-//
-//    //an array of messages
-//    let messagesOne: [String] = ["hello","hi","who","me"]
-//
-//    //second array
-//    let messagesTwo: [String] = ["hello","hi","who","me"]
-//
-//    //third array
-//    let messageThree: [String] = ["hello","hi","who","me"]
-    
+    @IBOutlet weak var lblRecieveTime: UILabel!
     
     override func awakeFromNib() {
             super.awakeFromNib()
-            // Set corner radius for the cell's content view
         
+            // Set corner radius for the cell's content view
+            //tag number is set to deal with two views each of one prototype cell
         if let firstContainer = self.viewWithTag(1) {
                 firstContainer.layer.cornerRadius = 10
                 firstContainer.clipsToBounds = true
