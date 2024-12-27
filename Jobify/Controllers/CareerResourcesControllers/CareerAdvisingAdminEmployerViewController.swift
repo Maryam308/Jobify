@@ -29,6 +29,23 @@ class CareerAdvisingAdminEmployerViewController: UIViewController, UICollectionV
     @IBOutlet weak var lblLearningResources: UILabel!
     @IBOutlet weak var lblCareerPaths: UILabel!
     
+    //navigation to add new resources
+    @IBAction func btnAddResources(_ sender: UIButton) {
+        let storyboard = UIStoryboard(name: "PlatformContentManagement_MaryamAhmed", bundle: nil)
+            if let addResource = storyboard.instantiateViewController(identifier: "AddNewLearningResource") as? AddNewLearningResourceViewController {
+                     navigationController?.pushViewController(addResource, animated: true)
+                 }
+    }
+    
+    //navigation to my learning resources
+    
+    @IBAction func btnMyLearningResourcesTapped(_ sender: Any) {
+        let storyboard = UIStoryboard(name: "PlatformContentManagement_MaryamAhmed", bundle: nil)
+            if let addResource = storyboard.instantiateViewController(identifier: "MyLearningResources") as? MyLearningResourcesViewController {
+                     navigationController?.pushViewController(addResource, animated: true)
+                 }
+    }
+    
     
     //variables
     var careerPaths: [CareerPath1] = []

@@ -19,6 +19,10 @@ class SeekerProfileViewController: UIViewController {
         setupImageUploadCircle()
     }
     
+    
+    @IBAction func btnMyCVs(_ sender: UIButton) {
+    }
+    
     // Define the setupImageUploadCircle method
     private func setupImageUploadCircle() {
         imageView.layer.cornerRadius = imageView.frame.size.width / 2
@@ -107,6 +111,7 @@ class SeekerProfileViewControllerWithCV_EditViewController: UIViewController {
     @IBOutlet weak var experinceTextView: UITextView!
     
     @IBOutlet weak var skillsTextView: UITextView!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()

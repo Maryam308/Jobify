@@ -8,7 +8,7 @@
 import UIKit
 
 class CareerCustomNavigationController: UINavigationController {
-    var currentUserRole: String = UserSession.shared.loggedInUser?.role.rawValue ?? "seeker"
+
 
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -1,4 +1,4 @@
-let currentLoggedInUserID = 99
+
 
 import Foundation
 import Firebase

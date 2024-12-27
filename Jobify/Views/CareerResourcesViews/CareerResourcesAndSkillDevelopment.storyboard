@@ -212,10 +212,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="PYN-Jb-49b">
-                                <rect key="frame" x="16" y="282" width="370" height="509"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="509" id="l0U-JB-iBu"/>
-                                </constraints>
+                                <rect key="frame" x="16" y="176" width="370" height="688"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="ZzT-Nj-Gpo">
                                     <size key="itemSize" width="208" height="200"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -240,7 +237,6 @@
                         <viewLayoutGuide key="safeArea" id="iGC-5k-Wx8"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstAttribute="bottomMargin" secondItem="PYN-Jb-49b" secondAttribute="bottom" constant="73" id="1qb-X4-AP8"/>
                             <constraint firstItem="IPz-bq-g2y" firstAttribute="leading" secondItem="iGC-5k-Wx8" secondAttribute="leading" constant="119" id="3jf-dO-038"/>
                             <constraint firstItem="iGC-5k-Wx8" firstAttribute="trailing" secondItem="IPz-bq-g2y" secondAttribute="trailing" constant="119" id="41Q-kF-bTj"/>
                             <constraint firstItem="PYN-Jb-49b" firstAttribute="leading" secondItem="iGC-5k-Wx8" secondAttribute="leading" constant="16" id="4nf-fB-nZ8"/>
@@ -654,6 +650,9 @@
                                 <buttonConfiguration key="configuration" style="filled" title="Add New Resource">
                                     <color key="baseBackgroundColor" red="0.1137254902" green="0.1764705882" blue="0.2666666667" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </buttonConfiguration>
+                                <connections>
+                                    <action selector="btnAddResources:" destination="hhp-yB-1cI" eventType="touchUpInside" id="CbQ-Tq-fhx"/>
+                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="bt9-rx-hNV"/>
@@ -788,6 +787,9 @@
                                 <buttonConfiguration key="configuration" style="filled" title="My Learning Resources">
                                     <color key="baseBackgroundColor" red="0.1137254902" green="0.1764705882" blue="0.2666666667" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </buttonConfiguration>
+                                <connections>
+                                    <action selector="btnMyLearningResourcesTapped:" destination="ckH-QE-NvQ" eventType="touchUpInside" id="vIc-r4-dvp"/>
+                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="4dd-W6-Soo"/>
@@ -858,7 +860,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="js6-eH-stm"/>
+        <segue reference="4HP-wS-8vu"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="LearningResourcesImg" width="332" height="146"/>

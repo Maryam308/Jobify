@@ -1004,6 +1004,9 @@ Q3.  How can I change my password ?
                                                                             <backgroundConfiguration key="background" cornerRadius="9"/>
                                                                             <color key="baseBackgroundColor" red="0.1137254902" green="0.1764705882" blue="0.2666666667" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                                         </buttonConfiguration>
+                                                                        <connections>
+                                                                            <action selector="btnMyCVs:" destination="dSq-gK-0Ew" eventType="touchUpInside" id="tRE-Gf-YHF"/>
+                                                                        </connections>
                                                                     </button>
                                                                 </subviews>
                                                             </stackView>
@@ -1199,6 +1202,7 @@ Q3.  How can I change my password ?
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="68v-Ct-AHn" sceneMemberID="firstResponder"/>
+                <exit id="dSq-gK-0Ew" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1013.4328358208954" y="1652.4027459954232"/>
         </scene>
@@ -3060,7 +3064,7 @@ Q3.  How can I change my password ?
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="tintColor">
-            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
