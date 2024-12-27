@@ -10,7 +10,7 @@ import UIKit
 class usersChatCell: UITableViewCell {
     
     
-    @IBOutlet weak var lablOtherUserName: UILabel!
+    @IBOutlet weak var lblOtherUserName: UILabel!
     
     
     

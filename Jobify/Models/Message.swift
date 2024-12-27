@@ -18,6 +18,8 @@ struct Message{
     var messageBody: String?
     var messageDate: Date? //a timestamp of the time the message is constructed
     var otheruserName: String?
+    var senderRefrence: DocumentReference?
+    var recipientRefrence: DocumentReference?
     var unreadCount: Int?
     var isRead: Bool = false
     var otherUserRefrence: DocumentReference?
@@ -35,11 +37,16 @@ struct Message{
     }
     
     // a constructer to fetch the messages without all details and display them in users chats
-    init(otherUserName: String,unreadCount: Int, messageBody: String, otherUserRefrence: DocumentReference){
+    init( isSent: Bool,  // Received by current user
+          otherUserName: String,
+          unreadCount: Int,
+          messageBody: String,
+          otherUserReference: DocumentReference){
+        self.isSent = isSent
         self.messageBody = messageBody
         self.otheruserName = otherUserName
         self.unreadCount = unreadCount
-        self.otherUserRefrence = otherUserRefrence
+        self.otherUserRefrence = otherUserReference
         
     }
     
