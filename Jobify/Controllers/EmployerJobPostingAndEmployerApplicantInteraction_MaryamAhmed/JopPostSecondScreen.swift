@@ -126,9 +126,9 @@ class JopPostCreationSecondScreenViewController: UITableViewController, UIImageP
                 
                 // Prepare the data to update
                 var updatedData: [String: Any] = [
-                    "description": description,
-                    "requirements": requirements,
-                    "deadline": Timestamp(date: deadline),
+                    "jobDescription": description,
+                    "jobRequirement": requirements,
+                    "jobDeadlineDate": Timestamp(date: deadline),
                     "jobPostDate": Date()
                 ]
                 
