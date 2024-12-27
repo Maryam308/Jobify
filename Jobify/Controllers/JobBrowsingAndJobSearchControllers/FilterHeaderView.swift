@@ -26,8 +26,8 @@ class FilterHeaderView: UITableViewHeaderFooterView {
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
         
-        // Set the background color of the header
-        contentView.backgroundColor = UIColor(red: 0.1, green: 0.2, blue: 0.6, alpha: 1) // Dark blue color
+        // Set the background color of contentView using the hex color 1D2D44
+        contentView.backgroundColor = UIColor(hex: "1D2D44")
         
         // Add the title label and toggle button
         contentView.addSubview(titleLabel)

@@ -9,25 +9,10 @@ import UIKit
 
 class JobDetailsTableViewController: UITableViewController {
 
-    struct JobTestData1 {
-        let companyName: String
-        let timePosted: String
-        let datePosted: String
-        let level: String
-        let category: String
-        let location: String
-        let employmentType: String
-        let jobTitle: String
-        let deadlineDate: String
-        let description: String
-        let requirement: String
-        let profilePic: UIImage?
-        let extraAttachment: UIImage?
-    }
+  
     
     @IBOutlet weak var imgProfilePic: UIImageView!
     @IBOutlet weak var lblCompanyName: UILabel!
-    @IBOutlet weak var lblTimePosted: UILabel!
     @IBOutlet weak var lblDatePosted: UILabel!
     @IBOutlet weak var lblLevel: UIButton!
     @IBOutlet weak var lblCategory: UIButton!
@@ -41,19 +26,29 @@ class JobDetailsTableViewController: UITableViewController {
     
     @IBOutlet weak var txtRequirement: UITextView!
     
+    @IBOutlet weak var extraAttachmentView: UIView!
     
     @IBOutlet weak var btnApplyForJobPosition: UIButton!
     
     var job: Job?
-    var currentUserId: Int = UserSession.shared.loggedInUser?.userID ?? 7
-    var currentUserRole: String = UserSession.shared.loggedInUser?.role.rawValue ?? "seeker"
+    var currentUserId: Int = UserSession.shared.loggedInUser?.userID ?? 1
+    var currentUserRole: String = UserSession.shared.loggedInUser?.role.rawValue ?? "admin"
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.tabBarController?.tabBar.isHidden = true
-               // Update UI with job details
-              updateUI()//for upda
+        
+        // Set clipsToBounds to false when no image is present
+        imgProfilePic.layer.cornerRadius = 10 // Reset corner radius
+        imgProfilePic.clipsToBounds = true // Disable clipping
+        
+        let cornerRadius: CGFloat = 10.0 // Adjust the value as needed
+        
+        btnApplyForJobPosition.layer.cornerRadius = cornerRadius
+        btnApplyForJobPosition.clipsToBounds = true
+        // Update UI with job details
+        updateUI()//for upda
         
     }
     
@@ -62,8 +57,34 @@ class JobDetailsTableViewController: UITableViewController {
 
             // Populate the UI elements with job data
             lblCompanyName.text = job.companyDetails?.name ?? "By Jobify"
-            lblTimePosted.text = nil
+        
+        
+        // Load profile picture
+                if let imageURLString = UserSession.shared.loggedInUser?.imageURL,
+                   let imageURL = URL(string: imageURLString) {
+                    loadImage(from: imageURL, into: imgProfilePic)
+                } else {
+                    // Use a system-provided placeholder image
+                    imgProfilePic.image = UIImage(systemName: "person.fill") // Placeholder for profile picture
+                    
+                    // Set clipsToBounds to false when no image is present
+                    imgProfilePic.layer.cornerRadius = 0 // Reset corner radius
+                    imgProfilePic.clipsToBounds = false // Disable clipping
+                }
+        
+        
             lblDatePosted.text = DateFormatter.localizedString(from: job.date, dateStyle: .medium, timeStyle: .short)
+        
+        // Create an array of labels
+            let labels = [lblLevel, lblCategory, lblLocation, lblEmploymentType]
+            
+            // Set corner radius and masks to bounds for each button
+            for label in labels {
+                if let label = label {
+                    label.layer.cornerRadius = label.frame.size.height / 2
+                    label.layer.masksToBounds = true
+                }
+            }
             lblLevel.setTitle(job.level.rawValue, for: .normal)
             lblCategory.setTitle(job.category.rawValue, for: .normal)
             lblLocation.setTitle(job.location, for: .normal)
@@ -72,6 +93,12 @@ class JobDetailsTableViewController: UITableViewController {
             lblDeadlineDate.text = job.deadline != nil ? DateFormatter.localizedString(from: job.deadline!, dateStyle: .medium, timeStyle: .none) : "No Deadline"
             txtDescription.text = job.desc
             txtRequirement.text = job.requirement
+        
+        // Load extra attachment image, if available
+               if let extraImageURLString = job.extraAttachments,
+                  let extraImageURL = URL(string: extraImageURLString) {
+                   loadImage(from: extraImageURL, into: imgExtraAttachment)
+               }
             
         // Show or hide the delete button based on the current user role
             if (currentUserRole == "admin" || currentUserRole == "employer") {
@@ -80,17 +107,22 @@ class JobDetailsTableViewController: UITableViewController {
             } else if currentUserRole == "seeker" {
                 btnApplyForJobPosition.isHidden = false
             }
-            // Load company profile picture
-            loadProfileImage()
+            
         }
         
-        private func loadProfileImage() {
-            if let imageURL = job?.companyDetails?.imageURL {
-                imgProfilePic.image = UIImage(named: imageURL) ?? UIImage(named: "Batelco") // Fallback image
-            } else {
-                imgProfilePic.image = UIImage(named: "Batelco") // Fallback image
-            }
-        }
+    private func loadImage(from url: URL, into imageView: UIImageView) {
+           let task = URLSession.shared.dataTask(with: url) { data, response, error in
+               guard let data = data, error == nil else {
+                   return // Do not set a fallback image for extra attachment
+               }
+               DispatchQueue.main.async {
+                   imageView.image = UIImage(data: data)
+               }
+           }
+           task.resume()
+       }
+
+        
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {

@@ -84,11 +84,11 @@ class JobPostsViewController: UIViewController, UICollectionViewDelegate, UIColl
     }
     
     @IBOutlet weak var jobPostCollectionView: UICollectionView!
-  
+
     
-   
-        var currentUserId: Int = UserSession.shared.loggedInUser?.userID ?? 7
-        var currentUserRole: String = UserSession.shared.loggedInUser?.role.rawValue ?? "seeker"
+    
+        var currentUserId: Int = UserSession.shared.loggedInUser?.userID ?? 1
+        var currentUserRole: String = UserSession.shared.loggedInUser?.role.rawValue ?? "admin"
         let JobPostCollectionViewCellId = "JobPostCollectionViewCell"
         var currentSortOrder: SortOrder? = .newestToOldest // Set default sort order
         var originalJobs: [Job] = [] // hold original job to allow repeated filtering
@@ -106,8 +106,8 @@ class JobPostsViewController: UIViewController, UICollectionViewDelegate, UIColl
             super.viewDidLoad()
             
             // Set up your custom collection view layout
-                //let layout = CustomFlowLayout()
-               // jobPostCollectionView.collectionViewLayout = layout
+               // let layout = CustomFlowLayout()
+                //jobPostCollectionView.collectionViewLayout = layout
             
             fetchJobPostings() // Fetch data from Firestore only once
             
@@ -133,13 +133,8 @@ class JobPostsViewController: UIViewController, UICollectionViewDelegate, UIColl
            // Ensure the tab bar is visible when returning to this controller
            self.tabBarController?.tabBar.isHidden = true
        }
-
-    func showAlert(message: String) {
-        let alertController = UIAlertController(title: "Alert", message: message, preferredStyle: .alert)
-        alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-        self.present(alertController, animated: true, completion: nil)
-    }
-       
+    
+   
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return jobs.count
@@ -148,11 +143,20 @@ class JobPostsViewController: UIViewController, UICollectionViewDelegate, UIColl
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: JobPostCollectionViewCellId, for: indexPath) as! JobPostCollectionViewCell
         let job = jobs[indexPath.row]
-        
-        // Configure the cell with job data
-        cell.jobPostImageView.image = nil
 
-        cell.jobPostTimelbl.text = nil
+        // Load profile picture
+        if let imageURLString = UserSession.shared.loggedInUser?.imageURL,
+            let imageURL = URL(string: imageURLString) {
+            loadImage(from: imageURL, into: cell.jobPostImageView)
+        } else {
+            // Use a system-provided placeholder image
+            cell.jobPostImageView.image = UIImage(systemName: "person.fill") // Placeholder for profile picture
+            
+            // Set clipsToBounds to false when no image is present
+            cell.jobPostImageView.layer.cornerRadius = 0 // Reset corner radius
+            cell.jobPostImageView.clipsToBounds = false // Disable clipping
+        }
+
         cell.jobPostTitlelbl.text = job.companyDetails?.name ?? "By Jobify"
         
         // Format the date
@@ -182,6 +186,18 @@ class JobPostsViewController: UIViewController, UICollectionViewDelegate, UIColl
         
         return cell
     }
+    
+    private func loadImage(from url: URL, into imageView: UIImageView) {
+           let task = URLSession.shared.dataTask(with: url) { data, response, error in
+               guard let data = data, error == nil else {
+                   return // Do not set a fallback image for extra attachment
+               }
+               DispatchQueue.main.async {
+                   imageView.image = UIImage(data: data)
+               }
+           }
+           task.resume()
+       }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         selectedJob = jobs[indexPath.row]  // Store the selected job
@@ -251,7 +267,7 @@ class JobPostsViewController: UIViewController, UICollectionViewDelegate, UIColl
                           let userRef = userDocument.reference
 
                             // Now fetch job posts where companyRef matches this user's reference
-                          self.db.collection("jobPost").whereField("companyRef", isEqualTo: userRef).whereField("jobDeadlineDate", isGreaterThanOrEqualTo: self.currentTimestamp).order(by: "jobPostDate", descending: true).getDocuments { (snapshot, error) in
+                          self.db.collection("jobPost").whereField("companyRef", isEqualTo: userRef).order(by: "jobPostDate", descending: true).getDocuments { (snapshot, error) in
                                 if let error = error {
                                     print("Error fetching job posts for user:\(error.localizedDescription)")
                                 return
@@ -275,11 +291,6 @@ class JobPostsViewController: UIViewController, UICollectionViewDelegate, UIColl
                 .getDocuments { (snapshot, error) in
                     if let error = error {
                         print("Error fetching jobs for category \(category): \(error.localizedDescription)")
-                        return
-                    }
-                    // Check if there are any job postings
-                    guard let documents = snapshot?.documents, !documents.isEmpty else {
-                        self.showAlert(message: "No job postings available in the selected category.")
                         return
                     }
                     self.handleJobPostFetch(snapshot: snapshot, error: nil)
@@ -462,6 +473,9 @@ class JobPostsViewController: UIViewController, UICollectionViewDelegate, UIColl
         let desc = data["jobDescription"] as? String ?? "Unknown"
         let deadline = (data["jobDeadlineDate"] as? Timestamp)?.dateValue()
         let requirement = data["jobRequirement"] as? String ?? "No requirements specified"
+        
+        let extraAttachments = data["imageUrl"] as? String
+
 
         var job = Job(
             jobId: jobPostId,
@@ -474,7 +488,7 @@ class JobPostsViewController: UIViewController, UICollectionViewDelegate, UIColl
             deadline: deadline,
             desc: desc,
             requirement: requirement,
-            extraAttachments: nil,
+            extraAttachments: extraAttachments,
             date: date
         )
 
@@ -594,6 +608,9 @@ class JobPostsViewController: UIViewController, UICollectionViewDelegate, UIColl
                     
                     let requirement = data["jobRequirement"] as? String ?? "No requirements specified"
                     
+                    let extraAttachments = data["imageUrl"] as? String
+
+                    
                     var job = Job(
                         jobId: jobId,
                         title: title,
@@ -605,7 +622,7 @@ class JobPostsViewController: UIViewController, UICollectionViewDelegate, UIColl
                         deadline: deadline,
                         desc: desc,
                         requirement: requirement,
-                        extraAttachments: nil,
+                        extraAttachments: extraAttachments,
                         date: date
                     )
                     
@@ -718,4 +735,5 @@ class JobPostsViewController: UIViewController, UICollectionViewDelegate, UIColl
         self.itemSize = CGSize(width: itemWidth, height: itemHeight)
         self.sectionInset = UIEdgeInsets(top: 5, left: 10, bottom: 20, right: 10) // Set your desired section insets
     }
- }*/
+ }
+*/

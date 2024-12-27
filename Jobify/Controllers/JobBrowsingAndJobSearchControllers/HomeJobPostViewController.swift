@@ -18,9 +18,7 @@ class HomeJobPostViewController: UIViewController, UICollectionViewDataSource, U
     
     @IBOutlet weak var homeStackView: NSLayoutConstraint!
     
-    @IBOutlet weak var btnCreateNewJob: UIButton!
-    
-    @IBOutlet weak var btnMyJobPosts: UIButton!
+  
     
     @IBOutlet weak var recommendedJobViewAllbtn: UIButton!
     
@@ -33,7 +31,6 @@ class HomeJobPostViewController: UIViewController, UICollectionViewDataSource, U
     
     @IBOutlet weak var recommendedJobLabel: UILabel!
     
-    @IBOutlet weak var recommendedJobCollectionHide: UICollectionView!
     
     @IBOutlet weak var categoryTopConstraint: NSLayoutConstraint!
     
@@ -58,6 +55,10 @@ class HomeJobPostViewController: UIViewController, UICollectionViewDataSource, U
     var filteredJobs: [Job] = []
     var allJobs: [Job] = [] // Array to hold all job postings for search
     
+    @IBOutlet weak var btnCreateNewJob: UIButton!
+    
+    @IBOutlet weak var btnMyJobPosts: UIButton!
+    
     
     @IBAction func viewAllRecommendedJobs(_ sender: Any) {
         let storyboard = UIStoryboard(name: "JobBrowsingAndJobSearch_FatimaKhamis", bundle: nil)
@@ -68,7 +69,7 @@ class HomeJobPostViewController: UIViewController, UICollectionViewDataSource, U
             print("Failed to instantiate JobPostsViewController")
         }
     }
-    
+
     @IBAction func viewAllRecentJobs(_ sender: Any) {
         let storyboard = UIStoryboard(name: "JobBrowsingAndJobSearch_FatimaKhamis", bundle: nil)
         if let jobPostsVC = storyboard.instantiateViewController(withIdentifier: "JobPostsViewController") as? JobPostsViewController {
@@ -119,8 +120,8 @@ class HomeJobPostViewController: UIViewController, UICollectionViewDataSource, U
     
     var isHamburgerMenuOpen = false
     
-    var currentUserId: Int = UserSession.shared.loggedInUser?.userID ?? 7
-    var currentUserRole: String = UserSession.shared.loggedInUser?.role.rawValue ?? "seeker"
+    var currentUserId: Int = UserSession.shared.loggedInUser?.userID ?? 1
+    var currentUserRole: String = UserSession.shared.loggedInUser?.role.rawValue ?? "admin"
     
     var recommendedJobs: [Job] = [] // Array to hold  recommended job postings
     var recentJobs: [Job] = [] // Array to hold recent job postings
@@ -133,10 +134,13 @@ class HomeJobPostViewController: UIViewController, UICollectionViewDataSource, U
         super.viewDidLoad()
         
         
+       
         if(currentUserRole == "employer" || currentUserRole  == "admin"){
             hideRecommendedJobView()
             fetchRecentJobs()
             fetchAllJobs() // Fetch all jobs for search functionality
+            roundButtons()
+           
         } else if(currentUserRole == "jobseeker") {
             // Hide the buttons
             btnCreateNewJob.isHidden = true
@@ -146,9 +150,7 @@ class HomeJobPostViewController: UIViewController, UICollectionViewDataSource, U
             fetchAllJobs() // Fetch all jobs for search functionality
             
         }
-        
-        
-        
+  
         // Initially position the hamburgerView off-screen to the left
         hamburgerView.transform = CGAffineTransform(translationX: -hamburgerView.frame.width, y: 0)
         
@@ -212,6 +214,7 @@ class HomeJobPostViewController: UIViewController, UICollectionViewDataSource, U
          if(currentUserRole == "employer" || currentUserRole  == "admin"){
              fetchRecentJobs()
              fetchAllJobs() // Fetch all jobs for search functionality
+             roundButtons()
          } else if currentUserRole == "seeker" {
              // Hide the buttons
              btnCreateNewJob.isHidden = true
@@ -227,20 +230,18 @@ class HomeJobPostViewController: UIViewController, UICollectionViewDataSource, U
         searchBar.text = ""
         searchBar.showsCancelButton = false
         searchBar.resignFirstResponder() // Dismiss the keyboard
-        
-        // Fetch the latest job postings when the view appears
-        /*fetchRecommendedJobs()
-        fetchRecentJobs()
-        fetchAllJobs() // Fetch all jobs for search functionality
-
-        // Optionally, reload the collection views here if necessary
-        jobPostCollectionView.reloadData()
-        recentJobPostCollectionView.reloadData()*/
-        
-        
-
     }
    
+    // Function to round buttons
+       private func roundButtons() {
+           let cornerRadius: CGFloat = 10.0 // Adjust the value as needed
+           
+           btnCreateNewJob.layer.cornerRadius = cornerRadius
+           btnCreateNewJob.clipsToBounds = true
+           
+           btnMyJobPosts.layer.cornerRadius = cornerRadius
+           btnMyJobPosts.clipsToBounds = true
+       }
    
         
     //MARK: - Handlers
@@ -253,7 +254,21 @@ class HomeJobPostViewController: UIViewController, UICollectionViewDataSource, U
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! SearchJobsTableViewCell
         
         let testJob = filteredJobs[indexPath.row] // Use filtered jobs
-        cell.imgCompany.image = nil // Set an image if available
+        
+        // Load profile picture
+        if let imageURLString = UserSession.shared.loggedInUser?.imageURL,
+           let imageURL = URL(string: imageURLString) {
+                loadImage(from: imageURL, into: cell.imgCompany)
+        } else {
+            // Use a system-provided placeholder image
+            cell.imgCompany.image = UIImage(systemName: "person.fill") // Placeholder for profile picture
+            
+            // Set clipsToBounds to false when no image is present
+                cell.imgCompany.layer.cornerRadius = 0 // Reset corner radius
+                cell.imgCompany.clipsToBounds = false // Disable clipping
+
+        }
+        
         cell.lblCompanyName.text = testJob.companyDetails?.name ?? "By Jobify" // Use `testJob`
         cell.lblJobTitle.text = testJob.title // Use `testJob`
         
@@ -344,21 +359,6 @@ class HomeJobPostViewController: UIViewController, UICollectionViewDataSource, U
         }
     
     
-    /*func hideRecommendedJobView() {
-     let recommendedJobHeight = recommendedJobView.frame.height
-     recommendedJobTopConstraint.constant = 0 // Reset to zero
-     categoryTopConstraint.constant -= recommendedJobHeight
-    jobPostCollectionView.isHidden = true // Hide the recommended job view
-     
-     homeStackView.constant -= recommendedJobHeight
-     
-     UIView.animate(withDuration: 0.3) {
-     self.view.layoutIfNeeded()
-     self.updateScrollViewContentSize()
-     }
-     }*/
-    
-    
     private func updateParentViewHeight() {
         // Calculate the height for the recent job posts collection view
         let recentJobPostHeight = calculateCollectionViewHeight(for: recentJobPostCollectionView)
@@ -428,10 +428,7 @@ class HomeJobPostViewController: UIViewController, UICollectionViewDataSource, U
         
         // Set the home stack view height directly based on visible components
         homeStackView.constant -= buttonHeight + categoryViewHeight + recentJobViewHeight + 100 // Total height with spacing
-        
-        
-        
-        
+   
         // Animate the layout changes
         UIView.animate(withDuration: 0.3) {
             self.view.layoutIfNeeded()
@@ -481,7 +478,7 @@ class HomeJobPostViewController: UIViewController, UICollectionViewDataSource, U
         if collectionView == jobPostCollectionView {
             return recommendedJobs.count
         } else if collectionView == categoryCollectionView {
-            return categories.count
+            return min(categories.count, 5) // Limit to a maximum of 5 cells
         } else if collectionView == recentJobPostCollectionView {
             return recentJobs.count
         }
@@ -515,8 +512,20 @@ class HomeJobPostViewController: UIViewController, UICollectionViewDataSource, U
     
     private func configureJobPostCell(_ cell: JobPostCollectionViewCell, with job: Job) {
         // Configure the cell with job data
-        cell.jobPostImageView.image = nil // Set image if available
-        cell.jobPostTimelbl.text = nil
+        
+        // Load profile picture
+        if let imageURLString = UserSession.shared.loggedInUser?.imageURL,
+            let imageURL = URL(string: imageURLString) {
+            loadImage(from: imageURL, into: cell.jobPostImageView)
+        } else {
+            // Use a system-provided placeholder image
+            cell.jobPostImageView.image = UIImage(systemName: "person.fill") // Placeholder for profile picture
+            
+            // Set clipsToBounds to false when no image is present
+            cell.jobPostImageView.layer.cornerRadius = 0 // Reset corner radius
+            cell.jobPostImageView.clipsToBounds = false // Disable clipping
+        }
+
         cell.jobPostTitlelbl.text = job.companyDetails?.name ?? "By Jobify"
         
         
@@ -545,6 +554,18 @@ class HomeJobPostViewController: UIViewController, UICollectionViewDataSource, U
                 cell.btnDelete.isHidden = true // Hide the button for other roles
             }
     }
+    
+    private func loadImage(from url: URL, into imageView: UIImageView) {
+           let task = URLSession.shared.dataTask(with: url) { data, response, error in
+               guard let data = data, error == nil else {
+                   return // Do not set a fallback image for extra attachment
+               }
+               DispatchQueue.main.async {
+                   imageView.image = UIImage(data: data)
+               }
+           }
+           task.resume()
+       }
     
     // Adjust the size of collection view cells dynamically
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -831,6 +852,10 @@ class HomeJobPostViewController: UIViewController, UICollectionViewDataSource, U
         let desc = data["jobDescription"] as? String ?? "Unknown"
         let deadline = (data["jobDeadlineDate"] as? Timestamp)?.dateValue()
         let requirement = data["jobRequirement"] as? String ?? "No requirements specified"
+        
+        // Extract extra attachments as a regular string, defaulting to nil if not present
+        let extraAttachments = data["imageUrl"] as? String
+
 
         var job = Job(
             jobId: jobPostId,
@@ -843,7 +868,7 @@ class HomeJobPostViewController: UIViewController, UICollectionViewDataSource, U
             deadline: deadline,
             desc: desc,
             requirement: requirement,
-            extraAttachments: nil,
+            extraAttachments: extraAttachments,
             date: date
         )
 
@@ -970,6 +995,8 @@ class HomeJobPostViewController: UIViewController, UICollectionViewDataSource, U
                 let deadline = (data["jobDeadlineDate"] as? Timestamp)?.dateValue()
                 let requirement = data["jobRequirement"] as? String ?? "No requirements specified"
                 
+                let extraAttachments = data["imageUrl"] as? String
+
                 var job = Job(
                     jobId: jobId,
                     title: title,
@@ -981,7 +1008,7 @@ class HomeJobPostViewController: UIViewController, UICollectionViewDataSource, U
                     deadline: deadline,
                     desc: desc,
                     requirement: requirement,
-                    extraAttachments: nil,
+                    extraAttachments: extraAttachments,
                     date: date
                 )
                 
@@ -1063,3 +1090,39 @@ class HomeJobPostViewController: UIViewController, UICollectionViewDataSource, U
 
 
 }
+
+class CustomFlowLayout: UICollectionViewFlowLayout {
+    override func layoutAttributesForItem(at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
+        let attributes = super.layoutAttributesForItem(at: indexPath)
+
+        // Check if it's the last item in the section
+        if let collectionView = self.collectionView {
+            let itemCount = collectionView.numberOfItems(inSection: indexPath.section)
+            
+            // If there's an odd number of items and this is the last item
+            if itemCount % 2 != 0 && indexPath.item == itemCount - 1 {
+                // Adjust the frame to align to the left
+                attributes?.frame.origin.x = 0
+            }
+        }
+        
+        return attributes
+    }
+
+    override func prepare() {
+        super.prepare()
+        
+        // Calculate the item size based on safe area insets
+        guard let collectionView = self.collectionView else { return }
+        
+        let safeAreaInsets = collectionView.safeAreaInsets
+        let availableWidth = collectionView.bounds.width - safeAreaInsets.left - safeAreaInsets.right
+
+        // Set item width (you can adjust the height as needed)
+        let itemWidth = availableWidth // Use the full width of the safe area
+        let itemHeight: CGFloat = UIDevice.current.userInterfaceIdiom == .pad ? 260 : 220 // Adjust height for iPad
+
+        self.itemSize = CGSize(width: itemWidth, height: itemHeight)
+        self.sectionInset = UIEdgeInsets(top: 5, left: 10, bottom: 20, right: 10) // Set your desired section insets
+    }
+ }

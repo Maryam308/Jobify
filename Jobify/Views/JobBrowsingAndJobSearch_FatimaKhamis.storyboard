@@ -12,7 +12,7 @@
         <!--Home Job Post View Controller-->
         <scene sceneID="s0d-6b-0kx">
             <objects>
-                <viewController id="Y6W-OH-hqX" customClass="HomeJobPostViewController" customModule="Jobify" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="homePageVC" id="Y6W-OH-hqX" customClass="HomeJobPostViewController" customModule="Jobify" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="847"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -40,15 +40,15 @@
                                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="nl3-1N-MJf">
                                                         <rect key="frame" x="54" y="36" width="285" height="40"/>
                                                         <subviews>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ohM-I3-jNe">
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ohM-I3-jNe">
                                                                 <rect key="frame" x="0.0" y="0.0" width="135" height="40"/>
                                                                 <color key="backgroundColor" red="0.1137254902" green="0.1764705882" blue="0.2666666667" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="40" id="yTV-m4-u05"/>
                                                                 </constraints>
                                                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                <state key="normal" title="Button"/>
-                                                                <buttonConfiguration key="configuration" style="plain">
+                                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                                <state key="normal" title="Button">
                                                                     <attributedString key="attributedTitle">
                                                                         <fragment content="Create New Job">
                                                                             <attributes>
@@ -56,17 +56,17 @@
                                                                             </attributes>
                                                                         </fragment>
                                                                     </attributedString>
-                                                                </buttonConfiguration>
+                                                                </state>
                                                                 <connections>
                                                                     <action selector="createJobPosts:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="Nal-Ko-Ltv"/>
                                                                 </connections>
                                                             </button>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VVe-pg-o33">
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VVe-pg-o33">
                                                                 <rect key="frame" x="150" y="0.0" width="135" height="40"/>
                                                                 <color key="backgroundColor" red="0.1137254902" green="0.1764705882" blue="0.2666666667" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                <state key="normal" title="Button"/>
-                                                                <buttonConfiguration key="configuration" style="plain">
+                                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                                <state key="normal" title="Button">
                                                                     <attributedString key="attributedTitle">
                                                                         <fragment content="My Job Posts">
                                                                             <attributes>
@@ -75,7 +75,7 @@
                                                                             </attributes>
                                                                         </fragment>
                                                                     </attributedString>
-                                                                </buttonConfiguration>
+                                                                </state>
                                                                 <connections>
                                                                     <action selector="viewMyJobPosts:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="Tb4-aa-a1Y"/>
                                                                 </connections>
@@ -206,10 +206,10 @@
                                                         <state key="normal" title="Button"/>
                                                         <buttonConfiguration key="configuration" style="plain" title="View All"/>
                                                         <connections>
-                                                            <action selector="viewAllRecentJobs:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="KH1-Q6-vhj"/>
+                                                            <action selector="viewAllRecentJobs:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="Fip-tz-c9S"/>
                                                         </connections>
                                                     </button>
-                                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="2vN-dV-gff">
+                                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="2vN-dV-gff">
                                                         <rect key="frame" x="21" y="61" width="345" height="685"/>
                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                         <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="dMj-87-NDl">
@@ -391,8 +391,8 @@
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <size key="freeformSize" width="393" height="847"/>
                     <connections>
-                        <outlet property="btnCreateNewJob" destination="ohM-I3-jNe" id="Tud-gT-Wwr"/>
-                        <outlet property="btnMyJobPosts" destination="VVe-pg-o33" id="rEI-be-wer"/>
+                        <outlet property="btnCreateNewJob" destination="ohM-I3-jNe" id="CrA-Sn-2x1"/>
+                        <outlet property="btnMyJobPosts" destination="VVe-pg-o33" id="YG8-RC-CCG"/>
                         <outlet property="categoryCollectionView" destination="06u-2n-GhI" id="UqG-qU-qS4"/>
                         <outlet property="categoryTopConstraint" destination="Bj4-ce-wE1" id="JZL-4N-fS3"/>
                         <outlet property="categoryView" destination="f6p-0G-1P3" id="vT6-zv-hGw"/>
@@ -482,16 +482,18 @@
                                             <constraint firstAttribute="width" constant="150" id="2If-LJ-Ler"/>
                                             <constraint firstAttribute="height" constant="40" id="Dfm-Ye-pdY"/>
                                         </constraints>
-                                        <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain" image="iconFilter" title="Filter" imagePadding="20"/>
+                                        <color key="tintColor" red="0.1137254902" green="0.1764705882" blue="0.2666666667" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="20" maxY="0.0"/>
+                                        <state key="normal" title="Filter" image="iconFilter"/>
                                         <connections>
-                                            <segue destination="41u-V6-Oc8" kind="show" identifier="showFilterPage" id="hpJ-CL-Chi"/>
+                                            <segue destination="41u-V6-Oc8" kind="show" identifier="showFilterPage" id="WYM-4u-Jf5"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pZc-Xn-XDP">
                                         <rect key="frame" x="170" y="0.0" width="150" height="40"/>
-                                        <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain" image="iconSort" title="Sort" imagePadding="20"/>
+                                        <color key="tintColor" red="0.1137254902" green="0.1764705882" blue="0.2666666667" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="20" maxY="0.0"/>
+                                        <state key="normal" title="Sort" image="iconSort"/>
                                         <connections>
                                             <segue destination="mT8-hC-IOq" kind="show" identifier="showSortPage" id="2zZ-Cw-KSC"/>
                                         </connections>
@@ -942,13 +944,13 @@ Requests</string>
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemBlueColor">
-            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemBrownColor">
-            <color red="0.63529411764705879" green="0.51764705882352946" blue="0.36862745098039218" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.63529411759999999" green="0.51764705879999995" blue="0.36862745099999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGreenColor">
-            <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

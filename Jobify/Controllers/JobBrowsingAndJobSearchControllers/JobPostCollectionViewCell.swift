@@ -9,8 +9,13 @@ import UIKit
 
 class JobPostCollectionViewCell: UICollectionViewCell {
     
-    @IBOutlet weak var jobPostView: UIView!
+    protocol JobPostCellDelegate: AnyObject {
+        func didTapDeleteButton(jobId: String)
+    }
     
+    @IBOutlet weak var jobPostView: UIView!
+  
+   
     
     @IBOutlet weak var jobPostImageView: UIImageView!
     @IBOutlet weak var jobPostTimelbl: UILabel!
@@ -25,6 +30,9 @@ class JobPostCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var btnDelete: UIButton!
     
+    @IBAction func deleteButtonTapped(_ sender: Any) {
+      
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -47,6 +55,11 @@ class JobPostCollectionViewCell: UICollectionViewCell {
                     label.layer.masksToBounds = true
                 }
             }
+        
+        let cornerRadius: CGFloat = 10.0 // Adjust the value as needed
+                
+        btnDelete.layer.cornerRadius = cornerRadius
+        btnDelete.clipsToBounds = true
 
     }
  
