@@ -895,7 +895,7 @@
                                     <constraint firstAttribute="height" constant="31" id="EUw-db-qlW"/>
                                 </constraints>
                             </stackView>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="n23-cW-VFK">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="n23-cW-VFK">
                                 <rect key="frame" x="0.0" y="196" width="440" height="677"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
@@ -931,8 +931,7 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="lablOtherUserName" destination="Zlq-Ju-UOt" id="2wx-AV-N3c"/>
-                                            <outlet property="lblChatUserName" destination="Zlq-Ju-UOt" id="xC0-Bq-1ll"/>
+                                            <outlet property="lblOtherUserName" destination="Zlq-Ju-UOt" id="2wx-AV-N3c"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
