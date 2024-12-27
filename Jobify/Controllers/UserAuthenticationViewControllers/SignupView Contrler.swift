@@ -134,7 +134,7 @@ class SeekerSignupViewController: UITableViewController, UIImagePickerController
             }
             
             //print(newRef?.documentID)
-
+            
             
             //Fetch the document reference for the newly created user
             //let newUserRef = db.collection("users").document(userData["userId"] as! String)
@@ -143,7 +143,7 @@ class SeekerSignupViewController: UITableViewController, UIImagePickerController
         
         //print(newRef?.documentID)
         completion(newRef)
-
+        
     }
     
     //MARK: fetchUserDocument is used to fetch the user document reference
@@ -167,15 +167,15 @@ class SeekerSignupViewController: UITableViewController, UIImagePickerController
         }
     }
     
-        @IBAction func btnAddPhotoTapped(_ sender: UIButton) {
-            let picker = UIImagePickerController()
-            picker.allowsEditing = true
-            picker.delegate = self
-            present(picker, animated: true)
-        }
+    @IBAction func btnAddPhotoTapped(_ sender: UIButton) {
+        let picker = UIImagePickerController()
+        picker.allowsEditing = true
+        picker.delegate = self
+        present(picker, animated: true)
+    }
     
     
-
+    
     // MARK: - UIImagePickerControllerDelegate Methods
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let editedImage = info[.editedImage] as? UIImage {
@@ -187,7 +187,7 @@ class SeekerSignupViewController: UITableViewController, UIImagePickerController
         }
         dismiss(animated: true)
     }
-
+    
     
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
@@ -196,20 +196,20 @@ class SeekerSignupViewController: UITableViewController, UIImagePickerController
     
     
     
-
+    
     func uploadImageToCloudinary(image: UIImage) {
         guard let imageData = image.jpegData(compressionQuality: 0.8) else {
             print("Failed to convert image to JPEG data.")
             return
         }
-
+        
         let cloudinaryURL = "https://api.cloudinary.com/v1_1/dvxwcsscw/image/upload"
         let uploadPreset = "JobifyImages"
-
+        
         let parameters: [String: String] = [
             "upload_preset": uploadPreset
         ]
-
+        
         AF.upload(multipartFormData: { multipartFormData in
             multipartFormData.append(imageData, withName: "file", fileName: "profile.jpg", mimeType: "image/jpeg")
             for (key, value) in parameters {
@@ -226,7 +226,6 @@ class SeekerSignupViewController: UITableViewController, UIImagePickerController
             }
         }
     }
-
     
     
     
@@ -287,9 +286,14 @@ class SeekerSignupViewController: UITableViewController, UIImagePickerController
         
     }
     
-    
-    
-    
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        if segue.identifier == "seekerSignupToCategories" {
+//            if let destinationVC = segue.destination as? SelectCategoryViewConroller {
+//                // Pass the DocumentReference to the next screen
+//                destinationVC.docRef = self.userRef
+//            }
+//        }
+//    }
 }
     
     

@@ -89,19 +89,16 @@ class FilterViewController: UIViewController {
             filters[section.title] = Array(section.selectedItems)
         }
         
+        
         delegate?.didApplyFilters(filters)
         dismiss(animated: true, completion: nil)
         //navigate back to the previous controller "Job Post Controller"
         self.navigationController?.popViewController(animated: true)
         
-        
-        
+     
     }
-    
-    
-      
-    
-    
+   
+  
 }
 
 

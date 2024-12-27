@@ -11,22 +11,23 @@ import Firebase
 
 class chatsScreenViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    //user messages variable
-    //chack the current user messages
-    
+
+    //will load all users for both employers and admin
     //a pop up button will hold all the coaporated employers in jobify
+    
+    let db = Firestore.firestore()
+    let currentUserId = UserSession.shared.loggedInUser?.userID ?? 7
+    var currentUserReference: DocumentReference?
+    var users: [(name: String, reference: DocumentReference)] = []
+    var otherUserNames : [String] = []
+    var sendersOfUnread: [DocumentReference] = []
+    var isShowingUnread: Bool = false
     
     @IBOutlet weak var btnJobifyEmployers: UIButton!
     @IBOutlet weak var btnAllEmployers: UIButton!
-    
-    
+        
     @IBOutlet weak var chatsTableView: UITableView!
-    var messages: [(otherUserName: String, unreadCount: Int, messageBody: String, otherUserReference: DocumentReference)] = []
-
-    let db = Firestore.firestore()
-    let currentUserId = UserSession.shared.loggedInUser?.userID ?? 3
-    var currentUserReference: DocumentReference?
-
+    
     
     //declaring colors object of type ui color - would add .cgColor when needed
     let darkColor = UIColor(red: 29/255.0, green: 45/255.0, blue: 68/255.0, alpha: 1.0)
@@ -36,61 +37,62 @@ class chatsScreenViewController: UIViewController, UITableViewDelegate, UITableV
     @IBOutlet weak var btnAllMessages: UIButton!
     @IBOutlet weak var btnUnread: UIButton!
     
-    //buttons action
-    
-    
+   
+        
     //MARK: Filtering messages
     @IBAction func btnAllMessages_Click(_ sender: Any) {
-        
-        // Filter to show all messages
+        //show all the users
         setButtonColors(selectedButton: btnAllMessages, deselectedButton: btnUnread)
-
+        
+        isShowingUnread = false
+        chatsTableView.reloadData()
         
     }
-    
-    
+        
     @IBAction func btnUnread_Click(_ sender: Any) {
     
         // Filter to show only unread messages
             setButtonColors(selectedButton: btnUnread, deselectedButton: btnAllMessages)
+        
+            isShowingUnread = true
+            chatsTableView.reloadData()
 
-            // Filter messages to show only unread ones
-            messages = messages.filter { $0.unreadCount > 0 }
-            chatsTableView.reloadData() // Refresh the table view to display the unread messages
     }
     
     //MARK: View will appear
     //faster response than view did load
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        //by default display all every time message will load
+        btnAllMessages_Click(btnAllMessages!)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(refreshMessages), name: NSNotification.Name("MessagesRead"), object: nil)
-
-        
-        self.fetchAndPopulateJobifyMenu()
+        fetchCurrentUserReference() { [self] _ in
+            print(currentUserReference!)
             
-        
-        
-        chatsTableView.register(usersChatCell.self, forCellReuseIdentifier: "ChatCell")
-
-        
-        // Setup buttons
-        setupButtonStyles()
-        
-        
-        //give the table view a data source and data delegate
-        chatsTableView.delegate = self
-        chatsTableView.dataSource = self
-
-        //when the screen load it will display all the messages
-        fetchCurrentUserReference(userId: currentUserId)
-        
- 
-        
+            NotificationCenter.default.addObserver(self, selector: #selector(refreshMessages), name: NSNotification.Name("MessagesRead"), object: nil)
+            
+            self.fetchAndPopulateJobifyMenu()
+            self.fetchUsers()  // Ensure users are fetched before reloading the table view
+            
+            self.fetchUnreadMessages(){// Reload table view once users are populated
+                DispatchQueue.main.async {
+                    self.chatsTableView.reloadData()
+                }}
+            
+            // Setup buttons
+            setupButtonStyles()
+            
+            // Assign table view data source and delegate
+            chatsTableView.delegate = self
+            chatsTableView.dataSource = self
+            
+            
+        }
     }
+
     
     @objc func refreshMessages() {
-        fetchMessages()
+        
         chatsTableView.reloadData()
     }
     deinit {
@@ -121,160 +123,162 @@ class chatsScreenViewController: UIViewController, UITableViewDelegate, UITableV
         deselectedButton.layer.borderColor = darkColor.cgColor
     }
    
+    //MARK: fetch users
+    func fetchUsers() {
+        // Clear the users array
+        self.users.removeAll()
+
+//        guard let currentUserRole = UserSession.shared.loggedInUser?.role.rawValue else {
+//            print("Error: Current user role not found.")
+//            return
+//        }
+        
+        let currentUserRole = "seeker" //testing
+
+        let usersRef = db.collection("users")
+
+        if currentUserRole == "seeker" {
+            // Fetch users where the userType is either admin or employer
+            let adminRole: DocumentReference = db.collection("usertype").document("user1")
+            let employerRole: DocumentReference = db.collection("usertype").document("user2")
+            
+            usersRef.whereField("userType", in: [employerRole, adminRole]).getDocuments { [weak self] (snapshot, error) in
+                guard let self = self else { return }
+                
+                if let error = error {
+                    print("Error fetching users for seekers: \(error)")
+                    return
+                }
+
+                for document in snapshot!.documents {
+                    let data = document.data()
+                    if let name = data["name"] as? String {
+                        let reference = document.reference
+                        self.users.append((name: name, reference: reference))
+                    }
+                }
+
+                DispatchQueue.main.async {
+                    self.chatsTableView.reloadData()
+                }
+            }
+        } else {
+            // Fetch all other users for non-seekers
+            usersRef.getDocuments { [weak self] (snapshot, error) in
+                guard let self = self else { return }
+                
+                if let error = error {
+                    print("Error fetching users for non-seekers: \(error)")
+                    return
+                }
+
+                for document in snapshot!.documents {
+                    let data = document.data()
+                    if let name = data["name"] as? String {
+                        let reference = document.reference
+                        self.users.append((name: name, reference: reference))
+                    }
+                }
+
+                DispatchQueue.main.async {
+                    self.chatsTableView.reloadData()
+                }
+            }
+        }
+    }
     
-    func fetchMessages() {
-        guard let userReference = currentUserReference else {
-            print("Current user reference is nil.")
+    
+    //MARK: fetch unread
+    //will fetch an array of users that sent to the current user messages and currently unread
+
+    func fetchUnreadMessages(success: @escaping () -> Void) {
+        guard let currentUserReference = currentUserReference else {
+            print("Current user reference is not set")
             return
         }
 
+        let db = Firestore.firestore()
         let messagesRef = db.collection("Messages")
-        var usersDict: [DocumentReference: (otherUserName: String, unreadCount: Int, messageBody: String)] = [:]
-        let dispatchGroup = DispatchGroup()
 
-        // Admin User Reference (Set this to the actual admin user reference in Firestore)
-        let adminReference = db.collection("users").document("user1")  
-        let isAdminUser = userReference == adminReference
-
-        // Exclude admin chat for admin users
-        if !isAdminUser {
-            dispatchGroup.enter()
-            adminReference.getDocument { [weak self] adminSnapshot, error in
-                guard self != nil else { return }
-
+        messagesRef
+            .whereField("recipient", isEqualTo: currentUserReference) // Filter by recipient
+            .whereField("isRead", isEqualTo: false) // Filter by isRead = false
+            .getDocuments { [weak self] snapshot, error in
                 if let error = error {
-                    print("Error fetching admin user: \(error)")
-                    dispatchGroup.leave()
-                    return
-                }
-
-                guard let adminData = adminSnapshot?.data(),
-                      let adminName = adminData["name"] as? String else {
-                    print("Admin data is invalid.")
-                    dispatchGroup.leave()
-                    return
-                }
-
-                // Fetch messages with admin
-                messagesRef
-                    .whereField("recipient", isEqualTo: userReference)
-                    .whereField("sender", isEqualTo: adminReference)
-                    .addSnapshotListener { snapshot, error in
-                        if let error = error {
-                            print("Error fetching admin messages: \(error)")
-                        } else {
-                            let unreadCount = snapshot?.documents.filter { $0.data()["isRead"] as? Bool == false }.count ?? 0
-                            let lastMessage = snapshot?.documents.last?.data()["messageBody"] as? String ?? "No messages yet."
-
-                            usersDict[adminReference] = (adminName, unreadCount, lastMessage)
-                        }
-                        dispatchGroup.leave()
-                    }
-            }
-        }
-
-        // Fetch other user messages
-        messagesRef.whereField("recipient", isEqualTo: userReference)
-            .addSnapshotListener { [weak self] snapshot, error in
-                guard let self = self else { return }
-
-                if let error = error {
-                    print("Error fetching messages: \(error)")
+                    print("Error fetching unread messages: \(error)")
                     return
                 }
 
                 guard let documents = snapshot?.documents else {
-                    print("No messages found.")
+                    print("No unread messages found")
                     return
                 }
 
+                // Iterate through the documents
                 for document in documents {
-                    let data = document.data()
-                    guard
-                        let senderRef = data["sender"] as? DocumentReference,
-                        let isRead = data["isRead"] as? Bool,
-                        let messageBody = data["messageBody"] as? String else {
-                            print("Invalid message data.")
-                            continue
-                    }
-
-                    let unreadCount = isRead ? 0 : 1
-
-                    dispatchGroup.enter()
-                    senderRef.getDocument { senderSnapshot, error in
-                        if let error = error {
-                            print("Error fetching sender data: \(error)")
-                            dispatchGroup.leave()
-                            return
-                        }
-
-                        guard let senderData = senderSnapshot?.data(),
-                              let otherUserName = senderData["name"] as? String else {
-                            print("No username found for sender.")
-                            dispatchGroup.leave()
-                            return
-                        }
-
-                        if let existing = usersDict[senderRef] {
-                            let updatedUnreadCount = existing.unreadCount + unreadCount
-                            usersDict[senderRef] = (otherUserName, updatedUnreadCount, messageBody)
-                        } else {
-                            usersDict[senderRef] = (otherUserName, unreadCount, messageBody)
-                        }
-                        dispatchGroup.leave()
+                    if let senderReference = document.data()["sender"] as? DocumentReference {
+                        self?.sendersOfUnread.append(senderReference)
                     }
                 }
 
-                dispatchGroup.notify(queue: .main) {
-                    self.messages = usersDict.map { (key, value) in
-                        return (value.otherUserName, value.unreadCount, value.messageBody, key)
-                    }
-
-                    // Reload table with updated messages
-                    self.chatsTableView.reloadData()
-                }
+                print("Unread messages fetched. Senders: \(self?.sendersOfUnread ?? [])")
             }
     }
 
 
-
-
-
-
-    
     
     // MARK: - Table View Data Source
 
        func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-           return messages.count
+           if isShowingUnread {
+                   return users.filter { sendersOfUnread.contains($0.reference) }.count
+               } else {
+                   return users.count
+               }
        }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         // Dequeue reusable cell
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ChatCell", for: indexPath) as! usersChatCell
         
-        // Retrieve the message at the given index
-        let message = messages[indexPath.row]
+        let cell = tableView.dequeueReusableCell(withIdentifier: "chatCell", for: indexPath) as! usersChatCell
         
-        // Set the other user's name in the cell's textLabel
-        cell.textLabel?.text = message.otherUserName
-        
-        // Add an accessory view for the unread messages count
-        if message.unreadCount > 0 {
-            let unreadLabel = UILabel()
-            unreadLabel.text = "\(message.unreadCount)"
-            unreadLabel.font = UIFont.systemFont(ofSize: 14)
-            unreadLabel.textColor = .white
-            unreadLabel.backgroundColor = darkColor
-            unreadLabel.textAlignment = .center
-            unreadLabel.layer.cornerRadius = 12 // Circular shape
-            unreadLabel.layer.masksToBounds = true
-            unreadLabel.frame = CGRect(x: 0, y: 0, width: 24, height: 24)
-            cell.accessoryView = unreadLabel
-        } else {
-            cell.accessoryView = nil // Clear the accessory if no unread messages
+        if !users.isEmpty {
+            
+            var user = users[indexPath.row]
+            
+            if isShowingUnread {
+                user = users
+                        .filter{ sendersOfUnread.contains($0.reference) }[indexPath.row]
+                        
+                } else {
+                    user = users[indexPath.row]
+                }
+            
+            // Set the other user's name in the cell's textLabel
+            cell.lblOtherUserName.text = user.name
+            
+            
+            // Check if the user's reference is in the sendersOfUnread array
+            if sendersOfUnread.contains(user.reference) {
+                // Add a badge for unread messages
+                let badgeLabel = UILabel()
+                badgeLabel.text = "●" // Badge symbol
+                badgeLabel.font = UIFont.systemFont(ofSize: 14)
+                badgeLabel.textColor = darkColor
+                badgeLabel.textAlignment = .center
+                badgeLabel.frame = CGRect(x: 0, y: 0, width: 16, height: 16)
+                
+                // Circular shape
+                badgeLabel.layer.cornerRadius = 8
+                badgeLabel.layer.masksToBounds = true
+                
+                cell.accessoryView = badgeLabel
+            } else {
+                // Clear the accessory if there are no unread messages
+                cell.accessoryView = nil
+            }
         }
-        
         return cell
     }
     
@@ -284,9 +288,9 @@ class chatsScreenViewController: UIViewController, UITableViewDelegate, UITableV
         tableView.deselectRow(at: indexPath, animated: true)
 
         // Get the selected message's details
-        let selectedMessage = messages[indexPath.row]
-        let otherUserName = selectedMessage.otherUserName
-        let otherUserReference = selectedMessage.otherUserReference
+        
+        let otherUserName = users[indexPath.row].name
+        let otherUserReference = users[indexPath.row].reference
 
         // Navigate to the single chat screen
         if let singleChatVC = self.storyboard?.instantiateViewController(withIdentifier: "SingleChat") as? chatViewController {
@@ -301,34 +305,38 @@ class chatsScreenViewController: UIViewController, UITableViewDelegate, UITableV
     }
 
 
-    
-    
-    
-    // MARK: fetch the  user
+   
 
     // MARK: fetch the current user
 
-    func fetchCurrentUserReference(userId: Int) {
-            db.collection("users")
-                .whereField("userId", isEqualTo: userId) // Assuming "userId" is the field in Firestore
-                .getDocuments { [weak self] snapshot, error in
-                    if let error = error {
-                        print("Error fetching current user reference: \(error)")
-                        return
-                    }
-                    
-                    guard let document = snapshot?.documents.first else {
-                        print("No user found with ID: \(self?.currentUserId ?? 3)")
-                        return
-                    }
-                    
-                    self?.currentUserReference = document.reference
-                    
-                    // Fetch messages after finding the current user's reference
-                    self?.fetchMessages()
+    func fetchCurrentUserReference( completion: @escaping (Result<DocumentReference, Error>) -> Void) {
+        db.collection("users")
+            .whereField("userId", isEqualTo: currentUserId)
+            .getDocuments { [weak self] snapshot, error in
+                if let error = error {
+                    print("Error fetching current user reference: \(error)")
+                    completion(.failure(error))
+                    return
                 }
-            
-        }
+                
+                guard let document = snapshot?.documents.first else {
+                    if let error = error{
+                        print("No user found with ID: \(self?.currentUserId ?? 7)")
+                        completion(.failure(error))
+                    }
+                        return
+                    
+                }
+                
+                self?.currentUserReference = document.reference
+                
+                
+                
+                // Pass the user reference to the completion handler
+                completion(.success(document.reference))
+            }
+    }
+
         
     
     func fetchAndPopulateJobifyMenu() {

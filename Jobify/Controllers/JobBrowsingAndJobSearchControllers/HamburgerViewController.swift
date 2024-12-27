@@ -12,15 +12,67 @@ class HamburgerViewController: UIViewController {
     @IBOutlet weak var imgProfile: UIImageView!
     @IBOutlet weak var lblWelcomeMessage: UILabel!
     
+    
+    @IBOutlet weak var manageCareerPaths: UIButton!
+    @IBOutlet weak var learningResources: UIButton!
+    @IBOutlet weak var manageSkills: UIButton!
+    
+    var currentUserId: Int = UserSession.shared.loggedInUser?.userID ?? 7
+    var currentUserRole: String = UserSession.shared.loggedInUser?.role.rawValue ?? "seeker"
+    var currentUserName: String = UserSession.shared.loggedInUser?.name ?? "Gulf Digital Group"
+    var welcomeMessage: String = ""
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupProfilePic()
-
+        
+        let name = currentUserName
+        welcomeMessage = "Welcome \(name)!"
+        
+        lblWelcomeMessage.text = welcomeMessage
+        
+        
+        // Show or hide the delete button based on the current user role
+        if currentUserRole == "admin"  {
+            manageCareerPaths.isHidden = false
+            learningResources.isHidden = false
+            manageSkills.isHidden = false
+            
+        } else {
+            manageCareerPaths.isHidden = true
+            learningResources.isHidden = true
+            manageSkills.isHidden = true
+        }
     }
     
     private func setupProfilePic() {
-        imgProfile.layer.cornerRadius = imgProfile.frame.height / 2
-    }
+            imgProfile.layer.cornerRadius = imgProfile.frame.height / 2
+            
+            // Load profile picture
+            if let imageURLString = UserSession.shared.loggedInUser?.imageURL,
+                let imageURL = URL(string: imageURLString) {
+                loadImage(from: imageURL, into: imgProfile)
+            } else {
+                // Use a system-provided placeholder image
+                imgProfile.image = UIImage(systemName: "person.fill") // Placeholder for profile picture
+                        
+                // Set clipsToBounds to false when no image is present
+                imgProfile.layer.cornerRadius = 0 // Reset corner radius
+                imgProfile.clipsToBounds = false // Disable clipping
+            }
+        }
+        
+        private func loadImage(from url: URL, into imageView: UIImageView) {
+               let task = URLSession.shared.dataTask(with: url) { data, response, error in
+                   guard let data = data, error == nil else {
+                       return // Do not set a fallback image for extra attachment
+                   }
+                   DispatchQueue.main.async {
+                       imageView.image = UIImage(data: data)
+                   }
+               }
+               task.resume()
+           }
     
    
     
