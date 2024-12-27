@@ -7,6 +7,9 @@
 
 import UIKit
 
+protocol MonitorCellDelegate: AnyObject {
+    func didTapChangeStatusButton(for application: JobApplication)
+}
 
 
 class MonitorCell: UITableViewCell {
@@ -18,6 +21,9 @@ class MonitorCell: UITableViewCell {
     @IBOutlet weak var currentStatusLabel: UILabel!
     @IBOutlet weak var profileImage: UIImageView!
     @IBOutlet weak var changeStatusButton: UIButton!
+    var application: JobApplication?
+    weak var delegate: MonitorCellDelegate?
+
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -31,7 +37,8 @@ class MonitorCell: UITableViewCell {
     }
     
     @IBAction func ChangeStatusClicked(_ sender: UIButton) {
-       
+        guard let application = application else { return }
+                delegate?.didTapChangeStatusButton(for: application)
     }
     /*
     configureSheet(
