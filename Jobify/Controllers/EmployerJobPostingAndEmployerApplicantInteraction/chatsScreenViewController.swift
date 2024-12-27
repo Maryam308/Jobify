@@ -16,7 +16,7 @@ class chatsScreenViewController: UIViewController, UITableViewDelegate, UITableV
     //a pop up button will hold all the coaporated employers in jobify
     
     let db = Firestore.firestore()
-    let currentUserId = UserSession.shared.loggedInUser?.userID ?? 7
+    let currentUserId = currentLoggedInUserID
     var currentUserReference: DocumentReference?
     var users: [(name: String, reference: DocumentReference)] = []
     var otherUserNames : [String] = []
@@ -133,7 +133,7 @@ class chatsScreenViewController: UIViewController, UITableViewDelegate, UITableV
 //            return
 //        }
         
-        let currentUserRole = "seeker" //testing
+       // let currentUserRole = "seeker" //testing
 
         let usersRef = db.collection("users")
 

@@ -112,13 +112,10 @@
             <viewLayoutGuide key="safeArea" id="qve-Pq-msY"/>
             <connections>
                 <outlet property="changeStatusButton" destination="MRs-me-9jv" id="61T-zs-OxP"/>
-                <outlet property="companyLabel" destination="PQR-9O-qfd" id="ZML-Bv-dCF"/>
                 <outlet property="currentStatusLabel" destination="wbe-ii-MdZ" id="48n-e7-9yc"/>
-                <outlet property="locationLabel" destination="0cb-Z3-v6A" id="FTK-fs-bjh"/>
                 <outlet property="positionLabel" destination="0z0-Dg-bzc" id="svY-Tv-eBo"/>
                 <outlet property="profileImage" destination="S9d-qq-ESM" id="37Z-1C-WdI"/>
                 <outlet property="seekerLabel" destination="PQR-9O-qfd" id="XKH-hb-TKC"/>
-                <outlet property="statusButton" destination="PCg-cu-RKf" id="knR-by-vCd"/>
                 <outlet property="viewApplicationButton" destination="PCg-cu-RKf" id="izG-y7-kec"/>
             </connections>
             <point key="canvasLocation" x="-302.29007633587787" y="60.211267605633807"/>

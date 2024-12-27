@@ -12,7 +12,7 @@ class MyLearningResourcesViewController: UIViewController, UICollectionViewDataS
     
     let db = Firestore.firestore()
     //fetch the singleton user session user
-    let currentUserId = UserSession.shared.loggedInUser?.userID ?? 1
+    let currentUserId = currentLoggedInUserID
     
     // an  array to fetch the users' learning resources
     var learningResources: [LearningResource] = []

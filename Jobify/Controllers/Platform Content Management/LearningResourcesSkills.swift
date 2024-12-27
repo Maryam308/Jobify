@@ -130,7 +130,7 @@ class LearningResourcesSkillsViewController: UIViewController, UICollectionViewD
                 let skillDescription = skillData["description"] as? String ?? ""
                 
                 // Create the AddNewSkillViewController instance
-                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                let storyboard = UIStoryboard(name: "PlatformContentManagement_MaryamAhmed", bundle: nil)
                 if let addNewSkillVC = storyboard.instantiateViewController(withIdentifier: "AddNewSkillViewController") as? AddNewSkillViewController {
                     // Pass the data (title and description) to the next screen
                     addNewSkillVC.editSkillId = skillId
@@ -201,7 +201,9 @@ class LearningResourcesSkillsViewController: UIViewController, UICollectionViewD
                                             print("Error deleting learning resource: \(error)")
                                         } else {
                                             print("Learning resource deleted successfully: \(resourceDoc.reference.path)")
+                                            self.skillsCollection.reloadData()
                                         }
+                        
                                     }
                                 }
                             }

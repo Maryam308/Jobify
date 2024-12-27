@@ -15,8 +15,8 @@ class AddNewLearningResourceViewController : UITableViewController {
     let db = Firestore.firestore()
     var skillTitles: [String] = [] //to store skill titles and add to the popup button
         // to fetch the current user and the current user role
-    var currentUserId: Int = UserSession.shared.loggedInUser?.userID ?? 1
-    var currentUserRole: String = UserSession.shared.loggedInUser?.role.rawValue ?? "admin"
+    var currentUserId: Int = currentLoggedInUserID
+    //var currentUserRole: String = UserSession.shared.loggedInUser?.role.rawValue ?? "admin"
     var selectedSkillTitle: [String] = []
     
     //UI elements outlets
@@ -217,7 +217,7 @@ class AddNewLearningResourceViewController : UITableViewController {
 
                     
 
-                    if self.currentUserRole == "admin" {
+                    if currentUserRole == "admin" {
                         
                         LearningResource.fetchAndSetID(){
                             
@@ -246,7 +246,7 @@ class AddNewLearningResourceViewController : UITableViewController {
                                     self.showAlert( title: "Successful" ,message: "Learning resource added successfully.")
                                 }
                             }}
-                    } else if self.currentUserRole == "employer" {
+                    } else if currentUserRole == "employer" {
                         
                         LearningRequest.fetchAndSetID {
                             //construct the request first to get an id

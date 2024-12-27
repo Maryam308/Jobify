@@ -14,9 +14,11 @@ let db = Firestore.firestore()
 let seekerRef = db.collection("users").document("userID")
 
 class ApplicationTrackerViewController: UIViewController, UITableViewDelegate, UITableViewDataSource{
-    var currentUserId: Int = UserSession.shared.loggedInUser?.userID ?? 3
-    var currentUserRole: String = UserSession.shared.loggedInUser?.role.rawValue ?? "seeker"
+    var currentUserId: Int = currentLoggedInUserID
+   // var currentUserRole: String = UserSession.shared.loggedInUser?.role.rawValue ?? "seeker"
     private var dispatchGroup = DispatchGroup()
+    
+    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return allApplications.count
@@ -72,7 +74,6 @@ class ApplicationTrackerViewController: UIViewController, UITableViewDelegate, U
             
         } else if currentUserRole == "employer" || currentUserRole == "admin" {
             let cell = tableView.dequeueReusableCell(withIdentifier: "MonitorCell", for: indexPath) as! MonitorCell
-            
             let application = allApplications[indexPath.row]
             
             print("jobs: \(jobs)")
@@ -347,6 +348,7 @@ class ApplicationTrackerViewController: UIViewController, UITableViewDelegate, U
             placeholderView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             placeholderView.widthAnchor.constraint(equalToConstant: 200), // Adjust width as needed
             placeholderView.heightAnchor.constraint(equalToConstant: 100)
+            
         ])
         
         placeholderView.isHidden = true
@@ -383,12 +385,22 @@ class ApplicationTrackerViewController: UIViewController, UITableViewDelegate, U
                 }
             }
         */
-         
-        updateApplications()
-        let nib = UINib(nibName: "TrackerCell", bundle: nil)
-        tableView.register(nib, forCellReuseIdentifier: "TrackerCell")
-        tableView.delegate = self
-        tableView.dataSource = self
+        if currentUserRole == "admin" {
+            
+            updateApplications()
+            let nib1 = UINib(nibName: "MonitorCell", bundle: nil)
+            tableView.register(nib1, forCellReuseIdentifier: "MonitorCell")
+            tableView.delegate = self
+            tableView.dataSource = self
+        } else {
+            updateApplications()
+            let nib = UINib(nibName: "TrackerCell", bundle: nil)
+            tableView.register(nib, forCellReuseIdentifier: "TrackerCell")
+            tableView.delegate = self
+            tableView.dataSource = self
+        }
+        
+        
         
         //filterApplications(by: nil) // Show all
        
