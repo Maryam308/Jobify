@@ -22,7 +22,9 @@ enum SortOrder {
 }
 
 
-class JobPostsViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, FilterViewControllerDelegate, SortViewController.SortViewControllerDelegate {
+class JobPostsViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, FilterViewControllerDelegate, SortViewController.SortViewControllerDelegate, CellActionDelegate {
+    
+   
     
     func didApplyFilters(_ filters: [String : [String]]) {
         // Apply filters only on the already fetched job list (self.jobs)
@@ -86,7 +88,6 @@ class JobPostsViewController: UIViewController, UICollectionViewDelegate, UIColl
     @IBOutlet weak var jobPostCollectionView: UICollectionView!
 
     
-    
         var currentUserId: Int = currentLoggedInUserID
        // var currentUserRole: String = UserSession.shared.loggedInUser?.role.rawValue ?? "admin"
         let JobPostCollectionViewCellId = "JobPostCollectionViewCell"
@@ -141,9 +142,13 @@ class JobPostsViewController: UIViewController, UICollectionViewDelegate, UIColl
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+       
+        
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: JobPostCollectionViewCellId, for: indexPath) as! JobPostCollectionViewCell
         let job = jobs[indexPath.row]
 
+        cell.jobPostId = job.jobId
+        
         // Load profile picture
         if let imageURLString = UserSession.shared.loggedInUser?.imageURL,
             let imageURL = URL(string: imageURLString) {
@@ -175,7 +180,7 @@ class JobPostsViewController: UIViewController, UICollectionViewDelegate, UIColl
         // Show or hide the delete button based on the current user role
             if currentUserRole == "admin" {
                 cell.btnDelete.isHidden = false
-                
+
             } else if currentUserRole == "seeker" {
                 cell.btnDelete.isHidden = true
             } else if currentUserRole == "employer" && currentUserId == job.companyDetails?.userId {
@@ -183,6 +188,9 @@ class JobPostsViewController: UIViewController, UICollectionViewDelegate, UIColl
             } else {
                 cell.btnDelete.isHidden = true // Hide the button for other roles
             }
+            cell.jobPostId = job.jobId
+
+            cell.delegate = self// Set the delegate to the view controller
         
         return cell
     }
@@ -198,6 +206,81 @@ class JobPostsViewController: UIViewController, UICollectionViewDelegate, UIColl
            }
            task.resume()
        }
+    
+    
+    func deleteJobPost(jobPostId: Int, completion: @escaping (Bool) -> Void) {
+        let jobPostCollection = db.collection("jobPost")
+        
+        jobPostCollection.whereField("jobPostId", isEqualTo: jobPostId)
+            .getDocuments { snapshot, error in
+                if let error = error {
+                    print("Error finding job post: \(error.localizedDescription)")
+                    completion(false) // Indicate failure
+                    return
+                }
+                
+                guard let document = snapshot?.documents.first else {
+                    print("No job post found with the provided ID.")
+                    completion(false) // Indicate failure
+                    return
+                }
+                
+                // Delete the document
+                document.reference.delete { error in
+                    if let error = error {
+                        print("Error deleting job post: \(error.localizedDescription)")
+                        completion(false) // Indicate failure
+                    } else {
+                        print("Job post successfully deleted.")
+                        completion(true) // Indicate success
+                    }
+                }
+            }
+    }
+
+
+    func confirmDelete(forJobPostId jobPostId: Int) {
+        let alert = UIAlertController(title: "Delete Confirmation",
+                                      message: "Are you sure you want to delete this job post?",
+                                      preferredStyle: .alert)
+        
+        // "Yes" action: Call `deleteJobPost`
+        let yesAction = UIAlertAction(title: "Yes", style: .destructive) { [weak self] _ in
+            self?.deleteJobPost(jobPostId: jobPostId) { success in
+                if success {
+                    // Navigate back only after successful deletion
+                    DispatchQueue.main.async {
+                        self?.navigationController?.popViewController(animated: true)
+                    }
+                } else {
+                    // Show an error message if needed
+                    DispatchQueue.main.async {
+                        let errorAlert = UIAlertController(title: "Error", message: "Failed to delete the job post. Please try again.", preferredStyle: .alert)
+                        errorAlert.addAction(UIAlertAction(title: "OK", style: .default))
+                        self?.present(errorAlert, animated: true)
+                    }
+                }
+            }
+        }
+        
+        // "No" action: Dismiss the alert
+        let noAction = UIAlertAction(title: "No", style: .cancel)
+        
+        // Add actions to the alert
+        alert.addAction(yesAction)
+        alert.addAction(noAction)
+        
+        // Present the alert
+        present(alert, animated: true, completion: nil)
+    }
+
+   
+
+
+    
+    
+    
+    
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         selectedJob = jobs[indexPath.row]  // Store the selected job

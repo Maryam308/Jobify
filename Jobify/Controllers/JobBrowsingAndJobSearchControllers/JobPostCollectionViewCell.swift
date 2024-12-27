@@ -6,16 +6,22 @@
 //
 
 import UIKit
+import FirebaseFirestore
+
+protocol CellActionDelegate: AnyObject {
+func confirmDelete(forJobPostId: Int)
+
+ }
 
 class JobPostCollectionViewCell: UICollectionViewCell {
     
-    protocol JobPostCellDelegate: AnyObject {
+    /*protocol JobPostCellDelegate: AnyObject {
         func didTapDeleteButton(jobId: String)
-    }
+    }*/
     
     @IBOutlet weak var jobPostView: UIView!
   
-   
+    weak var delegate: CellActionDelegate?
     
     @IBOutlet weak var jobPostImageView: UIImageView!
     @IBOutlet weak var jobPostTimelbl: UILabel!
@@ -31,9 +37,43 @@ class JobPostCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var btnDelete: UIButton!
     
     @IBAction func deleteButtonTapped(_ sender: Any) {
-      
+        guard let jobPostId = jobPostId else { return }
+
+        delegate?.confirmDelete(forJobPostId: jobPostId)
     }
     
+    func deleteJobPost(jobPostId: Int) {
+            // Reference to the jobPost collection
+            let jobPostCollection = db.collection("jobPost")
+            
+            // Query for the document with the matching jobPostId
+            jobPostCollection.whereField("jobPostId", isEqualTo: jobPostId)
+                .getDocuments { snapshot, error in
+                    if let error = error {
+                        print("Error finding job post: \(error.localizedDescription)")
+                        return
+                    }
+                    
+                    guard let document = snapshot?.documents.first else {
+                        print("No job post found with the provided ID.")
+                        return
+                    }
+                    
+                    // Delete the document
+                    document.reference.delete { error in
+                        if let error = error {
+                            print("Error deleting job post: \(error.localizedDescription)")
+                        } else {
+                            print("Job post successfully deleted.")
+                        }
+                    }
+                }
+        }
+    
+         
+    
+    var jobPostId : Int?
+
     override func awakeFromNib() {
         super.awakeFromNib()
        
