@@ -40,7 +40,8 @@ class SeekerProfileViewControllerWithCV: UIViewController {
     
     @IBOutlet weak var skillsTextView: UITextView!
 
-
+    @IBOutlet weak var btnMyCVS: UIButton!
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -90,6 +91,15 @@ class SeekerProfileViewControllerWithCV: UIViewController {
         skillsTextView.layer.cornerRadius = 15.0
         skillsTextView.clipsToBounds = true // Ensures content respects the corner radius
         skillsTextView.textContainerInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+    }
+    
+    
+    
+    @IBAction func btnMyCVs(_ sender: Any) {
+        let storyboard = UIStoryboard(name: "CVBuilderAndEditor_MaryamMohsen", bundle: nil)
+                if let myCVsVC = storyboard.instantiateViewController(identifier: "myCVs") as? CVBuilderEditorViewController {
+                         navigationController?.pushViewController(myCVsVC, animated: true)
+                     }
     }
     
     
@@ -108,6 +118,8 @@ class SeekerProfileViewControllerWithCV_EditViewController: UIViewController {
     
     @IBOutlet weak var skillsTextView: UITextView!
     
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -158,7 +170,14 @@ class SeekerProfileViewControllerWithCV_EditViewController: UIViewController {
         skillsTextView.clipsToBounds = true // Ensures content respects the corner radius
         skillsTextView.textContainerInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
     }
+    
+    
+    
+    
+    
 }
+
+
 
 
 

@@ -15,8 +15,8 @@ class SelectCategoryViewConroller: UITableViewController {
     let db = Firestore.firestore()
     let currentUserId = UserSession.shared.loggedInUser?.userID
     private var selectedCategories: [String] = []
-
-
+    var docRef: DocumentReference!
+    
     @IBOutlet weak var btnInformationTechnology: UIButton!
     @IBOutlet weak var btnBusiness: UIButton!
     @IBOutlet weak var btnHealthcare: UIButton!
@@ -41,8 +41,8 @@ class SelectCategoryViewConroller: UITableViewController {
         sender.isSelected.toggle() // Toggle selection state
         updateButtonAppearance(sender) // Update appearance
         handleCategorySelection(for: "Information Technology", isSelected: sender.isSelected)
-    
-}
+        
+    }
     
     @IBAction func btnBusinessTapped(_ sender: UIButton) {
         sender.isSelected.toggle() // Toggle selection state
@@ -55,49 +55,49 @@ class SelectCategoryViewConroller: UITableViewController {
         updateButtonAppearance(sender) // Update appearance
         handleCategorySelection(for: "Healthcare", isSelected: sender.isSelected)
     }
-
+    
     @IBAction func btnEducationTapped(_ sender: UIButton) {
         sender.isSelected.toggle() // Toggle selection state
         updateButtonAppearance(sender) // Update appearance
         handleCategorySelection(for: "Education", isSelected: sender.isSelected)
     }
-
+    
     @IBAction func btnEngineeringTapped(_ sender: UIButton) {
         sender.isSelected.toggle() // Toggle selection state
         updateButtonAppearance(sender) // Update appearance
         handleCategorySelection(for: "Engineering", isSelected: sender.isSelected)
     }
-
+    
     @IBAction func btnMarketingTapped(_ sender: UIButton) {
         sender.isSelected.toggle() // Toggle selection state
         updateButtonAppearance(sender) // Update appearance
         handleCategorySelection(for: "Marketing", isSelected: sender.isSelected)
     }
-
+    
     @IBAction func btnArchitectureTapped(_ sender: UIButton) {
         sender.isSelected.toggle() // Toggle selection state
         updateButtonAppearance(sender) // Update appearance
         handleCategorySelection(for: "Architecture", isSelected: sender.isSelected)
     }
-
+    
     @IBAction func btnFinanceTapped(_ sender: UIButton) {
         sender.isSelected.toggle() // Toggle selection state
         updateButtonAppearance(sender) // Update appearance
         handleCategorySelection(for: "Finance", isSelected: sender.isSelected)
     }
-
+    
     @IBAction func btnOthersTapped(_ sender: UIButton) {
         sender.isSelected.toggle() // Toggle selection state
         updateButtonAppearance(sender) // Update appearance
         handleCategorySelection(for: "Others", isSelected: sender.isSelected)
     }
-
+    
     
     private func updateButtonAppearance(_ button: UIButton) {
         if button.isSelected {
             button.backgroundColor = UIColor(hex: "#1D2D44")
             button.layer.cornerRadius = 5
-                    button.layer.masksToBounds = true
+            button.layer.masksToBounds = true
         } else {
             button.backgroundColor = .clear
             button.setTitleColor(.black, for: .normal) // Use your app's default style
@@ -114,8 +114,8 @@ class SelectCategoryViewConroller: UITableViewController {
                 selectedCategories.remove(at: index)
             }
         }
-
-}
+        
+    }
     
     func fetchUserReference(by userId: Int, completion: @escaping (DocumentReference?) -> Void) {
         db.collection("users")
@@ -126,13 +126,13 @@ class SelectCategoryViewConroller: UITableViewController {
                     completion(nil)
                     return
                 }
-
+                
                 guard let document = snapshot?.documents.first else {
                     print("No user document found for userId: \(userId)")
                     completion(nil)
                     return
                 }
-
+                
                 // Return the reference to the found user document
                 completion(document.reference)
             }
@@ -141,17 +141,24 @@ class SelectCategoryViewConroller: UITableViewController {
     
     @IBAction func btnFinishSignup(_ sender: Any) {
         
-        guard let currentUserId = currentUserId else {
-            print("No logged-in user found")
-            return
-        }
-        
-//        fetchUserReference(by: currentUserId) { [weak self] userRef in
-//            guard let self = self, let userRef = userRef else {
-//                print("Failed to fetch user reference")
-//                return
-//            }
-//        }
+        guard let userRef = docRef else {
+               print("DocumentReference not passed correctly!")
+               return
+           }
+
+           let selectedJobCategoriesData: [String: Any] = [
+               "selectedJobCategories": selectedCategories,
+               "userRef": userRef
+           ]
+
+           db.collection("selectedJobCategories").addDocument(data: selectedJobCategoriesData) { error in
+               if let error = error {
+                   print("Failed to save selected job categories: \(error.localizedDescription)")
+               } else {
+                   print("Selected job categories successfully saved!")
+                   // Perform any further navigation or actions
+               }
+           }
     }
+    
 }
-        
