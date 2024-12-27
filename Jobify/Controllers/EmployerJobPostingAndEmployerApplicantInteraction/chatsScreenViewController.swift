@@ -14,6 +14,10 @@ class chatsScreenViewController: UIViewController, UITableViewDelegate, UITableV
     //user messages variable
     //chack the current user messages
     
+    //a pop up button will hold all the coaporated employers in jobify
+    
+    @IBOutlet weak var btnJobifyEmployers: UIButton!
+    @IBOutlet weak var btnAllEmployers: UIButton!
     
     
     @IBOutlet weak var chatsTableView: UITableView!
@@ -34,6 +38,8 @@ class chatsScreenViewController: UIViewController, UITableViewDelegate, UITableV
     
     //buttons action
     
+    
+    //MARK: Filtering messages
     @IBAction func btnAllMessages_Click(_ sender: Any) {
         
         // Filter to show all messages
@@ -53,7 +59,8 @@ class chatsScreenViewController: UIViewController, UITableViewDelegate, UITableV
             chatsTableView.reloadData() // Refresh the table view to display the unread messages
     }
     
-    
+    //MARK: View will appear
+    //faster response than view did load
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -323,6 +330,67 @@ class chatsScreenViewController: UIViewController, UITableViewDelegate, UITableV
             
         }
         
+    
+    func populateMenu(with users: [String], currentUserReference: String) {
+        var menuItems: [UIAction] = []
+
+        // Add a placeholder item
+        let placeholderItem = UIAction(title: "Message Employers in Jobify", handler: { _ in
+            // Handle placeholder action
+            print("Placeholder selected")
+        })
+        menuItems.append(placeholderItem)
+
+        // Add fetched users to the menu
+        for user in users {
+            let userItem = UIAction(title: user, handler: { _ in
+                // Handle user selection
+                print("\(user) selected")
+                self.showChatConfirmationAlert(selectedUserReference: user, currentUserReference: currentUserReference)
+            })
+            menuItems.append(userItem)
+        }
+
+        // Create a UIMenu with the populated items
+        let menu = UIMenu(title: "", children: menuItems)
+
+        // Assuming you have a UIButton called popUpMenuButton
+        btnJobifyEmployers.menu = menu
+        btnJobifyEmployers.showsMenuAsPrimaryAction = true
+    }
+    
+    func showChatConfirmationAlert(selectedUserReference: String, currentUserReference: String) {
+        let alert = UIAlertController(title: "Start Chat", message: "Do you want to start a chat with this person?", preferredStyle: .alert)
+
+        // "Yes" action to start the chat
+        let yesAction = UIAlertAction(title: "Yes", style: .default) { _ in
+            self.navigateToChatScreen(selectedUserReference: selectedUserReference, currentUserReference: currentUserReference)
+        }
+        
+        // "No" action to cancel
+        let noAction = UIAlertAction(title: "No", style: .cancel, handler: nil)
+
+        // Add actions to the alert
+        alert.addAction(yesAction)
+        alert.addAction(noAction)
+
+        // Present the alert
+        present(alert, animated: true, completion: nil)
+    }
+
+    func navigateToChatScreen(selectedUserReference: String, currentUserReference: String) {
+        // Assuming you have a UIStoryboard and view controller for the chat screen
+        if let chatVC = storyboard?.instantiateViewController(withIdentifier: "SingleChat") as? chatViewController {
+            // Pass both user references to the chat screen
+//            chatVC.currentUserReference = currentUserReference
+            chatVC.otherUserName = selectedUserReference
+            
+            // Navigate to the chat screen
+            navigationController?.pushViewController(chatVC, animated: true)
+        }
+    }
+
+    
     
 }
 

@@ -838,17 +838,24 @@
                         <rect key="frame" x="0.0" y="0.0" width="440" height="956"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="UVx-U0-tsd">
-                                <rect key="frame" x="0.0" y="62" width="440" height="44"/>
+                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" showsMenuAsPrimaryAction="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" changesSelectionAsPrimaryAction="YES" translatesAutoresizingMaskIntoConstraints="NO" id="koG-MO-iVk">
+                                <rect key="frame" x="15" y="62" width="410" height="44"/>
+                                <color key="backgroundColor" red="0.1137254902" green="0.1764705882" blue="0.2666666667" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="44" id="Qp4-e1-NqE"/>
-                                    <constraint firstAttribute="height" constant="44" id="ygI-yX-owo"/>
+                                    <constraint firstAttribute="height" constant="44" id="3OZ-Mr-cXz"/>
                                 </constraints>
-                                <textInputTraits key="textInputTraits"/>
-                                <connections>
-                                    <outlet property="delegate" destination="o25-Z9-DmD" id="KiQ-Ih-OrE"/>
-                                </connections>
-                            </searchBar>
+                                <menu key="menu" id="n8w-Ev-ReR">
+                                    <children>
+                                        <command title="Item 1" id="cWa-xa-yLH"/>
+                                        <command title="Item 2" id="Ydh-DH-rNY"/>
+                                    </children>
+                                </menu>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Button">
+                                    <fontDescription key="titleFontDescription" type="italicSystem" pointSize="0.0"/>
+                                    <color key="baseForegroundColor" red="0.93333333333333335" green="0.93333333333333335" blue="0.93333333333333335" alpha="1" colorSpace="calibratedRGB"/>
+                                </buttonConfiguration>
+                            </button>
                             <stackView opaque="NO" contentMode="scaleAspectFit" alignment="center" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="E0s-im-98D">
                                 <rect key="frame" x="25" y="113" width="173" height="31"/>
                                 <subviews>
@@ -934,20 +941,22 @@
                         <viewLayoutGuide key="safeArea" id="i3g-Ba-6lg"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="i3g-Ba-6lg" firstAttribute="trailing" secondItem="koG-MO-iVk" secondAttribute="trailing" constant="15" id="8E4-fy-beJ"/>
                             <constraint firstItem="i3g-Ba-6lg" firstAttribute="bottom" secondItem="IrY-DS-kBh" secondAttribute="bottom" id="8IZ-GS-MkU"/>
-                            <constraint firstItem="UVx-U0-tsd" firstAttribute="leading" secondItem="i3g-Ba-6lg" secondAttribute="leading" id="Dih-48-pSN"/>
-                            <constraint firstItem="E0s-im-98D" firstAttribute="top" secondItem="UVx-U0-tsd" secondAttribute="bottom" constant="7" id="GJR-hG-P6A"/>
+                            <constraint firstItem="koG-MO-iVk" firstAttribute="leading" secondItem="i3g-Ba-6lg" secondAttribute="leading" constant="15" id="AXB-xr-jbs"/>
                             <constraint firstItem="IrY-DS-kBh" firstAttribute="top" secondItem="E0s-im-98D" secondAttribute="bottom" constant="8" symbolic="YES" id="Gv3-ee-Wmj"/>
-                            <constraint firstItem="UVx-U0-tsd" firstAttribute="top" secondItem="i3g-Ba-6lg" secondAttribute="top" id="Kfz-0h-gEB"/>
+                            <constraint firstItem="koG-MO-iVk" firstAttribute="top" secondItem="i3g-Ba-6lg" secondAttribute="top" id="Hbf-Jq-UoO"/>
+                            <constraint firstItem="E0s-im-98D" firstAttribute="top" secondItem="koG-MO-iVk" secondAttribute="bottom" constant="7" id="J4O-mj-PEm"/>
                             <constraint firstItem="IrY-DS-kBh" firstAttribute="leading" secondItem="i3g-Ba-6lg" secondAttribute="leading" id="TwV-xy-EtR"/>
                             <constraint firstItem="IrY-DS-kBh" firstAttribute="trailing" secondItem="i3g-Ba-6lg" secondAttribute="trailing" id="bTb-az-Npo"/>
-                            <constraint firstItem="UVx-U0-tsd" firstAttribute="trailing" secondItem="i3g-Ba-6lg" secondAttribute="trailing" id="gOz-ux-tif"/>
                             <constraint firstItem="E0s-im-98D" firstAttribute="leading" secondItem="i3g-Ba-6lg" secondAttribute="leading" constant="25" id="hvO-20-KaC"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="VL9-gU-pF4"/>
                     <connections>
+                        <outlet property="btnAllEmployers" destination="koG-MO-iVk" id="Ayc-od-FwW"/>
                         <outlet property="btnAllMessages" destination="t2A-Ck-9gj" id="Mk9-Oz-J5P"/>
+                        <outlet property="btnJobifyEmployers" destination="koG-MO-iVk" id="Pb6-cS-isA"/>
                         <outlet property="btnUnread" destination="bcr-M2-AqS" id="BUZ-l9-auo"/>
                         <outlet property="chatsTableView" destination="IrY-DS-kBh" id="Zbn-Yw-St9"/>
                     </connections>

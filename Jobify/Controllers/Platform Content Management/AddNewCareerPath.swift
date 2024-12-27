@@ -196,33 +196,35 @@ class AddNewCareerPathViewController: UITableViewController {
                let enteredCareer = txtViewCareer.text,
                let enteredRoadMap = txtViewRoadMap.text {
                 
-                //construct to get an auto incremented
-                let careerPath = CareerPath(careerName: enteredTitle, demand: enteredDemand, roadmap: enteredRoadMap,description: enteredCareer)
-                // Create a dictionary for the career path to add to the firebase document
-                let careerPathData = [
-                    "careerPathId": careerPath.careerId,
-                    "title": enteredTitle,
-                    "roadmap": enteredRoadMap,
-                    "description": enteredCareer,
-                    "demand": enteredDemand!
-                ] as [String : Any]
-                
-                // Add values to database
-                //in the collection 'careerPaths' using auto generated id
-                //2- Add document to the collection and pass the data
-                //3- Add error handling if there is a returned error from firebase and provide feedback
-                db.collection("careerPaths").addDocument(data: careerPathData as [String : Any])
-                { error in if let error = error { print("Error adding document: \(error)") } else { print("Document successfully added!") } }
-                
-                //clear input and alert success and navigate back
-                txtTitle.text = ""
-                txtViewRoadMap.text = ""
-                txtViewCareer.text = ""
-                btnDemand.setTitle("Choose the Career Demand", for: .normal)
-                showAlertWithCompletion(title: "Success", message: "Career Path Added"){
-                    self.navigationController?.popViewController(animated: true)
+                CareerPath.fetchAndID { [self] in
+                    //construct to get an auto incremented
+                    let careerPath = CareerPath(careerName: enteredTitle, demand: enteredDemand, roadmap: enteredRoadMap,description: enteredCareer)
+                    // Create a dictionary for the career path to add to the firebase document
+                    let careerPathData = [
+                        "careerPathId": careerPath.careerId,
+                        "title": enteredTitle,
+                        "roadmap": enteredRoadMap,
+                        "description": enteredCareer,
+                        "demand": enteredDemand!
+                    ] as [String : Any]
+                    
+                    // Add values to database
+                    //in the collection 'careerPaths' using auto generated id
+                    //2- Add document to the collection and pass the data
+                    //3- Add error handling if there is a returned error from firebase and provide feedback
+                    self.db.collection("careerPaths").addDocument(data: careerPathData as [String : Any])
+                    { error in if let error = error { print("Error adding document: \(error)") } else { print("Document successfully added!") } }
+                    
+                    //clear input and alert success and navigate back
+                    txtTitle.text = ""
+                    txtViewRoadMap.text = ""
+                    txtViewCareer.text = ""
+                    btnDemand.setTitle("Choose the Career Demand", for: .normal)
+                    showAlertWithCompletion(title: "Success", message: "Career Path Added"){
+                        self.navigationController?.popViewController(animated: true)
+                    }
                 }
-                
+
                 
             }
         }
@@ -242,6 +244,26 @@ class AddNewCareerPathViewController: UITableViewController {
             present(alertController, animated: true)
         }
     
+    
+    @objc func keyboardWasShown(_ notification: NSNotification) {
+        guard let info = notification.userInfo,
+              let keyboardFrameValue = info[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue else {
+            return
+        }
+        
+        let keyboardFrame = keyboardFrameValue.cgRectValue
+        let keyboardSize = keyboardFrame.size
+        let contentInsets = UIEdgeInsets(top: 0.0, left: 0.0, bottom: keyboardSize.height, right: 0.0)
+        
+        tableView.contentInset = contentInsets
+        tableView.scrollIndicatorInsets = contentInsets
+    }
+
+    @objc func keyboardWillBeHidden(_ notification: NSNotification) {
+        let contentInsets = UIEdgeInsets.zero
+        tableView.contentInset = contentInsets
+        tableView.scrollIndicatorInsets = contentInsets
+    }
     
 }
 

@@ -7,10 +7,6 @@
 import Foundation
 import FirebaseFirestore
 
-//Maryam Ahmed : I know this will need fixing but i am not using enums since i am working with the database so either i am going to do a collection and a refrence or keep them since they wont change if i kept them here and there the same.
-//currently i am using popup buttons to write them so they wont be altered from user side
-
-//Maybe for ids we should start with the number after data added to firebase
 
 
 struct CareerPath: Equatable {
@@ -19,7 +15,7 @@ struct CareerPath: Equatable {
         return lhs.careerId == rhs.careerId
     }
     
-    static var careerIdCounter: Int = 20 // to avoid conflict with any sample data
+    static var careerIdCounter: Int  = 200// 200 is the default value of the last career ID cannot be found
     var careerId: Int
     var description: String? = ""
     var title: String
@@ -27,11 +23,12 @@ struct CareerPath: Equatable {
     var roadmap: String? = ""
     
     init(careerName: String, demand: String?, roadmap: String, description: String) {
-        careerId = CareerPath.careerIdCounter + 1
-        self.title = careerName
-        self.demand = demand
-        self.roadmap = roadmap
-        self.description = description
+            self.careerId = CareerPath.careerIdCounter + 1 // Use the updated careerIdCounter
+            CareerPath.careerIdCounter += 1 // Increment for the next instance
+            self.title = careerName
+            self.demand = demand
+            self.roadmap = roadmap
+            self.description = description
     }
     
     //init for fetching and constructing
@@ -39,6 +36,32 @@ struct CareerPath: Equatable {
         self.title = title
         self.careerId = careerId
     }
+    
+    
+
+    // Fetch the highest careerPathId (call this before creating any CareerPath)
+    static func fetchAndID(completion: @escaping () -> Void) {
+            let db = Firestore.firestore()
+
+            db.collection("careerPaths")
+                .order(by: "careerPathId", descending: true)
+                .limit(to: 1)
+                .getDocuments { querySnapshot, error in
+                    if let error = error {
+                        print("Error fetching documents: \(error)")
+                        careerIdCounter = 200 // Default
+                    } else if let snapshot = querySnapshot, let document = snapshot.documents.first {
+                        if let highestId = document.data()["careerPathId"] as? Int {
+                            careerIdCounter = highestId
+                        } else {
+                            careerIdCounter = 200 // Default if missing or invalid
+                        }
+                    } else {
+                        careerIdCounter = 200 // Default if no documents
+                    }
+                    completion() // Notify when done
+                }
+        }
     
 }
 
@@ -55,7 +78,7 @@ struct LearningResource: Equatable, Codable {
         return lhs.learningResourceId == rhs.learningResourceId
     }
     
-    static var resourceIdCounter: Int = 20
+    static var resourceIdCounter: Int = 200
     var learningResourceId: Int = 0
     var type: String? = ""
     var summary: String? = ""
@@ -103,6 +126,29 @@ struct LearningResource: Equatable, Codable {
          self.skillToDevelop = skillToDevelop
          
      }
+    
+    static func fetchAndSetID(completion: @escaping () -> Void) {
+            let db = Firestore.firestore()
+
+            db.collection("LearningResources")
+                .order(by: "learningResourceId", descending: true)
+                .limit(to: 1)
+                .getDocuments { querySnapshot, error in
+                    if let error = error {
+                        print("Error fetching documents: \(error)")
+                        resourceIdCounter = 200 // Default
+                    } else if let snapshot = querySnapshot, let document = snapshot.documents.first {
+                        if let highestId = document.data()["learningResourceId"] as? Int {
+                            resourceIdCounter = highestId
+                        } else {
+                            resourceIdCounter = 200 // Default if missing or invalid
+                        }
+                    } else {
+                        resourceIdCounter = 200 // Default if no documents
+                    }
+                    completion() // Notify when done
+                }
+        }
 
 }
 
@@ -147,7 +193,28 @@ struct Skill: Equatable {
         self.description = description
         self.documentReference = documentReference // Initialize the DocumentReference
     }
-    
+    static func fetchAndSetID(completion: @escaping () -> Void) {
+            let db = Firestore.firestore()
+
+            db.collection("skills")
+                .order(by: "skillId", descending: true)
+                .limit(to: 1)
+                .getDocuments { querySnapshot, error in
+                    if let error = error {
+                        print("Error fetching documents: \(error)")
+                        skillIdCounter = 200 // Default
+                    } else if let snapshot = querySnapshot, let document = snapshot.documents.first {
+                        if let highestId = document.data()["skillId"] as? Int {
+                            skillIdCounter = highestId
+                        } else {
+                            skillIdCounter = 200 // Default if missing or invalid
+                        }
+                    } else {
+                        skillIdCounter = 200 // Default if no documents
+                    }
+                    completion() // Notify when done
+                }
+        }
     
 }
 struct LearningRequest: Equatable {
@@ -193,20 +260,39 @@ struct LearningRequest: Equatable {
         
     }
     
+    static func fetchAndSetID(completion: @escaping () -> Void) {
+            let db = Firestore.firestore()
+
+            db.collection("LearningResourcesRequests")
+                .order(by: "requestId", descending: true)
+                .limit(to: 1)
+                .getDocuments { querySnapshot, error in
+                    if let error = error {
+                        print("Error fetching documents: \(error)")
+                        requestIdCounter = 200 // Default
+                    } else if let snapshot = querySnapshot, let document = snapshot.documents.first {
+                        if let highestId = document.data()["requestId"] as? Int {
+                            requestIdCounter = highestId
+                        } else {
+                            requestIdCounter = 200 // Default if missing or invalid
+                        }
+                    } else {
+                        requestIdCounter = 200 // Default if no documents
+                    }
+                    completion() // Notify when done
+                }
+        }
+    
     
 }
 
-//enum LearningRequestStatus: String {
-//    case Pending
-//    case Approved
-//    case Rejected
-//}
+
 
 
 final class resourceManager {
-
+    
     private init() {} // Singleton
-
+    
     // Current logged in user - seeker details
     private static let UserCollection = Firestore.firestore().collection("MaryamForTesting")
     
@@ -235,7 +321,7 @@ final class resourceManager {
             
             // Loop through the documents to find the correct one
             for document in testingQuerySnapshot.documents {
- 
+                
                 let resourceData = try DB.encoder.encode(learningResource)
                 
                 // Append the resource array in the found document
@@ -254,7 +340,7 @@ final class resourceManager {
             throw error // Re-throw the error for further handling
         }
     }
-
+    
     
     static func isResourceSaved(learningResource: LearningResource) async throws -> Bool {
         // Get a reference to the Firestore collections
@@ -294,7 +380,7 @@ final class resourceManager {
         
         return false // Resource not found in saved resources
     }
-   
+    
     static func removeLearningResource(learningResource: LearningResource) async throws {
         do {
             // Get a reference to the Firestore collection
@@ -346,4 +432,9 @@ final class resourceManager {
             throw error // Re-throw the error for further handling
         }
     }
+    
+
+    
+    
+    
 }

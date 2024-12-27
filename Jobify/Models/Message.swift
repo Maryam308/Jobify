@@ -11,7 +11,7 @@ import Firebase
 struct Message{
     
     
-    static var messageIdCounter: Int = 100
+    static var messageIdCounter: Int = 200
     var messageId: Int?
     var messageSender: User?
     var messageReceiver: User?
@@ -52,5 +52,27 @@ struct Message{
         
     }
     
+    static func fetchAndSetID(completion: @escaping () -> Void) {
+            let db = Firestore.firestore()
+
+            db.collection("Messages")
+                .order(by: "messageId", descending: true)
+                .limit(to: 1)
+                .getDocuments { querySnapshot, error in
+                    if let error = error {
+                        print("Error fetching documents: \(error)")
+                        messageIdCounter = 200 // Default
+                    } else if let snapshot = querySnapshot, let document = snapshot.documents.first {
+                        if let highestId = document.data()["messageId"] as? Int {
+                            messageIdCounter = highestId
+                        } else {
+                            messageIdCounter = 200 // Default if missing or invalid
+                        }
+                    } else {
+                        messageIdCounter = 200 // Default if no documents
+                    }
+                    completion() // Notify when done
+                }
+        }
     
 }
