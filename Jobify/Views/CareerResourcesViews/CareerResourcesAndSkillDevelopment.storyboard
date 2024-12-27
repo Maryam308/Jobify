@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="xN4-ts-T1Y">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="rs5-Fy-xwa">
     <device id="retina6_3" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
@@ -13,17 +13,17 @@
             <objects>
                 <viewController storyboardIdentifier="savedResources" useStoryboardIdentifierAsRestorationIdentifier="YES" id="ccc-XS-yVM" customClass="AllCareerPathsViewController" customModule="Jobify" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="rfr-Xa-Pb1">
-                        <rect key="frame" x="0.0" y="0.0" width="402" height="874"/>
+                        <rect key="frame" x="0.0" y="0.0" width="402" height="864"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.25" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="header" translatesAutoresizingMaskIntoConstraints="NO" id="meK-00-Eig">
-                                <rect key="frame" x="0.0" y="106" width="403" height="146"/>
+                                <rect key="frame" x="0.0" y="0.0" width="403" height="146"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="146" id="MWi-z0-jYl"/>
                                 </constraints>
                             </imageView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="mpd-Qk-ZOq">
-                                <rect key="frame" x="16" y="280" width="371" height="511"/>
+                                <rect key="frame" x="16" y="174" width="371" height="690"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="x12-By-4ps">
                                     <size key="itemSize" width="128" height="128"/>
@@ -34,7 +34,7 @@
                                 <cells/>
                             </collectionView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Saved Learning Resources" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NkG-dp-DZO">
-                                <rect key="frame" x="66" y="141" width="271" height="76"/>
+                                <rect key="frame" x="66" y="35" width="271" height="76"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -69,10 +69,7 @@
         <!--Career Advising View Controller-->
         <scene sceneID="igU-oP-8jE">
             <objects>
-                <viewController useStoryboardIdentifierAsRestorationIdentifier="YES" id="fwK-XK-4Pe" customClass="CareerAdvisingViewController" customModule="Jobify" customModuleProvider="target" sceneMemberID="viewController">
-                    <string key="storyboardIdentifier" base64-UTF8="YES">
-EFNlZWtlckNhcmVlclJlc291cmNlc1ZpZXdDb250cm9sbGVyA
-</string>
+                <viewController storyboardIdentifier="SeekerCareerResourcesViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="fwK-XK-4Pe" customClass="CareerAdvisingViewController" customModule="Jobify" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="wBf-9q-vPj">
                         <rect key="frame" x="0.0" y="0.0" width="402" height="874"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -211,7 +208,7 @@ EFNlZWtlckNhcmVlclJlc291cmNlc1ZpZXdDb250cm9sbGVyA
             <objects>
                 <viewController storyboardIdentifier="allcareerpath" useStoryboardIdentifierAsRestorationIdentifier="YES" id="M0d-1k-Kij" customClass="AllCareerPathsViewController" customModule="Jobify" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="FXk-dc-mDY">
-                        <rect key="frame" x="0.0" y="0.0" width="402" height="874"/>
+                        <rect key="frame" x="0.0" y="0.0" width="402" height="864"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="PYN-Jb-49b">
@@ -228,13 +225,13 @@ EFNlZWtlckNhcmVlclJlc291cmNlc1ZpZXdDb250cm9sbGVyA
                                 <cells/>
                             </collectionView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.25" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="header" translatesAutoresizingMaskIntoConstraints="NO" id="1D1-TD-uuK">
-                                <rect key="frame" x="0.0" y="106" width="402" height="137"/>
+                                <rect key="frame" x="0.0" y="0.0" width="402" height="137"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="137" id="GYG-NZ-9oE"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="All Career Paths" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IPz-bq-g2y">
-                                <rect key="frame" x="119" y="161" width="164" height="27"/>
+                                <rect key="frame" x="119" y="55" width="164" height="27"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -243,6 +240,7 @@ EFNlZWtlckNhcmVlclJlc291cmNlc1ZpZXdDb250cm9sbGVyA
                         <viewLayoutGuide key="safeArea" id="iGC-5k-Wx8"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstAttribute="bottomMargin" secondItem="PYN-Jb-49b" secondAttribute="bottom" constant="73" id="1qb-X4-AP8"/>
                             <constraint firstItem="IPz-bq-g2y" firstAttribute="leading" secondItem="iGC-5k-Wx8" secondAttribute="leading" constant="119" id="3jf-dO-038"/>
                             <constraint firstItem="iGC-5k-Wx8" firstAttribute="trailing" secondItem="IPz-bq-g2y" secondAttribute="trailing" constant="119" id="41Q-kF-bTj"/>
                             <constraint firstItem="PYN-Jb-49b" firstAttribute="leading" secondItem="iGC-5k-Wx8" secondAttribute="leading" constant="16" id="4nf-fB-nZ8"/>
@@ -516,11 +514,11 @@ EFNlZWtlckNhcmVlclJlc291cmNlc1ZpZXdDb250cm9sbGVyA
             <objects>
                 <viewController storyboardIdentifier="skills" useStoryboardIdentifierAsRestorationIdentifier="YES" id="GRD-IK-Mbs" customClass="AllCareerPathsViewController" customModule="Jobify" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="KP0-fK-EbX">
-                        <rect key="frame" x="0.0" y="0.0" width="402" height="874"/>
+                        <rect key="frame" x="0.0" y="0.0" width="402" height="864"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Mda-yU-Fkt">
-                                <rect key="frame" x="16" y="279" width="370" height="512"/>
+                                <rect key="frame" x="16" y="173" width="370" height="691"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="75U-MM-dFs">
                                     <size key="itemSize" width="208" height="200"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -530,19 +528,19 @@ EFNlZWtlckNhcmVlclJlc291cmNlc1ZpZXdDb250cm9sbGVyA
                                 <cells/>
                             </collectionView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.25" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="header" translatesAutoresizingMaskIntoConstraints="NO" id="JQh-md-zgU">
-                                <rect key="frame" x="0.0" y="106" width="402" height="119"/>
+                                <rect key="frame" x="0.0" y="0.0" width="402" height="119"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="119" id="xam-vA-j9F"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Choose the skill you want to improve" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j4M-QP-bvR">
-                                <rect key="frame" x="0.0" y="233" width="402" height="23"/>
+                                <rect key="frame" x="0.0" y="127" width="402" height="23"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="19"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Learning Resources" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aWQ-Mf-Rp9">
-                                <rect key="frame" x="0.0" y="145" width="402" height="26"/>
+                                <rect key="frame" x="0.0" y="39" width="402" height="26"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -602,13 +600,13 @@ EFNlZWtlckNhcmVlclJlc291cmNlc1ZpZXdDb250cm9sbGVyA
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="Career Advising" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VuF-4o-FBG">
-                                <rect key="frame" x="22" y="112" width="186" height="30"/>
+                                <rect key="frame" x="22" y="68" width="186" height="30"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="justified" translatesAutoresizingMaskIntoConstraints="NO" id="wHx-Ub-YM7">
-                                <rect key="frame" x="22" y="145" width="355" height="107"/>
+                                <rect key="frame" x="22" y="101" width="355" height="151"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <string key="text">Explore various career paths, discover valuable resources, and connect with experienced industry mentors to support you on your journey to achieving your professional goals and excelling in your chosen field.</string>
                                 <color key="textColor" systemColor="labelColor"/>
@@ -710,14 +708,14 @@ EFNlZWtlckNhcmVlclJlc291cmNlc1ZpZXdDb250cm9sbGVyA
             <objects>
                 <viewController storyboardIdentifier="allResourcesEmployerAdmin" useStoryboardIdentifierAsRestorationIdentifier="YES" id="ckH-QE-NvQ" customClass="CareerAdvisingAdminEmployerViewController" customModule="Jobify" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="qCK-qB-L2C">
-                        <rect key="frame" x="0.0" y="0.0" width="402" height="874"/>
+                        <rect key="frame" x="0.0" y="0.0" width="402" height="864"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.25" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="752" image="header" translatesAutoresizingMaskIntoConstraints="NO" id="SJo-UD-XNF">
                                 <rect key="frame" x="0.0" y="0.0" width="402" height="212"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="All Learning Resources" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zoh-9W-UL0">
-                                <rect key="frame" x="0.0" y="106" width="402" height="27"/>
+                                <rect key="frame" x="0.0" y="0.0" width="402" height="27"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -743,7 +741,7 @@ EFNlZWtlckNhcmVlclJlc291cmNlc1ZpZXdDb250cm9sbGVyA
                                 <cells/>
                             </collectionView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="6Ox-3j-9cL">
-                                <rect key="frame" x="16" y="435" width="370" height="134"/>
+                                <rect key="frame" x="16" y="508" width="370" height="134"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="134" id="iBg-35-vo4"/>
@@ -757,13 +755,13 @@ EFNlZWtlckNhcmVlclJlc291cmNlc1ZpZXdDb250cm9sbGVyA
                                 <cells/>
                             </collectionView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Certifications" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2xL-rz-jyd">
-                                <rect key="frame" x="15.999999999999993" y="593" width="123.33333333333331" height="23"/>
+                                <rect key="frame" x="15.999999999999993" y="666" width="123.33333333333331" height="23"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="PyZ-JV-YvZ">
-                                <rect key="frame" x="16" y="624" width="370" height="134"/>
+                                <rect key="frame" x="16" y="697" width="370" height="134"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="134" id="Hdg-SH-Zoo"/>
@@ -777,13 +775,13 @@ EFNlZWtlckNhcmVlclJlc291cmNlc1ZpZXdDb250cm9sbGVyA
                                 <cells/>
                             </collectionView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Articles" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rZl-s0-oio">
-                                <rect key="frame" x="16" y="404" width="70.666666666666671" height="23"/>
+                                <rect key="frame" x="16" y="477" width="70.666666666666671" height="23"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hh1-Zw-bsD">
-                                <rect key="frame" x="96" y="141" width="210" height="39"/>
+                                <rect key="frame" x="96" y="35" width="210" height="39"/>
                                 <color key="backgroundColor" red="0.1137254902" green="0.1764705882" blue="0.2666666667" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="tintColor" red="0.1137254902" green="0.1764705882" blue="0.2666666667" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <state key="normal" title="Button"/>
@@ -840,28 +838,10 @@ EFNlZWtlckNhcmVlclJlc291cmNlc1ZpZXdDb250cm9sbGVyA
             </objects>
             <point key="canvasLocation" x="2135.8208955223881" y="-239.58810068649885"/>
         </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="A1f-es-Xea">
-            <objects>
-                <navigationController storyboardIdentifier="adminEmployerCareer" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="xN4-ts-T1Y" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="U0N-Lv-J4k">
-                        <rect key="frame" x="0.0" y="62" width="402" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="hhp-yB-1cI" kind="relationship" relationship="rootViewController" id="gTl-V6-Uf7"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Cuy-NY-OjM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2914.9253731343283" y="-973.45537757437069"/>
-        </scene>
-        <!--Navigation Controller-->
+        <!--Career Custom Navigation Controller-->
         <scene sceneID="by3-yH-FcN">
             <objects>
-                <navigationController storyboardIdentifier="seekerCareer" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="rs5-Fy-xwa" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="seekerCareer" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="rs5-Fy-xwa" customClass="CareerCustomNavigationController" customModule="Jobify" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="" image="graduationcap.fill" catalog="system" selectedImage="graduationcap.fill" id="1gh-pu-SHv">
                         <color key="badgeColor" red="0.1137254902" green="0.1764705882" blue="0.2666666667" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </tabBarItem>
@@ -871,13 +851,10 @@ EFNlZWtlckNhcmVlclJlc291cmNlc1ZpZXdDb250cm9sbGVyA
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="fwK-XK-4Pe" kind="relationship" relationship="rootViewController" id="QTf-Sz-nBD"/>
-                    </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KlS-p8-vnL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6122.3880597014922" y="-973.45537757437069"/>
+            <point key="canvasLocation" x="5122" y="-1459"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>

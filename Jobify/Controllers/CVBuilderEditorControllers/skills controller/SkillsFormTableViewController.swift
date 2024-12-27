@@ -17,7 +17,19 @@ class SkillsFormTableViewController: UITableViewController {
     @IBOutlet weak var txtSkillTitle: UITextField!
     @IBOutlet weak var skillErr: UILabel!
     @IBOutlet weak var lblSkill: UILabel!
-    
+    // MARK: - Setup Button Constraints
+    private func setupButton() {
+        btnSaveSkill.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(btnSaveSkill) // Add button to the view
+        
+        // Set constraints for the Save button
+        NSLayoutConstraint.activate([
+            btnSaveSkill.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20), // 20 points to the leading safe area
+            btnSaveSkill.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20), // 20 points to the trailing safe area
+            btnSaveSkill.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10), // 10 points above the bottom safe area
+            btnSaveSkill.heightAnchor.constraint(equalToConstant: 44) // Set a height for the button
+        ])
+    }
     func adjustFontSize() {
        guard UIDevice.current.userInterfaceIdiom == .pad else { return }
        txtSkillTitle.font = txtSkillTitle.font?.withSize(20)
@@ -33,6 +45,7 @@ class SkillsFormTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupButton()
         adjustFontSize()
         // Populate the text field if editing
         if let skillToEdit = skillToEdit {

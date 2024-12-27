@@ -24,6 +24,19 @@ class EducationFormViewController: UITableViewController {
     @IBOutlet weak var lblFrom: UILabel!
     @IBOutlet weak var lblTo: UILabel!
     
+    // MARK: - Setup Button Constraints
+    private func setupButton() {
+        btnSaveEducation.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(btnSaveEducation) // Add button to the view
+        
+        // Set constraints for the Save button
+        NSLayoutConstraint.activate([
+            btnSaveEducation.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20), // 20 points to the leading safe area
+            btnSaveEducation.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20), // 20 points to the trailing safe area
+            btnSaveEducation.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10), // 10 points above the bottom safe area
+            btnSaveEducation.heightAnchor.constraint(equalToConstant: 44) // Set a height for the button
+        ])
+    }
     func adjustFontSizeForDevice() {
         guard UIDevice.current.userInterfaceIdiom == .pad else { return }
         txtDegree.font = txtDegree.font?.withSize(20)
@@ -42,6 +55,7 @@ class EducationFormViewController: UITableViewController {
     var editIndex: Int?       // The index of the degree being edited
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupButton()
         adjustFontSizeForDevice()
         // Populate the text field if editing
         if let degreeToEdit = degreeToEdit {

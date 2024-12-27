@@ -22,6 +22,8 @@ class CVBuilderEditorViewController: UIViewController, UITableViewDelegate, UITa
     
     override func viewDidLoad() {
         super.viewDidLoad()
+       
+        
         if UIDevice.current.userInterfaceIdiom == .pad {
             pageHeader.font = pageHeader.font?.withSize(24)
         }
@@ -195,6 +197,10 @@ class CVBuilderEditorViewController: UIViewController, UITableViewDelegate, UITa
                 let fetchedCVs = try await CVManager.getUserAllCVs()
                 DispatchQueue.main.async {
                     self.cvs = fetchedCVs
+                    // Loop through the cvs list to find the favorite CV
+                    self.currentFavoriteCV = self.cvs.first { $0.isFavorite! }
+                                   
+                    // Reload the table view to reflect changes
                     self.myCVsTableView.reloadData()
                 }
             } catch {

@@ -53,121 +53,6 @@
             </objects>
             <point key="canvasLocation" x="5267.93893129771" y="-2414.7887323943664"/>
         </scene>
-        <!--Skills-->
-        <scene sceneID="1A6-FJ-W1T">
-            <objects>
-                <tableViewController storyboardIdentifier="SkillsFormVC" useStoryboardIdentifierAsRestorationIdentifier="YES" clearsSelectionOnViewWillAppear="NO" id="3N8-D0-E1J" customClass="SkillsFormTableViewController" customModule="Jobify" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" tag="103" contentMode="scaleToFill" restorationIdentifier="Page3" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="static" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="ehb-Eu-LFv">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <textView key="tableHeaderView" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="center" selectable="NO" id="JK1-ie-3O4">
-                            <rect key="frame" x="0.0" y="0.0" width="393" height="9"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                            <color key="textColor" systemColor="labelColor"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="19"/>
-                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                        </textView>
-                        <sections>
-                            <tableViewSection headerTitle="3. Skills" id="G0B-wM-Na4">
-                                <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="90" id="leT-Lz-cAt">
-                                        <rect key="frame" x="0.0" y="59" width="393" height="90"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="leT-Lz-cAt" id="mWl-wc-vFr">
-                                            <rect key="frame" x="0.0" y="0.0" width="393" height="90"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="List your skills" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YOT-TD-Bi8">
-                                                    <rect key="frame" x="20" y="12" width="344" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter your skill" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="15Y-Yg-8xU">
-                                                    <rect key="frame" x="20" y="38" width="344" height="34"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits"/>
-                                                    <connections>
-                                                        <action selector="skillChanged:" destination="3N8-D0-E1J" eventType="editingChanged" id="4D7-lc-XGD"/>
-                                                    </connections>
-                                                </textField>
-                                                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="required" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bqu-YU-lZ3">
-                                                    <rect key="frame" x="20" y="73" width="344" height="17"/>
-                                                    <color key="tintColor" systemColor="systemRedColor"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <color key="textColor" systemColor="systemRedColor"/>
-                                                    <color key="highlightedColor" systemColor="systemRedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="15Y-Yg-8xU" firstAttribute="leading" secondItem="mWl-wc-vFr" secondAttribute="leadingMargin" id="8cn-gL-zMx"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="15Y-Yg-8xU" secondAttribute="trailing" constant="9" id="929-hO-Kgk"/>
-                                                <constraint firstItem="bqu-YU-lZ3" firstAttribute="top" secondItem="15Y-Yg-8xU" secondAttribute="bottom" constant="1" id="9UC-5g-95v"/>
-                                                <constraint firstItem="bqu-YU-lZ3" firstAttribute="leading" secondItem="mWl-wc-vFr" secondAttribute="leading" constant="20" id="Bxn-pt-Yi9"/>
-                                                <constraint firstAttribute="trailing" secondItem="bqu-YU-lZ3" secondAttribute="trailing" constant="29" id="Fe3-eU-LMi"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="bqu-YU-lZ3" secondAttribute="bottom" constant="-12" id="Mwz-CD-gK7"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="YOT-TD-Bi8" secondAttribute="trailing" constant="9" id="Sd0-fg-zb1"/>
-                                                <constraint firstItem="YOT-TD-Bi8" firstAttribute="leading" secondItem="mWl-wc-vFr" secondAttribute="leadingMargin" id="SdB-nm-mEM"/>
-                                                <constraint firstItem="YOT-TD-Bi8" firstAttribute="top" secondItem="mWl-wc-vFr" secondAttribute="topMargin" id="Sz2-xO-qyX"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="134" id="g1L-up-AHv">
-                                        <rect key="frame" x="0.0" y="149" width="393" height="134"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="g1L-up-AHv" id="YUb-Oa-v2E">
-                                            <rect key="frame" x="0.0" y="0.0" width="393" height="134"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </tableViewCellContentView>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="365" id="8bs-40-rW0">
-                                        <rect key="frame" x="0.0" y="283" width="393" height="365"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="8bs-40-rW0" id="gOI-Ke-5vb">
-                                            <rect key="frame" x="0.0" y="0.0" width="393" height="365"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dgf-UK-UuU">
-                                                    <rect key="frame" x="48" y="322" width="298" height="39"/>
-                                                    <state key="normal" title="Button"/>
-                                                    <buttonConfiguration key="configuration" style="filled" title="Save Skill">
-                                                        <color key="baseBackgroundColor" red="0.1137254902" green="0.1764705882" blue="0.2666666667" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    </buttonConfiguration>
-                                                    <connections>
-                                                        <action selector="btnSaveSkillTapped:" destination="3N8-D0-E1J" eventType="touchUpInside" id="z1c-Ah-t3u"/>
-                                                    </connections>
-                                                </button>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstAttribute="trailingMargin" secondItem="Dgf-UK-UuU" secondAttribute="trailing" constant="27" id="39B-A1-27D"/>
-                                                <constraint firstItem="Dgf-UK-UuU" firstAttribute="bottom" secondItem="gOI-Ke-5vb" secondAttribute="bottomMargin" constant="8" id="SSb-ag-Icw"/>
-                                                <constraint firstItem="Dgf-UK-UuU" firstAttribute="leading" secondItem="gOI-Ke-5vb" secondAttribute="leadingMargin" constant="28" id="jbO-oG-gtP"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </cells>
-                            </tableViewSection>
-                        </sections>
-                        <connections>
-                            <outlet property="dataSource" destination="3N8-D0-E1J" id="pIO-qX-OEE"/>
-                            <outlet property="delegate" destination="3N8-D0-E1J" id="Arm-yH-uK3"/>
-                        </connections>
-                    </tableView>
-                    <navigationItem key="navigationItem" title="Skills" id="gJ7-bv-N3D"/>
-                    <connections>
-                        <outlet property="btnSaveSkill" destination="Dgf-UK-UuU" id="rDh-9a-IdQ"/>
-                        <outlet property="lblSkill" destination="YOT-TD-Bi8" id="nBK-PE-57E"/>
-                        <outlet property="skillErr" destination="bqu-YU-lZ3" id="K3o-bL-JRh"/>
-                        <outlet property="txtSkillTitle" destination="15Y-Yg-8xU" id="rbY-e5-uRz"/>
-                    </connections>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="HB1-0W-mHU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="6820.8955223880594" y="-2430.2059496567504"/>
-        </scene>
         <!--Education-->
         <scene sceneID="kPa-sc-Zuk">
             <objects>
@@ -1489,6 +1374,121 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1qC-Gr-jrv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="6050" y="-1740"/>
+        </scene>
+        <!--Skills-->
+        <scene sceneID="7mb-OM-p7t">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4u6-tH-Sl4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <tableViewController storyboardIdentifier="SkillsFormVC" useStoryboardIdentifierAsRestorationIdentifier="YES" clearsSelectionOnViewWillAppear="NO" id="1Lm-SZ-C5Z" customClass="SkillsFormTableViewController" customModule="Jobify" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" tag="103" contentMode="scaleToFill" restorationIdentifier="Page3" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="static" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="HXw-H4-gJ2">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <textView key="tableHeaderView" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="center" selectable="NO" id="Lri-qp-i6q">
+                            <rect key="frame" x="0.0" y="0.0" width="393" height="9"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            <color key="textColor" systemColor="labelColor"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                        </textView>
+                        <sections>
+                            <tableViewSection headerTitle="3. Skills" id="Lta-hC-gxF">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="90" id="Upy-A4-yhO">
+                                        <rect key="frame" x="0.0" y="59" width="393" height="90"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Upy-A4-yhO" id="v4o-Ax-6JA">
+                                            <rect key="frame" x="0.0" y="0.0" width="393" height="90"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="List your skills" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j0q-6S-fOQ">
+                                                    <rect key="frame" x="20" y="12" width="344" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter your skill" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pPt-8w-vDK">
+                                                    <rect key="frame" x="20" y="38" width="344" height="34"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                    <connections>
+                                                        <action selector="skillChanged:" destination="1Lm-SZ-C5Z" eventType="editingChanged" id="S3a-kf-5Ha"/>
+                                                    </connections>
+                                                </textField>
+                                                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="required" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6AP-CX-dFS">
+                                                    <rect key="frame" x="20" y="73" width="54" height="17"/>
+                                                    <color key="tintColor" systemColor="systemRedColor"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <color key="textColor" systemColor="systemRedColor"/>
+                                                    <color key="highlightedColor" systemColor="systemRedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottomMargin" secondItem="6AP-CX-dFS" secondAttribute="bottom" constant="-12" id="AaX-AT-UmR"/>
+                                                <constraint firstItem="pPt-8w-vDK" firstAttribute="leading" secondItem="v4o-Ax-6JA" secondAttribute="leadingMargin" id="T65-DL-7Zm"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="pPt-8w-vDK" secondAttribute="trailing" constant="9" id="Urm-rL-XYY"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="j0q-6S-fOQ" secondAttribute="trailing" constant="9" id="aRI-iA-ufO"/>
+                                                <constraint firstItem="j0q-6S-fOQ" firstAttribute="top" secondItem="v4o-Ax-6JA" secondAttribute="topMargin" id="c9F-iY-kea"/>
+                                                <constraint firstItem="6AP-CX-dFS" firstAttribute="leading" secondItem="v4o-Ax-6JA" secondAttribute="leading" constant="20" id="i2b-kA-uso"/>
+                                                <constraint firstItem="6AP-CX-dFS" firstAttribute="top" secondItem="pPt-8w-vDK" secondAttribute="bottom" constant="1" id="mr0-OQ-ele"/>
+                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="6AP-CX-dFS" secondAttribute="trailing" symbolic="YES" id="tIY-QN-beo"/>
+                                                <constraint firstItem="j0q-6S-fOQ" firstAttribute="leading" secondItem="v4o-Ax-6JA" secondAttribute="leadingMargin" id="wgH-bo-AS9"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="134" id="vmp-cU-wqZ">
+                                        <rect key="frame" x="0.0" y="149" width="393" height="134"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="vmp-cU-wqZ" id="s6p-Xn-NSk">
+                                            <rect key="frame" x="0.0" y="0.0" width="393" height="134"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="365" id="gyF-Tz-2jW">
+                                        <rect key="frame" x="0.0" y="283" width="393" height="365"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="gyF-Tz-2jW" id="HLx-9N-9ui">
+                                            <rect key="frame" x="0.0" y="0.0" width="393" height="365"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YdF-rE-8ne">
+                                                    <rect key="frame" x="20" y="314" width="353" height="39"/>
+                                                    <state key="normal" title="Button"/>
+                                                    <buttonConfiguration key="configuration" style="filled" title="Save Skill">
+                                                        <color key="baseBackgroundColor" red="0.1137254902" green="0.1764705882" blue="0.2666666667" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    </buttonConfiguration>
+                                                    <connections>
+                                                        <action selector="btnSaveSkillTapped:" destination="1Lm-SZ-C5Z" eventType="touchUpInside" id="VZD-xs-wI2"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="YdF-rE-8ne" firstAttribute="trailing" secondItem="HLx-9N-9ui" secondAttribute="trailingMargin" id="SK3-yj-n4n"/>
+                                                <constraint firstItem="YdF-rE-8ne" firstAttribute="leading" secondItem="HLx-9N-9ui" secondAttribute="leadingMargin" id="TW4-WO-CAU"/>
+                                                <constraint firstItem="YdF-rE-8ne" firstAttribute="bottom" secondItem="HLx-9N-9ui" secondAttribute="bottomMargin" id="uVF-dK-Il1"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
+                        <connections>
+                            <outlet property="dataSource" destination="1Lm-SZ-C5Z" id="nn7-HV-TD4"/>
+                            <outlet property="delegate" destination="1Lm-SZ-C5Z" id="YrD-ds-CAe"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Skills" id="nda-Nf-OQG"/>
+                    <connections>
+                        <outlet property="btnSaveSkill" destination="YdF-rE-8ne" id="Up8-sI-7LT"/>
+                        <outlet property="lblSkill" destination="j0q-6S-fOQ" id="x4v-vG-RFb"/>
+                        <outlet property="skillErr" destination="6AP-CX-dFS" id="9pU-1R-61E"/>
+                        <outlet property="txtSkillTitle" destination="pPt-8w-vDK" id="TJT-JA-Lgi"/>
+                    </connections>
+                </tableViewController>
+            </objects>
+            <point key="canvasLocation" x="6885" y="-2430"/>
         </scene>
     </scenes>
     <resources>

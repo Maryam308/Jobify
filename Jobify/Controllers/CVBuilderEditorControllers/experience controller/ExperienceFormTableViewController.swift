@@ -26,6 +26,20 @@ class ExperienceFormTableViewController: UITableViewController {
     @IBOutlet weak var lblTo: UILabel!
     @IBOutlet weak var lblResponsibility: UILabel!
     
+    // MARK: - Setup Button Constraints
+    private func setupButton() {
+        btnSaveExperience.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(btnSaveExperience) // Add button to the view
+        
+        // Set constraints for the Save button
+        NSLayoutConstraint.activate([
+            btnSaveExperience.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20), // 20 points to the leading safe area
+            btnSaveExperience.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20), // 20 points to the trailing safe area
+            btnSaveExperience.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10), // 10 points above the bottom safe area
+            btnSaveExperience.heightAnchor.constraint(equalToConstant: 44) // Set a height for the button
+        ])
+    }
+    
     func adjustFontSize() {
         guard UIDevice.current.userInterfaceIdiom == .pad else { return }
         txtCompany.font = txtCompany.font?.withSize(20)
@@ -49,6 +63,7 @@ class ExperienceFormTableViewController: UITableViewController {
     var editIndex: Int?       // The index of the experience being edited
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupButton()
         adjustFontSize()
         addBorderToTextView()
         // Populate the text field if editing

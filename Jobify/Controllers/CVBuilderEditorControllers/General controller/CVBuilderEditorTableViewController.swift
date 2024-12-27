@@ -73,6 +73,20 @@ class CVBuilderEditorTableViewController: UITableViewController , UIImagePickerC
     @IBOutlet weak var lblCountry: UILabel!
     @IBOutlet weak var lblCity: UILabel!
     
+    // MARK: - Setup Button Constraints
+    private func setupPersonalButton() {
+        btnGoToEducation.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(btnGoToEducation) // Add button to the view
+        
+        // Set constraints for the Save button
+        NSLayoutConstraint.activate([
+            btnGoToEducation.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20), // 20 points to the leading safe area
+            btnGoToEducation.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20), // 20 points to the trailing safe area
+            btnGoToEducation.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10), // 10 points above the bottom safe area
+            btnGoToEducation.heightAnchor.constraint(equalToConstant: 44) // Set a height for the button
+        ])
+    }
+    
     
     //Titles page outlets
     @IBOutlet weak var txtCVTitle: UITextField!
@@ -83,6 +97,22 @@ class CVBuilderEditorTableViewController: UITableViewController , UIImagePickerC
     @IBOutlet weak var titlesPageHeader: UITextView!
     @IBOutlet weak var lblChooseCV: UILabel!
     @IBOutlet weak var lblJobTitle: UILabel!
+    
+    // MARK: - Setup Button Constraints
+    private func setupPublishButton() {
+        btnPublish.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(btnPublish) // Add button to the view
+        
+        // Set constraints for the Save button
+        NSLayoutConstraint.activate([
+            btnPublish.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20), // 20 points to the leading safe area
+            btnPublish.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20), // 20 points to the trailing safe area
+            btnPublish.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10), // 10 points above the bottom safe area
+            btnPublish.heightAnchor.constraint(equalToConstant: 44) // Set a height for the button
+        ])
+    }
+    
+    
     
     func adjustFontSizeForDevice() {
         guard UIDevice.current.userInterfaceIdiom == .pad else { return }
@@ -350,6 +380,11 @@ class CVBuilderEditorTableViewController: UITableViewController , UIImagePickerC
         super.viewDidLoad()
         adjustFontSizeForDevice()
         restoreCurrentPageData()
+        if self.restorationIdentifier == "personalDetailVC" {
+            setupPersonalButton()
+        } else if self.restorationIdentifier == "Page5" {
+            setupPublishButton()
+        }
         
     }
     
