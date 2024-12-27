@@ -176,10 +176,10 @@ class JopPostCreationSecondScreenViewController: UITableViewController, UIImageP
     
     private func navigateToHomeScreen() {
         // Step 1: Instantiate the Home storyboard
-        let homeStoryboard = UIStoryboard(name: "HomeStoryboard", bundle: nil)
+        let homeStoryboard = UIStoryboard(name: "JobBrowsingAndJobSearch_FatimaKhamis", bundle: nil)
 
         // Step 2: Instantiate the HomeViewController from the Home storyboard
-        if let homeVC = homeStoryboard.instantiateViewController(withIdentifier: "HomeViewController") as? HomeJobPostViewController {
+        if let homeVC = homeStoryboard.instantiateViewController(withIdentifier: "homePageVC") as? HomeJobPostViewController {
             // Step 3: Push the HomeViewController onto the navigation stack
             self.navigationController?.pushViewController(homeVC, animated: true)
         }
