@@ -147,7 +147,7 @@ class JopPostCreationSecondScreenViewController: UITableViewController, UIImageP
                         self?.showAlert(message: "Job post updated successfully!", completion: {
                             // Reset all data
                             self?.resetFields()
-//                            self?.navigateToHomeScreen()
+                           self?.navigateToHomeScreen()
                         })
                     }
                 }

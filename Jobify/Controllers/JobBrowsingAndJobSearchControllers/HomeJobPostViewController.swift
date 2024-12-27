@@ -544,9 +544,9 @@ class HomeJobPostViewController: UIViewController, UICollectionViewDataSource, U
         
         cell.jobPostDescriptionTitlelbl.text = job.title
         cell.jobPostDescriptionlbl.text = job.desc
-        
+        cell.btnDelete.isHidden = true
         // Show or hide the delete button based on the current user role
-            if currentUserRole == "admin" {
+            /*if currentUserRole == "admin" {
                 cell.btnDelete.isHidden = false
                 
             } else if currentUserRole == "seeker" {
@@ -555,7 +555,7 @@ class HomeJobPostViewController: UIViewController, UICollectionViewDataSource, U
                 cell.btnDelete.isHidden = false
             } else {
                 cell.btnDelete.isHidden = true // Hide the button for other roles
-            }
+            }*/
     }
     
     private func loadImage(from url: URL, into imageView: UIImageView) {
