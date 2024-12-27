@@ -64,8 +64,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "98"
             endingLineNumber = "98"
-            landmarkName = "JobApplication"
-            landmarkType = "14">
+            landmarkName = "init(jobApplicant:jobApplied:briefIntroduction:motivation:contributionToCompany:status:applicationId:jobId:applicationDate:applicantRef:employerRef:cvRef:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

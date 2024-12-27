@@ -11,12 +11,11 @@ import FirebaseFirestore
 
 let db = Firestore.firestore()
 
-
+let seekerRef = db.collection("users").document("userID")
 
 class ApplicationTrackerViewController: UIViewController, UITableViewDelegate, UITableViewDataSource{
     var currentUserId: Int = UserSession.shared.loggedInUser?.userID ?? 3
     var currentUserRole: String = UserSession.shared.loggedInUser?.role.rawValue ?? "seeker"
-    //let seekerRef = db.collection("users").document("userID")
     private var dispatchGroup = DispatchGroup()
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -32,25 +31,25 @@ class ApplicationTrackerViewController: UIViewController, UITableViewDelegate, U
             print("jobs: \(jobs)")
             
             
-           var jobTitle: String = ""
+            var jobTitle: String = ""
             var companyName: String = ""
             var jobLocation: String = ""
-                for job in jobs {
-                    if job.jobId == application.jobId {
-                        jobTitle = job.title
-                        companyName = job.companyDetails?.name ?? "No Company"
-                        jobLocation = job.location
-                        print("//////////////////////////////")
-                        print("jobLocation: \(jobLocation)")
-                        print("companyName: \(companyName)")
-                        print("jobTitle: \(jobTitle)")
-                        cell.positionLabel.text = jobTitle
-                        cell.companyLabel.text = companyName
-                        cell.locationLabel.text = jobLocation
-                        break // Exit the loop once the job is found
-                    }
+            for job in jobs {
+                if job.jobId == application.jobId {
+                    jobTitle = job.title
+                    companyName = job.companyDetails?.name ?? "No Company"
+                    jobLocation = job.location
+                    print("//////////////////////////////")
+                    print("jobLocation: \(jobLocation)")
+                    print("companyName: \(companyName)")
+                    print("jobTitle: \(jobTitle)")
+                    cell.positionLabel.text = jobTitle
+                    cell.companyLabel.text = companyName
+                    cell.locationLabel.text = jobLocation
+                    break // Exit the loop once the job is found
                 }
-      
+            }
+            
             
             cell.statusButton.setTitle(application.status.rawValue, for: .normal)
             // Set the button background color based on status
@@ -70,7 +69,7 @@ class ApplicationTrackerViewController: UIViewController, UITableViewDelegate, U
             cell.statusButton.layer.cornerRadius = 20            // Make the button rounded
             cell.statusButton.clipsToBounds = true
             return cell
-
+            
         } else if currentUserRole == "employer" || currentUserRole == "admin" {
             let cell = tableView.dequeueReusableCell(withIdentifier: "MonitorCell", for: indexPath) as! MonitorCell
             
@@ -79,8 +78,8 @@ class ApplicationTrackerViewController: UIViewController, UITableViewDelegate, U
             print("jobs: \(jobs)")
             
             
-           var jobTitle: String = ""
-
+            var jobTitle: String = ""
+            
             for job in jobs {
                 if let myJobPosts = job.companyDetails?.myJobPostsList {
                     // Check if the jobId of the application matches any job's jobId in the myJobPostsList
@@ -94,7 +93,7 @@ class ApplicationTrackerViewController: UIViewController, UITableViewDelegate, U
                 }
             }
             cell.seekerLabel.text = application.jobApplicant?.seekerCVs.first?.personalDetails.name
-
+            
             cell.currentStatusLabel.text = application.status.rawValue
             return cell
         }else{
@@ -103,7 +102,7 @@ class ApplicationTrackerViewController: UIViewController, UITableViewDelegate, U
         }
         
         
-       
+        
         
     }
     
@@ -112,10 +111,10 @@ class ApplicationTrackerViewController: UIViewController, UITableViewDelegate, U
             var application = self.allApplications[indexPath.row]
             // Instantiate the detail view controller using the storyboard
             // Find the corresponding job for the application
-                if let matchingJob = jobs.first(where: { $0.jobId == application.jobId }) {
-                    // Add the job object to the application
-                    application.jobApplied = matchingJob // Assuming `JobApplication` has a `job` property
-                }
+            if let matchingJob = jobs.first(where: { $0.jobId == application.jobId }) {
+                // Add the job object to the application
+                application.jobApplied = matchingJob // Assuming `JobApplication` has a `job` property
+            }
             let detailVC = storyboard?.instantiateViewController(withIdentifier: "ApplicationDetailTableViewController") as! ApplicationDetailTableViewController
             
             // Pass the application data to the detail view controller
@@ -141,68 +140,69 @@ class ApplicationTrackerViewController: UIViewController, UITableViewDelegate, U
             tableView.deselectRow(at: indexPath, animated: true)
         }
         
-        /*
-         let currentStatus = application.status // Get current status
-         
-         let alert = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-         let options = UIAlertController(title: "Change Status", message: nil, preferredStyle: .actionSheet)
-         
-         // Helper function to add an action
-         func addAction(title: String, newStatus: JobApplication.ApplicationStatus) {
-         let action = UIAlertAction(title: title, style: .default) { _ in
-         self.db.collection("jobApplication")
-         .document("\(application.applicationId)")
-         .updateData(["status": newStatus.rawValue]) // Update Firebase
-         // Update local data source
-         self.allApplications[indexPath.row].status = newStatus
-         // Reload the table view
-         DispatchQueue.main.async {
-         self.filterApplications(by: self.currentFilter)
-         //self.tableView.reloadRows(at: [indexPath], with: .automatic)
-         }
-         }
-         options.addAction(action)
-         }
-         
-         // Add options based on the current status
-         switch currentStatus {
-         case .notReviewed:
-         addAction(title: "Reviewed", newStatus: .reviewed)
-         addAction(title: "Rejected", newStatus: .rejected)
-         addAction(title: "Approved", newStatus: .approved)
-         case .reviewed:
-         addAction(title: "Not Reviewed", newStatus: .notReviewed)
-         addAction(title: "Rejected", newStatus: .rejected)
-         addAction(title: "Approved", newStatus: .approved)
-         case .approved:
-         addAction(title: "Not Reviewed", newStatus: .notReviewed)
-         addAction(title: "Reviewed", newStatus: .reviewed)
-         addAction(title: "Rejected", newStatus: .rejected)
-         case .rejected:
-         addAction(title: "Not Reviewed", newStatus: .notReviewed)
-         addAction(title: "Reviewed", newStatus: .reviewed)
-         addAction(title: "Approved", newStatus: .approved)
-         }
-         
-         options.addAction(alert)
-         
-         // Configure popoverPresentationController for iPad
-         if let popoverController = options.popoverPresentationController {
-         popoverController.sourceView = tableView // Set the source view
-         popoverController.sourceRect = tableView.rectForRow(at: indexPath) // Set the source rect (cell's frame)
-         popoverController.permittedArrowDirections = .any // Optional: set arrow direction
-         }
-         
-         present(options, animated: true, completion: nil)
-         
-         //self.tableView.reloadData()
-         DispatchQueue.main.async {
-         self.tableView.reloadData()
-         }
-         }
-         */
+       /*
+        let currentStatus = application.status // Get current status
+        
+        let alert = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        let options = UIAlertController(title: "Change Status", message: nil, preferredStyle: .actionSheet)
+        
+        // Helper function to add an action
+        func addAction(title: String, newStatus: JobApplication.ApplicationStatus) {
+            let action = UIAlertAction(title: title, style: .default) { _ in
+                self.db.collection("jobApplication")
+                    .document("\(application.applicationId)")
+                    .updateData(["status": newStatus.rawValue]) // Update Firebase
+                // Update local data source
+                self.allApplications[indexPath.row].status = newStatus
+                // Reload the table view
+                DispatchQueue.main.async {
+                    self.filterApplications(by: self.currentFilter)
+                    //self.tableView.reloadRows(at: [indexPath], with: .automatic)
+                }
+            }
+            options.addAction(action)
+        }
+        
+        // Add options based on the current status
+        switch currentStatus {
+        case .notReviewed:
+            addAction(title: "Reviewed", newStatus: .reviewed)
+            addAction(title: "Rejected", newStatus: .rejected)
+            addAction(title: "Approved", newStatus: .approved)
+        case .reviewed:
+            addAction(title: "Not Reviewed", newStatus: .notReviewed)
+            addAction(title: "Rejected", newStatus: .rejected)
+            addAction(title: "Approved", newStatus: .approved)
+        case .approved:
+            addAction(title: "Not Reviewed", newStatus: .notReviewed)
+            addAction(title: "Reviewed", newStatus: .reviewed)
+            addAction(title: "Rejected", newStatus: .rejected)
+        case .rejected:
+            addAction(title: "Not Reviewed", newStatus: .notReviewed)
+            addAction(title: "Reviewed", newStatus: .reviewed)
+            addAction(title: "Approved", newStatus: .approved)
+        }
+        
+        options.addAction(alert)
+        
+        // Configure popoverPresentationController for iPad
+        if let popoverController = options.popoverPresentationController {
+            popoverController.sourceView = tableView // Set the source view
+            popoverController.sourceRect = tableView.rectForRow(at: indexPath) // Set the source rect (cell's frame)
+            popoverController.permittedArrowDirections = .any // Optional: set arrow direction
+        }
+        
+        present(options, animated: true, completion: nil)
+        
+        //self.tableView.reloadData()
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+        */
+    
     }
     let db = Firestore.firestore()
+    
     
     var currentFilter: String? = nil
     
@@ -214,7 +214,7 @@ class ApplicationTrackerViewController: UIViewController, UITableViewDelegate, U
     
     func filterApplications(by status: String?) {
         currentFilter = status
-       /*
+        /*
          filteredApplications = allApplications.filter { application in
          if let status = status, application.status.rawValue != status {
          return false
@@ -232,8 +232,8 @@ class ApplicationTrackerViewController: UIViewController, UITableViewDelegate, U
          return false
          
          }
-         }
-        */
+         }*/
+        
     }
     
     //declaring colors object of type ui color - would add .cgColor when needed
@@ -350,7 +350,7 @@ class ApplicationTrackerViewController: UIViewController, UITableViewDelegate, U
         ])
         
         placeholderView.isHidden = true
-            
+            /*
             fetchUserReference(by: currentUserId) { userRef, userType in
                 if let userRef = userRef {
                     print("Successfully fetched user reference: \(userRef.path)")
@@ -382,7 +382,7 @@ class ApplicationTrackerViewController: UIViewController, UITableViewDelegate, U
                     print("Failed to fetch user reference.")
                 }
             }
-        
+        */
          
         updateApplications()
         let nib = UINib(nibName: "TrackerCell", bundle: nil)
