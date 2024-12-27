@@ -19,13 +19,44 @@ class EducationFormViewController: UITableViewController {
     @IBOutlet weak var degreeErr: UILabel!
     @IBOutlet weak var institutionErr: UILabel!
     @IBOutlet weak var btnSaveEducation: UIButton!
+    @IBOutlet weak var lblDegree: UILabel!
+    @IBOutlet weak var lblInstitution: UILabel!
+    @IBOutlet weak var lblFrom: UILabel!
+    @IBOutlet weak var lblTo: UILabel!
+    
+    // MARK: - Setup Button Constraints
+    private func setupButton() {
+        btnSaveEducation.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(btnSaveEducation) // Add button to the view
+        
+        // Set constraints for the Save button
+        NSLayoutConstraint.activate([
+            btnSaveEducation.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20), // 20 points to the leading safe area
+            btnSaveEducation.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20), // 20 points to the trailing safe area
+            btnSaveEducation.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10), // 10 points above the bottom safe area
+            btnSaveEducation.heightAnchor.constraint(equalToConstant: 44) // Set a height for the button
+        ])
+    }
+    func adjustFontSizeForDevice() {
+        guard UIDevice.current.userInterfaceIdiom == .pad else { return }
+        txtDegree.font = txtDegree.font?.withSize(20)
+        txtInstitution.font = txtInstitution.font?.withSize(20)
+        degreeErr.font = degreeErr.font?.withSize(16)
+        institutionErr.font = institutionErr.font?.withSize(16)
+        btnSaveEducation.titleLabel?.font = btnSaveEducation.titleLabel?.font.withSize(20)
+        lblDegree.font = lblDegree.font?.withSize(18)
+        lblInstitution.font = lblInstitution.font?.withSize(18)
+        lblFrom.font = lblFrom.font?.withSize(18)
+        lblTo.font = lblTo.font?.withSize(18)
+    }
     
     weak var delegate: EducationFormDelegate?
     var degreeToEdit: Education? // The degree to edit (if editing)
     var editIndex: Int?       // The index of the degree being edited
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        setupButton()
+        adjustFontSizeForDevice()
         // Populate the text field if editing
         if let degreeToEdit = degreeToEdit {
             txtDegree.text = degreeToEdit.degree
@@ -36,19 +67,31 @@ class EducationFormViewController: UITableViewController {
     }
     
     @IBAction func saveEducationTapped(_ sender: UIButton) {
-        checkForValidEducationForm()
-        // Ensure end date is greater than or equal to start date
-        let startDate = from.date
-        let endDate = to.date
-        guard endDate >= startDate else {
-            let alert = UIAlertController(title: "Error", message: "End date must be greater than or equal to start date", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-            present(alert, animated: true, completion: nil)
-            return
-        }
+        // Check for valid education form
+          checkForValidEducationForm()
+          
+          // Ensure all fields are filled
+          guard let degree = txtDegree.text, !degree.isEmpty,
+                let institution = txtInstitution.text, !institution.isEmpty else {
+              let alert = UIAlertController(title: "Error", message: "All fields must be filled out", preferredStyle: .alert)
+              alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+              present(alert, animated: true, completion: nil)
+              return
+          }
 
-        let education = Education(degree: txtDegree.text!, institution: txtInstitution.text!, startDate: startDate, endDate: endDate)
+          // Ensure end date is greater than or equal to start date
+          let startDate = from.date
+          let endDate = to.date
+          
+          guard endDate >= startDate else {
+              let alert = UIAlertController(title: "Error", message: "End date must be greater than the start date", preferredStyle: .alert)
+              alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+              present(alert, animated: true, completion: nil)
+              return
+          }
 
+          // Create the Education object
+          let education = Education(degree: degree, institution: institution, startDate: startDate, endDate: endDate)
 
           if let index = editIndex {
               // Editing existing education
@@ -77,11 +120,13 @@ class EducationFormViewController: UITableViewController {
             return "Must not be empty"
         }
 
-        // Check if the degree name contains only letters and spaces
-        let allowedCharacterSet = CharacterSet.letters.union(CharacterSet.whitespaces)
+        // Check if the degree name contains only letters, spaces, hyphens, dots, commas, and apostrophes
+        let allowedCharacterSet = CharacterSet.letters
+            .union(CharacterSet.whitespaces)
+            .union(CharacterSet(charactersIn: "-.,'"))
         let set = CharacterSet(charactersIn: value)
         if !allowedCharacterSet.isSuperset(of: set) {
-            return "Must contain letters and spaces only"
+            return "Contains invalid character"
         }
 
         // Check for minimum length

@@ -27,19 +27,36 @@ class EducationTableViewCell: UITableViewCell {
         // Rounded corners for the content view
         contentView.layer.cornerRadius = 10
         contentView.layer.masksToBounds = true
-    }
 
+        // Adjust font size for iPads
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            lblDegree.font = lblDegree.font.withSize(22)
+            lblInstitution.font = lblInstitution.font.withSize(22)
+            lblTo.font = lblTo.font.withSize(22)
+            lblFrom.font = lblFrom.font.withSize(22)
+        }
+    }
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
     
     func setup(education: Education) {
-        lblDegree.text = "Degree: " + education.degree!;
-        lblInstitution.text = education.institution
-        lblFrom.text = DateFormatter.localizedString(from: education.startDate!, dateStyle: .medium, timeStyle: .none)
-        lblTo.text = education.endDate != nil ? DateFormatter.localizedString(from: education.endDate!, dateStyle: .medium, timeStyle: .none) : "Present"
+        lblDegree.text = "Degree: " + (education.degree ?? "")
+        lblInstitution.text = "Institution: " + (education.institution ?? "")
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MMMM yyyy" // Format for month and year
+        
+        lblFrom.text = "From: " + dateFormatter.string(from: education.startDate!)
+        
+        if let endDate = education.endDate {
+            if endDate > Date() {
+                lblTo.text = "To: Present"
+            } else {
+                lblTo.text = "To: " + dateFormatter.string(from: endDate)
+            }
+        } 
     }
-
 
 
 }

@@ -13,22 +13,49 @@ protocol ExperienceFormDelegate: AnyObject {
 class ExperienceFormTableViewController: UITableViewController {
     
     @IBOutlet weak var txtCompany: UITextField!
-    
     @IBOutlet weak var txtRole: UITextField!
-    
-
     @IBOutlet weak var experienceFrom: UIDatePicker!
-    
     @IBOutlet weak var experienceTo: UIDatePicker!
-    
-    
     @IBOutlet weak var txtResponsibility: UITextView!
-    
     @IBOutlet weak var companyErr: UILabel!
-    
     @IBOutlet weak var roleErr: UILabel!
-    
     @IBOutlet weak var responsibilityErr: UILabel!
+    @IBOutlet weak var lblCompany: UILabel!
+    @IBOutlet weak var lblRole: UILabel!
+    @IBOutlet weak var lblFrom: UILabel!
+    @IBOutlet weak var lblTo: UILabel!
+    @IBOutlet weak var lblResponsibility: UILabel!
+    
+    // MARK: - Setup Button Constraints
+    private func setupButton() {
+        btnSaveExperience.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(btnSaveExperience) // Add button to the view
+        
+        // Set constraints for the Save button
+        NSLayoutConstraint.activate([
+            btnSaveExperience.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20), // 20 points to the leading safe area
+            btnSaveExperience.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20), // 20 points to the trailing safe area
+            btnSaveExperience.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10), // 10 points above the bottom safe area
+            btnSaveExperience.heightAnchor.constraint(equalToConstant: 44) // Set a height for the button
+        ])
+    }
+    
+    func adjustFontSize() {
+        guard UIDevice.current.userInterfaceIdiom == .pad else { return }
+        txtCompany.font = txtCompany.font?.withSize(20)
+        txtRole.font = txtRole.font?.withSize(20)
+        txtResponsibility.font = txtResponsibility.font?.withSize(18)
+
+        companyErr.font = companyErr.font?.withSize(16)
+        roleErr.font = roleErr.font?.withSize(16)
+        responsibilityErr.font = responsibilityErr.font?.withSize(16)
+
+        lblCompany.font = lblCompany.font?.withSize(18)
+        lblRole.font = lblRole.font?.withSize(18)
+        lblFrom.font = lblFrom.font?.withSize(18)
+        lblTo.font = lblTo.font?.withSize(18)
+        lblResponsibility.font = lblResponsibility.font?.withSize(18)
+    }
     
     @IBOutlet weak var btnSaveExperience: UIButton!
     weak var delegate: ExperienceFormDelegate?
@@ -36,6 +63,8 @@ class ExperienceFormTableViewController: UITableViewController {
     var editIndex: Int?       // The index of the experience being edited
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupButton()
+        adjustFontSize()
         addBorderToTextView()
         // Populate the text field if editing
         if let experienceToEdit = experienceToEdit {
@@ -43,6 +72,7 @@ class ExperienceFormTableViewController: UITableViewController {
             txtRole.text = experienceToEdit.role
             experienceFrom.date = experienceToEdit.startDate!
             experienceTo.date = experienceToEdit.endDate!
+            txtResponsibility.text = experienceToEdit.keyResponsibilities
         }
 
     }
@@ -66,7 +96,7 @@ class ExperienceFormTableViewController: UITableViewController {
            let startDate = experienceFrom.date
            let endDate = experienceTo.date
            
-           guard endDate >= startDate else {
+           guard endDate > startDate else {
                let alert = UIAlertController(title: "Error", message: "End date must be greater than the start date", preferredStyle: .alert)
                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                present(alert, animated: true, completion: nil)

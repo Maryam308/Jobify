@@ -15,12 +15,8 @@ class CVViewerViewController: UIViewController, UITableViewDelegate, UITableView
     @IBOutlet weak var tableView: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
-
-    
              if let cv = cv {
-                 // Use cv to display its details
                  print("CV Title: \(cv.cvTitle)")
-                 // Display other details as needed
              }
         
         tableView.dataSource = self
@@ -28,9 +24,11 @@ class CVViewerViewController: UIViewController, UITableViewDelegate, UITableView
         
         // Register tableView with cv viewer cell
         tableView.register(UINib(nibName: "CVViewerTableViewCell", bundle: .main), forCellReuseIdentifier: "CVViewerTableViewCell")
-        // Do any additional setup after loading the view.
+        
     }
     
+    
+    // MARK: - UITableViewDataSource Methods
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1
     }
@@ -53,6 +51,7 @@ class CVViewerViewController: UIViewController, UITableViewDelegate, UITableView
               createPDF(cv: cv)
     }
     
+    // MARK: - Export PDF
    // reference: https://developer.apple.com/library/archive/documentation/2DDrawing/Conceptual/DrawingPrintingiOS/GeneratingPDF/GeneratingPDF.html
    // https://stackoverflow.com/questions/70337689/create-pdf-with-wkwebview-pdfconfiguration
     
@@ -69,34 +68,34 @@ class CVViewerViewController: UIViewController, UITableViewDelegate, UITableView
                 if let profileImage = UIImage(data: data) {
                     UIGraphicsBeginPDFContextToFile(pdfFilename.path, .zero, nil)
                     UIGraphicsBeginPDFPage()
-
+                    
                     let pdfWidth = 595.2
                     _ = 842.0
                     guard let context = UIGraphicsGetCurrentContext() else { return } // Capture context
-
+                    
                     var yPosition = 20.0
-
+                    
                     // Draw Profile Picture
                     let imageRect = CGRect(x: 20, y: yPosition, width: 100, height: 100)
                     profileImage.draw(in: imageRect)
-
+                    
                     // Draw Name
                     let nameRect = CGRect(x: 140, y: yPosition, width: pdfWidth - 160, height: 30)
                     cv.personalDetails.name.draw(in: nameRect, withAttributes: [.font: UIFont.boldSystemFont(ofSize: 24)])
-
+                    
                     // Draw Title
                     let titleRect = CGRect(x: 140, y: yPosition + 30, width: pdfWidth - 160, height: 30)
                     cv.preferredTitle.draw(in: titleRect, withAttributes: [.font: UIFont.systemFont(ofSize: 20)])
-
+                    
                     // Draw Email and Location
                     let emailRect = CGRect(x: 140, y: yPosition + 60, width: pdfWidth - 160, height: 20)
                     cv.personalDetails.email.draw(in: emailRect, withAttributes: [.font: UIFont.systemFont(ofSize: 16)])
-
+                    
                     let locationRect = CGRect(x: 140, y: yPosition + 80, width: pdfWidth - 160, height: 20)
                     "\(cv.personalDetails.city), \(cv.personalDetails.country)".draw(in: locationRect, withAttributes: [.font: UIFont.systemFont(ofSize: 16)])
-
+                    
                     yPosition += 120
-
+                    
                     // Draw Education Section
                     let educationTitleRect = CGRect(x: 20, y: CGFloat(yPosition), width: pdfWidth - 40, height: 30)
                     "Education".draw(in: educationTitleRect, withAttributes: [.font: UIFont.boldSystemFont(ofSize: 18)])
@@ -124,7 +123,7 @@ class CVViewerViewController: UIViewController, UITableViewDelegate, UITableView
                             yPosition += 20
                         }
                     }
-
+                    
                     // Draw Skills Section
                     let skillsTitleRect = CGRect(x: 20, y: CGFloat(yPosition), width: pdfWidth - 40, height: 30)
                     "Skills".draw(in: skillsTitleRect, withAttributes: [.font: UIFont.boldSystemFont(ofSize: 18)])
@@ -143,7 +142,7 @@ class CVViewerViewController: UIViewController, UITableViewDelegate, UITableView
                     context.strokePath()
                     
                     yPosition += 20
-
+                    
                     // Draw Work Experience Section
                     let experienceTitleRect = CGRect(x: 20, y: CGFloat(yPosition), width: pdfWidth - 40, height: 30)
                     "Work Experience".draw(in: experienceTitleRect, withAttributes: [.font: UIFont.boldSystemFont(ofSize: 18)])
@@ -171,14 +170,21 @@ class CVViewerViewController: UIViewController, UITableViewDelegate, UITableView
                             yPosition += 20
                         }
                     }
-
+                    
                     UIGraphicsEndPDFContext()
-
-                    // Share the PDF
+                    
                     DispatchQueue.main.async {
                         if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
                            let window = scene.windows.first(where: { $0.isKeyWindow }) {
                             let activityVC = UIActivityViewController(activityItems: [pdfFilename], applicationActivities: nil)
+                            
+                            // For iPads: Set the popoverPresentationController sourceView
+                            if let popoverController = activityVC.popoverPresentationController {
+                                popoverController.sourceView = window // Set the source view to the window
+                                popoverController.sourceRect = CGRect(x: window.bounds.midX, y: window.bounds.midY, width: 0, height: 0) // Centered
+                                popoverController.permittedArrowDirections = [] // No arrow directions
+                            }
+                            
                             window.rootViewController?.present(activityVC, animated: true, completion: nil)
                         }
                     }

@@ -10,15 +10,16 @@ import Alamofire
 import Firebase
 import FirebaseFirestore
 
-// MARK: - Cloudinary Response Struct
+//the current logged in user
+let currentUserID = UserSession.shared.loggedInUser?.userID ?? 99
+
+// Cloudinary Response Struct
 struct CloudinaryResponse: Decodable {
     let secure_url: String
 }
 
-//the current logged in user
-let currentUserID = 99
 
-// MARK: - Singleton for CV Data
+// Singleton for CV Data
 class CVData {
     static let shared = CVData()
     // Personal Details
@@ -51,6 +52,7 @@ class CVData {
 class CVBuilderEditorTableViewController: UITableViewController , UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     var educationRecords: [(degree: String, institution: String, from: Date, to: Date)] = []
+    
     //personal page outlets
     @IBOutlet weak var txtName: UITextField!
     @IBOutlet weak var txtEmail: UITextField!
@@ -64,6 +66,26 @@ class CVBuilderEditorTableViewController: UITableViewController , UIImagePickerC
     @IBOutlet weak var countryErr: UILabel!
     @IBOutlet weak var cityErr: UILabel!
     @IBOutlet weak var btnGoToEducation: UIButton!
+    @IBOutlet weak var personalPageHeader: UITextView!
+    @IBOutlet weak var lblName: UILabel!
+    @IBOutlet weak var lblEmail: UILabel!
+    @IBOutlet weak var lblPhone: UILabel!
+    @IBOutlet weak var lblCountry: UILabel!
+    @IBOutlet weak var lblCity: UILabel!
+    
+    // MARK: - Setup Button Constraints
+    private func setupPersonalButton() {
+        btnGoToEducation.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(btnGoToEducation) // Add button to the view
+        
+        // Set constraints for the Save button
+        NSLayoutConstraint.activate([
+            btnGoToEducation.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20), // 20 points to the leading safe area
+            btnGoToEducation.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20), // 20 points to the trailing safe area
+            btnGoToEducation.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10), // 10 points above the bottom safe area
+            btnGoToEducation.heightAnchor.constraint(equalToConstant: 44) // Set a height for the button
+        ])
+    }
     
     
     //Titles page outlets
@@ -72,6 +94,59 @@ class CVBuilderEditorTableViewController: UITableViewController , UIImagePickerC
     @IBOutlet weak var txtJobTitle: UITextField!
     @IBOutlet weak var jobTitleErr: UILabel!
     @IBOutlet weak var btnPublish: UIButton!
+    @IBOutlet weak var titlesPageHeader: UITextView!
+    @IBOutlet weak var lblChooseCV: UILabel!
+    @IBOutlet weak var lblJobTitle: UILabel!
+    
+    // MARK: - Setup Button Constraints
+    private func setupPublishButton() {
+        btnPublish.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(btnPublish) // Add button to the view
+        
+        // Set constraints for the Save button
+        NSLayoutConstraint.activate([
+            btnPublish.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20), // 20 points to the leading safe area
+            btnPublish.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20), // 20 points to the trailing safe area
+            btnPublish.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10), // 10 points above the bottom safe area
+            btnPublish.heightAnchor.constraint(equalToConstant: 44) // Set a height for the button
+        ])
+    }
+    
+    
+    
+    func adjustFontSizeForDevice() {
+        guard UIDevice.current.userInterfaceIdiom == .pad else { return }
+        if self.restorationIdentifier == "personalDetailVC" {
+            // Personal Page Outlets
+            txtName.font = txtName.font?.withSize(20)
+            txtEmail.font = txtEmail.font?.withSize(20)
+            txtPhone.font = txtPhone.font?.withSize(20)
+            txtCountry.font = txtCountry.font?.withSize(20)
+            txtCity.font = txtCity.font?.withSize(20)
+            nameErr.font = nameErr.font?.withSize(16)
+            emailErr.font = emailErr.font?.withSize(16)
+            phoneErr.font = phoneErr.font?.withSize(16)
+            countryErr.font = countryErr.font?.withSize(16)
+            cityErr.font = cityErr.font?.withSize(16)
+            btnGoToEducation.titleLabel?.font = btnGoToEducation.titleLabel?.font.withSize(20)
+            personalPageHeader.font = personalPageHeader.font?.withSize(22)
+            lblName.font = lblName.font?.withSize(18)
+            lblEmail.font = lblEmail.font?.withSize(18)
+            lblPhone.font = lblPhone.font?.withSize(18)
+            lblCountry.font = lblCountry.font?.withSize(18)
+            lblCity.font = lblCity.font?.withSize(18)
+        } else if self.restorationIdentifier == "Page5" {
+            // Titles Page Outlets
+            txtCVTitle.font = txtCVTitle.font?.withSize(20)
+            cvTitleErr.font = cvTitleErr.font?.withSize(16)
+            txtJobTitle.font = txtJobTitle.font?.withSize(20)
+            jobTitleErr.font = jobTitleErr.font?.withSize(16)
+            btnPublish.titleLabel?.font = btnPublish.titleLabel?.font.withSize(20)
+            titlesPageHeader.font = titlesPageHeader.font?.withSize(22)
+            lblChooseCV.font = lblChooseCV.font?.withSize(18)
+            lblJobTitle.font = lblJobTitle.font?.withSize(18)
+        }
+    }
     
     @IBAction func btnAddPhotoTapped(_ sender: UIButton) {
         let picker = UIImagePickerController()
@@ -137,6 +212,8 @@ class CVBuilderEditorTableViewController: UITableViewController , UIImagePickerC
             txtJobTitle.text = CVData.shared.jobTitle
         }
     }
+    
+
     
     private func loadImage(from url: URL) {
         let task = URLSession.shared.dataTask(with: url) { data, response, error in
@@ -301,13 +378,20 @@ class CVBuilderEditorTableViewController: UITableViewController , UIImagePickerC
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        adjustFontSizeForDevice()
         restoreCurrentPageData()
+        if self.restorationIdentifier == "personalDetailVC" {
+            setupPersonalButton()
+        } else if self.restorationIdentifier == "Page5" {
+            setupPublishButton()
+        }
+        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         saveCurrentPageData() // Save data when navigating away
-
+        
     }
     
     //will be called when user exits the personal page back to my CVs page
@@ -330,14 +414,25 @@ class CVBuilderEditorTableViewController: UITableViewController , UIImagePickerC
         txtCity.text = ""
         txtCVTitle.text = ""
         txtJobTitle.text = ""
+        //clear the CV image
+        CVImage.image = nil
     }
     
+    // MARK: VALIDATION
     //only enable the go to education button when all fields are valid
-    func checkForValidPersonalForm(){
-        if nameErr.isHidden && emailErr.isHidden && phoneErr.isHidden && countryErr.isHidden && cityErr.isHidden{
-            btnGoToEducation.isEnabled = true
-        }else{
-            btnGoToEducation.isEnabled = false
+    func checkForValidPersonalForm() {
+        let defaultImage = UIImage(systemName: "person.circle") //the default image
+        
+        // Check if there are no errors and if the image is the default image
+        if nameErr.isHidden && emailErr.isHidden && phoneErr.isHidden && countryErr.isHidden && cityErr.isHidden {
+            if CVImage.image != defaultImage {
+                //if the current image is not equal to the default image, this means that the user chose an image
+                btnGoToEducation.isEnabled = true
+            } else {
+                btnGoToEducation.isEnabled = false //if the current image is the default image, disable the button
+            }
+        } else {
+            btnGoToEducation.isEnabled = false //if any error label is not hiddedn, disable the button
         }
     }
     
@@ -382,10 +477,6 @@ class CVBuilderEditorTableViewController: UITableViewController , UIImagePickerC
         let set = CharacterSet(charactersIn: value)
         if !CharacterSet.decimalDigits.isSuperset(of: set){
             return "Must contain digits only"
-        }
-        
-        if value.count != 8 {
-            return "Must be 8 digits"
         }
         return nil
     }
@@ -576,5 +667,5 @@ class CVBuilderEditorTableViewController: UITableViewController , UIImagePickerC
         }
     }
     
-
+    
 }

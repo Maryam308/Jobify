@@ -20,7 +20,7 @@
                         <rect key="frame" x="20" y="13" width="370" height="69"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Skill:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vi0-oR-3Vj">
-                                <rect key="frame" x="0.0" y="28" width="325" height="21"/>
+                                <rect key="frame" x="0.0" y="0.0" width="362" height="69"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -28,9 +28,10 @@
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="Vi0-oR-3Vj" secondAttribute="trailing" constant="45" id="3Kh-tK-4wc"/>
-                            <constraint firstItem="Vi0-oR-3Vj" firstAttribute="top" secondItem="Amn-4l-OA1" secondAttribute="top" constant="28" id="4Xe-zb-zUA"/>
-                            <constraint firstItem="Vi0-oR-3Vj" firstAttribute="leading" secondItem="Amn-4l-OA1" secondAttribute="leading" id="Ihz-dr-A0V"/>
+                            <constraint firstAttribute="trailing" secondItem="Vi0-oR-3Vj" secondAttribute="trailing" constant="8" id="UAU-II-0is"/>
+                            <constraint firstItem="Vi0-oR-3Vj" firstAttribute="top" secondItem="Amn-4l-OA1" secondAttribute="top" id="dEY-pL-Gah"/>
+                            <constraint firstItem="Vi0-oR-3Vj" firstAttribute="leading" secondItem="Amn-4l-OA1" secondAttribute="leading" id="gUD-kw-3Gi"/>
+                            <constraint firstAttribute="bottom" secondItem="Vi0-oR-3Vj" secondAttribute="bottom" id="ypI-dh-aOB"/>
                         </constraints>
                     </view>
                 </subviews>

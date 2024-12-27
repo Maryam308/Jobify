@@ -294,7 +294,7 @@ final class resourceManager {
     private init() {} // Singleton
     
     // Current logged in user - seeker details
-    private static let UserCollection = Firestore.firestore().collection("MaryamForTesting")
+    private static let UserCollection = Firestore.firestore().collection("seekerDetails")
     
     static func saveLearningResource(learningResource: LearningResource) async throws {
         do {
@@ -313,8 +313,8 @@ final class resourceManager {
             // Extract the user reference
             let userReference = userDocument.reference
             
-            // Get the MaryamForTesting collection reference
-            let testingCollectionRef = Firestore.firestore().collection("MaryamForTesting")
+            // Get the seekerDetails collection reference
+            let testingCollectionRef = Firestore.firestore().collection("seekerDetails")
             
             // Query to find the document with the user reference
             let testingQuerySnapshot = try await testingCollectionRef.whereField("userID", isEqualTo: userReference).getDocuments()
@@ -333,7 +333,7 @@ final class resourceManager {
                 return // Exit after adding the resource ID
             }
             
-            print("No document found in MaryamForTesting with userID reference.")
+            print("No document found in seekerDetails with userID reference.")
             
         } catch {
             print("Error adding resource: \(error.localizedDescription)")
@@ -358,8 +358,8 @@ final class resourceManager {
         // Extract the user reference
         let userReference = userDocument.reference
         
-        // Get the MaryamForTesting collection reference
-        let testingCollectionRef = Firestore.firestore().collection("MaryamForTesting")
+        // Get the seekerDetails collection reference
+        let testingCollectionRef = Firestore.firestore().collection("seekerDetails")
         
         // Query to find the document with the user reference
         let testingQuerySnapshot = try await testingCollectionRef.whereField("userID", isEqualTo: userReference).getDocuments()
@@ -398,8 +398,8 @@ final class resourceManager {
             // Extract the user reference
             let userReference = userDocument.reference
             
-            // Get the MaryamForTesting collection reference
-            let testingCollectionRef = Firestore.firestore().collection("MaryamForTesting")
+            // Get the seekerDetails collection reference
+            let testingCollectionRef = Firestore.firestore().collection("seekerDetails")
             
             // Query to find the document with the user reference
             let testingQuerySnapshot = try await testingCollectionRef.whereField("userID", isEqualTo: userReference).getDocuments()

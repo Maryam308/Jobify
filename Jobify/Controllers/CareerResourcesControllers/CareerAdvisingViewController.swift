@@ -65,11 +65,41 @@ class CareerAdvisingViewController: UIViewController, UICollectionViewDataSource
         fetchCareerPaths()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        handleEmptyState()
+    }
 
-    
+    private func handleEmptyState() {
+        if careerPaths.isEmpty {
+            setEmptyMessage("No career paths available", for: careerPathCollectionView)
+        } else {
+            restoreCollectionView(careerPathCollectionView)
+        }
+        careerPathCollectionView.reloadData()
+    }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return careerPaths.count
     }
+
+
+    
+    // MARK: - Helper Methods
+        func setEmptyMessage(_ message: String, for collectionView: UICollectionView) {
+            let messageLabel = UILabel()
+            messageLabel.text = message
+            messageLabel.textColor = .gray
+            messageLabel.textAlignment = .center
+            messageLabel.font = UIFont.systemFont(ofSize: 17)
+            messageLabel.numberOfLines = 0
+            messageLabel.sizeToFit()
+            collectionView.backgroundView = messageLabel
+        }
+
+        func restoreCollectionView(_ collectionView: UICollectionView) {
+            collectionView.backgroundView = nil
+        }
+    
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: careerPathCollectionViewCellId, for: indexPath) as! CareerPathCollectionViewCell
@@ -108,28 +138,18 @@ class CareerAdvisingViewController: UIViewController, UICollectionViewDataSource
                     return
                 }
                 
-                guard let documents = querySnapshot?.documents else {
-                    print("No documents found")
-                    return
-                }
-                
-                self.careerPaths.removeAll()
-                
-                for document in documents {
+                self.careerPaths = querySnapshot?.documents.compactMap { document in
                     let data = document.data()
-                 /*   print("Document data: \(data)")*/ // Debugging output
-                    
-                    guard let title = data["title"] as? String, !title.isEmpty,
-                          let demandString = data["demand"] as? String, !demandString.isEmpty,
-                          let roadmap = data["roadmap"] as? String, !roadmap.isEmpty else {
-//                        print("Error parsing document: \(data)")
-                        continue
+                    guard let title = data["title"] as? String,
+                          let demandString = data["demand"] as? String,
+                          let roadmap = data["roadmap"] as? String else {
+                        return nil
                     }
-                    
-                    let careerPath = CareerPath1(careerName: title, description: "", roadmap: roadmap, demand: demandString)
-                    self.careerPaths.append(careerPath)
-                }
+                    return CareerPath1(careerName: title, description: "", roadmap: roadmap, demand: demandString)
+                } ?? []
+                
                 self.careerPathCollectionView.reloadData()
+                self.handleEmptyState() // Call to update UI
             }
     }
     
