@@ -46,10 +46,26 @@
             filePath = "Jobify/Controllers/ApplicationTrackerControllers/ApplicationTrackerViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "213"
-            endingLineNumber = "213"
+            startingLineNumber = "283"
+            endingLineNumber = "283"
             landmarkName = "ApplicationTrackerViewController"
             landmarkType = "3">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "1097E48C-3A21-45EA-883E-89596CF9A2EA"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Jobify/Models/Application.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "98"
+            endingLineNumber = "98"
+            landmarkName = "init(jobApplicant:jobApplied:briefIntroduction:motivation:contributionToCompany:status:applicationId:jobId:applicationDate:applicantRef:employerRef:cvRef:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
