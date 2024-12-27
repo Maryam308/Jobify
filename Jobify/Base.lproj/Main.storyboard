@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="XVe-OO-nPh">
+
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="gHQ-ek-1n4">
+
     <device id="retina6_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
@@ -12,8 +14,9 @@
         <!--Tab Bar Controller-->
         <scene sceneID="Sc5-CR-E4s">
             <objects>
-                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="gHQ-ek-1n4" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="loginTwo" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="gHQ-ek-1n4" sceneMemberID="viewController">
                     <toolbarItems/>
+                    <navigationItem key="navigationItem" id="Bof-V5-IRE"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="59E-PW-lbJ">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -73,7 +76,7 @@
         <!--Animation View Controller-->
         <scene sceneID="9jK-ce-Fxw">
             <objects>
-                <viewController id="AXr-KW-N6N" customClass="AnimationViewController" customModule="Jobify" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="animationViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="AXr-KW-N6N" customClass="AnimationViewController" customModule="Jobify" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="EqV-up-Par">
                         <rect key="frame" x="0.0" y="0.0" width="440" height="956"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -104,6 +107,7 @@
                             <constraint firstItem="sJE-Ro-Txv" firstAttribute="leading" secondItem="jke-pq-FNZ" secondAttribute="leading" constant="45" id="rvh-EC-FWo"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="WF5-aj-DRD"/>
                     <connections>
                         <outlet property="ProgressLineView" destination="sJE-Ro-Txv" id="00W-mV-H0S"/>
                         <outlet property="imgLogo" destination="hD1-8I-hL8" id="n6t-ed-pJU"/>
@@ -112,7 +116,57 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qvH-yY-Ofm" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-654" y="-651"/>
+            <point key="canvasLocation" x="-454" y="-651"/>
+        </scene>
+        <!--Seeker Temp Profile View Controller-->
+        <scene sceneID="GdO-0I-Imp">
+            <objects>
+                <viewController storyboardIdentifier="seekerProfile" useStoryboardIdentifierAsRestorationIdentifier="YES" id="AOQ-Xt-DuM" customClass="SeekerTempProfileViewController" customModule="Jobify" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="FQd-A8-yOL">
+                        <rect key="frame" x="0.0" y="0.0" width="440" height="956"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4c6-Tc-qUi">
+                                <rect key="frame" x="98" y="349" width="244" height="88"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="My CVs"/>
+                                <connections>
+                                    <action selector="btnCVTapped:" destination="AOQ-Xt-DuM" eventType="touchUpInside" id="e91-tH-bU5"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="tba-m8-uIH"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="tba-m8-uIH" firstAttribute="bottom" secondItem="4c6-Tc-qUi" secondAttribute="bottom" constant="485" id="8Wh-LS-mt8"/>
+                            <constraint firstItem="4c6-Tc-qUi" firstAttribute="top" secondItem="tba-m8-uIH" secondAttribute="top" constant="243" id="HM1-5t-jxx"/>
+                            <constraint firstItem="4c6-Tc-qUi" firstAttribute="leading" secondItem="tba-m8-uIH" secondAttribute="leading" constant="98" id="scB-Eq-7hc"/>
+                            <constraint firstItem="4c6-Tc-qUi" firstAttribute="centerX" secondItem="FQd-A8-yOL" secondAttribute="centerX" id="v7e-8F-R5L"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="z2W-iu-phL"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="PrE-rE-S0s" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1300.909090909091" y="88.493723849372387"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="j6x-4F-QsI">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="HDW-cA-Hjy" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="TKg-JE-DNu">
+                        <rect key="frame" x="0.0" y="62" width="440" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="AOQ-Xt-DuM" kind="relationship" relationship="rootViewController" id="uWq-TT-rii"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1M1-jr-MhB" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="409.09090909090912" y="88.493723849372387"/>
         </scene>
         <!--Set-up Employer Screen-->
         <scene sceneID="BHB-tQ-YX3">
@@ -1586,27 +1640,10 @@ Construction</string>
         <image name="dollarsign.bank.building" catalog="system" width="128" height="112"/>
         <image name="globe" catalog="system" width="128" height="123"/>
         <image name="house.fill" catalog="system" width="128" height="104"/>
-        <image name="laptopcomputer" catalog="system" width="128" height="71"/>
-        <image name="pencil.and.ruler" catalog="system" width="115" height="128"/>
-        <image name="person" catalog="system" width="128" height="121"/>
-        <image name="person.fill" catalog="system" width="128" height="120"/>
-        <image name="square.grid.3x3" catalog="system" width="128" height="113"/>
-        <image name="stethoscope" catalog="system" width="128" height="101"/>
-        <image name="wrench.adjustable" catalog="system" width="128" height="124"/>
-        <systemColor name="labelColor">
-            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-        <systemColor name="linkColor">
-            <color red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
+
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
-        <systemColor name="systemGroupedBackgroundColor">
-            <color red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="tableBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
+
     </resources>
 </document>

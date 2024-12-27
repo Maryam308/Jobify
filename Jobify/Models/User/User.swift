@@ -4,9 +4,17 @@
 //
 //  Created by Maryam Ahmed on 15/12/2024.
 //
+//use id = 8 for employer
+// use id = 99 for seeker
+//let currentUserRole: String = "seeker"
+//let currentLoggedInUserID = 99
+
+let currentUserRole: String = "employer"
+let currentLoggedInUserID = 8
 
 import Foundation
 import Firebase
+
 
 struct User {
     

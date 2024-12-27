@@ -989,6 +989,8 @@ Q3.  How can I change my password ?
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
+
+
                                                                 </subviews>
                                                             </stackView>
                                                         </subviews>
@@ -1176,7 +1178,9 @@ Q3.  How can I change my password ?
                         <outlet property="skillsTextView" destination="B4z-3d-QWR" id="EUW-Yr-EpY"/>
                     </connections>
                 </viewController>
+
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W52-hg-Ycq" sceneMemberID="firstResponder"/>
+
             </objects>
             <point key="canvasLocation" x="3793.636363636364" y="1405.8577405857741"/>
         </scene>

@@ -12,9 +12,11 @@
         <!--Set-up Employer Screen-->
         <scene sceneID="4WC-6p-nwe">
             <objects>
+
                 <tableViewController storyboardIdentifier="emplyerSignUpForm" title="Set-up Employer Screen" id="Qex-Ba-iML" customClass="employerSignupViewController" customModule="Jobify" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="4po-OO-U08">
                         <rect key="frame" x="0.0" y="0.0" width="402" height="864"/>
+
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <sections>
@@ -338,7 +340,9 @@
                                             <rect key="frame" x="0.0" y="0.0" width="402" height="100"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
+
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7bK-xZ-TS1">
+
                                                     <rect key="frame" x="60" y="31.000000000000004" width="282" height="38.333333333333343"/>
                                                     <state key="normal" title="Button"/>
                                                     <buttonConfiguration key="configuration" style="gray" title="Sign Up">
@@ -383,9 +387,11 @@
         <!--Set-up Seeker Screen-->
         <scene sceneID="wJD-Zv-7dg">
             <objects>
+
                 <tableViewController storyboardIdentifier="seekerSignUp" title="Set-up Seeker Screen" id="H9G-Ij-XK5" customClass="SeekerSignupViewController" customModule="Jobify" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="IT3-s2-Knm">
                         <rect key="frame" x="0.0" y="0.0" width="402" height="864"/>
+
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <sections>
@@ -670,15 +676,19 @@
                                             <rect key="frame" x="0.0" y="0.0" width="402" height="87"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
+
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BBf-hC-6iK">
                                                     <rect key="frame" x="20" y="22" width="362" height="43"/>
                                                     <subviews>
                                                         <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter City" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pSj-hB-HDe">
+
                                                             <rect key="frame" x="15" y="29" width="332" height="34"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                             <textInputTraits key="textInputTraits"/>
                                                         </textField>
+
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="City" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Q1-ck-dh7">
+
                                                             <rect key="frame" x="25" y="0.0" width="31" height="21"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
@@ -712,10 +722,12 @@
                                             <rect key="frame" x="0.0" y="0.0" width="402" height="98"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
+
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PEc-Eg-km7">
                                                     <rect key="frame" x="20" y="22" width="362" height="54"/>
                                                     <subviews>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vhq-CK-gqn">
+
                                                             <rect key="frame" x="4" y="7.6666666666666679" width="354" height="39"/>
                                                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <state key="normal" title="Button"/>
@@ -770,6 +782,7 @@
         <!--Reset Password-->
         <scene sceneID="3hF-Kv-dbp">
             <objects>
+
                 <viewController id="DZy-9W-hY9" customClass="ResetPasswordViewControler" customModule="Jobify" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="GRr-ie-sha">
                         <rect key="frame" x="0.0" y="0.0" width="402" height="864"/>
@@ -780,6 +793,7 @@
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter the Email Addreess and, a Link to Re-set Your Password Will be Send to Your Email" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x6r-VA-m4W">
                                 <rect key="frame" x="40" y="512" width="322" height="102"/>
+
                                 <constraints>
                                     <constraint firstAttribute="height" constant="102" id="9hH-67-aa3"/>
                                 </constraints>
@@ -787,12 +801,15 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter Email Address" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rWs-np-Dnz">
                                 <rect key="frame" x="40" y="641" width="322" height="22"/>
+
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+
                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter Email Address" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0Nq-In-BeB">
                                 <rect key="frame" x="45" y="671" width="312" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -800,6 +817,7 @@
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O8X-43-5mx">
                                 <rect key="frame" x="40" y="746" width="322" height="39"/>
+
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="gray" title="Send">
@@ -846,9 +864,11 @@
         <!--Login Screen-->
         <scene sceneID="leB-HO-itX">
             <objects>
+
                 <tableViewController storyboardIdentifier="loginScreenViewControler" title="Login Screen" id="fR1-Ug-aUR" customClass="LoginViewController" customModule="Jobify" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="r7Q-bR-gkF">
                         <rect key="frame" x="0.0" y="0.0" width="402" height="864"/>
+
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <sections>
@@ -1065,6 +1085,7 @@
         <!--Sign up screen-->
         <scene sceneID="3It-Pm-Cyy">
             <objects>
+
                 <viewController title="Sign up screen" id="5x5-dI-ugS" customClass="signupViewController" customModule="Jobify" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Auv-Bb-H61">
                         <rect key="frame" x="0.0" y="0.0" width="402" height="864"/>
@@ -1072,6 +1093,7 @@
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bu6-8C-29M">
                                 <rect key="frame" x="25" y="532" width="163" height="95"/>
+
                                 <constraints>
                                     <constraint firstAttribute="height" constant="95" id="dZH-6W-JGX"/>
                                 </constraints>
@@ -1084,8 +1106,10 @@
                                     <segue destination="H9G-Ij-XK5" kind="show" id="PV5-mA-6SJ"/>
                                 </connections>
                             </button>
+
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Zu-Zt-LUT">
                                 <rect key="frame" x="214" y="532" width="163" height="95"/>
+
                                 <constraints>
                                     <constraint firstAttribute="height" constant="95" id="ceU-E5-6Xd"/>
                                 </constraints>
@@ -1098,8 +1122,10 @@
                                     <segue destination="Qex-Ba-iML" kind="show" id="ayd-xV-OgD"/>
                                 </connections>
                             </button>
+
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sign Up" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wgf-2y-a67">
                                 <rect key="frame" x="103" y="457" width="196" height="50"/>
+
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="edD-JX-Nyn"/>
                                 </constraints>
@@ -1107,8 +1133,10 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo_icoon" translatesAutoresizingMaskIntoConstraints="NO" id="xx6-4W-z2X" userLabel="logo">
                                 <rect key="frame" x="55" y="25" width="292" height="377"/>
+
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="l7b-0R-XFC"/>
@@ -1161,8 +1189,10 @@
         <!--Job Category Selection Screen-->
         <scene sceneID="1vQ-J0-85K">
             <objects>
+
                 <tableViewController storyboardIdentifier="selectCategory" title="Job Category Selection Screen" id="yGR-nL-98p" customClass="SelectCategoryViewConroller" customModule="Jobify" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="cyn-u7-qsa">
+
                         <rect key="frame" x="0.0" y="0.0" width="402" height="874"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -1389,7 +1419,9 @@ Construction</string>
                                             <rect key="frame" x="0.0" y="0.0" width="402" height="96"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
+
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KTq-Bt-dG3">
+
                                                     <rect key="frame" x="35" y="16" width="332" height="64"/>
                                                     <state key="normal" title="Button"/>
                                                     <buttonConfiguration key="configuration" style="gray" image="square.grid.3x3" catalog="system" title="Others" imagePadding="6">
@@ -1417,7 +1449,9 @@ Construction</string>
                                             <rect key="frame" x="0.0" y="0.0" width="402" height="64"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
+
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BbD-gD-ds6">
+
                                                     <rect key="frame" x="35" y="16" width="332" height="32"/>
                                                     <state key="normal" title="Button"/>
                                                     <buttonConfiguration key="configuration" style="plain" title="Finish Signing Up">
@@ -1469,7 +1503,9 @@ Construction</string>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
+
         <segue reference="VQy-w5-4Nf"/>
+
     </inferredMetricsTieBreakers>
     <resources>
         <image name="Google" width="24" height="24"/>
