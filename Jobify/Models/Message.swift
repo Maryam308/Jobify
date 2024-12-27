@@ -46,6 +46,8 @@ struct Message{
     //a constructor to fetch messages for a single screen
     init(isSent: Bool, messageBody: String, timeStamp: Date){
 
+        Message.messageIdCounter += 1
+        self.messageId = Message.messageIdCounter
         self.isSent = isSent
         self.messageBody = messageBody
         self.messageDate = timeStamp

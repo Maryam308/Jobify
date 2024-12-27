@@ -126,7 +126,8 @@ class LoginViewController: UITableViewController {
                                         userID: userID,
                                         name: name,
                                         email: email,
-                                        role: role
+                                        role: role,
+                                        imageURL: nil
                                     )
                     
                                     // Notify the user

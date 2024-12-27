@@ -183,15 +183,10 @@ class chatViewController: UIViewController,
             let timestamp = Date()
 
         Message.fetchAndSetID {
-            var message = Message(isSent: true, messageBody: messageBody, timeStamp: timestamp)
-            
-                        
-            let newMessageId = self.generateUniqueMessageId() // Generate unique ID
-            message.messageId = newMessageId
-            self.messages.append(message)
+            let message = Message(isSent: true, messageBody: messageBody, timeStamp: timestamp)
             
                 // Add the message to Firestore (do not add to local array yet)
-            self.addMessageToDB(messageBody: messageBody, timestamp: timestamp, messageId: newMessageId)
+            self.addMessageToDB(messageBody: messageBody, timestamp: timestamp, messageId: message.messageId!)
                 
                 // Clear the text view after sending the message
             self.txtMessagToSent.text = ""

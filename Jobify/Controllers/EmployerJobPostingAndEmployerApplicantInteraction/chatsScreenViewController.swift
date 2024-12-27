@@ -43,7 +43,7 @@ class chatsScreenViewController: UIViewController, UITableViewDelegate, UITableV
     @IBAction func btnAllMessages_Click(_ sender: Any) {
         
         // Filter to show all messages
-                setButtonColors(selectedButton: btnAllMessages, deselectedButton: btnUnread)
+        setButtonColors(selectedButton: btnAllMessages, deselectedButton: btnUnread)
 
         
     }
@@ -67,7 +67,10 @@ class chatsScreenViewController: UIViewController, UITableViewDelegate, UITableV
         NotificationCenter.default.addObserver(self, selector: #selector(refreshMessages), name: NSNotification.Name("MessagesRead"), object: nil)
 
         
-        // If using a custom UITableViewCell class
+        self.fetchAndPopulateJobifyMenu()
+            
+        
+        
         chatsTableView.register(usersChatCell.self, forCellReuseIdentifier: "ChatCell")
 
         
@@ -80,12 +83,9 @@ class chatsScreenViewController: UIViewController, UITableViewDelegate, UITableV
         chatsTableView.dataSource = self
 
         //when the screen load it will display all the messages
-        fetchCurrentUserReference()
+        fetchCurrentUserReference(userId: currentUserId)
         
-        
-        
-
-        
+ 
         
     }
     
@@ -133,14 +133,14 @@ class chatsScreenViewController: UIViewController, UITableViewDelegate, UITableV
         let dispatchGroup = DispatchGroup()
 
         // Admin User Reference (Set this to the actual admin user reference in Firestore)
-        let adminReference = db.collection("users").document("user1") // Replace "AdminUserID" with the actual admin document ID
+        let adminReference = db.collection("users").document("user1")  
         let isAdminUser = userReference == adminReference
 
         // Exclude admin chat for admin users
         if !isAdminUser {
             dispatchGroup.enter()
             adminReference.getDocument { [weak self] adminSnapshot, error in
-                guard let self = self else { return }
+                guard self != nil else { return }
 
                 if let error = error {
                     print("Error fetching admin user: \(error)")
@@ -308,9 +308,9 @@ class chatsScreenViewController: UIViewController, UITableViewDelegate, UITableV
 
     // MARK: fetch the current user
 
-        func fetchCurrentUserReference() {
+    func fetchCurrentUserReference(userId: Int) {
             db.collection("users")
-                .whereField("userId", isEqualTo: currentUserId) // Assuming "userId" is the field in Firestore
+                .whereField("userId", isEqualTo: userId) // Assuming "userId" is the field in Firestore
                 .getDocuments { [weak self] snapshot, error in
                     if let error = error {
                         print("Error fetching current user reference: \(error)")
@@ -331,40 +331,63 @@ class chatsScreenViewController: UIViewController, UITableViewDelegate, UITableV
         }
         
     
-    func populateMenu(with users: [String], currentUserReference: String) {
+    func fetchAndPopulateJobifyMenu() {
         var menuItems: [UIAction] = []
-
+        let usersRef = db.collection("users")
+        let employerTypeRef: DocumentReference = db.collection("usertype").document("user2")
+        
         // Add a placeholder item
         let placeholderItem = UIAction(title: "Message Employers in Jobify", handler: { _ in
-            // Handle placeholder action
             print("Placeholder selected")
         })
         menuItems.append(placeholderItem)
-
-        // Add fetched users to the menu
-        for user in users {
-            let userItem = UIAction(title: user, handler: { _ in
-                // Handle user selection
-                print("\(user) selected")
-                self.showChatConfirmationAlert(selectedUserReference: user, currentUserReference: currentUserReference)
-            })
-            menuItems.append(userItem)
+        
+        // Fetch users with userType = employerTypeRef
+        usersRef.whereField("userType", isEqualTo: employerTypeRef).getDocuments { [weak self] snapshot, error in
+            guard let self = self else { return }
+            
+            if let error = error {
+                print("Error fetching users: \(error)")
+                return
+            }
+            
+            guard let documents = snapshot?.documents else {
+                print("No users found.")
+                return
+            }
+            
+            // Add each user to the menu
+            for document in documents {
+                if document.reference != self.currentUserReference {
+                    let userName = document.data()["name"] as? String ?? "Unknown User"
+                    let userItem = UIAction(title: userName, handler: { _ in
+                        print("\(userName) selected")
+                        self.showChatConfirmationAlert(
+                            selectedName: userName,
+                            selectedUserReference: document.reference,
+                            currentUserReference: self.currentUserReference!
+                        )
+                    })
+                    menuItems.append(userItem)
+                }
+            }
+            
+            // Create a UIMenu with the populated items
+            let menu = UIMenu(title: "", children: menuItems)
+            
+            // Assuming you have a UIButton called btnJobifyEmployers
+            self.btnJobifyEmployers.menu = menu
+            self.btnJobifyEmployers.showsMenuAsPrimaryAction = true
         }
-
-        // Create a UIMenu with the populated items
-        let menu = UIMenu(title: "", children: menuItems)
-
-        // Assuming you have a UIButton called popUpMenuButton
-        btnJobifyEmployers.menu = menu
-        btnJobifyEmployers.showsMenuAsPrimaryAction = true
     }
+
     
-    func showChatConfirmationAlert(selectedUserReference: String, currentUserReference: String) {
+    func showChatConfirmationAlert(selectedName: String ,selectedUserReference: DocumentReference, currentUserReference: DocumentReference) {
         let alert = UIAlertController(title: "Start Chat", message: "Do you want to start a chat with this person?", preferredStyle: .alert)
 
         // "Yes" action to start the chat
         let yesAction = UIAlertAction(title: "Yes", style: .default) { _ in
-            self.navigateToChatScreen(selectedUserReference: selectedUserReference, currentUserReference: currentUserReference)
+            self.navigateToChatScreen(selectedName: selectedName, selectedUserReference: selectedUserReference, currentUserReference: currentUserReference)
         }
         
         // "No" action to cancel
@@ -378,12 +401,13 @@ class chatsScreenViewController: UIViewController, UITableViewDelegate, UITableV
         present(alert, animated: true, completion: nil)
     }
 
-    func navigateToChatScreen(selectedUserReference: String, currentUserReference: String) {
+    func navigateToChatScreen( selectedName: String , selectedUserReference: DocumentReference, currentUserReference: DocumentReference) {
         // Assuming you have a UIStoryboard and view controller for the chat screen
         if let chatVC = storyboard?.instantiateViewController(withIdentifier: "SingleChat") as? chatViewController {
             // Pass both user references to the chat screen
-//            chatVC.currentUserReference = currentUserReference
-            chatVC.otherUserName = selectedUserReference
+            chatVC.otherUserName = selectedName
+            chatVC.currentUserReference = currentUserReference
+            chatVC.otherUserReference = selectedUserReference
             
             // Navigate to the chat screen
             navigationController?.pushViewController(chatVC, animated: true)
