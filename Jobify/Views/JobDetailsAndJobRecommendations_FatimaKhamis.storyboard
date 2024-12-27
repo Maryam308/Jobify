@@ -309,7 +309,7 @@
                                                             </constraints>
                                                         </imageView>
                                                     </subviews>
-                                                    <color key="backgroundColor" red="0.85098039215686272" green="0.85098039215686272" blue="0.85098039215686272" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="backgroundColor" red="0.85098039215686272" green="0.85098039215686272" blue="0.85098039215686272" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                     <constraints>
                                                         <constraint firstAttribute="trailing" secondItem="KOP-dI-Agc" secondAttribute="trailing" constant="50" id="0AS-XL-mn3"/>
                                                         <constraint firstItem="KOP-dI-Agc" firstAttribute="top" secondItem="7dc-Iz-kvl" secondAttribute="top" constant="30" id="4IB-8O-opO"/>
@@ -325,7 +325,7 @@
                                                     </constraints>
                                                 </view>
                                             </subviews>
-                                            <color key="backgroundColor" red="0.85098039219999999" green="0.85098039219999999" blue="0.85098039219999999" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="backgroundColor" red="0.85098039215686272" green="0.85098039215686272" blue="0.85098039215686272" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                             <constraints>
                                                 <constraint firstItem="7dc-Iz-kvl" firstAttribute="leading" secondItem="xka-bT-CRW" secondAttribute="leading" id="0PT-xw-hrY"/>
                                                 <constraint firstItem="7dc-Iz-kvl" firstAttribute="top" secondItem="xka-bT-CRW" secondAttribute="top" id="0fG-OQ-sSK"/>

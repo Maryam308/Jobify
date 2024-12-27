@@ -825,8 +825,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="280" height="650"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Batelco Logo" translatesAutoresizingMaskIntoConstraints="NO" id="pNc-8x-fZz">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="pNc-8x-fZz">
                                 <rect key="frame" x="16" y="23" width="90" height="90"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="90" id="7jJ-Lb-DEk"/>
                                     <constraint firstAttribute="width" constant="90" id="E0X-VZ-y8c"/>
@@ -930,7 +931,6 @@ Requests</string>
         </scene>
     </scenes>
     <resources>
-        <image name="Batelco Logo" width="75" height="75"/>
         <image name="IconHamburgerMenu" width="16.666666030883789" height="16.666666030883789"/>
         <image name="IconLearningResourcesRequests" width="20" height="16.666666030883789"/>
         <image name="IconLogout" width="20" height="16.666666030883789"/>

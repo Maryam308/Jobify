@@ -14,35 +14,17 @@ class HomeJobPostViewController: UIViewController, UICollectionViewDataSource, U
     
     
     @IBOutlet weak var homeScrollView: UIScrollView!
-    
-    
     @IBOutlet weak var homeStackView: NSLayoutConstraint!
-    
-  
-    
     @IBOutlet weak var recommendedJobViewAllbtn: UIButton!
-    
     @IBOutlet weak var recommendedJobView: UIView!
-    
     @IBOutlet weak var recentJobTopConstraint: NSLayoutConstraint!
-    
-    
     @IBOutlet weak var recommendedJobTopConstraint: NSLayoutConstraint!
-    
     @IBOutlet weak var recommendedJobLabel: UILabel!
-    
-    
     @IBOutlet weak var categoryTopConstraint: NSLayoutConstraint!
-    
     @IBOutlet weak var categoryView: UIView!
-    
     @IBOutlet weak var jobPostCollectionView: UICollectionView!
-    
     @IBOutlet weak var categoryCollectionView: UICollectionView!
-    
     @IBOutlet weak var recentJobView: UIView!
-    
-    
     @IBOutlet weak var recentJobPostCollectionView: UICollectionView!
     
     //search
