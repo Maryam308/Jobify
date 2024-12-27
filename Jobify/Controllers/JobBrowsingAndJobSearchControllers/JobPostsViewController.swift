@@ -125,7 +125,7 @@ class JobPostsViewController: UIViewController, UICollectionViewDelegate, UIColl
             filterVC.delegate = self
         } else if segue.identifier == "showSortPage", let sortVC = segue.destination as? SortViewController {
             sortVC.delegate = self
-        } 
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
