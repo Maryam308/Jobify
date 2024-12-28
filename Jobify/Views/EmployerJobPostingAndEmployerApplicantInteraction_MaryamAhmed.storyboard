@@ -383,7 +383,7 @@
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="80" id="ozf-i9-Tmp"/>
                                                             </constraints>
-                                                            <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                         </textView>
@@ -430,7 +430,7 @@
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="80" id="D7a-1M-pVu"/>
                                                             </constraints>
-                                                            <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                         </textView>
@@ -824,6 +824,7 @@
                         <outlet property="chatsTableView" destination="AWN-lA-VPR" id="y0e-Br-tjD"/>
                         <outlet property="lblOtherUserName" destination="s9z-Yb-W7c" id="Fjh-NQ-dya"/>
                         <outlet property="txtMessagToSent" destination="kxQ-tO-UUa" id="oXl-Bs-BLe"/>
+                        <outlet property="txtMessagToSentBottomConstraint" destination="hZn-LH-sjp" id="k6B-gl-Pc9"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BcG-RA-rgC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

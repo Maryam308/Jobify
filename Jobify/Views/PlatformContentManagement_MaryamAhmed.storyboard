@@ -814,6 +814,10 @@
                                                     <color key="tintColor" red="0.1137254902" green="0.1764705882" blue="0.2666666667" alpha="1" colorSpace="calibratedRGB"/>
                                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                     <state key="normal" title="Add"/>
+                                                    <buttonConfiguration key="configuration" style="filled" title="Add">
+                                                        <color key="baseForegroundColor" red="0.93333333330000001" green="0.93333333330000001" blue="0.93333333330000001" alpha="0.8980392157" colorSpace="calibratedRGB"/>
+                                                        <color key="baseBackgroundColor" red="0.1137254902" green="0.1764705882" blue="0.2666666667" alpha="0.8980392157" colorSpace="calibratedRGB"/>
+                                                    </buttonConfiguration>
                                                     <connections>
                                                         <action selector="btnAddClick:" destination="pJU-N4-xVo" eventType="touchUpInside" id="NA1-u6-teh"/>
                                                     </connections>
@@ -1485,14 +1489,14 @@
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FdS-UE-fRi">
                                                     <rect key="frame" x="0.0" y="9" width="393" height="60"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add New Career Path" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zjT-7A-icW">
-                                                            <rect key="frame" x="101.66666666666667" y="13" width="190.33333333333331" height="24"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add New Career Path" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zjT-7A-icW">
+                                                            <rect key="frame" x="20" y="13" width="353.33333333333331" height="24"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fill in the details required." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2y4-RM-W9O">
-                                                            <rect key="frame" x="101.66666666666669" y="37" width="194" height="20.666666666666671"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fill in the details required." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2y4-RM-W9O">
+                                                            <rect key="frame" x="24" y="37" width="349" height="20.666666666666671"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
@@ -1501,8 +1505,9 @@
                                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                     <constraints>
                                                         <constraint firstItem="zjT-7A-icW" firstAttribute="top" secondItem="FdS-UE-fRi" secondAttribute="topMargin" constant="5" id="Thu-9h-Eu0"/>
-                                                        <constraint firstItem="2y4-RM-W9O" firstAttribute="leading" secondItem="zjT-7A-icW" secondAttribute="leading" id="Uwh-5E-rfK"/>
                                                         <constraint firstAttribute="height" constant="60" id="fwg-Te-5sM"/>
+                                                        <constraint firstAttribute="trailing" secondItem="2y4-RM-W9O" secondAttribute="trailing" constant="20" id="gUz-Su-zE8"/>
+                                                        <constraint firstItem="zjT-7A-icW" firstAttribute="leading" secondItem="FdS-UE-fRi" secondAttribute="leading" constant="20" id="j1R-Uh-eHo"/>
                                                         <constraint firstItem="2y4-RM-W9O" firstAttribute="centerX" secondItem="zjT-7A-icW" secondAttribute="centerX" constant="1.8333333333333144" id="l7P-oV-It9"/>
                                                         <constraint firstItem="2y4-RM-W9O" firstAttribute="top" secondItem="zjT-7A-icW" secondAttribute="bottom" id="nb5-87-BM7"/>
                                                         <constraint firstItem="2y4-RM-W9O" firstAttribute="centerX" secondItem="FdS-UE-fRi" secondAttribute="centerX" constant="2" id="v45-h2-ONc"/>
@@ -1574,7 +1579,7 @@
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="80" id="Cfy-Hd-KwQ"/>
                                                             </constraints>
-                                                            <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                         </textView>
@@ -1623,7 +1628,7 @@
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="120" id="ulf-jV-OzP"/>
                                                             </constraints>
-                                                            <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                         </textView>
@@ -1716,15 +1721,19 @@
                                             <subviews>
                                                 <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EK9-8c-zaL">
                                                     <rect key="frame" x="35" y="27" width="323" height="40"/>
-                                                    <color key="backgroundColor" red="0.1137254902" green="0.1764705882" blue="0.2666666667" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="40" id="0ia-Ud-7bU"/>
                                                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="258" id="DsX-JS-Uye"/>
                                                     </constraints>
                                                     <color key="tintColor" red="0.1137254902" green="0.1764705882" blue="0.2666666667" alpha="1" colorSpace="calibratedRGB"/>
                                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                                    <state key="normal" title="Add"/>
-                                                    <buttonConfiguration key="configuration" style="filled" title="Add"/>
+                                                    <state key="normal" title="Add">
+                                                        <color key="titleColor" red="0.93333333333333335" green="0.93333333333333335" blue="0.93333333333333335" alpha="0.89803921568627454" colorSpace="calibratedRGB"/>
+                                                    </state>
+                                                    <buttonConfiguration key="configuration" style="filled" title="Add">
+                                                        <color key="baseForegroundColor" red="0.93333333333333335" green="0.93333333333333335" blue="0.93333333333333335" alpha="0.89803921568627454" colorSpace="calibratedRGB"/>
+                                                        <color key="baseBackgroundColor" red="0.11372549019607843" green="0.1764705882352941" blue="0.26666666666666666" alpha="0.89803921568627454" colorSpace="calibratedRGB"/>
+                                                    </buttonConfiguration>
                                                     <connections>
                                                         <action selector="btnAdd_Click:" destination="fEV-eE-dwC" eventType="touchUpInside" id="dSt-1o-3i0"/>
                                                     </connections>
@@ -1750,6 +1759,8 @@
                     <connections>
                         <outlet property="btnCareer" destination="EK9-8c-zaL" id="1BB-JL-nX4"/>
                         <outlet property="btnDemand" destination="BKx-D2-y5U" id="Y5W-iI-mRE"/>
+                        <outlet property="screenInstruction" destination="2y4-RM-W9O" id="MaN-9g-Ygc"/>
+                        <outlet property="screenTitle" destination="zjT-7A-icW" id="Xyg-0u-b05"/>
                         <outlet property="txtTitle" destination="le8-rB-E15" id="qRn-i5-QaX"/>
                         <outlet property="txtViewCareer" destination="HL3-Xf-v0k" id="PWQ-yS-zI6"/>
                         <outlet property="txtViewRoadMap" destination="3jo-Nx-dXy" id="ZUR-cS-HcY"/>

@@ -14,7 +14,7 @@ struct SeekerDetails {
     var isMentor: Bool
     var savedLearningResourcesList: [LearningResource] = []
     var jobsApplicationList: [JobApplication] = []
-    var notificationList: [Notification] = []
+    var notificationList: [CustomNotification] = []
     var selectedJobPosition: String
     var seekerCVs: [CV] = []
     // Custom initializer

@@ -77,7 +77,7 @@ class LearningResourcesSkillsViewController: UIViewController, UICollectionViewD
     
     
     
-    
+    //MARK: showing the action sheet to edit or delete
     func showActionSheet(skillId: Int){
        
         
@@ -93,7 +93,7 @@ class LearningResourcesSkillsViewController: UIViewController, UICollectionViewD
         // Add "Remove" action
         let removeAction = UIAlertAction(title: "Remove Skill", style: .destructive) { _ in
             print("Remove action selected")
-            self.RemoveSkill(skillId: skillId) // Call your remove function here
+            self.confirmAndDeleteSkill(skillId: skillId)// Call your remove function here
         }
         
         // Add "Cancel" action
@@ -104,12 +104,19 @@ class LearningResourcesSkillsViewController: UIViewController, UICollectionViewD
         actionSheet.addAction(removeAction)
         actionSheet.addAction(cancelAction)
         
+        // For iPads: Set the source for the popoverPresentationController
+        if let popoverController = actionSheet.popoverPresentationController {
+            popoverController.sourceView = self.view // The view containing the button
+            popoverController.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0) // Center of the screen
+            popoverController.permittedArrowDirections = [] // No arrow
+        }
+        
         // Present the action sheet
         present(actionSheet, animated: true)
         
     }
     
-    
+    //MARK: Edit the skill using the add form and changing it to edit mode
     func performEditAction(skillId: Int){
         
         //will navigate to an edit screen passing the skill title along
@@ -147,72 +154,107 @@ class LearningResourcesSkillsViewController: UIViewController, UICollectionViewD
     }
     
     
-    //a function to remove the skill and all its related learning resources
-    func RemoveSkill(skillId: Int){
+    //MARK: confirm and delete the skill and wait till compeletion to reload
+    func confirmAndDeleteSkill(skillId: Int) {
+        // Step 1: Show confirmation alert
+        let alertController = UIAlertController(
+            title: "Delete Skill",
+            message: "Are you sure you want to delete this skill and its associated learning resources?",
+            preferredStyle: .alert
+        )
         
-        //will navigate to an edit screen passing the skill title along
+        let deleteAction = UIAlertAction(title: "Yes", style: .destructive) { _ in
+            // Proceed with deletion if user confirms
+            self.deleteSkillAndResources(skillId: skillId) {
+                // Return after deletion completion
+                DispatchQueue.main.async {
+                    self.navigationController?.popViewController(animated: true)
+
+                }
+            }
+        }
         
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        
+        alertController.addAction(deleteAction)
+        alertController.addAction(cancelAction)
+        
+        // Present the alert
+        present(alertController, animated: true, completion: nil)
+    }
+
+    private func deleteSkillAndResources(skillId: Int, completion: @escaping () -> Void) {
         let skillsCollection = db.collection("skills")
-            let learningResourcesCollection = db.collection("LearningResources")
-            
-            // Step 1: Find the skill document by title
-            skillsCollection
-                .whereField("skillId", isEqualTo: skillId)
-                .getDocuments { snapshot, error in
+        let learningResourcesCollection = db.collection("LearningResources")
+        
+        // Step 2: Find the skill document by ID
+        skillsCollection
+            .whereField("skillId", isEqualTo: skillId)
+            .getDocuments { snapshot, error in
+                if let error = error {
+                    print("Error fetching skill document: \(error)")
+                    completion() // Complete even if there was an error
+                    return
+                }
+                
+                guard let skillDoc = snapshot?.documents.first else {
+                    print("No skill document found for ID: \(skillId)")
+                    completion() // Complete even if no document is found
+                    return
+                }
+                
+                let skillDocRef = skillDoc.reference
+                
+                // Step 3: Delete the skill document
+                skillDocRef.delete { error in
                     if let error = error {
-                        print("Error fetching skill document: \(error)")
+                        print("Error deleting skill document: \(error)")
+                        completion() // Complete even if there was an error
                         return
                     }
                     
-                    guard let skillDoc = snapshot?.documents.first else {
-                        print("No skill document found for title: \(skillId)")
-                        return
-                    }
+                    print("Skill document deleted successfully: \(skillDocRef.path)")
                     
-                    let skillDocRef = skillDoc.reference
-                    
-                    // Step 2: Delete the skill document
-                    skillDocRef.delete { error in
-                        if let error = error {
-                            print("Error deleting skill document: \(error)")
-                            return
-                        }
-                        
-                        print("Skill document deleted successfully: \(skillDocRef.path)")
-                        
-                        // Step 3: Delete associated learning resources
-                        learningResourcesCollection
-                            .whereField("skill", isEqualTo: skillDocRef)
-                            .getDocuments { snapshot, error in
-                                if let error = error {
-                                    print("Error fetching learning resources: \(error)")
-                                    return
-                                }
-                                
-                                guard let resourceDocs = snapshot?.documents else {
-                                    print("No associated learning resources found for skill: \(skillId)")
-                                    return
-                                }
-                                
-                                // Delete each associated learning resource document
-                                for resourceDoc in resourceDocs {
-                                    resourceDoc.reference.delete { error in
-                                        if let error = error {
-                                            print("Error deleting learning resource: \(error)")
-                                        } else {
-                                            print("Learning resource deleted successfully: \(resourceDoc.reference.path)")
-                                            self.skillsCollection.reloadData()
-                                        }
-                        
+                    // Step 4: Delete associated learning resources
+                    learningResourcesCollection
+                        .whereField("skill", isEqualTo: skillDocRef)
+                        .getDocuments { snapshot, error in
+                            if let error = error {
+                                print("Error fetching learning resources: \(error)")
+                                completion() // Complete even if there was an error
+                                return
+                            }
+                            
+                            guard let resourceDocs = snapshot?.documents else {
+                                print("No associated learning resources found for skill: \(skillId)")
+                                completion() // Complete even if no resources are found
+                                return
+                            }
+                            
+                            let deleteGroup = DispatchGroup()
+                            
+                            // Delete each associated learning resource document
+                            for resourceDoc in resourceDocs {
+                                deleteGroup.enter()
+                                resourceDoc.reference.delete { error in
+                                    if let error = error {
+                                        print("Error deleting learning resource: \(error)")
+                                    } else {
+                                        print("Learning resource deleted successfully: \(resourceDoc.reference.path)")
                                     }
+                                    deleteGroup.leave()
                                 }
                             }
-                    }
+                            
+                            // Wait for all resource deletions to complete
+                            deleteGroup.notify(queue: .main) {
+                                completion()
+                            }
+                        }
                 }
-        
-        
+            }
     }
-    
+
     
     }
     

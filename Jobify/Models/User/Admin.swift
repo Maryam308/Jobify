@@ -19,7 +19,7 @@ struct AdminDetails{
     var myJobPosts: [Job] = []
     var mentorRequestList: [MentorRequest] = []
     var applicationMentors: [User] = []
-    var sentNotifications: [Notification] = []
+    var sentNotifications: [CustomNotification] = []
     var allJobPosts: [Job] = []
 
     

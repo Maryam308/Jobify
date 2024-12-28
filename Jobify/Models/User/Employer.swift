@@ -29,7 +29,7 @@ struct EmployerDetails {
     var learningRequestsList: [LearningRequest] = []
     var myLearningResourcesList: [LearningResource] = []
     var savedLearningResourcesList: [LearningResource] = []
-    var notificationList: [Notification] = []
+    var notificationList: [CustomNotification] = []
 
     // Custom Initializer
     init(
