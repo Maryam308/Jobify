@@ -805,7 +805,7 @@ class HomeJobPostViewController: UIViewController, UICollectionViewDataSource, U
 
         for category in categories {
             dispatchGroup.enter()
-            db.collection("jobPost").whereField("jobDeadlineDate", isGreaterThanOrEqualTo: currentTimestamp)
+            db.collection("jobs").whereField("jobDeadlineDate", isGreaterThanOrEqualTo: currentTimestamp)
                 .whereField("jobCategory", isEqualTo: category).order(by: "jobPostDate", descending: true).getDocuments { (snapshot, error) in
                     defer { dispatchGroup.leave() }
 
@@ -933,7 +933,7 @@ class HomeJobPostViewController: UIViewController, UICollectionViewDataSource, U
    
     
     private func fetchRecentJobs() {
-        db.collection("jobPost").whereField("jobDeadlineDate", isGreaterThanOrEqualTo: currentTimestamp).order(by: "jobPostDate", descending: true)
+        db.collection("jobs").whereField("jobDeadlineDate", isGreaterThanOrEqualTo: currentTimestamp).order(by: "jobPostDate", descending: true)
             .getDocuments { [weak self] (snapshot, error) in
                 guard let self = self else { return }
                 

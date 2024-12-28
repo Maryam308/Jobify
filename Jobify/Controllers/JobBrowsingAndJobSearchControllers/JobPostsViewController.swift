@@ -350,7 +350,7 @@ class JobPostsViewController: UIViewController, UICollectionViewDelegate, UIColl
                           let userRef = userDocument.reference
 
                             // Now fetch job posts where companyRef matches this user's reference
-                          self.db.collection("jobPost").whereField("companyRef", isEqualTo: userRef).order(by: "jobPostDate", descending: true).getDocuments { (snapshot, error) in
+                          self.db.collection("jobs").whereField("companyRef", isEqualTo: userRef).order(by: "jobPostDate", descending: true).getDocuments { (snapshot, error) in
                                 if let error = error {
                                     print("Error fetching job posts for user:\(error.localizedDescription)")
                                 return
@@ -360,7 +360,7 @@ class JobPostsViewController: UIViewController, UICollectionViewDelegate, UIColl
                     }
             }
         case .recentJobs:
-            db.collection("jobPost").whereField("jobDeadlineDate", isGreaterThanOrEqualTo: currentTimestamp).order(by: "jobPostDate", descending: true).getDocuments { (snapshot, error) in
+            db.collection("jobs").whereField("jobDeadlineDate", isGreaterThanOrEqualTo: currentTimestamp).order(by: "jobPostDate", descending: true).getDocuments { (snapshot, error) in
                 if let error = error {
                     print("Error fetching recent jobs: \(error.localizedDescription)")
                     return
@@ -368,7 +368,7 @@ class JobPostsViewController: UIViewController, UICollectionViewDelegate, UIColl
                 self.handleJobPostFetch(snapshot: snapshot, error: nil)
             }
         case .category(let category):
-            db.collection("jobPost")
+            db.collection("jobs")
                 .whereField("jobCategory", isEqualTo: category)
                 .order(by: "jobPostDate", descending: true)
                 .getDocuments { (snapshot, error) in
@@ -507,7 +507,7 @@ class JobPostsViewController: UIViewController, UICollectionViewDelegate, UIColl
 
         for category in categories {
             dispatchGroup.enter()
-            db.collection("jobPost").whereField("jobDeadlineDate", isGreaterThanOrEqualTo: currentTimestamp).whereField("jobCategory", isEqualTo: category).order(by: "jobPostDate", descending: true).getDocuments { (snapshot, error) in
+            db.collection("jobs").whereField("jobDeadlineDate", isGreaterThanOrEqualTo: currentTimestamp).whereField("jobCategory", isEqualTo: category).order(by: "jobPostDate", descending: true).getDocuments { (snapshot, error) in
                     defer { dispatchGroup.leave() }
 
                     if let error = error {

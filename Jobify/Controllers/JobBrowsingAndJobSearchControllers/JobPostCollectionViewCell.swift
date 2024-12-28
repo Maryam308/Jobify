@@ -44,7 +44,7 @@ class JobPostCollectionViewCell: UICollectionViewCell {
     
     func deleteJobPost(jobPostId: Int) {
             // Reference to the jobPost collection
-            let jobPostCollection = db.collection("jobPost")
+            let jobPostCollection = db.collection("jobs")
             
             // Query for the document with the matching jobPostId
             jobPostCollection.whereField("jobPostId", isEqualTo: jobPostId)

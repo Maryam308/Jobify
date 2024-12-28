@@ -59,7 +59,7 @@ class FilterViewController: UIViewController {
     }
     
     private func fetchCompanyNames() {
-        firebaseManager.fetchCompanyNames(collection: "jobPost", field: "companyRef") { [weak self] companyNames in
+        firebaseManager.fetchCompanyNames(collection: "jobs", field: "companyRef") { [weak self] companyNames in
             guard let self = self else { return }
             DispatchQueue.main.async {
                 self.filterSections.append(FilterSection(title: "Company", isExpanded: false, items: companyNames))
@@ -69,7 +69,7 @@ class FilterViewController: UIViewController {
     }
     
     private func fetchLocations() {
-        firebaseManager.fetchLocations(collection: "jobPost", field: "jobLocation") { [weak self] locations in
+        firebaseManager.fetchLocations(collection: "jobs", field: "jobLocation") { [weak self] locations in
             guard let self = self else { return }
             DispatchQueue.main.async {
                 self.filterSections.append(FilterSection(title: "Location", isExpanded: false, items: locations))

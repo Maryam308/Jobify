@@ -337,7 +337,7 @@ class chatViewController: UIViewController,
 
     @objc func keyboardWillHide(_ notification: Any) {
         // Ensure the notification is of type Notification
-            guard let notification = notification as? Notification else { return }
+        guard notification is Notification else { return }
         // Reset the bottom constraint of the stack view or container view when the keyboard hides
         self.txtMessagToSentBottomConstraint.constant = 10  // The original constant value before the keyboard appears
         
