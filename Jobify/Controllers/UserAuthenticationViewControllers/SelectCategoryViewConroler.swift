@@ -157,8 +157,19 @@ class SelectCategoryViewConroller: UITableViewController {
                } else {
                    print("Selected job categories successfully saved!")
                    // Perform any further navigation or actions
+                   if let logIn = self.storyboard?.instantiateViewController(withIdentifier: "loginScreenViewControler") {
+                       if let navigationController = self.navigationController {
+                           navigationController.pushViewController(logIn, animated: true)
+                       } else {
+                           print("NavigationController is nil. Unable to navigate to selectCategory.")
+                       }
+                   }
                }
            }
     }
+    
+    
+    
+    
     
 }

@@ -31,15 +31,30 @@ class LoginViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //UserSession.shared.loggedInUser = currentUser
+        
        
     }
     
     // Function to show alerts in specific shape
     private func showAlert(message: String) {
+        
         let alert = UIAlertController(title: "Validation Error", message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         self.present(alert, animated: true, completion: nil)
+        
+    }
+    
+    //MARK: show a successful alert
+    private func showSuccessAlert(message: String) {
+        
+        let alert = UIAlertController(title: "Successful Login", message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in
+                // Navigate to the home screen after dismissing the alert
+                self.navigateToHomeScreen()
+            }))
+        
+        self.present(alert, animated: true, completion: nil)
+        
     }
     
     
@@ -59,10 +74,11 @@ class LoginViewController: UITableViewController {
         }
         
         return true
+        
     }
     
     
-    
+    //MARK: when clicked on login
     @IBAction func btLogin(_ sender: Any) {
         
         if validateInput() {
@@ -86,9 +102,9 @@ class LoginViewController: UITableViewController {
                 
                 
                 let db = Firestore.firestore()
-                var userTypeAdmin: DocumentReference = db.collection("usertype").document("user1")
-                var userTypeEmployer: DocumentReference = db.collection("usertype").document("user2")
-                var userTypeSeeker: DocumentReference = db.collection("usertype").document("user3")
+                let userTypeAdmin: DocumentReference = db.collection("usertype").document("user1")
+                let userTypeEmployer: DocumentReference = db.collection("usertype").document("user2")
+                let userTypeSeeker: DocumentReference = db.collection("usertype").document("user3")
                 
                                 db.collection("users").whereField("email", isEqualTo: email).getDocuments { querySnapshot, error in
                                     if let error = error {
@@ -107,7 +123,9 @@ class LoginViewController: UITableViewController {
                                     let name = data["name"] as? String ?? "Unknown User"
                                     let email = data["email"] as? String ?? "No Email"
                                     let userType = data["userType"] as? DocumentReference ?? userTypeSeeker
+                                    let imageURL = data["profileImageURL"] as? String ?? ""
                                     let role: UserType
+                                    
                                     
                                     if userType == userTypeAdmin{
                                          role = UserType.admin
@@ -120,24 +138,63 @@ class LoginViewController: UITableViewController {
                                     else{
                                          role = UserType.seeker
                                     }
-                                    //usertype/user3
+
                                     // Create a session for the authenticated user
                                     UserSession.shared.loggedInUser = User(
                                         userID: userID,
                                         name: name,
                                         email: email,
                                         role: role,
-                                        imageURL: nil
+                                        imageURL: imageURL
                                     )
                     
                                     // Notify the user
-                                    self.showAlert(message: "Login Successful")
+                                    self.showSuccessAlert(message: "Login Successful")
 
-                    // Navigate to home screen
-                    self.performSegue(withIdentifier: "loginTwo", sender: self)
+                                    
+                                    
+                                    
+                                    
+                                    
                 }
             }
         }
         
     }
+    
+    private func navigateToHomeScreen() {
+        // Step 1: Instantiate the Home storyboard
+        let homeStoryboard = UIStoryboard(name: "Main", bundle: nil)
+
+        // Step 2: Instantiate the HomeViewController from the Home storyboard
+        if let homeVC = homeStoryboard.instantiateViewController(withIdentifier: "loginTwo") as? UITabBarController {
+            // Step 3: Push the HomeViewController onto the navigation stack
+            self.navigationController?.pushViewController(homeVC, animated: true)
+        }
+
+    }
+    
+    
+    
+    
+    
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+            
+            
+           

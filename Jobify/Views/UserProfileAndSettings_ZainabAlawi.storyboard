@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <device id="iPad13_0rounded" orientation="portrait" layout="fullscreen" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
         <capability name="Image references" minToolsVersion="12.0"/>
@@ -14,14 +14,14 @@
             <objects>
                 <viewController title="Settings" id="7Ne-FN-k0y" customClass="SettingsViewController" customModule="Jobify" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="jVM-bT-nxp">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1032" height="1376"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="Fx8-pb-vN0">
-                                <rect key="frame" x="30" y="143" width="333" height="290"/>
+                                <rect key="frame" x="30" y="114" width="972" height="290"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FHy-wA-wJO">
-                                        <rect key="frame" x="0.0" y="0.0" width="333" height="50"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="972" height="50"/>
                                         <constraints>
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="CbL-46-uIp"/>
                                         </constraints>
@@ -37,7 +37,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8o7-QJ-TvG">
-                                        <rect key="frame" x="0.0" y="80" width="333" height="50"/>
+                                        <rect key="frame" x="0.0" y="80" width="972" height="50"/>
                                         <constraints>
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="Crl-x8-70J"/>
                                         </constraints>
@@ -54,7 +54,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XTx-7t-JYd">
-                                        <rect key="frame" x="0.0" y="160" width="333" height="50"/>
+                                        <rect key="frame" x="0.0" y="160" width="972" height="50"/>
                                         <constraints>
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="lIu-by-XqK"/>
                                         </constraints>
@@ -71,7 +71,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sSH-Zi-xgi">
-                                        <rect key="frame" x="0.0" y="240" width="333" height="50"/>
+                                        <rect key="frame" x="0.0" y="240" width="972" height="50"/>
                                         <constraints>
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="x4z-8O-Rhk"/>
                                         </constraints>
@@ -109,20 +109,20 @@
             <objects>
                 <viewController title="Sittings - Account" id="mId-N6-uHc" customClass="settingsAccountViewController" customModule="Jobify" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="sau-PA-tRC">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1032" height="1376"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="J56-eG-CJh">
-                                <rect key="frame" x="0.0" y="118" width="393" height="200"/>
+                                <rect key="frame" x="0.0" y="89" width="1032" height="200"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Account Management" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LbU-Vy-hRW">
-                                        <rect key="frame" x="30" y="8.0000000000000018" width="181" height="21.666666666666671"/>
+                                        <rect key="frame" x="30" y="8" width="181" height="21.5"/>
                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dx3-3P-to6">
-                                        <rect key="frame" x="30" y="44.666666666666657" width="333" height="110"/>
+                                        <rect key="frame" x="30" y="44.5" width="972" height="110"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hZN-Vj-TxB">
                                                 <rect key="frame" x="8" y="8" width="210" height="30"/>
@@ -130,7 +130,7 @@
                                                 <state key="normal" title="Delete Your Account and Data "/>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Permanently delete your account and all associated data." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O4k-HX-fxl">
-                                                <rect key="frame" x="29.999999999999986" y="43" width="243.66666666666663" height="31.333333333333329"/>
+                                                <rect key="frame" x="30" y="43" width="342" height="16"/>
                                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="13"/>
                                                 <color key="textColor" red="0.26274509800000001" green="0.26274509800000001" blue="0.26274509800000001" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -182,11 +182,11 @@
             <objects>
                 <viewController title="Settings - Sign in &amp; Security" id="3mA-Em-AKs" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="0fm-R5-ieI">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1032" height="1376"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Eoa-Iz-C7d">
-                                <rect key="frame" x="30" y="143" width="333" height="50"/>
+                                <rect key="frame" x="30" y="114" width="972" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="ZvC-t8-ZTF"/>
                                 </constraints>
@@ -218,14 +218,14 @@
             <objects>
                 <viewController title="Settings - Terms &amp; Conditions" id="DiG-wS-nY1" customClass="settingsTermsAndConditionsViewController" customModule="Jobify" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="jUm-sC-KYi">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1032" height="1376"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eeh-DS-Y5T">
-                                <rect key="frame" x="30" y="143" width="333" height="110"/>
+                                <rect key="frame" x="30" y="114" width="972" height="110"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U9l-pc-G2p">
-                                        <rect key="frame" x="10" y="8" width="313" height="39"/>
+                                        <rect key="frame" x="10" y="8" width="952" height="39"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" title="Privacy Policy Agreement"/>
                                         <connections>
@@ -233,7 +233,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CoU-W4-t0F">
-                                        <rect key="frame" x="10" y="55" width="313" height="39"/>
+                                        <rect key="frame" x="10" y="55" width="952" height="39"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" title="Data Retention Policy"/>
                                         <connections>
@@ -279,11 +279,11 @@
             <objects>
                 <viewController title="Privacy Policy Agreement" id="u3v-aD-ZhR" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="mGG-lf-AhT">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1032" height="1376"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cQh-0f-co9">
-                                <rect key="frame" x="42" y="145" width="310" height="743"/>
+                                <rect key="frame" x="42" y="116" width="949" height="743"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="743" id="Szd-ev-52H"/>
@@ -322,11 +322,11 @@ Under PDPL, you have the right to access, correct, and request the deletion of y
             <objects>
                 <viewController title="Data Retention Policy" id="WBy-Jn-WHf" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="eQg-ze-De0">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1032" height="1376"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="liD-jt-ZIw">
-                                <rect key="frame" x="38" y="154" width="317" height="397"/>
+                                <rect key="frame" x="38" y="125" width="956" height="397"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="397" id="S48-RZ-cyQ"/>
@@ -361,7 +361,7 @@ Under PDPL, you have the right to access, correct, and request the deletion of y
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="f5y-bh-YEX" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Kta-D0-za9">
-                        <rect key="frame" x="0.0" y="59" width="393" height="44"/>
+                        <rect key="frame" x="0.0" y="24" width="1032" height="50"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -378,24 +378,24 @@ Under PDPL, you have the right to access, correct, and request the deletion of y
             <objects>
                 <viewController storyboardIdentifier="AdminProfileViewController" title="Admin Profile Screen" id="hJF-Ss-AY9" customClass="AdminProfileViewController" customModule="Jobify" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="eQ3-bY-cMg">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1032" height="1376"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="dFI-uY-JEX">
-                                <rect key="frame" x="0.0" y="59" width="393" height="759"/>
+                                <rect key="frame" x="0.0" y="24" width="1032" height="1332"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uEx-vg-QDy">
-                                        <rect key="frame" x="0.0" y="0.0" width="393" height="250"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="1032" height="250"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5ic-ez-S4Z">
-                                                <rect key="frame" x="0.0" y="114" width="393" height="2"/>
+                                                <rect key="frame" x="0.0" y="114" width="1032" height="2"/>
                                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="2" id="LpO-3J-h31"/>
                                                 </constraints>
                                             </view>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="2vu-dZ-8aI">
-                                                <rect key="frame" x="106.66666666666669" y="26.666666666666671" width="180" height="176.66666666666663"/>
+                                                <rect key="frame" x="426" y="26.5" width="180" height="177"/>
                                                 <color key="backgroundColor" red="0.1137254902" green="0.1764705882" blue="0.2666666667" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
@@ -415,10 +415,10 @@ Under PDPL, you have the right to access, correct, and request the deletion of y
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ljB-gE-51q">
-                                        <rect key="frame" x="0.0" y="260" width="393" height="80"/>
+                                        <rect key="frame" x="0.0" y="260" width="1032" height="80"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalCentering" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Ij3-3R-CYp">
-                                                <rect key="frame" x="76.666666666666686" y="10" width="240" height="62"/>
+                                                <rect key="frame" x="396" y="10" width="240" height="62"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Admin" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sOm-vT-tap">
                                                         <rect key="frame" x="0.0" y="0.0" width="240" height="24"/>
@@ -448,10 +448,10 @@ Under PDPL, you have the right to access, correct, and request the deletion of y
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SQT-yG-WfF">
-                                        <rect key="frame" x="0.0" y="350" width="393" height="409"/>
+                                        <rect key="frame" x="0.0" y="350" width="1032" height="982"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AXz-bu-g4Z">
-                                                <rect key="frame" x="30" y="30" width="333" height="146"/>
+                                                <rect key="frame" x="30" y="30" width="972" height="146"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="146" id="8Hv-NB-aua"/>
                                                 </constraints>
@@ -463,7 +463,7 @@ Under PDPL, you have the right to access, correct, and request the deletion of y
                                                 </buttonConfiguration>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h9Y-NS-hMS">
-                                                <rect key="frame" x="30" y="206" width="333" height="146"/>
+                                                <rect key="frame" x="30" y="206" width="972" height="146"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="146" id="kok-Mu-Wzm"/>
                                                 </constraints>
@@ -506,18 +506,18 @@ Under PDPL, you have the right to access, correct, and request the deletion of y
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Giv-IG-THG" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="914" y="5405"/>
+            <point key="canvasLocation" x="859" y="5318"/>
         </scene>
         <!--Seeker Profile Screen - don't have CV-->
         <scene sceneID="0Ti-eg-kIj">
             <objects>
                 <viewController title="Seeker Profile Screen - don't have CV" id="kwX-D9-bcs" customClass="SeekerProfileViewController" customModule="Jobify" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="O7D-te-3C8">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1032" height="1376"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JyK-Ts-IJH">
-                                <rect key="frame" x="348" y="239" width="35" height="37"/>
+                                <rect key="frame" x="987" y="210" width="35" height="37"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="37" id="EBS-kf-6Xh"/>
                                     <constraint firstAttribute="width" constant="35" id="eeZ-Dm-OC5"/>
@@ -531,7 +531,7 @@ Under PDPL, you have the right to access, correct, and request the deletion of y
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uln-vK-abb">
-                                <rect key="frame" x="40" y="528.33333333333337" width="313" height="89"/>
+                                <rect key="frame" x="40" y="498.5" width="952" height="89"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="89" id="89V-zM-T0Z"/>
                                 </constraints>
@@ -543,26 +543,26 @@ Under PDPL, you have the right to access, correct, and request the deletion of y
                                 </buttonConfiguration>
                             </button>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="3DJ-aH-uCC">
-                                <rect key="frame" x="53" y="366.33333333333331" width="287" height="132"/>
+                                <rect key="frame" x="53" y="337.5" width="926" height="131"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vrR-NM-UyA">
-                                        <rect key="frame" x="0.0" y="0.0" width="287" height="37.333333333333336"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="926" height="37"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="nbt-9X-zHL">
-                                        <rect key="frame" x="0.0" y="47.333333333333371" width="287" height="37.333333333333343"/>
+                                        <rect key="frame" x="0.0" y="47" width="926" height="37"/>
                                         <subviews>
                                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Job Position" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bQm-re-V7x">
-                                                <rect key="frame" x="0.0" y="0.0" width="219.66666666666666" height="37.333333333333336"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="858.5" height="37"/>
                                                 <color key="backgroundColor" red="0.91372549020000005" green="0.91372549020000005" blue="0.92156862750000001" alpha="1" colorSpace="calibratedRGB"/>
                                                 <color key="tintColor" red="0.57254901960000004" green="0.57254901960000004" blue="0.57254901960000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="23"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J84-Hv-RGW">
-                                                <rect key="frame" x="234.66666666666671" y="0.0" width="52.333333333333343" height="37.333333333333336"/>
+                                                <rect key="frame" x="873.5" y="0.0" width="52.5" height="37"/>
                                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <buttonConfiguration key="configuration" style="plain" image="message.fill" catalog="system">
                                                     <backgroundConfiguration key="background">
@@ -574,7 +574,7 @@ Under PDPL, you have the right to access, correct, and request the deletion of y
                                         </subviews>
                                     </stackView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Location" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sOy-FN-uEm">
-                                        <rect key="frame" x="0.0" y="94.666666666666686" width="287" height="37.333333333333343"/>
+                                        <rect key="frame" x="0.0" y="94" width="926" height="37"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -582,14 +582,14 @@ Under PDPL, you have the right to access, correct, and request the deletion of y
                                 </subviews>
                             </stackView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2V6-3Z-v4e">
-                                <rect key="frame" x="0.0" y="229" width="393" height="2"/>
+                                <rect key="frame" x="0.0" y="200" width="1032" height="2"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="2" id="JNy-4s-rJh"/>
                                 </constraints>
                             </view>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="NDf-Rv-tbq">
-                                <rect key="frame" x="106.66666666666669" y="141.66666666666669" width="180" height="176.66666666666669"/>
+                                <rect key="frame" x="426" y="112.5" width="180" height="177"/>
                                 <color key="backgroundColor" red="0.85098039219999999" green="0.85098039219999999" blue="0.85098039219999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -632,11 +632,11 @@ Under PDPL, you have the right to access, correct, and request the deletion of y
             <objects>
                 <viewController title="Seeker (no CV) - Edit Profile Screen" id="z5e-Rk-DnW" customClass="SeekerProfileNoCVEditViewController" customModule="Jobify" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="iPF-z1-Nii">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1032" height="1376"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QBr-bY-Zlc">
-                                <rect key="frame" x="333" y="235" width="35" height="37"/>
+                                <rect key="frame" x="972" y="206" width="35" height="37"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="35" id="PlU-ns-vrK"/>
                                     <constraint firstAttribute="height" constant="37" id="h5Q-av-FKp"/>
@@ -647,25 +647,25 @@ Under PDPL, you have the right to access, correct, and request the deletion of y
                                 </buttonConfiguration>
                             </button>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="VJ9-Gx-tvc">
-                                <rect key="frame" x="102.33333333333333" y="380" width="188.66666666666669" height="133"/>
+                                <rect key="frame" x="421.5" y="351" width="189" height="132"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lQI-gv-gen">
-                                        <rect key="frame" x="0.0" y="0.0" width="188.66666666666666" height="34.333333333333336"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="189" height="34"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="BUh-1W-FHz">
-                                        <rect key="frame" x="0.0" y="49.333333333333314" width="188.66666666666666" height="34.333333333333343"/>
+                                        <rect key="frame" x="0.0" y="49" width="189" height="34"/>
                                         <subviews>
                                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Job Position" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="kFI-h4-cg1">
-                                                <rect key="frame" x="0.0" y="0.0" width="121.33333333333333" height="34.333333333333336"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="121.5" height="34"/>
                                                 <color key="backgroundColor" red="0.91372549020000005" green="0.91372549020000005" blue="0.92156862750000001" alpha="1" colorSpace="calibratedRGB"/>
                                                 <color key="tintColor" white="0.57222576530000002" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
                                             <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="27P-1T-8aB">
-                                                <rect key="frame" x="136.33333333333331" y="0.0" width="52.333333333333343" height="34.333333333333336"/>
+                                                <rect key="frame" x="136.5" y="0.0" width="52.5" height="34"/>
                                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <buttonConfiguration key="configuration" style="plain" image="message.fill" catalog="system">
                                                     <backgroundConfiguration key="background">
@@ -677,21 +677,21 @@ Under PDPL, you have the right to access, correct, and request the deletion of y
                                         </subviews>
                                     </stackView>
                                     <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Location" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4y5-TY-Xeu">
-                                        <rect key="frame" x="0.0" y="98.666666666666686" width="188.66666666666666" height="34.333333333333343"/>
+                                        <rect key="frame" x="0.0" y="98" width="189" height="34"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                 </subviews>
                             </stackView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bML-sW-9yL">
-                                <rect key="frame" x="0.0" y="213" width="393" height="2"/>
+                                <rect key="frame" x="0.0" y="184" width="1032" height="2"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="2" id="aMc-6w-G79"/>
                                 </constraints>
                             </view>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="muX-IG-aWv">
-                                <rect key="frame" x="106.66666666666669" y="125.66666666666667" width="180" height="176.66666666666669"/>
+                                <rect key="frame" x="426" y="96.5" width="180" height="177"/>
                                 <color key="backgroundColor" red="0.85098039219999999" green="0.85098039219999999" blue="0.85098039219999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -700,7 +700,7 @@ Under PDPL, you have the right to access, correct, and request the deletion of y
                                 </constraints>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pIf-aa-F1R">
-                                <rect key="frame" x="106.66666666666669" y="124" width="180" height="180"/>
+                                <rect key="frame" x="426" y="95" width="180" height="180"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="32"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" title="Edit">
@@ -708,7 +708,7 @@ Under PDPL, you have the right to access, correct, and request the deletion of y
                                 </state>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QYb-K4-u3h">
-                                <rect key="frame" x="80" y="533" width="233" height="89"/>
+                                <rect key="frame" x="80" y="503" width="872" height="89"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="89" id="nI4-El-UyA"/>
                                 </constraints>
@@ -720,7 +720,7 @@ Under PDPL, you have the right to access, correct, and request the deletion of y
                                 </buttonConfiguration>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BWQ-P1-fA7">
-                                <rect key="frame" x="80" y="654" width="233" height="89"/>
+                                <rect key="frame" x="80" y="624" width="872" height="89"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="89" id="XIx-gG-TKF"/>
                                 </constraints>
@@ -773,19 +773,19 @@ Under PDPL, you have the right to access, correct, and request the deletion of y
             <objects>
                 <viewController title="Settings - Terms &amp; Conditions" id="q7n-OT-Uv6" customClass="settingsTermsAndConditionsViewController" customModule="Jobify" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="2TY-sP-zFa">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1032" height="1376"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ckQ-0P-oM6">
-                                <rect key="frame" x="30" y="99" width="333" height="110"/>
+                                <rect key="frame" x="30" y="64" width="972" height="110"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dBH-Gx-GzW">
-                                        <rect key="frame" x="10" y="8" width="313" height="39"/>
+                                        <rect key="frame" x="10" y="8" width="952" height="39"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" title="Privacy Policy Agreement"/>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0LU-uc-ZQN">
-                                        <rect key="frame" x="10" y="55" width="313" height="39"/>
+                                        <rect key="frame" x="10" y="55" width="952" height="39"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" title="Data Retention Policy"/>
                                     </button>
@@ -828,11 +828,11 @@ Under PDPL, you have the right to access, correct, and request the deletion of y
             <objects>
                 <viewController title="Privacy Policy Agreement" id="Flr-OL-8e8" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="KZW-Ib-wIC">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1032" height="1376"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" minimumZoomScale="5" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QWL-Ox-wQ7">
-                                <rect key="frame" x="42" y="131" width="310" height="746"/>
+                                <rect key="frame" x="42" y="102" width="949" height="746"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="746" id="Wk6-Eo-NQg"/>
@@ -891,7 +891,7 @@ Q3.  How can I change my password ?
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="zhm-LG-BdU" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="RQ8-3I-cVP">
-                        <rect key="frame" x="0.0" y="59" width="393" height="44"/>
+                        <rect key="frame" x="0.0" y="24" width="1032" height="50"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -908,30 +908,30 @@ Q3.  How can I change my password ?
             <objects>
                 <viewController storyboardIdentifier="SeekerProfileViewPreviewController" title="Seeker Profile Screen (with CV) - Preview" id="2of-Tv-EPV" customClass="SeekerProfilePreviewViewController" customModule="Jobify" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="DS3-3T-7IO">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1032" height="1376"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZKf-Uz-3rs">
-                                <rect key="frame" x="0.0" y="59" width="393" height="759"/>
+                                <rect key="frame" x="0.0" y="24" width="1032" height="1332"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9HW-wZ-SxE">
-                                        <rect key="frame" x="0.0" y="0.0" width="393" height="1322"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="1032" height="1322"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="center" spacing="31" translatesAutoresizingMaskIntoConstraints="NO" id="SAF-hm-LP7">
-                                                <rect key="frame" x="0.0" y="0.0" width="393" height="1322"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="1032" height="1322"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cLh-H4-qzT">
-                                                        <rect key="frame" x="0.0" y="0.0" width="393" height="239.66666666666666"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="1032" height="239.5"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UPx-je-RJj">
-                                                                <rect key="frame" x="-8" y="118.66666666666666" width="409" height="2"/>
+                                                                <rect key="frame" x="-8" y="119" width="1048" height="2"/>
                                                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="2" id="r7V-ea-wfO"/>
                                                                 </constraints>
                                                             </view>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="qhn-h5-svh">
-                                                                <rect key="frame" x="106.66666666666669" y="31.333333333333329" width="180" height="176.66666666666669"/>
+                                                                <rect key="frame" x="426" y="31.5" width="180" height="177"/>
                                                                 <color key="backgroundColor" red="0.85098039219999999" green="0.85098039219999999" blue="0.85098039219999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <constraints>
@@ -950,29 +950,29 @@ Q3.  How can I change my password ?
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f0Q-Wh-XR1">
-                                                        <rect key="frame" x="20" y="270.66666666666669" width="353" height="239.66666666666669"/>
+                                                        <rect key="frame" x="20" y="270.5" width="992" height="239.5"/>
                                                         <subviews>
                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="sac-Zn-pO2">
-                                                                <rect key="frame" x="68.000000000000014" y="25" width="217.33333333333337" height="132"/>
+                                                                <rect key="frame" x="387.5" y="25" width="217.5" height="131"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="64k-L8-KKc">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="217.33333333333334" height="37.333333333333336"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="217.5" height="37"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="YRD-SX-G0V">
-                                                                        <rect key="frame" x="0.0" y="47.333333333333314" width="217.33333333333334" height="37.333333333333343"/>
+                                                                        <rect key="frame" x="0.0" y="47" width="217.5" height="37"/>
                                                                         <subviews>
                                                                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Job Position" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="a5p-jD-DMN">
-                                                                                <rect key="frame" x="0.0" y="0.0" width="150" height="37.333333333333336"/>
+                                                                                <rect key="frame" x="0.0" y="0.0" width="150" height="37"/>
                                                                                 <color key="backgroundColor" red="0.91372549020000005" green="0.91372549020000005" blue="0.92156862750000001" alpha="1" colorSpace="calibratedRGB"/>
                                                                                 <color key="tintColor" white="0.57222576530000002" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                 <fontDescription key="fontDescription" type="system" pointSize="23"/>
                                                                                 <textInputTraits key="textInputTraits"/>
                                                                             </textField>
                                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lLr-iG-QIf">
-                                                                                <rect key="frame" x="165" y="0.0" width="52.333333333333343" height="37.333333333333336"/>
+                                                                                <rect key="frame" x="165" y="0.0" width="52.5" height="37"/>
                                                                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                 <buttonConfiguration key="configuration" style="plain" image="message.fill" catalog="system">
                                                                                     <backgroundConfiguration key="background">
@@ -984,7 +984,7 @@ Q3.  How can I change my password ?
                                                                         </subviews>
                                                                     </stackView>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Location" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pHA-Ql-B0B">
-                                                                        <rect key="frame" x="0.0" y="94.666666666666629" width="217.33333333333334" height="37.333333333333343"/>
+                                                                        <rect key="frame" x="0.0" y="94" width="217.5" height="37"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
@@ -999,16 +999,16 @@ Q3.  How can I change my password ?
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bix-f0-qLn">
-                                                        <rect key="frame" x="20" y="541.33333333333337" width="353" height="239.33333333333337"/>
+                                                        <rect key="frame" x="20" y="541" width="992" height="240"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Education" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mjP-8i-F6e">
-                                                                <rect key="frame" x="25.000000000000007" y="7.9999999999999982" width="118.66666666666669" height="31.333333333333329"/>
+                                                                <rect key="frame" x="25" y="8" width="119" height="31.5"/>
                                                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="26"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bMY-sf-jhk">
-                                                                <rect key="frame" x="25" y="54.333333333333258" width="303" height="140"/>
+                                                                <rect key="frame" x="25" y="54.5" width="942" height="140"/>
                                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="140" id="Ugv-X0-2Bg"/>
@@ -1041,16 +1041,16 @@ Q3.  How can I change my password ?
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zVq-6F-c5H">
-                                                        <rect key="frame" x="20" y="811.66666666666663" width="353" height="239.66666666666663"/>
+                                                        <rect key="frame" x="20" y="812" width="992" height="239.5"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Experince" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qw4-mM-Lqt">
-                                                                <rect key="frame" x="24.999999999999993" y="7.9999999999999982" width="117.33333333333331" height="31.333333333333329"/>
+                                                                <rect key="frame" x="25" y="8" width="117.5" height="31.5"/>
                                                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="26"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jHW-Kd-DIm">
-                                                                <rect key="frame" x="25" y="49.333333333333371" width="303" height="162"/>
+                                                                <rect key="frame" x="25" y="49.5" width="942" height="162"/>
                                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="162" id="zEc-ew-5Ou"/>
@@ -1083,16 +1083,16 @@ Q3.  How can I change my password ?
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZAL-MZ-xhY">
-                                                        <rect key="frame" x="20" y="1082.3333333333333" width="353" height="239.66666666666674"/>
+                                                        <rect key="frame" x="20" y="1082.5" width="992" height="239.5"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Skills" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1mN-bS-wxp">
-                                                                <rect key="frame" x="25.000000000000004" y="7.9999999999999982" width="62.333333333333343" height="31.333333333333329"/>
+                                                                <rect key="frame" x="25" y="8" width="62.5" height="31.5"/>
                                                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="26"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B4z-3d-QWR">
-                                                                <rect key="frame" x="25" y="54.333333333333485" width="303" height="161"/>
+                                                                <rect key="frame" x="25" y="54.5" width="942" height="161"/>
                                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="161" id="oh6-rT-NKi"/>
@@ -1178,30 +1178,30 @@ Q3.  How can I change my password ?
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W52-hg-Ycq" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3793.636363636364" y="1405.8577405857741"/>
+            <point key="canvasLocation" x="3421" y="1463"/>
         </scene>
         <!--Edit Company Profile Screen-->
         <scene sceneID="lPw-tq-3TF">
             <objects>
                 <viewController storyboardIdentifier="CompanyProfile_EditViewController" title="Edit Company Profile Screen" id="fcy-IW-16b" customClass="CompanyProfileEditViewController" customModule="Jobify" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="mdn-Cr-daD">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1032" height="1376"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5ky-Lx-NHZ">
-                                <rect key="frame" x="0.0" y="103" width="393" height="715"/>
+                                <rect key="frame" x="0.0" y="74" width="1032" height="1282"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="afE-x5-kcX">
-                                        <rect key="frame" x="0.0" y="0.0" width="393" height="1322"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="1032" height="1322"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="center" spacing="31" translatesAutoresizingMaskIntoConstraints="NO" id="RsY-21-eYE">
-                                                <rect key="frame" x="0.0" y="0.0" width="393" height="1322"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="1032" height="1322"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OKB-0V-HYY">
-                                                        <rect key="frame" x="0.0" y="0.0" width="393" height="250"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="1032" height="250"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w4Y-dT-aRq">
-                                                                <rect key="frame" x="348" y="136" width="35" height="37"/>
+                                                                <rect key="frame" x="987" y="136" width="35" height="37"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" constant="35" id="UjE-tY-7mx"/>
                                                                     <constraint firstAttribute="height" constant="37" id="aeF-KR-w2d"/>
@@ -1212,14 +1212,14 @@ Q3.  How can I change my password ?
                                                                 </buttonConfiguration>
                                                             </button>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AIO-Tk-JL1">
-                                                                <rect key="frame" x="0.0" y="124" width="393" height="2"/>
+                                                                <rect key="frame" x="0.0" y="124" width="1032" height="2"/>
                                                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="2" id="EQF-im-RNG"/>
                                                                 </constraints>
                                                             </view>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="6aK-nq-ch6">
-                                                                <rect key="frame" x="106.66666666666669" y="36.666666666666671" width="180" height="176.66666666666663"/>
+                                                                <rect key="frame" x="426" y="36.5" width="180" height="177"/>
                                                                 <color key="backgroundColor" red="0.85098039219999999" green="0.85098039219999999" blue="0.85098039219999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <constraints>
@@ -1228,7 +1228,7 @@ Q3.  How can I change my password ?
                                                                 </constraints>
                                                             </imageView>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aPZ-9y-6e4">
-                                                                <rect key="frame" x="106.66666666666669" y="99.666666666666657" width="180" height="51"/>
+                                                                <rect key="frame" x="426" y="99.5" width="180" height="51"/>
                                                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="32"/>
                                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                                 <state key="normal" title="Edit">
@@ -1253,21 +1253,21 @@ Q3.  How can I change my password ?
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UQp-vo-8td">
-                                                        <rect key="frame" x="20" y="288.33333333333331" width="353" height="200"/>
+                                                        <rect key="frame" x="20" y="288.5" width="992" height="200"/>
                                                         <subviews>
                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="CsT-rq-F5p">
-                                                                <rect key="frame" x="41" y="25" width="271" height="142"/>
+                                                                <rect key="frame" x="41" y="25" width="910" height="141"/>
                                                                 <subviews>
                                                                     <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qWV-EK-8ql">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="271" height="37.333333333333336"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="910" height="37"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                         <textInputTraits key="textInputTraits"/>
                                                                     </textField>
                                                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="mQE-e1-0gV">
-                                                                        <rect key="frame" x="0.0" y="52.333333333333371" width="271" height="37.333333333333343"/>
+                                                                        <rect key="frame" x="0.0" y="52" width="910" height="37"/>
                                                                         <subviews>
                                                                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Main Category" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qlA-ir-dZe">
-                                                                                <rect key="frame" x="0.0" y="0.0" width="271" height="37.333333333333336"/>
+                                                                                <rect key="frame" x="0.0" y="0.0" width="910" height="37"/>
                                                                                 <color key="backgroundColor" red="0.91372549020000005" green="0.91372549020000005" blue="0.92156862750000001" alpha="1" colorSpace="calibratedRGB"/>
                                                                                 <color key="tintColor" white="0.57222576530000002" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                 <fontDescription key="fontDescription" type="system" pointSize="23"/>
@@ -1276,7 +1276,7 @@ Q3.  How can I change my password ?
                                                                         </subviews>
                                                                     </stackView>
                                                                     <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Location" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="76A-8Q-r6D">
-                                                                        <rect key="frame" x="0.0" y="104.66666666666669" width="271" height="37.333333333333343"/>
+                                                                        <rect key="frame" x="0.0" y="104" width="910" height="37"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                         <textInputTraits key="textInputTraits"/>
                                                                     </textField>
@@ -1293,7 +1293,7 @@ Q3.  How can I change my password ?
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dsu-PY-w3I">
-                                                        <rect key="frame" x="20" y="526.66666666666663" width="353" height="200"/>
+                                                        <rect key="frame" x="20" y="527" width="992" height="200"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="About Us" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Clz-R7-5LS">
                                                                 <rect key="frame" x="25" y="8" width="85" height="24"/>
@@ -1302,7 +1302,7 @@ Q3.  How can I change my password ?
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Nea-PW-WMi">
-                                                                <rect key="frame" x="25" y="47" width="303" height="145"/>
+                                                                <rect key="frame" x="25" y="47" width="942" height="145"/>
                                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="145" id="b75-wr-cNO"/>
@@ -1336,7 +1336,7 @@ Q3.  How can I change my password ?
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tWp-f5-otz">
-                                                        <rect key="frame" x="20" y="765.33333333333337" width="353" height="200"/>
+                                                        <rect key="frame" x="20" y="765" width="992" height="200"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Our Employability Goals" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P3G-4B-qVi">
                                                                 <rect key="frame" x="25" y="8" width="210" height="23"/>
@@ -1345,7 +1345,7 @@ Q3.  How can I change my password ?
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qnI-4a-SOK">
-                                                                <rect key="frame" x="25" y="41" width="303" height="143"/>
+                                                                <rect key="frame" x="25" y="41" width="942" height="143"/>
                                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="143" id="Wuw-pk-8KL"/>
@@ -1379,7 +1379,7 @@ Q3.  How can I change my password ?
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ABJ-wk-7vR">
-                                                        <rect key="frame" x="20" y="1003.6666666666667" width="353" height="200"/>
+                                                        <rect key="frame" x="20" y="1003.5" width="992" height="200"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Our Vision" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IPJ-HV-OMD">
                                                                 <rect key="frame" x="25" y="8" width="95" height="24"/>
@@ -1388,7 +1388,7 @@ Q3.  How can I change my password ?
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MMv-GM-ljv">
-                                                                <rect key="frame" x="25" y="47" width="303" height="145"/>
+                                                                <rect key="frame" x="25" y="47" width="942" height="145"/>
                                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="145" id="nHv-vE-Aee"/>
@@ -1422,10 +1422,10 @@ Q3.  How can I change my password ?
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OcA-fh-bfD">
-                                                        <rect key="frame" x="0.0" y="1242" width="393" height="80"/>
+                                                        <rect key="frame" x="0.0" y="1242" width="1032" height="80"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TdJ-k4-JHZ">
-                                                                <rect key="frame" x="35" y="10" width="151.66666666666666" height="60"/>
+                                                                <rect key="frame" x="35" y="10" width="471" height="60"/>
                                                                 <color key="tintColor" red="0.1137254902" green="0.1764705882" blue="0.2666666667" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                                 <state key="normal" title="Add"/>
@@ -1436,7 +1436,7 @@ Q3.  How can I change my password ?
                                                                 </buttonConfiguration>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sER-dK-tIH">
-                                                                <rect key="frame" x="206.66666666666663" y="10" width="151.33333333333337" height="60"/>
+                                                                <rect key="frame" x="526" y="10" width="471" height="60"/>
                                                                 <color key="tintColor" red="0.1137254902" green="0.1764705882" blue="0.2666666667" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                                 <state key="normal" title="Add"/>
@@ -1525,21 +1525,21 @@ Q3.  How can I change my password ?
             <objects>
                 <tableViewController id="Pg1-Br-dPM" customClass="CompanyProfileEditTableViewController" customModule="Jobify" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="NLF-me-WXg">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1032" height="1376"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <sections>
                             <tableViewSection id="dQv-6R-RCH">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="80" id="AR6-0G-CfL">
-                                        <rect key="frame" x="0.0" y="50" width="393" height="80"/>
+                                        <rect key="frame" x="0.0" y="50" width="1032" height="80"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="AR6-0G-CfL" id="TC8-ui-RxQ">
-                                            <rect key="frame" x="0.0" y="0.0" width="393" height="80"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="1032" height="80"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add your company information to complete yout profile." textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ygu-be-ziN">
-                                                    <rect key="frame" x="40" y="21.999999999999996" width="313" height="40.666666666666657"/>
+                                                    <rect key="frame" x="40" y="26" width="952" height="20.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -1553,23 +1553,23 @@ Q3.  How can I change my password ?
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="180" id="VAu-g7-Laj">
-                                        <rect key="frame" x="0.0" y="130" width="393" height="180"/>
+                                        <rect key="frame" x="0.0" y="130" width="1032" height="180"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="VAu-g7-Laj" id="wpO-m3-7Kb">
-                                            <rect key="frame" x="0.0" y="0.0" width="393" height="180"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="1032" height="180"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8vD-xx-5iP">
-                                                    <rect key="frame" x="20" y="22" width="353" height="136"/>
+                                                    <rect key="frame" x="20" y="26" width="992" height="128"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="About Us" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fuV-VI-giC">
-                                                            <rect key="frame" x="25" y="10.000000000000002" width="74" height="20.666666666666671"/>
+                                                            <rect key="frame" x="25" y="10" width="74" height="20.5"/>
                                                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="About Us" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="DOM-t8-Zlb">
-                                                            <rect key="frame" x="30" y="35.666666666666657" width="293" height="80"/>
+                                                            <rect key="frame" x="30" y="35.5" width="932" height="80"/>
                                                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="80" id="Foa-W7-ygj"/>
@@ -1600,23 +1600,23 @@ Q3.  How can I change my password ?
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="180" id="4G3-Nd-b2e">
-                                        <rect key="frame" x="0.0" y="310" width="393" height="180"/>
+                                        <rect key="frame" x="0.0" y="310" width="1032" height="180"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="4G3-Nd-b2e" id="rMM-3D-ZV1">
-                                            <rect key="frame" x="0.0" y="0.0" width="393" height="180"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="1032" height="180"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="N65-3c-cYQ">
-                                                    <rect key="frame" x="20" y="22" width="353" height="136"/>
+                                                    <rect key="frame" x="20" y="26" width="992" height="128"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Our Employability Goals" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zji-d5-jNq">
-                                                            <rect key="frame" x="25" y="10.000000000000002" width="189.66666666666666" height="20.666666666666671"/>
+                                                            <rect key="frame" x="25" y="10" width="189.5" height="20.5"/>
                                                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Our Employability Goals" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="eqW-DH-fEX">
-                                                            <rect key="frame" x="30" y="35.666666666666657" width="293" height="80"/>
+                                                            <rect key="frame" x="30" y="35.5" width="932" height="80"/>
                                                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="80" id="Ryw-Tn-koP"/>
@@ -1647,23 +1647,23 @@ Q3.  How can I change my password ?
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="180" id="Pgw-xh-g7r">
-                                        <rect key="frame" x="0.0" y="490" width="393" height="180"/>
+                                        <rect key="frame" x="0.0" y="490" width="1032" height="180"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Pgw-xh-g7r" id="gCU-28-x3V">
-                                            <rect key="frame" x="0.0" y="0.0" width="393" height="180"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="1032" height="180"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Opz-7B-J0m">
-                                                    <rect key="frame" x="20" y="22" width="353" height="136"/>
+                                                    <rect key="frame" x="20" y="26" width="992" height="128"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" Our Vision" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mVj-dW-a5v">
-                                                            <rect key="frame" x="25.000000000000007" y="10.000000000000002" width="86.666666666666686" height="20.666666666666671"/>
+                                                            <rect key="frame" x="25" y="10" width="86.5" height="20.5"/>
                                                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Our Vision" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="CkR-yt-jjb">
-                                                            <rect key="frame" x="30" y="35.666666666666657" width="293" height="80"/>
+                                                            <rect key="frame" x="30" y="35.5" width="932" height="80"/>
                                                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="80" id="F1m-1h-Go5"/>
@@ -1694,14 +1694,14 @@ Q3.  How can I change my password ?
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="100" id="Kg3-UR-G2f">
-                                        <rect key="frame" x="0.0" y="670" width="393" height="100"/>
+                                        <rect key="frame" x="0.0" y="670" width="1032" height="100"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Kg3-UR-G2f" id="OMA-nW-bpl">
-                                            <rect key="frame" x="0.0" y="0.0" width="393" height="100"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="1032" height="100"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ufd-jL-r2z">
-                                                    <rect key="frame" x="30" y="22" width="333" height="60"/>
+                                                    <rect key="frame" x="30" y="26" width="972" height="60"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="60" id="BJp-Fl-ne4"/>
                                                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="323" id="HeS-lr-DZu"/>
@@ -1753,23 +1753,23 @@ Q3.  How can I change my password ?
             <objects>
                 <viewController storyboardIdentifier="CompanyProfileViewController" title="Company Profile Screen 2" id="pWN-Sl-N95" customClass="CompanyProfileViewController2" customModule="Jobify" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ek7-LP-VvQ">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1032" height="1376"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Z9-2g-dL0">
-                                <rect key="frame" x="0.0" y="103" width="393" height="715"/>
+                                <rect key="frame" x="0.0" y="74" width="1032" height="1282"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="J9o-YE-kMm">
-                                        <rect key="frame" x="0.0" y="0.0" width="393" height="1322"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="1032" height="1322"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="31" translatesAutoresizingMaskIntoConstraints="NO" id="EqK-ZM-P03">
-                                                <rect key="frame" x="0.0" y="0.0" width="393" height="1322"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="1032" height="1322"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="92C-Sn-zkA">
-                                                        <rect key="frame" x="0.0" y="0.0" width="393" height="250"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="1032" height="250"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XOh-1B-BKF">
-                                                                <rect key="frame" x="348" y="136" width="35" height="37"/>
+                                                                <rect key="frame" x="987" y="136" width="35" height="37"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" constant="35" id="4zT-XZ-5P1"/>
                                                                     <constraint firstAttribute="height" constant="37" id="zxu-jC-5d1"/>
@@ -1783,14 +1783,14 @@ Q3.  How can I change my password ?
                                                                 </connections>
                                                             </button>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FJ5-Yv-1nU">
-                                                                <rect key="frame" x="0.0" y="124" width="393" height="2"/>
+                                                                <rect key="frame" x="0.0" y="124" width="1032" height="2"/>
                                                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="2" id="1Tm-Ic-yWu"/>
                                                                 </constraints>
                                                             </view>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="nIg-It-1do">
-                                                                <rect key="frame" x="106.66666666666669" y="36.666666666666671" width="180" height="176.66666666666663"/>
+                                                                <rect key="frame" x="426" y="36.5" width="180" height="177"/>
                                                                 <color key="backgroundColor" red="0.85098039219999999" green="0.85098039219999999" blue="0.85098039219999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <constraints>
@@ -1812,22 +1812,22 @@ Q3.  How can I change my password ?
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zvs-Ut-773">
-                                                        <rect key="frame" x="20" y="281" width="353" height="150"/>
+                                                        <rect key="frame" x="20" y="281" width="992" height="150"/>
                                                         <subviews>
                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Dcp-cM-uJx">
-                                                                <rect key="frame" x="41" y="0.0" width="271" height="132"/>
+                                                                <rect key="frame" x="41" y="0.0" width="910" height="131"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RTJ-SU-1Hq">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="271" height="37.333333333333336"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="910" height="37"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="X37-Qg-dLj">
-                                                                        <rect key="frame" x="0.0" y="47.333333333333314" width="271" height="37.333333333333343"/>
+                                                                        <rect key="frame" x="0.0" y="47" width="910" height="37"/>
                                                                         <subviews>
                                                                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Main Category" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="kLc-cQ-KjR">
-                                                                                <rect key="frame" x="0.0" y="0.0" width="271" height="37.333333333333336"/>
+                                                                                <rect key="frame" x="0.0" y="0.0" width="910" height="37"/>
                                                                                 <color key="backgroundColor" red="0.91372549020000005" green="0.91372549020000005" blue="0.92156862750000001" alpha="1" colorSpace="calibratedRGB"/>
                                                                                 <color key="tintColor" white="0.57222576530000002" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                 <fontDescription key="fontDescription" type="system" pointSize="23"/>
@@ -1836,7 +1836,7 @@ Q3.  How can I change my password ?
                                                                         </subviews>
                                                                     </stackView>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Location" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yxH-LE-tC7">
-                                                                        <rect key="frame" x="0.0" y="94.666666666666686" width="271" height="37.333333333333343"/>
+                                                                        <rect key="frame" x="0.0" y="94" width="910" height="37"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
@@ -1854,10 +1854,10 @@ Q3.  How can I change my password ?
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kXa-og-zmW">
-                                                        <rect key="frame" x="0.0" y="462" width="393" height="167"/>
+                                                        <rect key="frame" x="319.5" y="462" width="393" height="167"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="51h-hT-HVu">
-                                                                <rect key="frame" x="27.666666666666657" y="50" width="337.66666666666674" height="67"/>
+                                                                <rect key="frame" x="27.5" y="50" width="338" height="67"/>
                                                                 <color key="tintColor" red="0.1137254902" green="0.1764705882" blue="0.2666666667" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                                 <state key="normal" title="Button"/>
                                                                 <buttonConfiguration key="configuration" style="filled" title="Add Information">
@@ -1878,7 +1878,7 @@ Q3.  How can I change my password ?
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yr8-hj-jkn">
-                                                        <rect key="frame" x="20" y="660" width="353" height="200"/>
+                                                        <rect key="frame" x="20" y="660" width="992" height="200"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="About Us" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nc1-fh-2T6">
                                                                 <rect key="frame" x="25" y="8" width="85" height="24"/>
@@ -1887,7 +1887,7 @@ Q3.  How can I change my password ?
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IcR-ci-0ib">
-                                                                <rect key="frame" x="25" y="47" width="303" height="136"/>
+                                                                <rect key="frame" x="25" y="47" width="942" height="136"/>
                                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="136" id="PYD-28-v2s"/>
@@ -1921,7 +1921,7 @@ Q3.  How can I change my password ?
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="17y-6u-PaW">
-                                                        <rect key="frame" x="20" y="891" width="353" height="200"/>
+                                                        <rect key="frame" x="20" y="891" width="992" height="200"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Our Employability Goals" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kys-GJ-EQI">
                                                                 <rect key="frame" x="25" y="8" width="218" height="24"/>
@@ -1930,7 +1930,7 @@ Q3.  How can I change my password ?
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Drd-wi-iWA">
-                                                                <rect key="frame" x="25" y="42" width="303" height="129"/>
+                                                                <rect key="frame" x="25" y="42" width="942" height="129"/>
                                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="129" id="PVv-Nd-ORl"/>
@@ -1964,7 +1964,7 @@ Q3.  How can I change my password ?
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dov-JI-2xy">
-                                                        <rect key="frame" x="20" y="1122" width="353" height="200"/>
+                                                        <rect key="frame" x="20" y="1122" width="992" height="200"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Our Vision" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rHH-1S-5K1">
                                                                 <rect key="frame" x="25" y="8" width="95" height="24"/>
@@ -1973,7 +1973,7 @@ Q3.  How can I change my password ?
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XfO-BK-gqX">
-                                                                <rect key="frame" x="25" y="47" width="303" height="129"/>
+                                                                <rect key="frame" x="25" y="47" width="942" height="129"/>
                                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="129" id="fYt-h9-njG"/>
@@ -2079,30 +2079,30 @@ Q3.  How can I change my password ?
             <objects>
                 <viewController storyboardIdentifier="CompanyProfilePreviewViewController" title="Company Profile Preview" id="DNy-US-gJY" customClass="CompanyProfilePreviewViewController" customModule="Jobify" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ijU-RC-kaq">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1032" height="1376"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vg8-eg-Uxw">
-                                <rect key="frame" x="0.0" y="59" width="393" height="759"/>
+                                <rect key="frame" x="0.0" y="24" width="1032" height="1332"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vjl-PN-O2c">
-                                        <rect key="frame" x="0.0" y="0.0" width="393" height="1200"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="1032" height="1200"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="center" spacing="31" translatesAutoresizingMaskIntoConstraints="NO" id="RDK-e6-OVn">
-                                                <rect key="frame" x="0.0" y="0.0" width="393" height="1200"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="1032" height="1200"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Iet-j0-7wr">
-                                                        <rect key="frame" x="0.0" y="0.0" width="393" height="250"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="1032" height="250"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KYE-j3-dDR">
-                                                                <rect key="frame" x="0.0" y="114" width="393" height="2"/>
+                                                                <rect key="frame" x="0.0" y="114" width="1032" height="2"/>
                                                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="2" id="0q8-Uu-XQs"/>
                                                                 </constraints>
                                                             </view>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="BOn-MR-cRx">
-                                                                <rect key="frame" x="106.66666666666669" y="26.666666666666671" width="180" height="176.66666666666663"/>
+                                                                <rect key="frame" x="426" y="26.5" width="180" height="177"/>
                                                                 <color key="backgroundColor" red="0.85098039219999999" green="0.85098039219999999" blue="0.85098039219999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <constraints>
@@ -2122,29 +2122,29 @@ Q3.  How can I change my password ?
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KNh-sd-0Lp">
-                                                        <rect key="frame" x="20" y="302.66666666666669" width="353" height="200"/>
+                                                        <rect key="frame" x="20" y="302.5" width="992" height="200"/>
                                                         <subviews>
                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="75J-1Q-fXz">
-                                                                <rect key="frame" x="55" y="25" width="243" height="132"/>
+                                                                <rect key="frame" x="55" y="25" width="882" height="131"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sl5-aN-Bg3">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="243" height="37.333333333333336"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="882" height="37"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="leS-9b-I7F">
-                                                                        <rect key="frame" x="0.0" y="47.333333333333314" width="243" height="37.333333333333343"/>
+                                                                        <rect key="frame" x="0.0" y="47" width="882" height="37"/>
                                                                         <subviews>
                                                                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Main Category" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5ol-wi-xEa">
-                                                                                <rect key="frame" x="0.0" y="0.0" width="175.66666666666666" height="37.333333333333336"/>
+                                                                                <rect key="frame" x="0.0" y="0.0" width="814.5" height="37"/>
                                                                                 <color key="backgroundColor" red="0.91372549020000005" green="0.91372549020000005" blue="0.92156862750000001" alpha="1" colorSpace="calibratedRGB"/>
                                                                                 <color key="tintColor" white="0.57222576530000002" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                 <fontDescription key="fontDescription" type="system" pointSize="23"/>
                                                                                 <textInputTraits key="textInputTraits"/>
                                                                             </textField>
                                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3tg-QV-Zde">
-                                                                                <rect key="frame" x="190.66666666666669" y="0.0" width="52.333333333333343" height="37.333333333333336"/>
+                                                                                <rect key="frame" x="829.5" y="0.0" width="52.5" height="37"/>
                                                                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                 <buttonConfiguration key="configuration" style="plain" image="message.fill" catalog="system">
                                                                                     <backgroundConfiguration key="background">
@@ -2156,7 +2156,7 @@ Q3.  How can I change my password ?
                                                                         </subviews>
                                                                     </stackView>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Location" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="611-wX-cf5">
-                                                                        <rect key="frame" x="0.0" y="94.666666666666629" width="243" height="37.333333333333343"/>
+                                                                        <rect key="frame" x="0.0" y="94" width="882" height="37"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
@@ -2174,16 +2174,16 @@ Q3.  How can I change my password ?
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AND-dQ-O5z">
-                                                        <rect key="frame" x="20" y="555" width="353" height="180"/>
+                                                        <rect key="frame" x="20" y="555" width="992" height="180"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="About Us" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W9Y-AV-3HF">
-                                                                <rect key="frame" x="24.999999999999993" y="7.9999999999999982" width="109.33333333333331" height="31.333333333333329"/>
+                                                                <rect key="frame" x="25" y="8" width="109.5" height="31.5"/>
                                                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="26"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uh1-qy-5UO">
-                                                                <rect key="frame" x="25" y="54.333333333333371" width="303" height="118"/>
+                                                                <rect key="frame" x="25" y="54.5" width="942" height="118"/>
                                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="118" id="PoV-dA-Nys"/>
@@ -2217,16 +2217,16 @@ Q3.  How can I change my password ?
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dxy-ji-UBJ">
-                                                        <rect key="frame" x="20" y="787.66666666666663" width="353" height="180"/>
+                                                        <rect key="frame" x="20" y="787.5" width="992" height="180"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Our Employability Goals" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jel-JQ-mCQ">
-                                                                <rect key="frame" x="25" y="7.9999999999999982" width="280.66666666666669" height="31.333333333333329"/>
+                                                                <rect key="frame" x="25" y="8" width="281" height="31.5"/>
                                                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="26"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fxa-SK-qh7">
-                                                                <rect key="frame" x="25" y="49.333333333333371" width="303" height="112"/>
+                                                                <rect key="frame" x="25" y="49.5" width="942" height="112"/>
                                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="112" id="8SN-mH-Q4W"/>
@@ -2260,16 +2260,16 @@ Q3.  How can I change my password ?
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rnL-3h-2Uc">
-                                                        <rect key="frame" x="20" y="1020" width="353" height="180"/>
+                                                        <rect key="frame" x="20" y="1020" width="992" height="180"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Our Vision" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pLu-7R-OV6">
-                                                                <rect key="frame" x="24.999999999999993" y="7.9999999999999982" width="122.33333333333331" height="31.333333333333329"/>
+                                                                <rect key="frame" x="25" y="8" width="122.5" height="31.5"/>
                                                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="26"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yea-EI-poe">
-                                                                <rect key="frame" x="25" y="54.333333333333258" width="303" height="109"/>
+                                                                <rect key="frame" x="25" y="54.5" width="942" height="109"/>
                                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="109" id="XYW-hd-Nje"/>
@@ -2355,7 +2355,7 @@ Q3.  How can I change my password ?
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iNy-Ct-58v" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3772" y="3435"/>
+            <point key="canvasLocation" x="2927" y="3383"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="h6q-9u-1DG">
@@ -2363,7 +2363,7 @@ Q3.  How can I change my password ?
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="iQo-Kc-Kc3" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="aWj-Xi-5Dg">
-                        <rect key="frame" x="0.0" y="59" width="393" height="44"/>
+                        <rect key="frame" x="0.0" y="24" width="1032" height="50"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -2380,30 +2380,30 @@ Q3.  How can I change my password ?
             <objects>
                 <viewController storyboardIdentifier="SeekerProfileViewController" title="Seeker Profile Screen (with CV)" id="knG-8q-roE" customClass="SeekerProfileViewControllerWithCV" customModule="Jobify" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="EWE-oW-i7b">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1032" height="1376"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="v9G-Zw-n9D">
-                                <rect key="frame" x="0.0" y="103" width="393" height="715"/>
+                                <rect key="frame" x="0.0" y="74" width="1032" height="1282"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KSb-Ti-VbR">
-                                        <rect key="frame" x="0.0" y="0.0" width="393" height="1322"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="1032" height="1322"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalCentering" alignment="center" spacing="31" translatesAutoresizingMaskIntoConstraints="NO" id="fvL-x2-pMf">
-                                                <rect key="frame" x="0.0" y="0.0" width="393" height="1322"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="1032" height="1322"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="y5G-sI-ZqJ">
-                                                        <rect key="frame" x="0.0" y="0.0" width="393" height="250"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="1032" height="250"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="y72-YV-YkV">
-                                                                <rect key="frame" x="0.0" y="124" width="393" height="2"/>
+                                                                <rect key="frame" x="0.0" y="124" width="1032" height="2"/>
                                                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="2" id="zI3-aW-J5d"/>
                                                                 </constraints>
                                                             </view>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="oNg-aC-PBi">
-                                                                <rect key="frame" x="106.66666666666669" y="36.666666666666671" width="180" height="176.66666666666663"/>
+                                                                <rect key="frame" x="426" y="36.5" width="180" height="177"/>
                                                                 <color key="backgroundColor" red="0.85098039219999999" green="0.85098039219999999" blue="0.85098039219999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <constraints>
@@ -2412,7 +2412,7 @@ Q3.  How can I change my password ?
                                                                 </constraints>
                                                             </imageView>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uKT-Fi-SDm">
-                                                                <rect key="frame" x="348" y="136" width="35" height="37"/>
+                                                                <rect key="frame" x="987" y="136" width="35" height="37"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="37" id="Zxa-IN-di5"/>
                                                                     <constraint firstAttribute="width" constant="35" id="c2j-Ms-Yfa"/>
@@ -2439,22 +2439,22 @@ Q3.  How can I change my password ?
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rIt-Vs-iN0">
-                                                        <rect key="frame" x="20" y="294.33333333333331" width="353" height="229.99999999999994"/>
+                                                        <rect key="frame" x="20" y="294.5" width="992" height="230"/>
                                                         <subviews>
                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="or0-No-IxY">
-                                                                <rect key="frame" x="101.66666666666669" y="25" width="150" height="183.33333333333334"/>
+                                                                <rect key="frame" x="421" y="25" width="150" height="184"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="19W-lq-xcf">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="150" height="38.333333333333336"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="150" height="38.5"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="Oir-mS-VEt">
-                                                                        <rect key="frame" x="0.0" y="48.333333333333371" width="150" height="38.333333333333343"/>
+                                                                        <rect key="frame" x="0.0" y="48.5" width="150" height="38.5"/>
                                                                         <subviews>
                                                                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Job Position" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2yT-qc-h3l">
-                                                                                <rect key="frame" x="0.0" y="0.0" width="150" height="38.333333333333336"/>
+                                                                                <rect key="frame" x="0.0" y="0.0" width="150" height="38.5"/>
                                                                                 <color key="backgroundColor" red="0.91372549020000005" green="0.91372549020000005" blue="0.92156862750000001" alpha="1" colorSpace="calibratedRGB"/>
                                                                                 <color key="tintColor" white="0.57222576530000002" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                 <fontDescription key="fontDescription" type="system" pointSize="23"/>
@@ -2463,13 +2463,13 @@ Q3.  How can I change my password ?
                                                                         </subviews>
                                                                     </stackView>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Location" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O10-q6-wP7">
-                                                                        <rect key="frame" x="0.0" y="96.666666666666686" width="150" height="38.333333333333343"/>
+                                                                        <rect key="frame" x="0.0" y="97" width="150" height="38.5"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bpO-lK-A9O">
-                                                                        <rect key="frame" x="0.0" y="145.00000000000006" width="150" height="38.333333333333343"/>
+                                                                        <rect key="frame" x="0.0" y="145.5" width="150" height="38.5"/>
                                                                         <color key="tintColor" red="0.91372549020000005" green="0.91372549020000005" blue="0.92156862750000001" alpha="1" colorSpace="calibratedRGB"/>
                                                                         <state key="normal" title="Button"/>
                                                                         <buttonConfiguration key="configuration" style="gray" image="tray.fill" catalog="system" title="My CVs " imagePadding="8">
@@ -2491,16 +2491,16 @@ Q3.  How can I change my password ?
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="w2B-xv-4Q2">
-                                                        <rect key="frame" x="20" y="593.66666666666663" width="353" height="200"/>
+                                                        <rect key="frame" x="20" y="593.5" width="992" height="200"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Education" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rs5-6Y-Q2w">
-                                                                <rect key="frame" x="25.000000000000007" y="7.9999999999999982" width="118.66666666666669" height="31.333333333333329"/>
+                                                                <rect key="frame" x="25" y="8" width="119" height="31.5"/>
                                                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="26"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xmw-FZ-oZT">
-                                                                <rect key="frame" x="25" y="54.333333333333371" width="303" height="130"/>
+                                                                <rect key="frame" x="25" y="54.5" width="942" height="130"/>
                                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="130" id="u8N-GI-NZx"/>
@@ -2534,16 +2534,16 @@ Q3.  How can I change my password ?
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CDU-bi-lzr">
-                                                        <rect key="frame" x="20" y="877.66666666666663" width="353" height="199.99999999999989"/>
+                                                        <rect key="frame" x="20" y="878" width="992" height="200"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Experince" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BaE-F7-1y3">
-                                                                <rect key="frame" x="24.999999999999993" y="7.9999999999999982" width="117.33333333333331" height="31.333333333333329"/>
+                                                                <rect key="frame" x="25" y="8" width="117.5" height="31.5"/>
                                                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="26"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MPw-VP-pYj">
-                                                                <rect key="frame" x="25" y="49.333333333333371" width="303" height="143"/>
+                                                                <rect key="frame" x="25" y="49.5" width="942" height="143"/>
                                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="143" id="IDm-aF-PNe"/>
@@ -2577,16 +2577,16 @@ Q3.  How can I change my password ?
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qBS-jR-KTA">
-                                                        <rect key="frame" x="20" y="1202" width="353" height="120"/>
+                                                        <rect key="frame" x="20" y="1202" width="992" height="120"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Skills" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VpD-8i-eqe">
-                                                                <rect key="frame" x="25.000000000000004" y="7.9999999999999982" width="62.333333333333343" height="31.333333333333329"/>
+                                                                <rect key="frame" x="25" y="8" width="62.5" height="31.5"/>
                                                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="26"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w9Z-05-KIR">
-                                                                <rect key="frame" x="25" y="54.333333333333258" width="303" height="80"/>
+                                                                <rect key="frame" x="25" y="54.5" width="942" height="80"/>
                                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="80" id="8fz-ae-qFW"/>
@@ -2676,37 +2676,37 @@ Q3.  How can I change my password ?
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Pyx-fz-dZE" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1497" y="1891"/>
+            <point key="canvasLocation" x="1015" y="1891"/>
         </scene>
         <!--Seeker Profile Screen (with CV) - Edit-->
         <scene sceneID="2Zv-86-SOL">
             <objects>
                 <viewController storyboardIdentifier="SeekerProfile_EditViewController" title="Seeker Profile Screen (with CV) - Edit" id="KSW-Vn-q5S" customClass="SeekerProfileViewControllerWithCV_EditViewController" customModule="Jobify" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8nc-nb-VQv">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1032" height="1376"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XB5-OW-w04">
-                                <rect key="frame" x="0.0" y="103" width="393" height="715"/>
+                                <rect key="frame" x="0.0" y="74" width="1032" height="1282"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Kpj-sU-0yY">
-                                        <rect key="frame" x="0.0" y="0.0" width="393" height="1322"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="1032" height="1322"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="center" spacing="31" translatesAutoresizingMaskIntoConstraints="NO" id="okP-zq-gEU">
-                                                <rect key="frame" x="0.0" y="0.0" width="393" height="1322"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="1032" height="1322"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TNM-6S-3gz">
-                                                        <rect key="frame" x="0.0" y="0.0" width="393" height="250"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="1032" height="250"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KNK-66-TGB">
-                                                                <rect key="frame" x="0.0" y="124" width="393" height="2"/>
+                                                                <rect key="frame" x="0.0" y="124" width="1032" height="2"/>
                                                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="2" id="4K8-u9-Q6i"/>
                                                                 </constraints>
                                                             </view>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="U92-QB-dYC">
-                                                                <rect key="frame" x="106.66666666666669" y="36.666666666666671" width="180" height="176.66666666666663"/>
+                                                                <rect key="frame" x="426" y="36.5" width="180" height="177"/>
                                                                 <color key="backgroundColor" red="0.85098039219999999" green="0.85098039219999999" blue="0.85098039219999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <constraints>
@@ -2715,7 +2715,7 @@ Q3.  How can I change my password ?
                                                                 </constraints>
                                                             </imageView>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8yb-vG-yCK">
-                                                                <rect key="frame" x="106.66666666666669" y="35" width="180" height="180"/>
+                                                                <rect key="frame" x="426" y="35" width="180" height="180"/>
                                                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="32"/>
                                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                                 <state key="normal" title="Edit">
@@ -2723,7 +2723,7 @@ Q3.  How can I change my password ?
                                                                 </state>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HXH-JZ-4Jc">
-                                                                <rect key="frame" x="348" y="136" width="35" height="37"/>
+                                                                <rect key="frame" x="987" y="136" width="35" height="37"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="37" id="KCX-cs-WRF"/>
                                                                     <constraint firstAttribute="width" constant="35" id="dFy-nU-tQw"/>
@@ -2753,21 +2753,21 @@ Q3.  How can I change my password ?
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qaX-DJ-6Fk">
-                                                        <rect key="frame" x="20" y="288.33333333333331" width="353" height="200"/>
+                                                        <rect key="frame" x="20" y="288.5" width="992" height="200"/>
                                                         <subviews>
                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="oK9-BB-tBz">
-                                                                <rect key="frame" x="114" y="8.3333333333333712" width="125.33333333333331" height="183.33333333333334"/>
+                                                                <rect key="frame" x="433.5" y="8" width="125" height="184"/>
                                                                 <subviews>
                                                                     <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="823-d3-3mL">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="125.33333333333333" height="38.333333333333336"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="125" height="38.5"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                         <textInputTraits key="textInputTraits"/>
                                                                     </textField>
                                                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="pFd-DX-Qf9">
-                                                                        <rect key="frame" x="0.0" y="48.333333333333314" width="125.33333333333333" height="38.333333333333343"/>
+                                                                        <rect key="frame" x="0.0" y="48.5" width="125" height="38.5"/>
                                                                         <subviews>
                                                                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Job Position" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="CE2-f7-Fa4">
-                                                                                <rect key="frame" x="0.0" y="0.0" width="125.33333333333333" height="38.333333333333336"/>
+                                                                                <rect key="frame" x="0.0" y="0.0" width="125" height="38.5"/>
                                                                                 <color key="backgroundColor" red="0.91372549020000005" green="0.91372549020000005" blue="0.92156862750000001" alpha="1" colorSpace="calibratedRGB"/>
                                                                                 <color key="tintColor" white="0.57222576530000002" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -2776,12 +2776,12 @@ Q3.  How can I change my password ?
                                                                         </subviews>
                                                                     </stackView>
                                                                     <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Location" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Rj5-4N-2aw">
-                                                                        <rect key="frame" x="0.0" y="96.666666666666629" width="125.33333333333333" height="38.333333333333343"/>
+                                                                        <rect key="frame" x="0.0" y="97" width="125" height="38.5"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                         <textInputTraits key="textInputTraits"/>
                                                                     </textField>
                                                                     <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k2u-uG-Zvy">
-                                                                        <rect key="frame" x="0.0" y="144.99999999999994" width="125.33333333333333" height="38.333333333333343"/>
+                                                                        <rect key="frame" x="0.0" y="145.5" width="125" height="38.5"/>
                                                                         <color key="tintColor" red="0.91372549020000005" green="0.91372549020000005" blue="0.92156862750000001" alpha="1" colorSpace="calibratedRGB"/>
                                                                         <state key="normal" title="Button"/>
                                                                         <buttonConfiguration key="configuration" style="gray" image="tray.fill" catalog="system" title="My CVs " imagePadding="8">
@@ -2800,16 +2800,16 @@ Q3.  How can I change my password ?
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XqB-Kz-lyL">
-                                                        <rect key="frame" x="20" y="526.66666666666663" width="353" height="200"/>
+                                                        <rect key="frame" x="20" y="527" width="992" height="200"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Education" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2jc-0c-cJd">
-                                                                <rect key="frame" x="25.000000000000007" y="7.9999999999999982" width="118.66666666666669" height="31.333333333333329"/>
+                                                                <rect key="frame" x="25" y="8" width="119" height="31.5"/>
                                                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="26"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hId-l0-nIZ">
-                                                                <rect key="frame" x="25" y="54.333333333333371" width="303" height="127"/>
+                                                                <rect key="frame" x="25" y="54.5" width="942" height="127"/>
                                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="127" id="Y5o-oP-NWA"/>
@@ -2843,16 +2843,16 @@ Q3.  How can I change my password ?
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uY7-Yk-1yV">
-                                                        <rect key="frame" x="20" y="765.33333333333337" width="353" height="200"/>
+                                                        <rect key="frame" x="20" y="765" width="992" height="200"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Experince" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ufr-Rs-A5f">
-                                                                <rect key="frame" x="24.999999999999993" y="7.9999999999999982" width="117.33333333333331" height="31.333333333333329"/>
+                                                                <rect key="frame" x="25" y="8" width="117.5" height="31.5"/>
                                                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="26"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GdC-1B-Vq1">
-                                                                <rect key="frame" x="25" y="49.333333333333258" width="303" height="143"/>
+                                                                <rect key="frame" x="25" y="49.5" width="942" height="143"/>
                                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="143" id="4ct-SJ-0U8"/>
@@ -2886,16 +2886,16 @@ Q3.  How can I change my password ?
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vlM-mh-LL7">
-                                                        <rect key="frame" x="20" y="1003.6666666666667" width="353" height="200"/>
+                                                        <rect key="frame" x="20" y="1003.5" width="992" height="200"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Skills" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E3w-VV-nYp">
-                                                                <rect key="frame" x="25.000000000000004" y="7.9999999999999982" width="62.333333333333343" height="31.333333333333329"/>
+                                                                <rect key="frame" x="25" y="8" width="62.5" height="31.5"/>
                                                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="26"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5uK-3X-xcY">
-                                                                <rect key="frame" x="25" y="54.333333333333258" width="303" height="127"/>
+                                                                <rect key="frame" x="25" y="54.5" width="942" height="127"/>
                                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="127" id="wzy-1s-qjK"/>
@@ -2929,10 +2929,10 @@ Q3.  How can I change my password ?
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IM3-hj-39B">
-                                                        <rect key="frame" x="0.0" y="1242" width="393" height="80"/>
+                                                        <rect key="frame" x="0.0" y="1242" width="1032" height="80"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4ST-CU-xcf">
-                                                                <rect key="frame" x="35" y="10" width="151.66666666666666" height="60"/>
+                                                                <rect key="frame" x="35" y="10" width="471" height="60"/>
                                                                 <color key="tintColor" red="0.1137254902" green="0.1764705882" blue="0.2666666667" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                                 <state key="normal" title="Add"/>
@@ -2943,7 +2943,7 @@ Q3.  How can I change my password ?
                                                                 </buttonConfiguration>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kfr-oQ-pSn">
-                                                                <rect key="frame" x="206.66666666666663" y="10" width="151.33333333333337" height="60"/>
+                                                                <rect key="frame" x="526" y="10" width="471" height="60"/>
                                                                 <color key="tintColor" red="0.1137254902" green="0.1764705882" blue="0.2666666667" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                                 <state key="normal" title="Add"/>
@@ -3025,7 +3025,7 @@ Q3.  How can I change my password ?
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FMT-GA-5TK" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2555" y="1891"/>
+            <point key="canvasLocation" x="2163" y="1891"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="0EY-4n-zgq">
@@ -3033,7 +3033,7 @@ Q3.  How can I change my password ?
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="FYp-x7-xMt" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="qv5-j7-yiL">
-                        <rect key="frame" x="0.0" y="59" width="393" height="44"/>
+                        <rect key="frame" x="0.0" y="24" width="1032" height="50"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>

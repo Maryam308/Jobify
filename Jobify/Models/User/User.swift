@@ -33,6 +33,9 @@ struct User {
    var seekerDetails: SeekerDetails?
    var employerDetails: EmployerDetails?
    var adminDetails: AdminDetails?
+    var city: String?
+    
+    
     init(userID: Int, name: String, email: String, role: UserType, imageURL: String?) {
        self.userID = userID
        self.name = name
@@ -41,13 +44,15 @@ struct User {
         self.imageURL = imageURL
    }
     
-    
-    init( name: String, email: String, role: UserType) {
+    //MARK: sign up constructor
+    init( name: String, email: String, role: UserType, city: String, profileImageURL: String?) {
         User.userIdCounter += 1
        self.userID =  User.userIdCounter
        self.name = name
        self.email = email
        self.role = role
+        self.city = city
+        self.imageURL = profileImageURL
    }
     
     static func fetchAndSetID(completion: @escaping () -> Void) {
