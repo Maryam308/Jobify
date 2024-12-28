@@ -144,7 +144,7 @@ class ManageCareerPathCollectionViewCell : UICollectionViewCell {
     //removing the career path
     @IBAction func btnRemoveTapped(_ sender: UIButton) {
         if let id = id {
-                    delegate?.didTapEditButton(id: id)
+            delegate?.didTapRemoveButton(id: id)
                 }
     }
     

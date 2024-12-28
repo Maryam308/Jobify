@@ -71,7 +71,7 @@ class chatsScreenViewController: UIViewController, UITableViewDelegate, UITableV
             
             NotificationCenter.default.addObserver(self, selector: #selector(refreshMessages), name: NSNotification.Name("MessagesRead"), object: nil)
             
-            self.fetchAndPopulateJobifyMenu()
+//            self.fetchAndPopulateJobifyMenu()
             self.fetchUsers()  // Ensure users are fetched before reloading the table view
             
             self.fetchUnreadMessages(){// Reload table view once users are populated
@@ -157,7 +157,10 @@ class chatsScreenViewController: UIViewController, UITableViewDelegate, UITableV
                         self.users.append((name: name, reference: reference))
                     }
                 }
-
+                
+                    //manually add the admin
+                users.append((name: "Admin", reference: adminRole))
+                
                 DispatchQueue.main.async {
                     self.chatsTableView.reloadData()
                 }
@@ -422,6 +425,7 @@ class chatsScreenViewController: UIViewController, UITableViewDelegate, UITableV
         }
     }
 
+    
     
     
 }

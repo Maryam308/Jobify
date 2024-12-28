@@ -31,6 +31,8 @@ class AddNewCareerPathViewController: UITableViewController {
     @IBOutlet weak var txtViewRoadMap: UITextView!
     
     
+    @IBOutlet weak var screenTitle: UILabel!
+    @IBOutlet weak var screenInstruction: UILabel!
     
     //in the method load borders will be added to the textviews - button radius - load the career demand into the popup button
     
@@ -51,6 +53,12 @@ class AddNewCareerPathViewController: UITableViewController {
         //add corner radius and color to the add button
         btnCareer.layer.cornerRadius = 15
         btnCareer.backgroundColor = UIColor(red: 29/255.0, green: 45/255.0, blue: 68/255.0, alpha: 1.0)
+        
+        //by default
+        //set screen heading
+        screenTitle.text = "Add New Career Path"
+        screenInstruction.text = "Fill in the details required."
+        
         
         // Define the placeholder item (disabled)
            let placeholder = UIAction(title: "Choose the Career Demand", attributes: .disabled) { _ in }
@@ -82,7 +90,11 @@ class AddNewCareerPathViewController: UITableViewController {
         if let id = editCareerPathId {
                forEditing = true
                btnCareer.setTitle("Save Changes", for: .normal)
-               
+            
+            //set screen heading
+            screenTitle.text = "Edit Career Path"
+            screenInstruction.text = "Edit the details as needed."
+            
                // Fetch details from Firebase for the given ID
                db.collection("careerPaths")
                    .whereField("careerPathId", isEqualTo: id)

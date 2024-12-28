@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import Foundation
 
 class chatViewController: UIViewController,
                           UITableViewDataSource, UITableViewDelegate{
@@ -23,6 +24,7 @@ class chatViewController: UIViewController,
     var otherUserReference: DocumentReference? // To store the other user's reference
 
     
+    @IBOutlet weak var txtMessagToSentBottomConstraint: NSLayoutConstraint!
     
     
     @IBOutlet weak var txtMessagToSent: UITextView!
@@ -105,6 +107,18 @@ class chatViewController: UIViewController,
         //start fetching the messages
         fetchMessages()
         
+        
+
+            // Register for keyboard notifications
+            NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+            NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+         
+        
+    }
+    
+    deinit {
+        // Remove observers when the view controller is deallocated
+        NotificationCenter.default.removeObserver(self)
     }
     
     //the function will fetch two snapshot one is where the user is recipient and the other is where the user is recipient and the other is sender
@@ -240,7 +254,7 @@ class chatViewController: UIViewController,
     
     
     
-    func markMessagesAsRead() {
+    func markMessagesAsRead(completion: @escaping () -> Void) {
         guard let userReference = currentUserReference,
               let otherUserReference = otherUserReference else { return }
         
@@ -249,13 +263,17 @@ class chatViewController: UIViewController,
             .whereField("recipient", isEqualTo: userReference)
             .whereField("sender", isEqualTo: otherUserReference)
             .whereField("isRead", isEqualTo: false)
-            .getDocuments {  (querySnapshot, error) in
+            .getDocuments { (querySnapshot, error) in
                 if let error = error {
                     print("Error fetching messages: \(error)")
+                    completion() // Complete even if there's an error
                     return
                 }
                 
-                guard let documents = querySnapshot?.documents else { return }
+                guard let documents = querySnapshot?.documents else {
+                    completion() // Complete if no documents found
+                    return
+                }
                 
                 let dispatchGroup = DispatchGroup()
                 
@@ -270,19 +288,70 @@ class chatViewController: UIViewController,
                 }
                 
                 dispatchGroup.notify(queue: .main) {
-                    // Post notification after all updates are done
+                    // Notify when all updates are done
                     NotificationCenter.default.post(name: NSNotification.Name("MessagesRead"), object: nil)
+                    completion()
                 }
             }
     }
+
 
     
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        markMessagesAsRead()
+        markMessagesAsRead {
+                // Messages are marked as read; proceed with dismissal
+                if self.isMovingFromParent || self.isBeingDismissed {
+                    self.navigationController?.popViewController(animated: true)
+                }
+            }
     }
 
-    
+    //MARK: keyboard show and hide
+    @objc func keyboardWillShow(_ notification: Any?) {
+        // Ensure the notification is of type Notification
+            guard let notification = notification as? Notification else { return }
+            
+            // Extract userInfo from the notification
+        guard let userInfo = notification.userInfo else { return }
+
+        // Get the final frame of the keyboard
+        if let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect {
+            let keyboardHeight = keyboardFrame.height
+            
+            // Adjust the bottom constraint of the stack view or container view
+            self.txtMessagToSentBottomConstraint.constant = keyboardHeight + 10  // Adjust +10 based on your UI needs
+            
+            // Animate the layout change
+            UIView.animate(withDuration: 0.3) {
+                self.view.layoutIfNeeded()
+            }
+            
+            // Adjust the table view's content inset to prevent it from being covered by the keyboard
+            var contentInset = self.chatsTableView.contentInset
+            contentInset.bottom = keyboardHeight
+            self.chatsTableView.contentInset = contentInset
+        }
+    }
+
+    @objc func keyboardWillHide(_ notification: Any) {
+        // Ensure the notification is of type Notification
+            guard let notification = notification as? Notification else { return }
+        // Reset the bottom constraint of the stack view or container view when the keyboard hides
+        self.txtMessagToSentBottomConstraint.constant = 10  // The original constant value before the keyboard appears
+        
+        // Reset the table view's content inset
+        var contentInset = self.chatsTableView.contentInset
+        contentInset.bottom = 0
+        self.chatsTableView.contentInset = contentInset
+        
+        // Animate the layout change back to normal
+        UIView.animate(withDuration: 0.3) {
+            self.view.layoutIfNeeded()
+        }
+    }
+
+
     
 }
