@@ -109,7 +109,7 @@ class JopPostCreationSecondScreenViewController: UITableViewController, UIImageP
     
     private func updateJobPostInFirestore(description: String, requirements: String, deadline: Date, imageUrl: String?) {
         // Fetch the job post document from Firestore and update it
-        db.collection("jobPost")
+        db.collection("jobs")
             .whereField("jobPostId", isEqualTo: jopPostId ?? 0)
             .getDocuments { [weak self] snapshot, error in
                 if let error = error {

@@ -150,7 +150,7 @@ class JopPostCreationFirstScreenViewController: UITableViewController {
         
         
            // create the document and add data to it then navigate to the second screen
-            db.collection("jobPost").addDocument(data: jobData) { error in
+            db.collection("jobs").addDocument(data: jobData) { error in
                     if let error = error {
                         print("Error adding job post: \(error.localizedDescription)")
                         self.showAlert(message: "Failed to add job post. Please try again.")

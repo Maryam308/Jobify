@@ -71,7 +71,7 @@ class chatsScreenViewController: UIViewController, UITableViewDelegate, UITableV
             
             NotificationCenter.default.addObserver(self, selector: #selector(refreshMessages), name: NSNotification.Name("MessagesRead"), object: nil)
             
-//            self.fetchAndPopulateJobifyMenu()
+            self.fetchAndPopulateJobifyMenu()
             self.fetchUsers()  // Ensure users are fetched before reloading the table view
             
             self.fetchUnreadMessages(){// Reload table view once users are populated
@@ -179,6 +179,7 @@ class chatsScreenViewController: UIViewController, UITableViewDelegate, UITableV
                     let data = document.data()
                     if let name = data["name"] as? String {
                         let reference = document.reference
+                        
                         self.users.append((name: name, reference: reference))
                     }
                 }
@@ -324,7 +325,7 @@ class chatsScreenViewController: UIViewController, UITableViewDelegate, UITableV
                 
                 guard let document = snapshot?.documents.first else {
                     if let error = error{
-                        print("No user found with ID: \(self?.currentUserId ?? 7)")
+                        print("No user found with ID: \(currentLoggedInUserID)")
                         completion(.failure(error))
                     }
                         return
