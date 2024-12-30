@@ -662,7 +662,7 @@ class HomeJobPostViewController: UIViewController, UICollectionViewDataSource, U
     
     //for search table view
     private func fetchAllJobs() {
-        db.collection("jobPost").whereField("jobDeadlineDate", isGreaterThanOrEqualTo: currentTimestamp) .order(by: "jobPostDate", descending: true)
+        db.collection("jobs").whereField("jobDeadlineDate", isGreaterThanOrEqualTo: currentTimestamp) .order(by: "jobPostDate", descending: true)
             .getDocuments { [weak self] (snapshot, error) in
                 guard let self = self else { return } // Ensure 'self' is not nil
                 

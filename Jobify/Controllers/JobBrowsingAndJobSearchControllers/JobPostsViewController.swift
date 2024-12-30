@@ -209,7 +209,7 @@ class JobPostsViewController: UIViewController, UICollectionViewDelegate, UIColl
     
     
     func deleteJobPost(jobPostId: Int, completion: @escaping (Bool) -> Void) {
-        let jobPostCollection = db.collection("jobPost")
+        let jobPostCollection = db.collection("jobs")
         
         jobPostCollection.whereField("jobPostId", isEqualTo: jobPostId)
             .getDocuments { snapshot, error in
