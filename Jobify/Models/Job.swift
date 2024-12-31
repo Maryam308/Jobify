@@ -97,7 +97,7 @@ struct Job: Equatable {
     static func fetchAndSetID(completion: @escaping () -> Void) {
             let db = Firestore.firestore()
 
-            db.collection("jobPost")
+            db.collection("jobs")
                 .order(by: "jobPostId", descending: true)
                 .limit(to: 1)
                 .getDocuments { querySnapshot, error in
