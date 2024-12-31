@@ -50,7 +50,6 @@ To set up this project:
 1. Clone the repository:  repo link: https://github.com/Maryam308/Jobify/tree/Maryam-ahmed-second
 2. Run the project in XCode 16.1
 
-Note: Since log in is not functional in this version we worked by two global variables that are in the User model file, we worked on commenting and uncommenting these variables to change between users.
 ---
 
 ## Project Status  
@@ -64,6 +63,7 @@ To test run the project, an admin account has been created with the following cr
 - **Email**: adminMaster@jobify.com  
 - **Password**: Admin@123  
 
+Note: Since log in is not functional in this version we worked by two global variables that are in the User model file, we worked on commenting and uncommenting these variables to change between users.
 ---
 
 ## Room for Improvement  
