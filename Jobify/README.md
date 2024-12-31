@@ -53,6 +53,7 @@ To set up this project:
    ```  
 2. Run the project in XCode 16.1
 
+Note: Since log in is not functional in this version we worked by two global variables that are in the User model file, we worked on commenting and uncommenting these variables to change between users.
 ---
 
 ## Project Status  
