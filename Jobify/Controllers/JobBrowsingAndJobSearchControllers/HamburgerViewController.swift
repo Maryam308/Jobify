@@ -100,7 +100,7 @@ class HamburgerViewController: UIViewController {
             let storyboard = UIStoryboard(name: "PlatformContentManagement_MaryamAhmed", bundle: nil)
 
         // Instantiate the view controller by its identifier
-        if let viewController = storyboard.instantiateViewController(withIdentifier: "MyLearningResources") as? MyLearningResourcesViewController {
+        if let viewController = storyboard.instantiateViewController(withIdentifier: "LearningResourcesRequests") as? LearningResourcesApprovalViewController {
             // Navigate to the target view controller
 
             self.navigationController?.pushViewController(viewController, animated: true)

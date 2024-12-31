@@ -12,11 +12,11 @@
 //let currentUserRole: String = "seeker"
 //let currentLoggedInUserID = 99
 
-let currentUserRole: String = "seeker"
-let currentLoggedInUserID = 7
+//let currentUserRole: String = "seeker"
+//let currentLoggedInUserID = 7
 
-//let currentUserRole: String = "employer"
-//let currentLoggedInUserID = 11
+let currentUserRole: String = "employer"
+let currentLoggedInUserID = 11
 //
 //let currentUserRole: String = "admin"
 //let currentLoggedInUserID = 1
