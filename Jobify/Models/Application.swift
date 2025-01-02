@@ -96,20 +96,37 @@ struct JobApplication {
         self.employerRef = employerRef
 
     }
-/*
-    // Method to fetch seeker data (applicant)
-        func fetchSeekerData(completion: @escaping (Result<[String: Any], Error>) -> Void) {
-            seekerRef?.getDocument { (document, error) in
-                if let error = error {
-                    completion(.failure(error))
-                } else if let document = document, document.exists {
-                    completion(.success(document.data() ?? [:]))
-                } else {
-                    completion(.failure(NSError(domain: "", code: 404, userInfo: [NSLocalizedDescriptionKey: "Seeker document does not exist"])))
-                }
-            }
+    
+    
+    // Static method to get and increment the ID
+        static func getNextID() -> Int {
+            JobApplication.applicationIdCounter += 1  // Increment the ID each time it's called
+            return JobApplication.applicationIdCounter  // Return the current (incremented) ID
         }
- */
+    
+    static func fetchAndSetID(completion: @escaping () -> Void) {
+            let db = Firestore.firestore()
+
+            db.collection("jobApplication")
+                .order(by: "applicationId", descending: true)
+                .limit(to: 1)
+                .getDocuments { querySnapshot, error in
+                    if let error = error {
+                        print("Error fetching documents: \(error)")
+                        applicationIdCounter = 200 // Default
+                    } else if let snapshot = querySnapshot, let document = snapshot.documents.first {
+                        if let highestId = document.data()["applicationId"] as? Int {
+                            applicationIdCounter = highestId
+                        } else {
+                            applicationIdCounter = 200 // Default if missing or invalid
+                        }
+                    } else {
+                        applicationIdCounter = 200 // Default if no documents
+                    }
+                    completion() // Notify when done
+                }
+        }
+
 }
 
 

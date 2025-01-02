@@ -25,7 +25,69 @@ class ApplicationTrackerViewController: UIViewController, UITableViewDelegate, U
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        print("Fetched jobs: \(jobs.map { $0.jobId })") // Print all job IDs
+        print("Application job IDs: \(allApplications.map { $0.jobId })") // Print all application job IDs
+        
         if currentUserRole == "seeker" {
+            print("Configuring cell for row \(indexPath.row)") // Debug log
+                let cell = tableView.dequeueReusableCell(withIdentifier: "TrackerCell", for: indexPath) as! TrackerCell
+                let application = allApplications[indexPath.row]
+
+                if let job = jobs.first(where: { $0.jobId == application.jobId }) {
+                    print("Job ID: \(job.jobId), Title: \(job.title), Company: \(job.companyDetails?.name ?? "No Company")")
+                    print("Job found: \(job.title)") // Debug log
+                    cell.positionLabel.text = job.title
+                    cell.companyLabel.text = job.companyDetails?.name ?? "No Company"
+                    cell.locationLabel.text = job.location
+                } else {
+                    print("No job found for application: \(application.jobId)") // Debug log
+                    cell.positionLabel.text = "Unknown Job"
+                    cell.companyLabel.text = "No Company"
+                    cell.locationLabel.text = "Unknown Location"
+                }
+                // Status button
+                cell.statusButton.setTitle(application.status.rawValue, for: .normal)
+                // Set button background color based on status
+                switch application.status {
+                case .notReviewed:
+                    cell.statusButton.backgroundColor = UIColor.orange
+                case .reviewed:
+                    cell.statusButton.backgroundColor = UIColor.blue
+                case .approved:
+                    cell.statusButton.backgroundColor = UIColor.green
+                case .rejected:
+                    cell.statusButton.backgroundColor = UIColor.red
+                }
+
+                cell.statusButton.setTitleColor(.white, for: .normal)
+                cell.statusButton.layer.cornerRadius = 20
+                cell.statusButton.clipsToBounds = true
+
+                return cell
+                
+            } else if currentUserRole == "employer" || currentUserRole == "admin" {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "MonitorCell", for: indexPath) as! MonitorCell
+                let application = allApplications[indexPath.row]
+                
+                if let job = jobs.first(where: { $0.jobId == application.jobId }) {
+                    cell.positionLabel.text = job.title
+                    cell.seekerLabel.text = application.jobApplicant?.seekerCVs.first?.personalDetails.name ?? "Unknown Seeker"
+                    cell.currentStatusLabel.text = application.status.rawValue
+                } else {
+                    cell.positionLabel.text = "Unknown Job"
+                    cell.seekerLabel.text = "Unknown Seeker"
+                    cell.currentStatusLabel.text = application.status.rawValue
+                }
+
+                return cell
+            } else {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "TrackerCell", for: indexPath) as! TrackerCell
+                return cell
+            }
+        }
+        
+        /* if currentUserRole == "seeker" {
             let cell = tableView.dequeueReusableCell(withIdentifier: "TrackerCell", for: indexPath) as! TrackerCell
             let application = allApplications[indexPath.row]
             
@@ -102,10 +164,10 @@ class ApplicationTrackerViewController: UIViewController, UITableViewDelegate, U
             return cell
         }
         
+        */
         
         
-        
-    }
+
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if currentUserRole == "seeker"{
@@ -385,17 +447,17 @@ class ApplicationTrackerViewController: UIViewController, UITableViewDelegate, U
                 }
             }
         */
-        if currentUserRole == "admin" {
+        if currentUserRole == "admin" || currentUserRole == "employer"{
             
             updateApplications()
             let nib1 = UINib(nibName: "MonitorCell", bundle: nil)
-            tableView.register(nib1, forCellReuseIdentifier: "MonitorCell")
+                    tableView.register(nib1, forCellReuseIdentifier: "MonitorCell")
             tableView.delegate = self
             tableView.dataSource = self
         } else {
             updateApplications()
             let nib = UINib(nibName: "TrackerCell", bundle: nil)
-            tableView.register(nib, forCellReuseIdentifier: "TrackerCell")
+                    tableView.register(nib, forCellReuseIdentifier: "TrackerCell")
             tableView.delegate = self
             tableView.dataSource = self
         }
