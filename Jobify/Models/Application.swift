@@ -20,7 +20,8 @@ struct JobApplication {
     var briefIntroduction: String
     var motivation: String
     var contributionToCompany: String
-    //var applicantCVId: String // Use an identifier for the CV
+    var applicantCVId: String
+    var applicantId: Int
     var employerRef: DocumentReference?
     var seekerRef: DocumentReference?
     var cvRef: DocumentReference?
@@ -33,7 +34,7 @@ struct JobApplication {
         case rejected = "Rejected"
     }
     
-    var status: ApplicationStatus = .notReviewed
+    var status: ApplicationStatus
 
     // Initializer
     //init(){}
@@ -45,7 +46,8 @@ struct JobApplication {
          contributionToCompany: String,
          jobId: Int,
          applicantRef: DocumentReference?,
-         employerRef: DocumentReference?) {
+         employerRef: DocumentReference?,
+         applicantId: Int) {
         
         JobApplication.applicationIdCounter += 1
         self.applicationId = JobApplication.applicationIdCounter
@@ -61,7 +63,9 @@ struct JobApplication {
         self.motivation = motivation
         self.contributionToCompany = contributionToCompany
         self.jobId = jobId
-        
+        self.applicantCVId = ""
+        self.status = .notReviewed
+        self.applicantId = applicantId
     }
     
     init(jobApplicant: SeekerDetails?,
@@ -74,8 +78,9 @@ struct JobApplication {
          jobId: Int,
          applicationDate: String,
          applicantRef: DocumentReference?,
-         employerRef: DocumentReference?,
-         cvRef: DocumentReference?) {
+         applicantCVId: String,
+         applicantId: Int
+         ) {
         
         
         self.applicationId = applicationId
@@ -86,15 +91,14 @@ struct JobApplication {
         
         self.jobApplicant = jobApplicant
         self.jobApplied = jobApplied
-        self.cvRef = cvRef
+        self.applicantCVId = applicantCVId
         self.briefIntroduction = briefIntroduction
         self.motivation = motivation
         self.contributionToCompany = contributionToCompany
         self.status = status
         self.jobId = jobId
         self.seekerRef = applicantRef
-        self.employerRef = employerRef
-
+        self.applicantId = applicantId
     }
     
     

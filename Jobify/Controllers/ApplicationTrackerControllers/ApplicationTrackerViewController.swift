@@ -13,7 +13,7 @@ let db = Firestore.firestore()
 
 let seekerRef = db.collection("users").document("userID")
 
-class ApplicationTrackerViewController: UIViewController, UITableViewDelegate, UITableViewDataSource{
+class ApplicationTrackerViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, MonitorCellDelegate{
     var currentUserId: Int = currentLoggedInUserID
    // var currentUserRole: String = UserSession.shared.loggedInUser?.role.rawValue ?? "seeker"
     private var dispatchGroup = DispatchGroup()
@@ -21,31 +21,49 @@ class ApplicationTrackerViewController: UIViewController, UITableViewDelegate, U
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return allApplications.count
+        return filteredByStatus.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         print("Fetched jobs: \(jobs.map { $0.jobId })") // Print all job IDs
-        print("Application job IDs: \(allApplications.map { $0.jobId })") // Print all application job IDs
+        print("Application job IDs: \(filteredApplications.map { $0.jobId })") // Print all application job IDs
         
         if currentUserRole == "seeker" {
             print("Configuring cell for row \(indexPath.row)") // Debug log
                 let cell = tableView.dequeueReusableCell(withIdentifier: "TrackerCell", for: indexPath) as! TrackerCell
-                let application = allApplications[indexPath.row]
+                let application = filteredByStatus[indexPath.row]
 
-                if let job = jobs.first(where: { $0.jobId == application.jobId }) {
-                    print("Job ID: \(job.jobId), Title: \(job.title), Company: \(job.companyDetails?.name ?? "No Company")")
-                    print("Job found: \(job.title)") // Debug log
-                    cell.positionLabel.text = job.title
-                    cell.companyLabel.text = job.companyDetails?.name ?? "No Company"
-                    cell.locationLabel.text = job.location
-                } else {
+            if let job = jobs.first(where: { $0.jobId == application.jobId }) {
+                
+                print("Job ID: \(job.jobId), Title: \(job.title), Company: \(job.companyDetails?.name ?? "No Company")")
+                print("Job found: \(job.title)") // Debug log
+                cell.positionLabel.text = job.title
+                cell.companyLabel.text = job.companyDetails?.name ?? "No Company"
+                cell.locationLabel.text = job.location
+                cell.typeLabel.text = job.employmentType.rawValue
+                
+            }
+            
+            else {
                     print("No job found for application: \(application.jobId)") // Debug log
                     cell.positionLabel.text = "Unknown Job"
                     cell.companyLabel.text = "No Company"
                     cell.locationLabel.text = "Unknown Location"
                 }
+            
+            // Load profile picture
+            if let imageURLString = UserSession.shared.loggedInUser?.imageURL,
+                let imageURL = URL(string: imageURLString) {
+                loadImage(from: imageURL, into: cell.ProfileImage)
+            } else {
+                // Use a system-provided placeholder image
+                cell.ProfileImage.image = UIImage(systemName: "person.fill") // Placeholder for profile picture
+                
+                // Set clipsToBounds to false when no image is present
+                cell.ProfileImage.layer.cornerRadius = 0 // Reset corner radius
+                cell.ProfileImage.clipsToBounds = false // Disable clipping
+            }
                 // Status button
                 cell.statusButton.setTitle(application.status.rawValue, for: .normal)
                 // Set button background color based on status
@@ -68,18 +86,53 @@ class ApplicationTrackerViewController: UIViewController, UITableViewDelegate, U
                 
             } else if currentUserRole == "employer" || currentUserRole == "admin" {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "MonitorCell", for: indexPath) as! MonitorCell
-                let application = allApplications[indexPath.row]
+                let application = filteredByStatus[indexPath.row]
                 
                 if let job = jobs.first(where: { $0.jobId == application.jobId }) {
                     cell.positionLabel.text = job.title
                     cell.seekerLabel.text = application.jobApplicant?.seekerCVs.first?.personalDetails.name ?? "Unknown Seeker"
                     cell.currentStatusLabel.text = application.status.rawValue
+                    
+                    switch application.status {
+                    case .notReviewed:
+                        cell.currentStatusLabel.textColor = UIColor.orange
+                    case .reviewed:
+                        cell.currentStatusLabel.textColor = UIColor.blue
+                    case .approved:
+                        cell.currentStatusLabel.textColor = UIColor.green
+                    case .rejected:
+                        cell.currentStatusLabel.textColor = UIColor.red
+                    }
                 } else {
                     cell.positionLabel.text = "Unknown Job"
                     cell.seekerLabel.text = "Unknown Seeker"
                     cell.currentStatusLabel.text = application.status.rawValue
                 }
-
+                
+                
+                fetchUserInfo(application: application) { name in
+                            DispatchQueue.main.async {
+                                cell.seekerLabel.text = name ?? "Unknown Seeker"
+                            }
+                        }
+                
+                // Load profile picture
+                if let imageURLString = UserSession.shared.loggedInUser?.imageURL,
+                    let imageURL = URL(string: imageURLString) {
+                    loadImage(from: imageURL, into: cell.profileImage)
+                } else {
+                    // Use a system-provided placeholder image
+                    cell.profileImage.image = UIImage(systemName: "person.fill") // Placeholder for profile picture
+                    
+                    // Set clipsToBounds to false when no image is present
+                    cell.profileImage.layer.cornerRadius = 0 // Reset corner radius
+                    cell.profileImage.clipsToBounds = false // Disable clipping
+                }
+                
+                // Set delegate for button action in MonitorCell
+                        cell.delegate = self // Assuming MonitorCell has a delegate property
+                        cell.application = application // Pass the application to the cell
+                
                 return cell
             } else {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "TrackerCell", for: indexPath) as! TrackerCell
@@ -87,91 +140,11 @@ class ApplicationTrackerViewController: UIViewController, UITableViewDelegate, U
             }
         }
         
-        /* if currentUserRole == "seeker" {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "TrackerCell", for: indexPath) as! TrackerCell
-            let application = allApplications[indexPath.row]
-            
-            
-            print("jobs: \(jobs)")
-            
-            
-            var jobTitle: String = ""
-            var companyName: String = ""
-            var jobLocation: String = ""
-            for job in jobs {
-                if job.jobId == application.jobId {
-                    jobTitle = job.title
-                    companyName = job.companyDetails?.name ?? "No Company"
-                    jobLocation = job.location
-                    print("//////////////////////////////")
-                    print("jobLocation: \(jobLocation)")
-                    print("companyName: \(companyName)")
-                    print("jobTitle: \(jobTitle)")
-                    cell.positionLabel.text = jobTitle
-                    cell.companyLabel.text = companyName
-                    cell.locationLabel.text = jobLocation
-                    break // Exit the loop once the job is found
-                }
-            }
-            
-            
-            cell.statusButton.setTitle(application.status.rawValue, for: .normal)
-            // Set the button background color based on status
-            switch application.status {
-            case .notReviewed:
-                cell.statusButton.backgroundColor = UIColor.orange
-            case .reviewed:
-                cell.statusButton.backgroundColor = UIColor.blue
-            case .approved:
-                cell.statusButton.backgroundColor = UIColor.green
-            case .rejected:
-                cell.statusButton.backgroundColor = UIColor.red
-            }
-            
-            
-            cell.statusButton.setTitleColor(.white, for: .normal) // Set text color to white
-            cell.statusButton.layer.cornerRadius = 20            // Make the button rounded
-            cell.statusButton.clipsToBounds = true
-            return cell
-            
-        } else if currentUserRole == "employer" || currentUserRole == "admin" {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "MonitorCell", for: indexPath) as! MonitorCell
-            let application = allApplications[indexPath.row]
-            
-            print("jobs: \(jobs)")
-            
-            
-            var jobTitle: String = ""
-            
-            for job in jobs {
-                if let myJobPosts = job.companyDetails?.myJobPostsList {
-                    // Check if the jobId of the application matches any job's jobId in the myJobPostsList
-                    if myJobPosts.contains(where: { $0.jobId == application.jobId }) {
-                        jobTitle = job.title
-                        print("//////////////////////////////")
-                        print("jobTitle: \(jobTitle)")
-                        cell.positionLabel.text = jobTitle
-                        break // Exit the loop once the job is found
-                    }
-                }
-            }
-            cell.seekerLabel.text = application.jobApplicant?.seekerCVs.first?.personalDetails.name
-            
-            cell.currentStatusLabel.text = application.status.rawValue
-            return cell
-        }else{
-            let cell = tableView.dequeueReusableCell(withIdentifier: "TrackerCell", for: indexPath) as! TrackerCell
-            return cell
-        }
-        
-        */
-        
-        
 
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if currentUserRole == "seeker"{
-            var application = self.allApplications[indexPath.row]
+            var application = self.filteredByStatus[indexPath.row]
             // Instantiate the detail view controller using the storyboard
             // Find the corresponding job for the application
             if let matchingJob = jobs.first(where: { $0.jobId == application.jobId }) {
@@ -189,43 +162,55 @@ class ApplicationTrackerViewController: UIViewController, UITableViewDelegate, U
             // Deselect the cell after selection
             tableView.deselectRow(at: indexPath, animated: true)
         }else if currentUserRole == "employer" || currentUserRole == "admin"{
-            let application = self.allApplications[indexPath.row]
+            var application = self.filteredByStatus[indexPath.row]
             // Instantiate the detail view controller using the storyboard
+            if let matchingJob = jobs.first(where: { $0.jobId == application.jobId }) {
+                // Add the job object to the application
+                application.jobApplied = matchingJob // Assuming `JobApplication` has a `job` property
+            }
             let detailVC = storyboard?.instantiateViewController(withIdentifier: "ApplicationDetailTableViewController") as! ApplicationDetailTableViewController
             
             // Pass the application data to the detail view controller
             detailVC.application = application
+            
+            print("sending application \(application.applicationId)")
+            print("sending application cv id: \(application.applicantCVId)")
+            
             
             // Push the detail view controller onto the navigation stack
             navigationController?.pushViewController(detailVC, animated: true)
             
             // Deselect the cell after selection
             tableView.deselectRow(at: indexPath, animated: true)
+            
+            
+            
+        }}
+    let db = Firestore.firestore()
+    
+    // MARK: MonitorCellDelegate
+        func didTapChangeStatusButton(for application: JobApplication) {
+            presentChangeStatusActionSheet(for: application)
         }
-        
-       /*
+      
+    
+    private func presentChangeStatusActionSheet(for application: JobApplication) {
         let currentStatus = application.status // Get current status
+        
+        print("Current status: \(application.status.rawValue)")
         
         let alert = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         let options = UIAlertController(title: "Change Status", message: nil, preferredStyle: .actionSheet)
-        
+
         // Helper function to add an action
         func addAction(title: String, newStatus: JobApplication.ApplicationStatus) {
             let action = UIAlertAction(title: title, style: .default) { _ in
-                self.db.collection("jobApplication")
-                    .document("\(application.applicationId)")
-                    .updateData(["status": newStatus.rawValue]) // Update Firebase
-                // Update local data source
-                self.allApplications[indexPath.row].status = newStatus
-                // Reload the table view
-                DispatchQueue.main.async {
-                    self.filterApplications(by: self.currentFilter)
-                    //self.tableView.reloadRows(at: [indexPath], with: .automatic)
-                }
+                // Call the updateApplicationStatus method instead of directly updating Firestore
+                self.updateApplicationStatus(applicationId: application.applicationId, newStatus: newStatus)
             }
             options.addAction(action)
         }
-        
+
         // Add options based on the current status
         switch currentStatus {
         case .notReviewed:
@@ -245,27 +230,72 @@ class ApplicationTrackerViewController: UIViewController, UITableViewDelegate, U
             addAction(title: "Reviewed", newStatus: .reviewed)
             addAction(title: "Approved", newStatus: .approved)
         }
-        
+
         options.addAction(alert)
         
         // Configure popoverPresentationController for iPad
-        if let popoverController = options.popoverPresentationController {
-            popoverController.sourceView = tableView // Set the source view
-            popoverController.sourceRect = tableView.rectForRow(at: indexPath) // Set the source rect (cell's frame)
-            popoverController.permittedArrowDirections = .any // Optional: set arrow direction
-        }
-        
+            if let popoverController = options.popoverPresentationController {
+                popoverController.sourceView = tableView // Set the source view
+                
+                // Find the index of the application in the filteredByStatus array
+                if let applicationIndex = self.filteredByStatus.firstIndex(where: { $0.applicationId == application.applicationId }) {
+                    popoverController.sourceRect = tableView.rectForRow(at: IndexPath(row: applicationIndex, section: 0)) // Set the source rectangle
+                } else {
+                    print("Application index not found.")
+                }
+                
+            }
+
         present(options, animated: true, completion: nil)
-        
-        //self.tableView.reloadData()
-        DispatchQueue.main.async {
-            self.tableView.reloadData()
-        }
-        */
-    
     }
-    let db = Firestore.firestore()
     
+    private func updateApplicationStatus(applicationId: Int, newStatus: JobApplication.ApplicationStatus) {
+        // Query Firestore to find the document with the matching applicationId
+        db.collection("jobApplication")
+            .whereField("applicationId", isEqualTo: applicationId) // applicationId should be Int
+            .getDocuments { snapshot, error in
+                if let error = error {
+                    print("Error fetching documents: \(error.localizedDescription)")
+                    return
+                }
+
+                guard let documents = snapshot?.documents, !documents.isEmpty else {
+                    print("No documents found with applicationId: \(applicationId)")
+                    return
+                }
+
+                // Assuming there's only one document with the matching applicationId
+                for document in documents {
+                    // Update the status in the found document
+                    document.reference.updateData(["status": newStatus.rawValue]) { error in
+                        if let error = error {
+                            print("Error updating status: \(error.localizedDescription)")
+                        } else {
+                            // Update local data source
+                            if let index = self.filteredByStatus.firstIndex(where: { $0.applicationId == applicationId }) {
+                                self.filteredByStatus[index].status = newStatus
+                                // Reload the table view
+                                self.tableView.reloadData()
+                            }
+                        }
+                    }
+                }
+            }
+    }
+    
+    private func loadImage(from url: URL, into imageView: UIImageView) {
+           let task = URLSession.shared.dataTask(with: url) { data, response, error in
+               guard let data = data, error == nil else {
+                   return // Do not set a fallback image for extra attachment
+               }
+               DispatchQueue.main.async {
+                   imageView.image = UIImage(data: data)
+               }
+           }
+           task.resume()
+       }
+    
+    var applicationChangeStatus: JobApplication?
     
     var currentFilter: String? = nil
     
@@ -273,31 +303,76 @@ class ApplicationTrackerViewController: UIViewController, UITableViewDelegate, U
     
     var filteredApplications: [JobApplication] = []
     
+    var filteredByStatus: [JobApplication] = []
+    
     var dateString: String = ""
     
-    func filterApplications(by status: String?) {
-        currentFilter = status
-        /*
-         filteredApplications = allApplications.filter { application in
-         if let status = status, application.status.rawValue != status {
-         return false
-         }
-         
-         // Role-specific filtering
-         switch currentUserRole {
-         case "seeker":
-         return application.userId == currentUserId // Assuming applications have userId field
-         case "employer":
-         return application.companyId == currentUserId // Assuming applications have companyId field
-         case "admin":
-         return true // Admin sees all applications
-         default:
-         return false
-         
-         }
-         }*/
-        
+    // MARK: filtering applications
+    
+    private func filterApplicationsForCurrentUser() {
+        print("Total applications before filtering: \(allApplications.count)")
+        switch currentUserRole {
+            case "seeker":
+                filterApplicationsForSeeker()
+            case "employer":
+                filterApplicationsForEmployer()
+            case "admin":
+                filterApplicationsForAdmin()
+            default:
+                filteredApplications = allApplications // Fallback
+            }
+        print("Total applications after filtering: \(filteredApplications.count)")
+        }
+
+    private func filterApplicationsForSeeker() {
+        print("Current User Applicant ID: \(currentUserId)") // Debugging line
+            
+        filteredApplications = allApplications.filter { application in
+                // Directly retrieve the applicantId from the application
+                let applicationApplicantId = application.applicantId
+                
+                // Print for debugging
+                print("Application Applicant ID: \(applicationApplicantId)")
+                
+                // Compare the application's applicantId with the current user's applicantId
+                return applicationApplicantId == currentUserId
+            }
+        }
+
+    private func filterApplicationsForEmployer() {
+        filteredApplications = allApplications.filter { application in
+            // Check if jobId is not nil and corresponds to a job in the user's jobs
+            let jobId = application.jobId
+            guard let job = jobs.first(where: { $0.jobId == jobId }) else {
+                return false
+            }
+            return job.companyDetails?.userId == currentUserId // Check if the job belongs to the current employer
+        }
     }
+
+        private func filterApplicationsForAdmin() {
+            // Admin can see all applications
+            filteredApplications = allApplications
+        }
+
+        func filterApplications(by status: String?) {
+            if let status = status {
+                filteredByStatus = filteredApplications.filter { $0.status.rawValue == status }
+            }
+            if (status == nil){
+                filteredByStatus = filteredApplications
+            }
+            print("Filtered applications count: \(filteredByStatus.count)")
+            
+            if(filteredByStatus.count == 0){
+                placeholderView.isHidden = false
+            }else{
+                placeholderView.isHidden = true
+            }
+                
+            self.tableView.reloadData() // Refresh the table view
+
+        }
     
     //declaring colors object of type ui color - would add .cgColor when needed
     let darkColor = UIColor(hex: "#1D2D44")
@@ -309,12 +384,24 @@ class ApplicationTrackerViewController: UIViewController, UITableViewDelegate, U
     @IBOutlet weak var approvedButton: UIButton!
     @IBOutlet weak var rejectedButton: UIButton!
     
-    func styleButton(_ button: UIButton, backgroundColor: UIColor, titleColor: UIColor) {
+    func styleButton(_ button: UIButton, backgroundColor: UIColor, titleColor: UIColor, borderColor: UIColor, borderWidth: CGFloat, titleText: String) {
         var buttonConfig = UIButton.Configuration.filled()
         
         buttonConfig.baseBackgroundColor = backgroundColor
         buttonConfig.baseForegroundColor = titleColor
         buttonConfig.cornerStyle = .capsule
+        
+        button.configuration = buttonConfig
+        button.setTitle(titleText, for: .normal)
+            
+            // Set border properties
+        //button.layer.borderColor = borderColor.cgColor
+            //button.layer.borderWidth = borderWidth
+            //button.layer.masksToBounds = true
+        button.layer.cornerRadius = 15
+        //button.layer.borderWidth = 0.5
+        //button.layer.borderColor = borderColor.cgColor
+        button.setTitleColor(titleColor, for: .normal)
     }
     
     @IBAction func allButtonTapped(_ sender: Any) {
@@ -322,11 +409,11 @@ class ApplicationTrackerViewController: UIViewController, UITableViewDelegate, U
         print("all button clicked")
         
         // Style each button
-        styleButton(allButton, backgroundColor: darkColor, titleColor: lightColor)
-        styleButton(notReviewedButton, backgroundColor: lightColor, titleColor: darkColor)
-        styleButton(reviewedButton, backgroundColor: lightColor, titleColor: darkColor)
-        styleButton(approvedButton, backgroundColor: lightColor, titleColor: darkColor)
-        styleButton(rejectedButton, backgroundColor: lightColor, titleColor: darkColor)
+        styleButton(allButton, backgroundColor: darkColor, titleColor: lightColor, borderColor: darkColor, borderWidth: 5, titleText: "All")
+        styleButton(notReviewedButton, backgroundColor: lightColor, titleColor: darkColor, borderColor: .clear, borderWidth: 0, titleText: "Not Reviewed")
+        styleButton(reviewedButton, backgroundColor: lightColor, titleColor: darkColor, borderColor: .clear, borderWidth: 0, titleText: "Reviewed")
+        styleButton(approvedButton, backgroundColor: lightColor, titleColor: darkColor, borderColor: .clear, borderWidth: 0, titleText: "Approved")
+        styleButton(rejectedButton, backgroundColor: lightColor, titleColor: darkColor, borderColor: .clear, borderWidth: 0, titleText: "Rejected")
         
         filterApplications(by: nil) // Show all
         
@@ -336,49 +423,55 @@ class ApplicationTrackerViewController: UIViewController, UITableViewDelegate, U
         print("not reviewed button clicked")
         
         // Style each button
-        styleButton(allButton, backgroundColor: lightColor, titleColor: darkColor)
-        styleButton(notReviewedButton, backgroundColor: darkColor, titleColor: lightColor)
-        styleButton(reviewedButton, backgroundColor: lightColor, titleColor: darkColor)
-        styleButton(approvedButton, backgroundColor: lightColor, titleColor: darkColor)
-        styleButton(rejectedButton, backgroundColor: lightColor, titleColor: darkColor)
+        styleButton(allButton, backgroundColor: lightColor, titleColor: darkColor, borderColor: .clear, borderWidth: 0, titleText: "All")
+        styleButton(notReviewedButton, backgroundColor: darkColor, titleColor: lightColor, borderColor: darkColor, borderWidth: 5, titleText: "Not Reviewed")
+        styleButton(reviewedButton, backgroundColor: lightColor, titleColor: darkColor, borderColor: .clear, borderWidth: 0, titleText: "Reviewed")
+        styleButton(approvedButton, backgroundColor: lightColor, titleColor: darkColor, borderColor: .clear, borderWidth: 0, titleText: "Approved")
+        styleButton(rejectedButton, backgroundColor: lightColor, titleColor: darkColor, borderColor: .clear, borderWidth: 0, titleText: "Rejected")
         filterApplications(by: "Not Reviewed")
     }
     
     @IBAction func reviewedButtonTapped(_ sender: UIButton) {
-        filterApplications(by: "Reviewed")
         print("reviewed button clicked")
         
+        
+        
         // Style each button
-        styleButton(allButton, backgroundColor: lightColor, titleColor: darkColor)
-        styleButton(notReviewedButton, backgroundColor: lightColor, titleColor: darkColor)
-        styleButton(reviewedButton, backgroundColor: darkColor, titleColor: lightColor)
-        styleButton(approvedButton, backgroundColor: lightColor, titleColor: darkColor)
-        styleButton(rejectedButton, backgroundColor: lightColor, titleColor: darkColor)
+        styleButton(allButton, backgroundColor: lightColor, titleColor: darkColor, borderColor: .clear, borderWidth: 0, titleText: "All")
+        styleButton(notReviewedButton, backgroundColor: lightColor, titleColor: darkColor, borderColor: .clear, borderWidth: 0, titleText: "Not Reviewed")
+        styleButton(reviewedButton, backgroundColor: darkColor, titleColor: lightColor, borderColor: darkColor, borderWidth: 5, titleText: "Reviewed")
+        styleButton(approvedButton, backgroundColor: lightColor, titleColor: darkColor, borderColor: .clear, borderWidth: 0, titleText: "Approved")
+        styleButton(rejectedButton, backgroundColor: lightColor, titleColor: darkColor, borderColor: .clear, borderWidth: 0, titleText: "Rejected")
+        
+        filterApplications(by: "Reviewed")
     }
     
     @IBAction func approvedButtonTapped(_ sender: UIButton) {
-        filterApplications(by: "Approved")
+        
         print("approved button clicked")
         
         // Style each button
-        styleButton(allButton, backgroundColor: lightColor, titleColor: darkColor)
-        styleButton(notReviewedButton, backgroundColor: lightColor, titleColor: darkColor)
-        styleButton(reviewedButton, backgroundColor: lightColor, titleColor: darkColor)
-        styleButton(approvedButton, backgroundColor: darkColor, titleColor: lightColor)
-        styleButton(rejectedButton, backgroundColor: lightColor, titleColor: darkColor)
+        styleButton(allButton, backgroundColor: lightColor, titleColor: darkColor, borderColor: .clear, borderWidth: 0, titleText: "All")
+        styleButton(notReviewedButton, backgroundColor: lightColor, titleColor: darkColor, borderColor: .clear, borderWidth: 0, titleText: "Not Reviewed")
+        styleButton(reviewedButton, backgroundColor: lightColor, titleColor: darkColor, borderColor: .clear, borderWidth: 0, titleText: "Reviewed")
+        styleButton(approvedButton, backgroundColor: darkColor, titleColor: lightColor, borderColor: darkColor, borderWidth: 5, titleText: "Approved")
+        styleButton(rejectedButton, backgroundColor: lightColor, titleColor: darkColor, borderColor: .clear, borderWidth: 0, titleText: "Rejected")
+        
+        filterApplications(by: "Approved")
     }
     
     
     @IBAction func rejectedButtonTapped(_ sender: UIButton) {
-        filterApplications(by: "Rejected")
+        
         print("rejected button clicked")
         
         // Style each button
-        styleButton(allButton, backgroundColor: lightColor, titleColor: darkColor)
-        styleButton(notReviewedButton, backgroundColor: lightColor, titleColor: darkColor)
-        styleButton(reviewedButton, backgroundColor: lightColor, titleColor: darkColor)
-        styleButton(approvedButton, backgroundColor: lightColor, titleColor: darkColor)
-        styleButton(rejectedButton, backgroundColor: darkColor, titleColor: lightColor)
+        styleButton(allButton, backgroundColor: lightColor, titleColor: darkColor, borderColor: .clear, borderWidth: 0, titleText: "All")
+        styleButton(notReviewedButton, backgroundColor: lightColor, titleColor: darkColor, borderColor: .clear, borderWidth: 0, titleText: "Not Reviewed")
+        styleButton(reviewedButton, backgroundColor: lightColor, titleColor: darkColor, borderColor: .clear, borderWidth: 0, titleText: "Reviewed")
+        styleButton(approvedButton, backgroundColor: lightColor, titleColor: darkColor, borderColor: .clear, borderWidth: 0, titleText: "Approved")
+        styleButton(rejectedButton, backgroundColor: darkColor, titleColor: lightColor, borderColor: darkColor, borderWidth: 5, titleText: "Rejected")
+        filterApplications(by: "Rejected")
     }
     
     let placeholderView: UIView = {
@@ -400,6 +493,7 @@ class ApplicationTrackerViewController: UIViewController, UITableViewDelegate, U
         return view
     }()
     
+    // MARK: viewDidLoad()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -414,48 +508,18 @@ class ApplicationTrackerViewController: UIViewController, UITableViewDelegate, U
         ])
         
         placeholderView.isHidden = true
-            /*
-            fetchUserReference(by: currentUserId) { userRef, userType in
-                if let userRef = userRef {
-                    print("Successfully fetched user reference: \(userRef.path)")
-                    
-                    switch userType {
-                    case "admin":
-                        print("User is an admin.")
-                        
-                        self.currentUserRole = "admin"
-                        
-                        break
-                    case "employer":
-                        print("User is an employer.")
-                        
-                        self.currentUserRole = "employer"
-                        
-                        break
-                        
-                    case "seeker":
-                        print("User is a seeker.")
-                        
-                        self.currentUserRole = "seeker"
-                        
-                        break
-                    default:
-                        print("Unknown user type.")
-                    }
-                } else {
-                    print("Failed to fetch user reference.")
-                }
-            }
-        */
+            
         if currentUserRole == "admin" || currentUserRole == "employer"{
             
             updateApplications()
+            filterApplications(by: nil) // Show all applications
             let nib1 = UINib(nibName: "MonitorCell", bundle: nil)
                     tableView.register(nib1, forCellReuseIdentifier: "MonitorCell")
             tableView.delegate = self
             tableView.dataSource = self
         } else {
             updateApplications()
+            filterApplications(by: nil) // Show all applications
             let nib = UINib(nibName: "TrackerCell", bundle: nil)
                     tableView.register(nib, forCellReuseIdentifier: "TrackerCell")
             tableView.delegate = self
@@ -463,9 +527,25 @@ class ApplicationTrackerViewController: UIViewController, UITableViewDelegate, U
         }
         
         
-        
-        //filterApplications(by: nil) // Show all
+        // Style each button
+        styleButton(allButton, backgroundColor: darkColor, titleColor: lightColor, borderColor: darkColor, borderWidth: 5, titleText: "All")
+        styleButton(notReviewedButton, backgroundColor: lightColor, titleColor: darkColor, borderColor: .clear, borderWidth: 0, titleText: "Not Reviewed")
+        styleButton(reviewedButton, backgroundColor: lightColor, titleColor: darkColor, borderColor: .clear, borderWidth: 0, titleText: "Reviewed")
+        styleButton(approvedButton, backgroundColor: lightColor, titleColor: darkColor, borderColor: .clear, borderWidth: 0, titleText: "Approved")
+        styleButton(rejectedButton, backgroundColor: lightColor, titleColor: darkColor, borderColor: .clear, borderWidth: 0, titleText: "Rejected")
        
+       
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+            super.viewWillAppear(animated)
+            
+        self.tableView.reloadData()
+        }
+    
+    
+    func loadingPage() {
         
     }
     
@@ -473,11 +553,47 @@ class ApplicationTrackerViewController: UIViewController, UITableViewDelegate, U
         fetchAllApplications { [weak self] applications in
             DispatchQueue.main.async {
                 self?.allApplications = applications
-                self?.tableView.reloadData() // Reload table view on main thread
+                print("Total applications fetched: \(self?.allApplications.count ?? 0)")
+                self?.filterApplicationsForCurrentUser() // Ensure this is executed
+                print("Filtering applications for current user.")
+                self?.filterApplications(by: nil)
+                self?.tableView.reloadData()
             }
         }
     }
     
+    
+    func fetchUserInfo(application: JobApplication, completion: @escaping (String?) -> Void) {
+        let db = Firestore.firestore()
+        
+        // Query to find the document with the specific userId
+        db.collection("users").whereField("userId", isEqualTo: application.applicantId).getDocuments { (querySnapshot, error) in
+            if let error = error {
+                print("Error fetching user documents: \(error.localizedDescription)")
+                completion(nil)
+                return
+            }
+            
+            guard let documents = querySnapshot?.documents, !documents.isEmpty else {
+                print("No user found with the given user ID.")
+                completion(nil)
+                return
+            }
+            
+            // Assuming there's only one document per userId
+            for document in documents {
+                let userData = document.data()
+                print("User data: \(userData)")
+                
+                // Access specific information
+                let name = userData["name"] as? String
+                completion(name)
+            }
+        }
+    }
+    
+    
+    /*
     func fetchUserReference(by userId: Int, completion: @escaping (DocumentReference?, String?) -> Void) {
         db.collection("users")
             .whereField("userId", isEqualTo: userId)
@@ -516,8 +632,10 @@ class ApplicationTrackerViewController: UIViewController, UITableViewDelegate, U
                 }
             }
     }
-  
+  */
     @IBOutlet var tableView: UITableView!
+    
+    // MARK: fetching the data
     
     private func fetchAllApplications(completion: @escaping ([JobApplication]) -> Void) {
             db.collection("jobApplication")
@@ -538,241 +656,241 @@ class ApplicationTrackerViewController: UIViewController, UITableViewDelegate, U
                     self.handleApplicationFetch(snapshot: snapshot) { jobs in
                         print("Fetched \(self.applications.count) applications.")
                         self.allApplications = self.applications
-                        self.tableView.reloadData()
+                        completion(self.applications)
+                        //self.tableView.reloadData()
                     }
                 }
         }
         
         var applications: [JobApplication] = []
         var jobs: [Job] = []
-        private func handleApplicationFetch(snapshot: QuerySnapshot?, completion: @escaping ([JobApplication]) -> Void) {
+    private func handleApplicationFetch(snapshot: QuerySnapshot?, completion: @escaping ([JobApplication]) -> Void) {
+        guard let documents = snapshot?.documents else {
+            print("No job applications found")
+            completion(applications) // Return an empty array if no documents
+            return
+        }
+        
+        let dispatchGroup = DispatchGroup() // To wait for asynchronous fetches
+        
+        for document in documents {
+            let data = document.data()
             
-            
-            guard let documents = snapshot?.documents else {
-                print("No job applications found")
-                completion(applications) // Return an empty array if no documents
-                return
+            guard let introduction = data["introduction"] as? String,
+                  let applicantRef = data["applicantRef"] as? DocumentReference else {
+                continue // Skip if any required data is missing
             }
             
-            let dispatchGroup = DispatchGroup() // To wait for asynchronous fetches
+            let applicationId = (data["applicationId"] as? NSNumber)?.intValue ?? 0
+            let jobId = (data["jobId"] as? NSNumber)?.intValue ?? 0
             
-            for document in documents {
-                let data = document.data()
+            guard let statusRaw = data["status"] as? String,
+                  let status = JobApplication.ApplicationStatus(rawValue: statusRaw) else {
+                print("Invalid application status for document ID: \(document.documentID)")
+                continue
+            }
+            
+            if let dateApplied = data["date"] as? Timestamp {
+                let date = dateApplied.dateValue() // Convert Timestamp to Date
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateStyle = .medium
+                dateFormatter.timeStyle = .none
                 
-                guard let introduction = data["introduction"] as? String,
-                      let applicantRef = data["applicantRef"] as? DocumentReference,
-                      let jobRef = data["jobPostRef"] as? DocumentReference else {
-                    continue // Skip if any required data is missing
-                }
+                let applicationDateString = dateFormatter.string(from: date)
+                let contribution = data["contribution"] as? String ?? ""
+                let motivation = data["motivation"] as? String ?? ""
+                let cvID = data["cvID"] as? String
+                let applicantId = (data["applicantId"] as? NSNumber)?.intValue ?? 0
                 
-                let applicationId = (data["applicationId"] as? NSNumber)?.intValue ?? 0
-                let jobId = (data["jobId"] as? NSNumber)?.intValue ?? 0
+                // Create a new JobApplication instance
+                var application = JobApplication(
+                    jobApplicant: nil,
+                    jobApplied: nil,
+                    briefIntroduction: introduction,
+                    motivation: motivation,
+                    contributionToCompany: contribution,
+                    status: status,
+                    applicationId: applicationId,
+                    jobId: jobId,
+                    applicationDate: applicationDateString,
+                    applicantRef: applicantRef,
+                    applicantCVId: cvID ?? "",
+                    applicantId: applicantId
+                )
                 
-                guard let statusRaw = data["status"] as? String,
-                      let status = JobApplication.ApplicationStatus(rawValue: statusRaw) else {
-                    print("Invalid application status for document ID: \(document.documentID)")
-                    continue
-                }
+                dispatchGroup.enter() // Enter for fetching applicant details
                 
-                if let dateApplied = data["date"] as? Timestamp {
-                    let date = dateApplied.dateValue() // Convert Timestamp to Date
-                    // Convert Date to String
-                                let dateFormatter = DateFormatter()
-                                dateFormatter.dateStyle = .medium // or .short, .long depending on your needs
-                                dateFormatter.timeStyle = .none // Change to .short, .medium if you want to include time
-
-                                let applicationDateString = dateFormatter.string(from: date)
-                    let cvRef = data["cvRef"] as? DocumentReference
-                    let applicantRef = data["applicantRef"] as? DocumentReference
-                    guard let contribution = data["contribution"] as? String,
-                          let motivation = data["motivation"] as? String,
-                          let cvRef = data["cvRef"] as? DocumentReference else {
-                        continue // Skip if any required data is missing
+                // Fetch applicant details asynchronously
+                applicantRef.getDocument(source: .default) { (applicantSnapshot, error) in
+                    if let error = error {
+                        print("Error fetching applicant details: \(error.localizedDescription)")
+                        dispatchGroup.leave() // Leave if there's an error
+                        return
                     }
+                    
+                    if let applicantData = applicantSnapshot?.data() {
+                        let applicantName = applicantData["name"] as? String ?? "Unknown"
+                        let applicantEmail = applicantData["email"] as? String ?? "Unknown"
+                        let applicantCity = applicantData["city"] as? String ?? "Unknown"
+                        let applicantCountry = applicantData["country"] as? String ?? "Unknown"
+                        //let userId = applicantData["userId"] as? Int ?? 0
+                        
+                        let applicantDetails = SeekerDetails(
+                            seekerName: applicantName,
+                            email: applicantEmail,
+                            password: applicantCity,
+                            country: applicantCountry,
+                            city: "",
+                            isMentor: false,
+                            selectedJobPosition: ""
+                        )
+                        
+                        application.jobApplicant = applicantDetails
+                        self.applications.append(application)
+                    }
+                    
+                    // Fetch job details asynchronously using jobId
+                    dispatchGroup.enter() // Enter for fetching job details
+                    let jobsCollection = Firestore.firestore().collection("jobs")
+                    print("Fetching job details for jobId: \(jobId)")
 
-                    // Create a new JobApplication instance
-                    var application = JobApplication(
-                        jobApplicant: nil,
-                        jobApplied: nil,
-                        //applicantCVId: "",
-                        briefIntroduction: introduction,
-                        motivation: motivation,
-                        contributionToCompany: contribution,
-                        status: status,
-                        applicationId: applicationId,
-                        jobId: jobId,
-                        applicationDate: applicationDateString,
-                        applicantRef: applicantRef,
-                        employerRef: nil,
-                        cvRef: cvRef
-                    )
-                    
-                    dispatchGroup.enter() // Enter for fetching applicant details
-                    
-                    // Fetch applicant details asynchronously
-                    applicantRef?.getDocument(source: .default) { (applicantSnapshot, error) in
+                    jobsCollection.whereField("jobPostId", isEqualTo: jobId).getDocuments { (jobSnapshot, error) in
                         if let error = error {
-                            print("Error fetching applicant details: \(error.localizedDescription)")
+                            print("Error fetching job details: \(error.localizedDescription)")
                             dispatchGroup.leave() // Leave if there's an error
                             return
                         }
                         
-                        if let applicantData = applicantSnapshot?.data() {
-                            let applicantName = applicantData["name"] as? String ?? "Unknown"
-                            let applicantEmail = applicantData["email"] as? String ?? "Unknown"
-                            let applicantCity = applicantData["city"] as? String ?? "Unknown"
-                            let applicantCountry = applicantData["country"] as? String ?? "Unknown"
-                            let userId = applicantData["userId"] as? Int ?? 0
-                            
-                            let applicantDetails = SeekerDetails(
-                                seekerName: applicantName,
-                                //userId: userId,
-                                email: applicantEmail,
-                                password: applicantCity,
-                                country: applicantCountry,
-                                city: "",
-                                isMentor: false,
-                                selectedJobPosition: ""
-                            )
-                            
-                            application.jobApplicant = applicantDetails
-                            self.applications.append(application)
-                        }
+                        print("Job snapshot count for jobId \(jobId): \(jobSnapshot?.documents.count ?? 0)") // Log document count
                         
-                        dispatchGroup.enter() // Enter for fetching job details
-                        // Fetch job details asynchronously
-                        jobRef.getDocument { (jobSnapshot, error) in
-                            if let error = error {
-                                print("Error fetching job details: \(error.localizedDescription)")
-                                dispatchGroup.leave() // Leave if there's an error
+                        if let jobDocument = jobSnapshot?.documents.first {
+                            let jobData = jobDocument.data()
+                            let jobTitle = jobData["jobTitle"] as? String ?? "Unknown"
+                            let jobLocation = jobData["jobLocation"] as? String ?? "Unknown"
+                            
+                            // Continue with the rest of your job data extraction logic...
+                            let jobPostId = jobData["jobPostId"] as? Int ?? 0
+                            
+                            guard let levelRaw = jobData["jobLevel"] as? String,
+                                  let level = JobLevel(rawValue: levelRaw),
+                                  let categoryRaw = jobData["jobCategory"] as? String,
+                                  let category = CategoryJob(rawValue: categoryRaw),
+                                  let employmentTypeRaw = jobData["jobEmploymentType"] as? String,
+                                  let employmentType = EmploymentType(rawValue: employmentTypeRaw) else {
+                                print("Invalid job details for document ID: \(document.documentID)")
+                                dispatchGroup.leave() // Leave if data is invalid
                                 return
                             }
                             
-                            if let jobData = jobSnapshot?.data() {
-                                let jobTitle = jobData["jobTitle"] as? String ?? "Unknown"
+                            if let datePosted = jobData["jobPostDate"] as? Timestamp {
+                                let date = datePosted.dateValue() // Convert Timestamp to Date
+                                let desc = jobData["jobDescription"] as? String ?? "Unknown"
+                                let deadline = (jobData["jobDeadlineDate"] as? Timestamp)?.dateValue()
+                                let requirement = jobData["jobRequirement"] as? String ?? "No requirements specified"
                                 
-                                let jobLocation = jobData["jobLocation"] as? String ?? "Unknown"
-                                let jobPostId = jobData["jobPostId"] as? Int ?? 0
-                                
-                                guard let levelRaw = jobData["jobLevel"] as? String,
-                                      let level = JobLevel(rawValue: levelRaw),
-                                      let categoryRaw = jobData["jobCategory"] as? String,
-                                      let category = CategoryJob(rawValue: categoryRaw),
-                                      let employmentTypeRaw = jobData["jobEmploymentType"] as? String,
-                                      let employmentType = EmploymentType(rawValue: employmentTypeRaw) else {
-                                    print("Invalid job details for document ID: \(document.documentID)")
-                                    dispatchGroup.leave() // Leave if data is invalid
+                                guard let companyRef = jobData["companyRef"] as? DocumentReference else {
+                                    print("No company reference found for job ID: \(jobPostId)")
+                                    dispatchGroup.leave() // Leave if no company reference
                                     return
                                 }
                                 
-                                if let datePosted = jobData["jobPostDate"] as? Timestamp {
-                                    let date = datePosted.dateValue() // Convert Timestamp to Date
-                                    let desc = jobData["jobDescription"] as? String ?? "Unknown"
-                                    let deadline = (jobData["jobDeadlineDate"] as? Timestamp)?.dateValue()
-                                    let requirement = jobData["jobRequirement"] as? String ?? "No requirements specified"
-                                    
-                                    guard let companyRef = jobData["companyRef"] as? DocumentReference else {
-                                        print("No company reference found for job ID: \(jobPostId)")
-                                        dispatchGroup.leave() // Leave if no company reference
+                                var job = Job(
+                                    jobId: jobPostId,
+                                    title: jobTitle,
+                                    companyDetails: nil,
+                                    level: level,
+                                    category: category,
+                                    employmentType: employmentType,
+                                    location: jobLocation,
+                                    deadline: deadline,
+                                    desc: desc,
+                                    requirement: requirement,
+                                    extraAttachments: nil,
+                                    date: date
+                                )
+                                
+                                // Fetch company details using the company reference
+                                dispatchGroup.enter() // Enter for fetching company details
+                                companyRef.getDocument { (companySnapshot, error) in
+                                    if let error = error {
+                                        print("Error fetching company details: \(error.localizedDescription)")
+                                        dispatchGroup.leave() // Leave if there's an error
                                         return
                                     }
                                     
-                                    var job = Job(
-                                        jobId: jobPostId,
-                                        title: jobTitle,
-                                        companyDetails: nil,
-                                        level: level,
-                                        category: category,
-                                        employmentType: employmentType,
-                                        location: jobLocation,
-                                        deadline: deadline,
-                                        desc: desc,
-                                        requirement: requirement,
-                                        extraAttachments: nil,
-                                        date: date
-                                    )
-                                    
-                                    // Fetch company details using the company reference
-                                    dispatchGroup.enter() // Enter for fetching company details
-                                    companyRef.getDocument { (companySnapshot, error) in
-                                        if let error = error {
-                                            print("Error fetching company details: \(error.localizedDescription)")
-                                            dispatchGroup.leave() // Leave if there's an error
-                                            return
-                                        }
+                                    if let companyData = companySnapshot?.data() {
+                                        let companyName = companyData["name"] as? String ?? "Unknown Company"
+                                        let userId = companyData["userId"] as? Int ?? 0
+                                        let email = companyData["email"] as? String ?? "Unknown"
+                                        let city = companyData["city"] as? String ?? "Unknown"
                                         
-                                        if let companyData = companySnapshot?.data() {
-                                            let companyName = companyData["name"] as? String ?? "Unknown Company"
-                                            let userId = companyData["userId"] as? Int ?? 0
-                                            let email = companyData["email"] as? String ?? "Unknown"
-                                            let city = companyData["city"] as? String ?? "Unknown"
-                                            
-                                            // Fetch userType from the userType collection
-                                            let userTypeRef = companyData["userType"] as? DocumentReference
-                                            
-                                            userTypeRef?.getDocument { (userTypeSnapshot, error) in
-                                                if let error = error {
-                                                    print("Error fetching userType: \(error.localizedDescription)")
-                                                    dispatchGroup.leave()
-                                                    return
-                                                }
-                                                
-                                                if let userTypeData = userTypeSnapshot?.data(),
-                                                   let userType = userTypeData["userType"] as? String {
-                                                    if userType == "admin" || userId == 1 {
-                                                        application.jobApplicant = nil // Set jobApplicant to nil for admin
-                                                    } else if userType == "employer" || userId == 2 {
-                                                        // Create applicant if seeker
-                                                        let companyMainCategory = companyData["companyMainCategory"] as? String
-                                                        let aboutUs = companyData["aboutUs"] as? String
-                                                        let employabilityGoals = companyData["employabilityGoals"] as? String
-                                                        let vision = companyData["vision"] as? String
-                                                        
-                                                        let companyDetails = EmployerDetails(
-                                                            name: companyName,
-                                                            userId: userId,
-                                                            email: email,
-                                                            city: city,
-                                                            companyMainCategory: companyMainCategory,
-                                                            aboutUs: aboutUs,
-                                                            employabilityGoals: employabilityGoals,
-                                                            vision: vision
-                                                        )
-                                                        
-                                                        job.companyDetails = companyDetails
-                                                    }
-                                                }
-                                                
-                                                self.jobs.append(job) // Append job after fetching company details
-                                                dispatchGroup.leave() // Leave after fetching user and company details
+                                        // Fetch userType from the userType collection
+                                        let userTypeRef = companyData["userType"] as? DocumentReference
+                                        
+                                        userTypeRef?.getDocument { (userTypeSnapshot, error) in
+                                            if let error = error {
+                                                print("Error fetching userType: \(error.localizedDescription)")
+                                                dispatchGroup.leave()
+                                                return
                                             }
-                                        } else {
-                                            print("Company data not found for document ID: \(document.documentID)")
-                                            dispatchGroup.leave() // Leave if company data is missing
+                                            
+                                            if let userTypeData = userTypeSnapshot?.data(),
+                                               let userType = userTypeData["userType"] as? String {
+                                                if userType == "admin" || userId == 1 {
+                                                    application.jobApplicant = nil // Set jobApplicant to nil for admin
+                                                } else if userType == "employer" || userId == 2 {
+                                                    let companyMainCategory = companyData["companyMainCategory"] as? String
+                                                    let aboutUs = companyData["aboutUs"] as? String
+                                                    let employabilityGoals = companyData["employabilityGoals"] as? String
+                                                    let vision = companyData["vision"] as? String
+                                                    
+                                                    let companyDetails = EmployerDetails(
+                                                        name: companyName,
+                                                        userId: userId,
+                                                        email: email,
+                                                        city: city,
+                                                        companyMainCategory: companyMainCategory,
+                                                        aboutUs: aboutUs,
+                                                        employabilityGoals: employabilityGoals,
+                                                        vision: vision
+                                                    )
+                                                    
+                                                    job.companyDetails = companyDetails
+                                                }
+                                            }
+                                            
+                                            self.jobs.append(job) // Append job after fetching company details
+                                            dispatchGroup.leave() // Leave after fetching user and company details
                                         }
+                                    } else {
+                                        print("Company data not found for document ID: \(document.documentID)")
+                                        dispatchGroup.leave() // Leave if company data is missing
                                     }
                                 }
                             }
-                            
-                            // Leave after fetching job details
-                            dispatchGroup.leave()
+                        } else {
+                            print("No job found with jobId: \(jobId)")
                         }
                         
-                        // Leave after fetching applicant details
+                        // Leave after fetching job details
                         dispatchGroup.leave()
                     }
+                    
+                    // Leave after fetching applicant details
+                    dispatchGroup.leave()
                 }
-            }
-            
-            // Notify when all async operations are complete
-            dispatchGroup.notify(queue: .main) {
-                if self.applications.isEmpty {
-                    print("No applications were fetched.")
-                } else {
-                    print("Successfully fetched \(self.applications.count) applications.")
-                    print("Successfully fetched \(self.jobs.count) jobs.")
-                }
-                completion(self.applications) // Send the aplication array back using the completion handler
             }
         }
+        
+        // Notify when all async operations are complete
+        dispatchGroup.notify(queue: .main) {
+            if self.applications.isEmpty {
+                print("No applications were fetched.")
+            } else {
+                print("Successfully fetched \(self.applications.count) applications.")
+                print("Successfully fetched \(self.jobs.count) jobs.")
+            }
+            completion(self.applications) // Send the application array back using the completion handler
+        }
+    }
 }

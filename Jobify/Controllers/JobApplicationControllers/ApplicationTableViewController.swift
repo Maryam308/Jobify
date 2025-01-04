@@ -177,13 +177,14 @@ class ApplicationTableViewController: UITableViewController {
                     let applicationData: [String: Any] = [
                         "contribution": contribution,
                         "cvID": cvID,
-                        "userRef": userRef.path, // Reference to the user
+                        "applicantRef": userRef, // Reference to the user
                         "date": Date(),
                         "introduction": introduction,
                         "applicationId": applicationId,
                         "jobId": jobID ?? 0,
                         "motivation": motivation,
-                        "status": "Not Reviewed" // Initial status
+                        "status": "Not Reviewed", // Initial status
+                        "applicantId": self.currentUserId
                     ]
                     
                     // Add the application to Firestore

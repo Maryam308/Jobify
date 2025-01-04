@@ -13,15 +13,15 @@
         <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TrackerCell" rowHeight="212" id="KGk-i7-Jjw" customClass="TrackerCell" customModule="Jobify" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="406" height="212"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
                 <rect key="frame" x="0.0" y="0.0" width="406" height="212"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UFX-hg-EEB">
-                        <rect key="frame" x="9" y="0.0" width="388" height="200"/>
+                        <rect key="frame" x="9" y="0.0" width="388" height="204"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="location" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sev-f8-eXR">
-                                <rect key="frame" x="27" y="109" width="61" height="21"/>
+                                <rect key="frame" x="27" y="113" width="61" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -32,39 +32,38 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ksz-FU-GVY">
-                                <rect key="frame" x="96" y="105" width="5" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="type" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NEr-E2-Huy">
-                                <rect key="frame" x="109" y="109" width="34" height="21"/>
+                                <rect key="frame" x="109" y="113" width="34" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="EuQ-WI-VTN">
-                                <rect key="frame" x="19" y="9" width="64" height="53"/>
+                                <rect key="frame" x="19" y="9" width="64" height="57"/>
                                 <color key="backgroundColor" red="0.1137254902" green="0.1764705882" blue="0.2666666667" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="position" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7pV-TA-LRe">
-                                <rect key="frame" x="27" y="74" width="61" height="21"/>
+                                <rect key="frame" x="27" y="78" width="61" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kaL-PR-1nF" userLabel="Status Button">
-                                <rect key="frame" x="20" y="145" width="75" height="39"/>
+                                <rect key="frame" x="20" y="149" width="75" height="39"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Button">
                                     <backgroundConfiguration key="background"/>
                                 </buttonConfiguration>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ksz-FU-GVY">
+                                <rect key="frame" x="96" y="109" width="5" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.85098039219999999" green="0.85098039219999999" blue="0.85098039219999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="EuQ-WI-VTN" firstAttribute="trailing" secondItem="Nsh-eO-xGr" secondAttribute="leading" constant="-13" id="2V3-0u-M1c"/>
                             <constraint firstItem="EuQ-WI-VTN" firstAttribute="leading" secondItem="UFX-hg-EEB" secondAttribute="leading" constant="19" id="8ie-k2-Mgo"/>
                             <constraint firstItem="Nsh-eO-xGr" firstAttribute="centerX" secondItem="NEr-E2-Huy" secondAttribute="centerX" constant="5" id="C9L-Jl-qvM"/>
                             <constraint firstItem="Nsh-eO-xGr" firstAttribute="top" secondItem="UFX-hg-EEB" secondAttribute="top" constant="25" id="CAu-9e-EfS"/>
@@ -73,17 +72,17 @@
                             <constraint firstItem="sev-f8-eXR" firstAttribute="leading" secondItem="UFX-hg-EEB" secondAttribute="leading" constant="27" id="J4F-dw-8nC"/>
                             <constraint firstItem="sev-f8-eXR" firstAttribute="top" secondItem="7pV-TA-LRe" secondAttribute="bottom" constant="14" id="NPQ-Fe-O1e"/>
                             <constraint firstItem="7pV-TA-LRe" firstAttribute="leading" secondItem="UFX-hg-EEB" secondAttribute="leading" constant="27" id="Pyw-N0-Uz6"/>
-                            <constraint firstItem="ksz-FU-GVY" firstAttribute="top" secondItem="Nsh-eO-xGr" secondAttribute="bottom" constant="59" id="Ras-TA-OTu"/>
+                            <constraint firstItem="ksz-FU-GVY" firstAttribute="top" secondItem="Nsh-eO-xGr" secondAttribute="bottom" constant="63" id="Ras-TA-OTu"/>
                             <constraint firstItem="7pV-TA-LRe" firstAttribute="top" secondItem="EuQ-WI-VTN" secondAttribute="bottom" constant="12" id="bT4-Sz-Qu7"/>
                             <constraint firstItem="kaL-PR-1nF" firstAttribute="leading" secondItem="UFX-hg-EEB" secondAttribute="leading" constant="20" symbolic="YES" id="f5b-if-Y7h"/>
                             <constraint firstItem="Nsh-eO-xGr" firstAttribute="leading" secondItem="EuQ-WI-VTN" secondAttribute="trailing" constant="13" id="gIF-hN-Gdo"/>
                             <constraint firstAttribute="bottom" secondItem="sev-f8-eXR" secondAttribute="bottom" constant="70" id="go2-An-Rbk"/>
                             <constraint firstItem="NEr-E2-Huy" firstAttribute="leading" secondItem="ksz-FU-GVY" secondAttribute="trailing" constant="8" symbolic="YES" id="hc0-tj-SLn"/>
-                            <constraint firstItem="NEr-E2-Huy" firstAttribute="top" secondItem="Nsh-eO-xGr" secondAttribute="bottom" constant="63" id="hcI-gm-RtY"/>
+                            <constraint firstItem="NEr-E2-Huy" firstAttribute="top" secondItem="Nsh-eO-xGr" secondAttribute="bottom" constant="67" id="hcI-gm-RtY"/>
                             <constraint firstItem="ksz-FU-GVY" firstAttribute="leading" secondItem="sev-f8-eXR" secondAttribute="trailing" constant="8" symbolic="YES" id="jGW-CJ-MVM"/>
                             <constraint firstItem="EuQ-WI-VTN" firstAttribute="top" secondItem="UFX-hg-EEB" secondAttribute="top" constant="9" id="nQm-ci-tKI"/>
+                            <constraint firstAttribute="height" constant="204" id="osl-JX-Spp"/>
                             <constraint firstItem="kaL-PR-1nF" firstAttribute="top" secondItem="sev-f8-eXR" secondAttribute="bottom" constant="15" id="pba-cZ-dfJ"/>
-                            <constraint firstAttribute="height" constant="200" id="te2-Ge-KQK"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -94,14 +93,16 @@
                 </subviews>
                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                 <constraints>
-                    <constraint firstAttribute="trailing" secondItem="UFX-hg-EEB" secondAttribute="trailing" constant="9" id="O60-g9-jKR"/>
-                    <constraint firstItem="UFX-hg-EEB" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="9" id="Otf-QU-fIc"/>
-                    <constraint firstAttribute="bottom" secondItem="UFX-hg-EEB" secondAttribute="bottom" constant="17" id="zEJ-c4-R0l"/>
+                    <constraint firstItem="UFX-hg-EEB" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="9" id="GL1-IX-pZ1"/>
+                    <constraint firstAttribute="bottom" secondItem="UFX-hg-EEB" secondAttribute="bottom" constant="8" id="MrL-GN-qhW"/>
+                    <constraint firstAttribute="trailing" secondItem="UFX-hg-EEB" secondAttribute="trailing" constant="9" id="iMZ-un-yBD"/>
+                    <constraint firstItem="UFX-hg-EEB" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="skV-0a-K2d"/>
                     <constraint firstItem="UFX-hg-EEB" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="zaQ-fw-JCs"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="ProfileImage" destination="EuQ-WI-VTN" id="9El-ND-Mbf"/>
                 <outlet property="companyLabel" destination="Nsh-eO-xGr" id="jyG-88-yxV"/>
                 <outlet property="locationLabel" destination="sev-f8-eXR" id="Os8-mu-Gsc"/>
                 <outlet property="positionLabel" destination="7pV-TA-LRe" id="jJC-rZ-jur"/>

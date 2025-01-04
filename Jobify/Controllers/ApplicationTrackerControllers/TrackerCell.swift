@@ -14,6 +14,7 @@ class TrackerCell: UITableViewCell {
     @IBOutlet var typeLabel: UILabel!
     @IBOutlet var statusButton: UIButton!
     
+    @IBOutlet weak var ProfileImage: UIImageView!
     
         
          
