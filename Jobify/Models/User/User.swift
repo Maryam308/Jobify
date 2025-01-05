@@ -43,6 +43,15 @@ struct User {
        self.role = role
         self.imageURL = imageURL
    }
+ 
+    init(userID: Int, name: String, email: String, role: UserType, imageURL: String?, city: String?) {
+       self.userID = userID
+       self.name = name
+       self.email = email
+       self.role = role
+        self.imageURL = imageURL
+        self.city = city
+   }
     
     //MARK: sign up constructor
     init( name: String, email: String, role: UserType, city: String, profileImageURL: String?) {

@@ -12,9 +12,9 @@ import FirebaseAuth
 
 class LoginViewController: UITableViewController {
     
-    
+    static public var userDocRef : DocumentReference?
     let db = Firestore.firestore()
-   
+    
     //textfields outlets
     @IBOutlet weak var txtUsername: UITextField!
     
@@ -23,17 +23,27 @@ class LoginViewController: UITableViewController {
     //bouttons outlets
     
     //as if the admin has logged in
-
+    
     //var currentUser: User = User(userID: 1, name: "John Doe", email: "adminMaster@jobify.com", role: UserType.admin)
-
+    
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         
-       
+        
+        
     }
+    
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        0
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        0
+    }
+
     
     // Function to show alerts in specific shape
     private func showAlert(message: String) {
@@ -49,9 +59,9 @@ class LoginViewController: UITableViewController {
         
         let alert = UIAlertController(title: "Successful Login", message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in
-                // Navigate to the home screen after dismissing the alert
-                self.navigateToHomeScreen()
-            }))
+            // Navigate to the home screen after dismissing the alert
+            self.navigateToHomeScreen()
+        }))
         
         self.present(alert, animated: true, completion: nil)
         
@@ -83,7 +93,7 @@ class LoginViewController: UITableViewController {
         
         if validateInput() {
             
-            guard let email = txtUsername.text, let password = txtPassword.text
+            guard let email = txtUsername.text?.trimmingCharacters(in: .whitespacesAndNewlines), let password = txtPassword.text
             else {
                 showAlert(message: "Email or Password is invalid.")
                 return
@@ -106,72 +116,74 @@ class LoginViewController: UITableViewController {
                 let userTypeEmployer: DocumentReference = db.collection("usertype").document("user2")
                 let userTypeSeeker: DocumentReference = db.collection("usertype").document("user3")
                 
-                                db.collection("users").whereField("email", isEqualTo: email).getDocuments { querySnapshot, error in
-                                    if let error = error {
-                                        self.showAlert(message: "Failed to fetch user data: \(error.localizedDescription)")
-                                        return
-                                    }
-
-                                    guard let documents = querySnapshot?.documents, let document = documents.first else {
-                                        self.showAlert(message: "No user data found.")
-                                        return
-                                    }
-
-                                    // Extract data from the document
-                                    let data = document.data()
-                                    let userID = data["userId"] as? Int ?? 0
-                                    let name = data["name"] as? String ?? "Unknown User"
-                                    let email = data["email"] as? String ?? "No Email"
-                                    let userType = data["userType"] as? DocumentReference ?? userTypeSeeker
-                                    let imageURL = data["profileImageURL"] as? String ?? ""
-                                    let role: UserType
-                                    
-                                    
-                                    if userType == userTypeAdmin{
-                                         role = UserType.admin
-                                    }
-                                    
-                                    else if userType == userTypeEmployer{
-                                         role = UserType.employer
-                                    }
-                                    
-                                    else{
-                                         role = UserType.seeker
-                                    }
-
-                                    // Create a session for the authenticated user
-                                    UserSession.shared.loggedInUser = User(
-                                        userID: userID,
-                                        name: name,
-                                        email: email,
-                                        role: role,
-                                        imageURL: imageURL
-                                    )
+                db.collection("users").whereField("email", isEqualTo: email).getDocuments { querySnapshot, error in
+                    if let error = error {
+                        self.showAlert(message: "Failed to fetch user data: \(error.localizedDescription)")
+                        return
+                    }
                     
-                                    // Notify the user
-                                    self.showSuccessAlert(message: "Login Successful")
+                    guard let documents = querySnapshot?.documents, let document = documents.first else {
+                        self.showAlert(message: "No user data found.")
+                        return
+                    }
+                    
+                    LoginViewController.userDocRef = document.reference
+                    
+                    print(LoginViewController.userDocRef?.path ?? "Path is nil")
+                    // Extract data from the document
+                    let data = document.data()
+                    let userID = data["userId"] as? Int ?? 0
+                    let name = data["name"] as? String ?? "Unknown User"
+                    let email = data["email"] as? String ?? "No Email"
+                    let city = data["city"] as? String
+                    let userType = data["userType"] as? DocumentReference ?? userTypeSeeker
+                    let imageURL = data["profileImageURL"] as? String ?? ""
+                    let role: UserType
+                    
+                    
+                    
+                    if userType == userTypeAdmin{
+                        role = UserType.admin
+                    }
+                    
+                    else if userType == userTypeEmployer{
+                        role = UserType.employer
+                    }
+                    
+                    else{
+                        role = UserType.seeker
+                    }
+                    
+                    // Create a session for the authenticated user
+                    UserSession.shared.loggedInUser = User(
+                        userID: userID,
+                        name: name,
+                        email: email,
+                        role: role,
+                        imageURL: imageURL,
+                        city: city
+                    )
+                    
 
-                                    
-                                    
-                                    
-                                    
-                                    
+                    // Notify the user
+                    self.showSuccessAlert(message: "Login Successful")
                 }
             }
         }
         
     }
     
+    
+
     private func navigateToHomeScreen() {
-        // Step 1: Instantiate the Home storyboard
-        let homeStoryboard = UIStoryboard(name: "Main", bundle: nil)
-
-        // Step 2: Instantiate the HomeViewController from the Home storyboard
-        if let homeVC = homeStoryboard.instantiateViewController(withIdentifier: "loginTwo") as? UITabBarController {
-            // Step 3: Push the HomeViewController onto the navigation stack
-            self.navigationController?.pushViewController(homeVC, animated: true)
+        switch UserSession.shared.loggedInUser!.role {
+        case .admin:
+            performSegue(withIdentifier: "loginToAdminProfile", sender: self)
+        case .employer:
+            performSegue(withIdentifier: "loginToEmployerProfile", sender: self)
+        case .seeker:
+            performSegue(withIdentifier: "loginToSeekerProfile", sender: self)
         }
-
     }
     
     
@@ -194,7 +206,7 @@ class LoginViewController: UITableViewController {
 
 
 
-    
-            
-            
-           
+
+
+
+

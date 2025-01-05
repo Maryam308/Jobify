@@ -27,6 +27,8 @@ class signupViewController: UIViewController {
 }
 
 
+
+
 //MARK: job seeker sign-up view controler
 class SeekerSignupViewController: UITableViewController, UIImagePickerControllerDelegate , UINavigationControllerDelegate {
     
@@ -60,9 +62,19 @@ class SeekerSignupViewController: UITableViewController, UIImagePickerController
         imgSeekerProfilePic.layer.cornerRadius = imgSeekerProfilePic.frame.size.width / 2
         imgSeekerProfilePic.contentMode = .scaleAspectFill
         imgSeekerProfilePic.clipsToBounds = true
-        
-        
+        imgSeekerProfilePic.layer.borderColor = UIColor.black.cgColor
+        imgSeekerProfilePic.layer.borderWidth = 2.0
+
     }
+    
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        0
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        0
+    }
+
     
     // Function to show alerts in specific shape
     private func showAlert(message: String) {
@@ -110,6 +122,11 @@ class SeekerSignupViewController: UITableViewController, UIImagePickerController
             return false
         }
         
+        if txtCity.text?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ?? true {
+            showAlert(message: "City field must be filled.")
+            return false
+        }
+
         // All fields are filled
         return true
     }
@@ -124,21 +141,19 @@ class SeekerSignupViewController: UITableViewController, UIImagePickerController
             "name": user.name,
             "userId": user.userID, // Ensure userId is set via fetchAndSetID
             "email": user.email,
+            "city" :  user.city ?? NSNull(),
             "userType": userType,
             "profileImageURL": user.imageURL ?? NSNull() // Use NSNull for missing image
         ]
-        
+                
         // Save user data and return the generated DocumentReference
-        db.collection("users").addDocument(data: userData) { error in
+        completion(db.collection("users").addDocument(data: userData) { error in
             if let error = error {
                 print("Failed to save user: \(error.localizedDescription)")
                 completion(nil)
                 return
             }
-            
-            let userRef = db.collection("users").document() // Use generated DocumentReference
-            completion(userRef)
-        }
+        })
     }
 
     
@@ -310,8 +325,12 @@ class SeekerSignupViewController: UITableViewController, UIImagePickerController
         }
     }
     
-
+    private func addCv() {
+        
+    }
     
+
+        
     
     private func loadImage(from url: URL) {
         let task = URLSession.shared.dataTask(with: url) { data, response, error in
@@ -373,9 +392,13 @@ class SeekerSignupViewController: UITableViewController, UIImagePickerController
         @IBOutlet weak var txtCity: UITextField!
         
         
+        @IBOutlet weak var txtViewAboutUs: UITextView!
         
         @IBOutlet weak var btnUploadEmployer: UIButton!
         
+        @IBOutlet weak var txtViewGoals: UITextView!
+        
+        @IBOutlet weak var txtViewVision: UITextView!
         
         @IBAction func btnUploadEmployerTapped(_ sender: UIButton) {
             let picker = UIImagePickerController()
@@ -396,8 +419,14 @@ class SeekerSignupViewController: UITableViewController, UIImagePickerController
             
         }
         
+        override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+            0
+        }
         
-        
+        override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+            0
+        }
+
         func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
             dismiss(animated: true)
         }
@@ -408,61 +437,100 @@ class SeekerSignupViewController: UITableViewController, UIImagePickerController
                 imgEmployerProfilePic.layer.cornerRadius = imgEmployerProfilePic.frame.size.width / 2
                 imgEmployerProfilePic.contentMode = .scaleAspectFill
                 imgEmployerProfilePic.clipsToBounds = true
+                imgEmployerProfilePic.layer.borderColor = UIColor.black.cgColor
+                imgEmployerProfilePic.layer.borderWidth = 2.0
+
+                setupUboutUs()
+                setupGoals()
+                setupVision()
             }
             
             private func showAlert(message: String) {
-                let alert = UIAlertController(title: "Validation Error", message: message, preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-                self.present(alert, animated: true, completion: nil)
+                    let alert = UIAlertController(title: "Validation Error", message: message, preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                    self.present(alert, animated: true, completion: nil)
             }
-            
+                
             private func validateInput() -> Bool {
+                // Validate name field
                 if txtName.text?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ?? true {
                     showAlert(message: "Name field must be filled.")
                     return false
                 }
+                
+                // Validate email field
                 if txtEmail.text?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ?? true {
                     showAlert(message: "Email field must be filled.")
                     return false
                 }
+                
+                // Validate password field
                 if txtPassword.text?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ?? true {
                     showAlert(message: "Password field must be filled.")
                     return false
                 }
+                
+                // Validate confirm password field
                 if txtConfirmPassword.text?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ?? true {
                     showAlert(message: "Confirm Password field must be filled.")
                     return false
                 }
+
+                // Check if passwords match
                 if txtPassword.text != txtConfirmPassword.text {
                     showAlert(message: "Passwords entered do not match.")
                     return false
                 }
+                
+                // Validate company category field
                 if txtComapanyCategory.text?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ?? true {
                     showAlert(message: "Company Category field must be filled.")
                     return false
                 }
+
+                // Validate About Us text view
+                if txtViewAboutUs.text?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ?? true {
+                    showAlert(message: "About Us field must be filled.")
+                    return false
+                }
+
+                // Validate Goals text view
+                if txtViewGoals.text?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ?? true {
+                    showAlert(message: "Goals field must be filled.")
+                    return false
+                }
+
+                // Validate Vision text view
+                if txtViewVision.text?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ?? true {
+                    showAlert(message: "Vision field must be filled.")
+                    return false
+                }
+
+                if txtCity.text?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ?? true {
+                    showAlert(message: "City field must be filled.")
+                    return false
+                }
+
                 return true
             }
             
             private func saveUserData(user: User, completion: @escaping (DocumentReference?) -> Void) {
-                let userType: DocumentReference = db.collection("usertype").document("user3")
+                let userType: DocumentReference = db.collection("usertype").document("user2")
                 let userData: [String: Any] = [
                     "name": user.name,
                     "userId": user.userID,
                     "email": user.email,
+                    "city": user.city ?? NSNull(),
                     "userType": userType,
-                    "profileImageURL": user.imageURL ?? NSNull()
+                    "profileImageURL": user.imageURL ?? NSNull(),
                 ]
                 
-                db.collection("users").addDocument(data: userData) { [self] error in
+                completion(db.collection("users").addDocument(data: userData) { error in
                     if let error = error {
                         print("Failed to save user: \(error.localizedDescription)")
                         completion(nil)
-                    } else {
-                        let documentRef = db.collection("users").document(user.userID.description)
-                        completion(documentRef)
                     }
-                }
+                })
             }
             
             private func uploadImageToCloudinary(imageData: Data) async throws -> String {
@@ -540,9 +608,9 @@ class SeekerSignupViewController: UITableViewController, UIImagePickerController
                                    let employerDetailsData: [String: Any] = [
                                        "companyMainCategory": self.txtComapanyCategory.text ?? "",
                                        "userID": userRef,
-                                       "aboutUs": "",
-                                       "ourEmployiblityGoals": "",
-                                       "ourVision": ""
+                                       "aboutUs": self.txtViewAboutUs.text ?? "",
+                                       "ourEmployiblityGoals": self.txtViewGoals.text ?? "",
+                                       "ourVision": self.txtViewVision.text ?? ""
                                    ]
                                    
                                    self.db.collection("employerDetails").addDocument(data: employerDetailsData) { error in
@@ -581,6 +649,22 @@ class SeekerSignupViewController: UITableViewController, UIImagePickerController
                 }
             }
             task.resume()
+        }
+        
+        private func setupUboutUs() {
+            
+            txtViewAboutUs.layer.cornerRadius = 15.0
+        }
+        
+        private func setupVision(){
+            
+            txtViewVision.layer.cornerRadius = 15.0
+        }
+        
+        private func setupGoals(){
+            
+            txtViewGoals.layer.cornerRadius = 15.0
+            
         }
         
         
