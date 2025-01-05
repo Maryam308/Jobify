@@ -13,20 +13,136 @@ import FirebaseFirestore
 
 class ApplicationDetailTableViewController: UITableViewController {
     var currentUserId: Int = currentLoggedInUserID
+    var onStatusUpdated: ((JobApplication) -> Void)?
     
     @IBOutlet weak var companyNameLabel: UILabel!
     @IBOutlet weak var positionLabel: UILabel!
     
-    @IBOutlet weak var showProfileLabel: UILabel!
     
-    @IBOutlet weak var currentStatusLabel: UILabel!
     
     var application: JobApplication?
-    //var currentUserId: Int?
-    //var currentUserRole: String?
+    var appli:JobApplication = JobApplication() // Variable of type JobApplication incase there is no JobApplication parameter
+    @IBOutlet weak var profileButton: UIButton!
+    @IBOutlet weak var currentStatusButton: UIButton!
     var cvs: [CV] = []
     
+    // MARK: Profile Segue Function
+    
+    @IBAction func profileTapped(_ sender: UIButton) {
+        
+        if currentUserRole == "seeker" {
+            let storyboard = UIStoryboard(name: "UserProfileAndSettings_ZainabAlawi", bundle: nil)
+            
+            if let employerProfileVC = storyboard.instantiateViewController(identifier: "CompanyProfileViewController") as? CompanyProfileViewController2 {
+                
+                navigationController?.pushViewController(employerProfileVC, animated: true)
+                
+            }
+            
+        } else if currentUserRole == "employer" || currentUserRole == "admin" {
+            let storyboard = UIStoryboard(name: "UserProfileAndSettings_ZainabAlawi", bundle: nil)
+            
+            if let seekerProfileVC = storyboard.instantiateViewController(identifier: "SeekerProfileViewController") as? SeekerProfileViewControllerWithCV {
+                
+                navigationController?.pushViewController(seekerProfileVC, animated: true)
+                
+            }
+        
+        }
+      
+    }
     @IBOutlet weak var introductionTextView: UITextView!
+    
+    // MARK: Change application status
+    @IBAction func currentStatusTapped(_ sender: UIButton) {
+        if currentUserRole == "employer" || currentUserRole == "admin" {
+            presentChangeStatusActionSheet(for: application ?? appli)
+            
+            self.tableView.reloadData()
+        }
+       
+    }
+    
+    private func presentChangeStatusActionSheet(for application: JobApplication) {
+            let currentStatus = application.status // Get current status
+            
+            print("Current status: \(application.status.rawValue)")
+            
+            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+            let options = UIAlertController(title: "Change Status", message: nil, preferredStyle: .actionSheet)
+
+            // Helper function to add an action
+            func addAction(title: String, newStatus: JobApplication.ApplicationStatus) {
+                let action = UIAlertAction(title: title, style: .default) { _ in
+                    // Call the updateApplicationStatus method with the application object
+                    self.updateApplicationStatus(application: application, newStatus: newStatus)
+                }
+                options.addAction(action)
+            }
+
+            // Add options based on the current status
+            switch currentStatus {
+            case .notReviewed:
+                addAction(title: "Reviewed", newStatus: .reviewed)
+                addAction(title: "Rejected", newStatus: .rejected)
+                addAction(title: "Approved", newStatus: .approved)
+            case .reviewed:
+                addAction(title: "Not Reviewed", newStatus: .notReviewed)
+                addAction(title: "Rejected", newStatus: .rejected)
+                addAction(title: "Approved", newStatus: .approved)
+            case .approved:
+                addAction(title: "Not Reviewed", newStatus: .notReviewed)
+                addAction(title: "Reviewed", newStatus: .reviewed)
+                addAction(title: "Rejected", newStatus: .rejected)
+            case .rejected:
+                addAction(title: "Not Reviewed", newStatus: .notReviewed)
+                addAction(title: "Reviewed", newStatus: .reviewed)
+                addAction(title: "Approved", newStatus: .approved)
+            }
+
+            options.addAction(cancelAction)
+            
+            // Present the action sheet
+            present(options, animated: true, completion: nil)
+        }
+        
+        private func updateApplicationStatus(application: JobApplication, newStatus: JobApplication.ApplicationStatus) {
+            // Update the status in Firestore for the application object
+            db.collection("jobApplication")
+                .whereField("applicationId", isEqualTo: application.applicationId) // Assume applicationId is Int
+                .getDocuments { snapshot, error in
+                    if let error = error {
+                        print("Error fetching documents: \(error.localizedDescription)")
+                        return
+                    }
+                    
+                    guard let documents = snapshot?.documents, !documents.isEmpty else {
+                        print("No documents found with applicationId: \(application.applicationId)")
+                        return
+                    }
+                    
+                    // Update the status in the found document
+                    for document in documents {
+                        document.reference.updateData(["status": newStatus.rawValue]) { error in
+                            if let error = error {
+                                print("Error updating status: \(error.localizedDescription)")
+                            } else {
+                                var updatedApplication = application  // Create a mutable copy
+                                updatedApplication.status = newStatus  // Update the status
+                                
+                                self.currentStatusButton.setTitle(updatedApplication.status.rawValue, for: .normal)
+                                
+                                self.application?.status = updatedApplication.status
+                               
+                                
+                                self.onStatusUpdated?(updatedApplication)
+                                
+                            }
+                        }
+                    
+                    }
+                }
+        }
     
     @IBOutlet weak var motivationTextView: UITextView!
     
@@ -35,141 +151,61 @@ class ApplicationDetailTableViewController: UITableViewController {
     @IBOutlet weak var viewCVButton: UIButton!
     
     @IBOutlet weak var profileImage: UIImageView!
-    /*
-     func fetchSelectedCv(by cvID: String, completion: @escaping (CV?) -> Void) {
-     // Assume this function fetches the CV from Firestore
-     let db = Firestore.firestore()
-     let docRef = db.collection("seekerDetails").document("userID").collection("CVs").document(cvID)
-     
-     docRef.getDocument { (document, error) in
-     if let error = error {
-     print("Error fetching CV: \(error.localizedDescription)")
-     completion(nil)
-     return
-     }
-     
-     guard let document = document, document.exists, let data = document.data() else {
-     completion(nil)
-     return
-     }
-     
-     // Assuming you have a CV initializer that accepts a dictionary
-     //let cv = CV(dictionary: data)
-     //completion(cv)
-     }
-     }
-     */
-    /*
-     func fetchSelectedCv(by cvID: String, completion: @escaping (CV?) -> Void) {
-     
-     let db = Firestore.firestore()
-     let docRef = db.collection("seekerDetails").document(currentUserId).collection("CVs").document(cvID)
-     
-     docRef.getDocument { (document, error) in
-     if let error = error {
-     print("Error fetching CV: \(error.localizedDescription)")
-     completion(nil)
-     return
-     }
-     
-     guard let document = document, document.exists, let data = document.data() else {
-     print("CV document does not exist or has no data.")
-     completion(nil)
-     return
-     }
-     
-     // Assuming you have a CV initializer that accepts a dictionary
-     let cv = CV(dictionary: data) // Make sure your CV model has a proper initializer
-     completion(cv)
-     }
-     }
-     */
+    
+    
+    
+    
+    // MARK: View CV
+    
     @IBAction func ViewCVButtonClicked(_ sender: UIButton) {
-        /*
-         // Ensure you have a valid applicant CV ID
-         guard let cvId = application?.applicantCVId, !cvId.isEmpty else {
-         print("No CV ID found.")
-         return
-         }
-         
-         // Fetch CVs asynchronously
-         Task {
-         do {
-         let fetchedCVs = try await CVManager.getUserAllCVs()
-         
-         // Find the CV with the matching ID
-         if let matchingCV = fetchedCVs.first(where: { $0.cvID == cvId }) {
-         // Load the storyboard
-         let storyboard = UIStoryboard(name: "CVBuilderAndEditor_MaryamMohsen", bundle: nil)
-         
-         // Instantiate the CVViewerViewController
-         if let cvViewerVC = storyboard.instantiateViewController(withIdentifier: "cvViewer") as? CVViewerViewController {
-         cvViewerVC.cv = matchingCV // Assuming `cv` is the property in CVViewerViewController to hold the CV data
-         navigationController?.pushViewController(cvViewerVC, animated: true)
-         }
-         } else {
-         print("No CV found with ID: \(cvId)")
-         }
-         } catch {
-         print("Error fetching CVs: \(error.localizedDescription)")
-         }
-         }
-         */
-        // Ensure you have a valid applicant CV ID
-        guard let cvId = application?.applicantCVId, !cvId.isEmpty else {
-            print("No CV ID found.")
-            return
-        }
-        
-        // Fetch all CVs asynchronously
+       
+        if let matchingCV = findCV(by: application?.applicantCVId ?? "") {
+               let storyboard = UIStoryboard(name: "CVBuilderAndEditor_MaryamMohsen", bundle: nil)
+               if let cvViewerVC = storyboard.instantiateViewController(withIdentifier: "cvViewer") as? CVViewerViewController {
+                   cvViewerVC.cv = matchingCV
+                   navigationController?.pushViewController(cvViewerVC, animated: true)
+               }
+           } else {
+               print("No CV found with ID: \(application?.applicantCVId ?? "unknown ID")")
+           }
+ 
+    }
+    
+    func fetchCVs() {
+        // Create a test CV asynchronously
         Task {
             do {
                 let fetchedCVs = try await CVManager.getUserAllCVs()
-                
-                // Find the CV with the matching ID
-                if let matchingCV = fetchedCVs.first(where: { $0.cvID == cvId }) {
-                    // Load the storyboard
-                    let storyboard = UIStoryboard(name: "CVBuilderAndEditor_MaryamMohsen", bundle: nil)
-                    
-                    // Instantiate the CVViewerViewController
-                    if let cvViewerVC = storyboard.instantiateViewController(withIdentifier: "cvViewer") as? CVViewerViewController {
-                        cvViewerVC.cv = matchingCV // Assuming `cv` is the property in CVViewerViewController to hold the CV data
-                        navigationController?.pushViewController(cvViewerVC, animated: true)
-                    }
-                } else {
-                    print("No CV found with ID: \(cvId)")
+                DispatchQueue.main.async {
+                    self.cvs = fetchedCVs
+                    self.tableView.reloadData()
                 }
             } catch {
                 print("Error fetching CVs: \(error.localizedDescription)")
             }
         }
-    
     }
     
+    func findCV(by cvID: String) -> CV? {
+        // Loop through the array of CVs to find a match
+        for cv in cvs {
+            if cv.cvID == cvID {
+                return cv // Return the matching CV
+            }
+        }
+        return nil // Return nil if no match is found
+    }
+    
+    
+    
+    // MARK: View Did Load
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate = self
             tableView.dataSource = self
+        fetchCVs()
         
-        //currentUserId = currentLoggedInUserID
-        //currentUserRole = UserSession.shared.loggedInUser?.role.rawValue
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
-        /*
-        // Set the underlined text
-                let text = "Underlined Text"
-                let attributedString = NSMutableAttributedString(string: text)
-                
-                // Set the underline style
-                attributedString.addAttribute(.underlineStyle, value: NSUnderlineStyle.single.rawValue, range: NSRange(location: 0, length: text.count))
-                
-                // Set the attributed text to the label
-        showProfileLabel.attributedText = attributedString
-        currentStatusLabel.attributedText = attributedString
-        */
+        
         guard let application = application else {
                 print("Error: Application is nil!")
                 return
@@ -180,11 +216,12 @@ class ApplicationDetailTableViewController: UITableViewController {
             // Populate labels and text fields with the application's data
             companyNameLabel.text = application.jobApplied?.companyDetails?.name
             positionLabel.text = application.jobApplied?.title
-            currentStatusLabel.text = application.status.rawValue
             introductionTextView.text = application.briefIntroduction
             motivationTextView.text = application.motivation
             contributionTextView.text = application.contributionToCompany
             
+            currentStatusButton.setTitle(application.status.rawValue, for: .normal)
+            profileButton.setTitle("Show employer profile", for: .normal)
             
             // Load profile picture
             if let imageURLString = UserSession.shared.loggedInUser?.imageURL,
@@ -219,11 +256,11 @@ class ApplicationDetailTableViewController: UITableViewController {
            }
            
            positionLabel.text = application.jobApplied?.title
-            currentStatusLabel.text = application.status.rawValue
             introductionTextView.text = application.briefIntroduction
             motivationTextView.text = application.motivation
             contributionTextView.text = application.contributionToCompany
-           showProfileLabel.text = "Show seeker profile"
+           currentStatusButton.setTitle(application.status.rawValue, for: .normal)
+           profileButton.setTitle("Show seeker profile", for: .normal)
         }
             
         
@@ -241,6 +278,8 @@ class ApplicationDetailTableViewController: UITableViewController {
            task.resume()
        }
     
+    // MARK: Fetch applicant Information
+    // To fetch the name of the current user for the application
     func fetchUserInfo(application: JobApplication, completion: @escaping (String?) -> Void) {
         let db = Firestore.firestore()
         
@@ -270,7 +309,7 @@ class ApplicationDetailTableViewController: UITableViewController {
         }
     }
 
-    // MARK: - Table view data source
+  
 
 
 }

@@ -46,8 +46,8 @@
             filePath = "Jobify/Controllers/ApplicationTrackerControllers/ApplicationTrackerViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "432"
-            endingLineNumber = "432"
+            startingLineNumber = "475"
+            endingLineNumber = "475"
             landmarkName = "notReviewedButtonTapped(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -62,8 +62,8 @@
             filePath = "Jobify/Models/Application.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "102"
-            endingLineNumber = "102"
+            startingLineNumber = "91"
+            endingLineNumber = "91"
             landmarkName = "init(jobApplicant:jobApplied:briefIntroduction:motivation:contributionToCompany:status:applicationId:jobId:applicationDate:applicantRef:applicantCVId:applicantId:)"
             landmarkType = "7">
          </BreakpointContent>

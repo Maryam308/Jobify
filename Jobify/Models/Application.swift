@@ -37,36 +37,25 @@ struct JobApplication {
     var status: ApplicationStatus
 
     // Initializer
-    //init(){}
-    init(jobApplicant: SeekerDetails?,
-         jobApplied: Job?,
-         //applicantCVId: String,
-         briefIntroduction: String,
-         motivation: String,
-         contributionToCompany: String,
-         jobId: Int,
-         applicantRef: DocumentReference?,
-         employerRef: DocumentReference?,
-         applicantId: Int) {
-        
-        JobApplication.applicationIdCounter += 1
-        self.applicationId = JobApplication.applicationIdCounter
+    init(){
+        self.applicationId = 0
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd-MM-yyyy"
         self.applicationDate = dateFormatter.string(from: Date())
         
-        self.jobApplicant = jobApplicant
-        self.jobApplied = jobApplied
-        //self.applicantCVId = applicantCVId
-        self.briefIntroduction = briefIntroduction
-        self.motivation = motivation
-        self.contributionToCompany = contributionToCompany
-        self.jobId = jobId
+        self.jobApplicant = nil
+        self.jobApplied = nil
         self.applicantCVId = ""
+        self.briefIntroduction = ""
+        self.motivation = ""
+        self.contributionToCompany = ""
         self.status = .notReviewed
-        self.applicantId = applicantId
+        self.jobId = 0
+        self.seekerRef = nil
+        self.applicantId = 0
     }
+    
     
     init(jobApplicant: SeekerDetails?,
          jobApplied: Job?,

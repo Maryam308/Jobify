@@ -9,10 +9,7 @@ import UIKit
 
 class ChooseCVTableViewController: UITableViewController {
 
-    //array of user's CVs
     var cvs: [CV] = []
-    
-    
  
     // Closure for passing selected CV back
         var onCVSelected: ((CV) -> Void)?
@@ -26,7 +23,6 @@ class ChooseCVTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Register CVTableViewCell with myCVsTableView
         
         let nib = UINib(nibName: "ChooseCVCell", bundle: nil)
         tableView.register(nib, forCellReuseIdentifier: "ChooseCVCell")

@@ -45,6 +45,8 @@ class ApplicationTableViewController: UITableViewController {
     
     
     @IBOutlet weak var attachmentLabel: UILabel!
+    
+    // MARK: Segue to Choose CV view controller
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "ShowChooseCV",
            let navController = segue.destination as? UINavigationController,
@@ -57,6 +59,8 @@ class ApplicationTableViewController: UITableViewController {
         }
         
     }
+    
+    // MARK: Fetch User Reference
     
     // function to fetch the user reference
     func fetchUserReference(by userId: Int, completion: @escaping (DocumentReference?) -> Void) {
@@ -81,6 +85,7 @@ class ApplicationTableViewController: UITableViewController {
             }
     }
     
+    // MARK: Fetch Selected CV
     // function to fetch the cv reference
     func fetchSelectedCv(by cvID: String, completion: @escaping (String?) -> Void) {
         let seekerDetailsCollectionRef = Firestore.firestore().collection("seekerDetails")
@@ -99,7 +104,7 @@ class ApplicationTableViewController: UITableViewController {
                     for cv in seekerCVs {
                         if let id = cv["cvID"] as? String, id == cvID {
                             // Found the CV with the matching cvID
-                            completion(cv["cvID"] as? String) // Return the CV ID or other desired data
+                            completion(cv["cvID"] as? String)
                             return
                         }
                     }
@@ -128,7 +133,7 @@ class ApplicationTableViewController: UITableViewController {
     }
     
     
-    
+    // MARK: Send Application Method
     @IBAction func sendApplication(_ sender: UIButton) {
         // Validate inputs
         let jobID = job?.jobId
@@ -194,10 +199,10 @@ class ApplicationTableViewController: UITableViewController {
                             self.showAlert(title: "Error", message: "Failed to submit application.")
                         } else {
                             self.showAlert(title: "Successful", message: "Application submitted successfully."){
-                                let storyboard = UIStoryboard(name: "JobBrowsingAndJobSearch_FatimaKhamis", bundle: nil) // Use your storyboard name
-                                let homeVC = storyboard.instantiateViewController(withIdentifier: "homePageVC") // Use your view controller ID
+                                let storyboard = UIStoryboard(name: "JobBrowsingAndJobSearch_FatimaKhamis", bundle: nil)
+                                let homeVC = storyboard.instantiateViewController(withIdentifier: "homePageVC")
                                 
-                                // Present or push the home view controller
+                                // Present or push the view controller
                                 self.navigationController?.pushViewController(homeVC, animated: true)}
                         }
                     }

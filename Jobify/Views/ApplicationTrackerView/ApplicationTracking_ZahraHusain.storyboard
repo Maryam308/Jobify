@@ -148,6 +148,7 @@
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="allButton" destination="QWL-Mg-783" id="1U9-xC-isf"/>
+                        <outlet property="applicationTrackerLabel" destination="Rqz-bd-bIG" id="AOO-Si-a42"/>
                         <outlet property="approvedButton" destination="6tT-T0-fEn" id="2vq-jH-3iC"/>
                         <outlet property="notReviewedButton" destination="QDu-sf-H2l" id="H2r-N8-5Lu"/>
                         <outlet property="rejectedButton" destination="mlq-fy-rA7" id="nAV-5q-PAa"/>
@@ -464,26 +465,17 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Show employer profile" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nz4-cZ-pev">
-                                                    <rect key="frame" x="36" y="119" width="182" height="21"/>
-                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Status:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X7s-vO-qtm">
                                                     <rect key="frame" x="36" y="90" width="59" height="21"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="currentStatus" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ukw-gH-0xF">
-                                                    <rect key="frame" x="97" y="90" width="114" height="21"/>
-                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="JV2-Cw-3CI">
                                                     <rect key="frame" x="28" y="12" width="48" height="41"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="48" id="v0r-jC-BIp"/>
+                                                    </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Company Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u43-yN-b31">
                                                     <rect key="frame" x="97" y="22" width="129" height="21"/>
@@ -491,28 +483,43 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yft-Bk-o1a" userLabel="currentStatus">
+                                                    <rect key="frame" x="90" y="81" width="75" height="39"/>
+                                                    <state key="normal" title="Button"/>
+                                                    <buttonConfiguration key="configuration" style="plain" title="Button">
+                                                        <color key="baseForegroundColor" systemColor="systemBrownColor"/>
+                                                    </buttonConfiguration>
+                                                    <connections>
+                                                        <action selector="currentStatusTapped:" destination="jAG-e1-EJC" eventType="touchUpInside" id="Z2S-70-gFB"/>
+                                                    </connections>
+                                                </button>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mym-Nb-ZUR" userLabel="profile">
+                                                    <rect key="frame" x="26" y="109" width="75" height="39"/>
+                                                    <state key="normal" title="Button"/>
+                                                    <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                                                    <connections>
+                                                        <action selector="profileTapped:" destination="jAG-e1-EJC" eventType="touchUpInside" id="ZWT-Ty-qho"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="Ukw-gH-0xF" firstAttribute="leading" secondItem="X7s-vO-qtm" secondAttribute="trailing" constant="2" id="1pa-rh-2IK"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="yft-Bk-o1a" secondAttribute="bottom" constant="28" id="1Hg-PN-JVU"/>
                                                 <constraint firstItem="u43-yN-b31" firstAttribute="top" secondItem="s9X-5e-9Oo" secondAttribute="topMargin" constant="10" id="3Rb-rC-kpW"/>
                                                 <constraint firstItem="JV2-Cw-3CI" firstAttribute="leading" secondItem="s9X-5e-9Oo" secondAttribute="leadingMargin" constant="8" id="3kN-g8-JSv"/>
+                                                <constraint firstItem="yft-Bk-o1a" firstAttribute="top" secondItem="u43-yN-b31" secondAttribute="bottom" constant="38" id="6Zb-bU-Via"/>
                                                 <constraint firstItem="JV2-Cw-3CI" firstAttribute="top" secondItem="s9X-5e-9Oo" secondAttribute="topMargin" id="7cd-AQ-T9g"/>
-                                                <constraint firstItem="nz4-cZ-pev" firstAttribute="leading" secondItem="s9X-5e-9Oo" secondAttribute="leadingMargin" constant="16" id="APx-Fy-3ks"/>
-                                                <constraint firstItem="Ukw-gH-0xF" firstAttribute="top" secondItem="deo-VK-hsP" secondAttribute="bottom" constant="8" symbolic="YES" id="Be7-Zd-yTz"/>
                                                 <constraint firstItem="deo-VK-hsP" firstAttribute="top" secondItem="u43-yN-b31" secondAttribute="bottom" constant="18" id="IUQ-u3-k1U"/>
                                                 <constraint firstItem="u43-yN-b31" firstAttribute="leading" secondItem="JV2-Cw-3CI" secondAttribute="trailing" constant="21" id="KSG-9c-AfT"/>
                                                 <constraint firstItem="deo-VK-hsP" firstAttribute="top" secondItem="JV2-Cw-3CI" secondAttribute="bottom" constant="8" symbolic="YES" id="KcV-PI-fiw"/>
                                                 <constraint firstItem="X7s-vO-qtm" firstAttribute="top" secondItem="deo-VK-hsP" secondAttribute="bottom" constant="8" symbolic="YES" id="M0m-JX-BTY"/>
                                                 <constraint firstItem="X7s-vO-qtm" firstAttribute="leading" secondItem="s9X-5e-9Oo" secondAttribute="leadingMargin" constant="16" id="QGf-QD-wgA"/>
-                                                <constraint firstItem="u43-yN-b31" firstAttribute="leading" secondItem="Ukw-gH-0xF" secondAttribute="leading" id="TWf-2T-kGI"/>
-                                                <constraint firstItem="nz4-cZ-pev" firstAttribute="top" secondItem="Ukw-gH-0xF" secondAttribute="bottom" constant="8" symbolic="YES" id="Uzz-C4-Hlg"/>
-                                                <constraint firstItem="nz4-cZ-pev" firstAttribute="top" secondItem="X7s-vO-qtm" secondAttribute="bottom" constant="8" symbolic="YES" id="Zde-f3-479"/>
+                                                <constraint firstItem="Mym-Nb-ZUR" firstAttribute="bottom" secondItem="s9X-5e-9Oo" secondAttribute="bottomMargin" id="ZJm-px-DIE"/>
+                                                <constraint firstItem="yft-Bk-o1a" firstAttribute="leading" secondItem="s9X-5e-9Oo" secondAttribute="leadingMargin" constant="70" id="buf-6O-pWi"/>
+                                                <constraint firstItem="Mym-Nb-ZUR" firstAttribute="leading" secondItem="s9X-5e-9Oo" secondAttribute="leadingMargin" constant="6" id="fyx-Sn-ScX"/>
                                                 <constraint firstItem="X7s-vO-qtm" firstAttribute="top" secondItem="deo-VK-hsP" secondAttribute="bottom" constant="8" symbolic="YES" id="lPD-j5-cPc"/>
-                                                <constraint firstItem="Ukw-gH-0xF" firstAttribute="leading" secondItem="X7s-vO-qtm" secondAttribute="trailing" constant="2" id="ldv-98-hth"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="nz4-cZ-pev" secondAttribute="bottom" constant="8" id="mK3-nK-f4l"/>
-                                                <constraint firstItem="nz4-cZ-pev" firstAttribute="top" secondItem="X7s-vO-qtm" secondAttribute="bottom" constant="8" symbolic="YES" id="q3K-9I-Qg8"/>
                                                 <constraint firstItem="deo-VK-hsP" firstAttribute="top" secondItem="JV2-Cw-3CI" secondAttribute="bottom" constant="8" symbolic="YES" id="sSc-5w-Mdd"/>
                                                 <constraint firstItem="deo-VK-hsP" firstAttribute="leading" secondItem="s9X-5e-9Oo" secondAttribute="leadingMargin" constant="16" id="vKy-5X-KCn"/>
+                                                <constraint firstItem="Mym-Nb-ZUR" firstAttribute="top" secondItem="deo-VK-hsP" secondAttribute="bottom" constant="27" id="xEL-dV-Z58"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" systemColor="systemGray2Color"/>
@@ -667,12 +674,12 @@
                     <connections>
                         <outlet property="companyNameLabel" destination="u43-yN-b31" id="um7-kc-0NQ"/>
                         <outlet property="contributionTextView" destination="C52-N0-adj" id="RVt-b1-qUc"/>
-                        <outlet property="currentStatusLabel" destination="Ukw-gH-0xF" id="aez-On-2gy"/>
+                        <outlet property="currentStatusButton" destination="yft-Bk-o1a" id="eEU-gQ-cQg"/>
                         <outlet property="introductionTextView" destination="uer-r3-l56" id="Mcb-pW-Zuv"/>
                         <outlet property="motivationTextView" destination="ed6-EU-bXI" id="k8Q-x8-URE"/>
                         <outlet property="positionLabel" destination="deo-VK-hsP" id="asR-BW-71P"/>
+                        <outlet property="profileButton" destination="Mym-Nb-ZUR" id="b5u-Yd-WkJ"/>
                         <outlet property="profileImage" destination="JV2-Cw-3CI" id="Clq-dZ-nJY"/>
-                        <outlet property="showProfileLabel" destination="nz4-cZ-pev" id="mRq-jR-QeQ"/>
                         <outlet property="viewCVButton" destination="0eS-Ni-i3O" id="Goz-0H-MFw"/>
                     </connections>
                 </tableViewController>
@@ -707,6 +714,9 @@
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemBrownColor">
+            <color red="0.63529411759999999" green="0.51764705879999995" blue="0.36862745099999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGray2Color">
             <color red="0.68235294120000001" green="0.68235294120000001" blue="0.69803921570000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

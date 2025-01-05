@@ -15,7 +15,6 @@ let seekerRef = db.collection("users").document("userID")
 
 class ApplicationTrackerViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, MonitorCellDelegate{
     var currentUserId: Int = currentLoggedInUserID
-   // var currentUserRole: String = UserSession.shared.loggedInUser?.role.rawValue ?? "seeker"
     private var dispatchGroup = DispatchGroup()
     
     
@@ -30,14 +29,14 @@ class ApplicationTrackerViewController: UIViewController, UITableViewDelegate, U
         print("Application job IDs: \(filteredApplications.map { $0.jobId })") // Print all application job IDs
         
         if currentUserRole == "seeker" {
-            print("Configuring cell for row \(indexPath.row)") // Debug log
+            print("Configuring cell for row \(indexPath.row)")
                 let cell = tableView.dequeueReusableCell(withIdentifier: "TrackerCell", for: indexPath) as! TrackerCell
                 let application = filteredByStatus[indexPath.row]
 
             if let job = jobs.first(where: { $0.jobId == application.jobId }) {
                 
                 print("Job ID: \(job.jobId), Title: \(job.title), Company: \(job.companyDetails?.name ?? "No Company")")
-                print("Job found: \(job.title)") // Debug log
+                print("Job found: \(job.title)")
                 cell.positionLabel.text = job.title
                 cell.companyLabel.text = job.companyDetails?.name ?? "No Company"
                 cell.locationLabel.text = job.location
@@ -46,7 +45,7 @@ class ApplicationTrackerViewController: UIViewController, UITableViewDelegate, U
             }
             
             else {
-                    print("No job found for application: \(application.jobId)") // Debug log
+                    print("No job found for application: \(application.jobId)")
                     cell.positionLabel.text = "Unknown Job"
                     cell.companyLabel.text = "No Company"
                     cell.locationLabel.text = "Unknown Location"
@@ -71,11 +70,11 @@ class ApplicationTrackerViewController: UIViewController, UITableViewDelegate, U
                 case .notReviewed:
                     cell.statusButton.backgroundColor = UIColor.orange
                 case .reviewed:
-                    cell.statusButton.backgroundColor = UIColor.blue
+                    cell.statusButton.backgroundColor = UIColor(hex: "106AF0")
                 case .approved:
-                    cell.statusButton.backgroundColor = UIColor.green
+                    cell.statusButton.backgroundColor = UIColor(hex: "#10DC40")
                 case .rejected:
-                    cell.statusButton.backgroundColor = UIColor.red
+                    cell.statusButton.backgroundColor = UIColor(hex: "#FF4141")
                 }
 
                 cell.statusButton.setTitleColor(.white, for: .normal)
@@ -97,11 +96,11 @@ class ApplicationTrackerViewController: UIViewController, UITableViewDelegate, U
                     case .notReviewed:
                         cell.currentStatusLabel.textColor = UIColor.orange
                     case .reviewed:
-                        cell.currentStatusLabel.textColor = UIColor.blue
+                        cell.currentStatusLabel.textColor = UIColor(hex: "106AF0")
                     case .approved:
-                        cell.currentStatusLabel.textColor = UIColor.green
+                        cell.currentStatusLabel.textColor = UIColor(hex: "#10DC40")
                     case .rejected:
-                        cell.currentStatusLabel.textColor = UIColor.red
+                        cell.currentStatusLabel.textColor = UIColor(hex: "#FF4141")
                     }
                 } else {
                     cell.positionLabel.text = "Unknown Job"
@@ -109,7 +108,7 @@ class ApplicationTrackerViewController: UIViewController, UITableViewDelegate, U
                     cell.currentStatusLabel.text = application.status.rawValue
                 }
                 
-                
+                // Call fetchUserInfo method to find the seeker's name from current application object
                 fetchUserInfo(application: application) { name in
                             DispatchQueue.main.async {
                                 cell.seekerLabel.text = name ?? "Unknown Seeker"
@@ -130,7 +129,7 @@ class ApplicationTrackerViewController: UIViewController, UITableViewDelegate, U
                 }
                 
                 // Set delegate for button action in MonitorCell
-                        cell.delegate = self // Assuming MonitorCell has a delegate property
+                        cell.delegate = self
                         cell.application = application // Pass the application to the cell
                 
                 return cell
@@ -145,11 +144,11 @@ class ApplicationTrackerViewController: UIViewController, UITableViewDelegate, U
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if currentUserRole == "seeker"{
             var application = self.filteredByStatus[indexPath.row]
-            // Instantiate the detail view controller using the storyboard
-            // Find the corresponding job for the application
+            
+            // Finding the corresponding job for the application
             if let matchingJob = jobs.first(where: { $0.jobId == application.jobId }) {
-                // Add the job object to the application
-                application.jobApplied = matchingJob // Assuming `JobApplication` has a `job` property
+                // Adding the job object to the application
+                application.jobApplied = matchingJob
             }
             let detailVC = storyboard?.instantiateViewController(withIdentifier: "ApplicationDetailTableViewController") as! ApplicationDetailTableViewController
             
@@ -163,32 +162,57 @@ class ApplicationTrackerViewController: UIViewController, UITableViewDelegate, U
             tableView.deselectRow(at: indexPath, animated: true)
         }else if currentUserRole == "employer" || currentUserRole == "admin"{
             var application = self.filteredByStatus[indexPath.row]
-            // Instantiate the detail view controller using the storyboard
-            if let matchingJob = jobs.first(where: { $0.jobId == application.jobId }) {
-                // Add the job object to the application
-                application.jobApplied = matchingJob // Assuming `JobApplication` has a `job` property
-            }
-            let detailVC = storyboard?.instantiateViewController(withIdentifier: "ApplicationDetailTableViewController") as! ApplicationDetailTableViewController
-            
-            // Pass the application data to the detail view controller
-            detailVC.application = application
-            
-            print("sending application \(application.applicationId)")
-            print("sending application cv id: \(application.applicantCVId)")
-            
-            
-            // Push the detail view controller onto the navigation stack
-            navigationController?.pushViewController(detailVC, animated: true)
-            
-            // Deselect the cell after selection
-            tableView.deselectRow(at: indexPath, animated: true)
-            
-            
-            
+
+                // Find the matching job
+                if let matchingJob = jobs.first(where: { $0.jobId == application.jobId }) {
+                    application.jobApplied = matchingJob
+                }
+
+                print("status before updating \(application.status)")
+
+                // Instantiate the detail view controller
+                let detailVC = storyboard?.instantiateViewController(withIdentifier: "ApplicationDetailTableViewController") as! ApplicationDetailTableViewController
+
+                // Pass the application data to the detail view controller
+                detailVC.application = application
+
+                // Set closure to handle updated application status
+                detailVC.onStatusUpdated = { [weak self] updatedApplication in
+                    guard let self = self else { return }
+                    
+                    // Find the index of the application and update it
+                    if let index = self.filteredByStatus.firstIndex(where: { $0.applicationId == updatedApplication.applicationId }) {
+                        // Update the application in the array
+                        self.filteredByStatus[index] = updatedApplication
+                        
+                        print("status after updating \(updatedApplication.status)")
+                        self.tableView.reloadData() // Reload the table view to view changes
+                    } else {
+                        print("Application not found in filteredByStatus")
+                    }
+                    
+                    // Finding the index of the application and updating it
+                    if let index = self.filteredApplications.firstIndex(where: { $0.applicationId == updatedApplication.applicationId }) {
+                        // Updating the application in the array
+                        self.filteredApplications[index] = updatedApplication
+                        
+                        print("status after updating \(updatedApplication.status)")
+                        self.tableView.reloadData() // Reload the table view to view changes
+                    } else {
+                        print("Application not found in filteredApplications")
+                    }
+                }
+
+                // Push the detail view controller onto the navigation stack
+                navigationController?.pushViewController(detailVC, animated: true)
+
+                // Deselect the cell after selection
+                tableView.deselectRow(at: indexPath, animated: true)
         }}
+   
     let db = Firestore.firestore()
     
-    // MARK: MonitorCellDelegate
+    // MARK: Change application status
         func didTapChangeStatusButton(for application: JobApplication) {
             presentChangeStatusActionSheet(for: application)
         }
@@ -245,6 +269,8 @@ class ApplicationTrackerViewController: UIViewController, UITableViewDelegate, U
                 }
                 
             }
+        
+        self.tableView.reloadData()
 
         present(options, animated: true, completion: nil)
     }
@@ -264,7 +290,7 @@ class ApplicationTrackerViewController: UIViewController, UITableViewDelegate, U
                     return
                 }
 
-                // Assuming there's only one document with the matching applicationId
+                
                 for document in documents {
                     // Update the status in the found document
                     document.reference.updateData(["status": newStatus.rawValue]) { error in
@@ -272,8 +298,28 @@ class ApplicationTrackerViewController: UIViewController, UITableViewDelegate, U
                             print("Error updating status: \(error.localizedDescription)")
                         } else {
                             // Update local data source
+                            
+                            if let index = self.filteredApplications.firstIndex(where: { $0.applicationId == applicationId }) {
+                                
+                                print("status before update: \(self.filteredApplications[index].status)")
+                                
+                                self.filteredApplications[index].status = newStatus
+                                
+                                print("status after update: \(self.filteredApplications[index].status)")
+                                
+                                
+                                // Reload the table view
+                                self.tableView.reloadData()
+                            }
                             if let index = self.filteredByStatus.firstIndex(where: { $0.applicationId == applicationId }) {
+                                
+                                print("status before update: \(self.filteredByStatus[index].status)")
+                                
                                 self.filteredByStatus[index].status = newStatus
+                                
+                                print("status after update: \(self.filteredByStatus[index].status)")
+                                
+                                
                                 // Reload the table view
                                 self.tableView.reloadData()
                             }
@@ -297,6 +343,7 @@ class ApplicationTrackerViewController: UIViewController, UITableViewDelegate, U
     
     var applicationChangeStatus: JobApplication?
     
+    @IBOutlet weak var applicationTrackerLabel: UILabel!
     var currentFilter: String? = nil
     
     var allApplications: [JobApplication] = []
@@ -325,13 +372,12 @@ class ApplicationTrackerViewController: UIViewController, UITableViewDelegate, U
         }
 
     private func filterApplicationsForSeeker() {
-        print("Current User Applicant ID: \(currentUserId)") // Debugging line
+        print("Current User Applicant ID: \(currentUserId)")
             
         filteredApplications = allApplications.filter { application in
                 // Directly retrieve the applicantId from the application
                 let applicationApplicantId = application.applicantId
                 
-                // Print for debugging
                 print("Application Applicant ID: \(applicationApplicantId)")
                 
                 // Compare the application's applicantId with the current user's applicantId
@@ -355,7 +401,8 @@ class ApplicationTrackerViewController: UIViewController, UITableViewDelegate, U
             filteredApplications = allApplications
         }
 
-        func filterApplications(by status: String?) {
+    func filterApplications(by status: String?) {
+       
             if let status = status {
                 filteredByStatus = filteredApplications.filter { $0.status.rawValue == status }
             }
@@ -369,12 +416,14 @@ class ApplicationTrackerViewController: UIViewController, UITableViewDelegate, U
             }else{
                 placeholderView.isHidden = true
             }
-                
+            
             self.tableView.reloadData() // Refresh the table view
-
-        }
+            
+        
+        
+    }
     
-    //declaring colors object of type ui color - would add .cgColor when needed
+
     let darkColor = UIColor(hex: "#1D2D44")
     let lightColor = UIColor(hex: "#EEEEEE")
     
@@ -393,14 +442,7 @@ class ApplicationTrackerViewController: UIViewController, UITableViewDelegate, U
         
         button.configuration = buttonConfig
         button.setTitle(titleText, for: .normal)
-            
-            // Set border properties
-        //button.layer.borderColor = borderColor.cgColor
-            //button.layer.borderWidth = borderWidth
-            //button.layer.masksToBounds = true
         button.layer.cornerRadius = 15
-        //button.layer.borderWidth = 0.5
-        //button.layer.borderColor = borderColor.cgColor
         button.setTitleColor(titleColor, for: .normal)
     }
     
@@ -429,6 +471,7 @@ class ApplicationTrackerViewController: UIViewController, UITableViewDelegate, U
         styleButton(approvedButton, backgroundColor: lightColor, titleColor: darkColor, borderColor: .clear, borderWidth: 0, titleText: "Approved")
         styleButton(rejectedButton, backgroundColor: lightColor, titleColor: darkColor, borderColor: .clear, borderWidth: 0, titleText: "Rejected")
         filterApplications(by: "Not Reviewed")
+        
     }
     
     @IBAction func reviewedButtonTapped(_ sender: UIButton) {
@@ -495,6 +538,8 @@ class ApplicationTrackerViewController: UIViewController, UITableViewDelegate, U
     
     // MARK: viewDidLoad()
     
+    //private var listener: ListenerRegistration?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -510,7 +555,7 @@ class ApplicationTrackerViewController: UIViewController, UITableViewDelegate, U
         placeholderView.isHidden = true
             
         if currentUserRole == "admin" || currentUserRole == "employer"{
-            
+            applicationTrackerLabel.text = "Monitor Applications"
             updateApplications()
             filterApplications(by: nil) // Show all applications
             let nib1 = UINib(nibName: "MonitorCell", bundle: nil)
@@ -534,27 +579,25 @@ class ApplicationTrackerViewController: UIViewController, UITableViewDelegate, U
         styleButton(approvedButton, backgroundColor: lightColor, titleColor: darkColor, borderColor: .clear, borderWidth: 0, titleText: "Approved")
         styleButton(rejectedButton, backgroundColor: lightColor, titleColor: darkColor, borderColor: .clear, borderWidth: 0, titleText: "Rejected")
        
-       
+     
         
     }
     
     override func viewWillAppear(_ animated: Bool) {
             super.viewWillAppear(animated)
-            
+        //updateApplications()
+        //listener?.remove()
         self.tableView.reloadData()
         }
     
-    
-    func loadingPage() {
-        
-    }
-    
+  
+    // MARK: fetching and updating application
     func updateApplications() {
         fetchAllApplications { [weak self] applications in
             DispatchQueue.main.async {
                 self?.allApplications = applications
                 print("Total applications fetched: \(self?.allApplications.count ?? 0)")
-                self?.filterApplicationsForCurrentUser() // Ensure this is executed
+                self?.filterApplicationsForCurrentUser()
                 print("Filtering applications for current user.")
                 self?.filterApplications(by: nil)
                 self?.tableView.reloadData()
@@ -562,6 +605,7 @@ class ApplicationTrackerViewController: UIViewController, UITableViewDelegate, U
         }
     }
     
+    // MARK: fetching the user information
     
     func fetchUserInfo(application: JobApplication, completion: @escaping (String?) -> Void) {
         let db = Firestore.firestore()
@@ -580,7 +624,7 @@ class ApplicationTrackerViewController: UIViewController, UITableViewDelegate, U
                 return
             }
             
-            // Assuming there's only one document per userId
+            
             for document in documents {
                 let userData = document.data()
                 print("User data: \(userData)")
@@ -593,49 +637,10 @@ class ApplicationTrackerViewController: UIViewController, UITableViewDelegate, U
     }
     
     
-    /*
-    func fetchUserReference(by userId: Int, completion: @escaping (DocumentReference?, String?) -> Void) {
-        db.collection("users")
-            .whereField("userId", isEqualTo: userId)
-            .getDocuments { snapshot, error in
-                if let error = error {
-                    print("Error fetching user document: \(error)")
-                    completion(nil, nil)
-                    return
-                }
-                
-                guard let document = snapshot?.documents.first else {
-                    print("No user document found for userId: \(userId)")
-                    completion(nil, nil)
-                    return
-                }
-                
-                // Retrieve the userType field
-                let userTypeRef = document.reference.collection("userType").document("type") // Adjust the path as necessary
-                
-                userTypeRef.getDocument { (typeSnapshot, error) in
-                    if let error = error {
-                        print("Error fetching userType: \(error)")
-                        completion(nil, nil)
-                        return
-                    }
-                    
-                    guard let typeData = typeSnapshot?.data(),
-                          let userType = typeData["userType"] as? String else {
-                        print("User type not found for user ID: \(userId)")
-                        completion(nil, nil)
-                        return
-                    }
-                    
-                    // Return the reference and userType
-                    completion(document.reference, userType)
-                }
-            }
-    }
-  */
+    
     @IBOutlet var tableView: UITableView!
     
-    // MARK: fetching the data
+    // MARK: fetching the application data
     
     private func fetchAllApplications(completion: @escaping ([JobApplication]) -> Void) {
             db.collection("jobApplication")
@@ -652,6 +657,12 @@ class ApplicationTrackerViewController: UIViewController, UITableViewDelegate, U
                         print("No applications found in the snapshot.")
                         return
                     }
+                    
+                    self.filteredByStatus = []
+                    self.allApplications = []
+                    self.jobs = []
+                    self.filteredApplications = []
+                    self.applications = []
                     
                     self.handleApplicationFetch(snapshot: snapshot) { jobs in
                         print("Fetched \(self.applications.count) applications.")
@@ -768,7 +779,7 @@ class ApplicationTrackerViewController: UIViewController, UITableViewDelegate, U
                             let jobTitle = jobData["jobTitle"] as? String ?? "Unknown"
                             let jobLocation = jobData["jobLocation"] as? String ?? "Unknown"
                             
-                            // Continue with the rest of your job data extraction logic...
+                         
                             let jobPostId = jobData["jobPostId"] as? Int ?? 0
                             
                             guard let levelRaw = jobData["jobLevel"] as? String,
