@@ -573,26 +573,26 @@
                                                         <rect key="frame" x="20" y="306" width="400" height="150"/>
                                                         <subviews>
                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="b7t-F0-CDf">
-                                                                <rect key="frame" x="41" y="0.0" width="318" height="135"/>
+                                                                <rect key="frame" x="41" y="0.0" width="318" height="131"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W6E-hq-iio">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="318" height="38.333333333333336"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="318" height="37"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="23"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="6pi-47-6bn">
-                                                                        <rect key="frame" x="0.0" y="48.333333333333314" width="318" height="38.333333333333343"/>
+                                                                        <rect key="frame" x="0.0" y="47" width="318" height="37"/>
                                                                         <subviews>
-                                                                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Main Category" borderStyle="roundedRect" textAlignment="center" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ySE-C5-G8s">
-                                                                                <rect key="frame" x="0.0" y="0.0" width="250.66666666666666" height="38.333333333333336"/>
+                                                                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" horizontalCompressionResistancePriority="749" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Main Category hhhhhhhhhhh" borderStyle="roundedRect" textAlignment="center" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="ySE-C5-G8s">
+                                                                                <rect key="frame" x="0.0" y="0.0" width="250.66666666666666" height="37"/>
                                                                                 <color key="backgroundColor" red="0.91372549020000005" green="0.91372549020000005" blue="0.92156862750000001" alpha="1" colorSpace="calibratedRGB"/>
                                                                                 <color key="tintColor" white="0.57222576530000002" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                                                                 <textInputTraits key="textInputTraits"/>
                                                                             </textField>
                                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FbB-rK-Jsc">
-                                                                                <rect key="frame" x="265.66666666666669" y="0.0" width="52.333333333333314" height="38.333333333333336"/>
+                                                                                <rect key="frame" x="265.66666666666669" y="0.0" width="52.333333333333314" height="37"/>
                                                                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                 <buttonConfiguration key="configuration" style="plain" image="message.fill" catalog="system">
                                                                                     <backgroundConfiguration key="background">
@@ -604,7 +604,7 @@
                                                                         </subviews>
                                                                     </stackView>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Location" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V2l-fd-Sn5">
-                                                                        <rect key="frame" x="0.0" y="96.666666666666686" width="318" height="38.333333333333343"/>
+                                                                        <rect key="frame" x="0.0" y="94" width="318" height="37"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="23"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
@@ -1267,12 +1267,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yTV-mT-fPJ">
-                                <rect key="frame" x="42" y="42" width="357" height="743"/>
+                                <rect key="frame" x="42" y="42" width="357" height="786"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="743" id="ArK-Vy-C1I"/>
+                                    <constraint firstAttribute="height" constant="786" id="ArK-Vy-C1I"/>
                                 </constraints>
-                                <string key="text">We respect your privacy and are committed to protecting your personal data. This Privacy Policy describes how we collect, use, and share your information in compliance with Bahrain's Personal Data Protection Law (PDPL).
+                                <string key="text">Our Privacy Policy Agreement
+
+We respect your privacy and are committed to protecting your personal data. This Privacy Policy describes how we collect, use, and share your information in compliance with Bahrain's Personal Data Protection Law (PDPL).
 
 1.Data Collection We collect personal information only as necessary to provide our services. This may include your name, contact information, and other details relevant to your account or application usage.
 
@@ -1283,7 +1285,7 @@
 4. User Rights
 Under PDPL, you have the right to access, correct, and request the deletion of your personal information, subject to certain limitations. Contact us to exercise these rights.</string>
                                 <color key="textColor" systemColor="labelColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                         </subviews>
@@ -1315,13 +1317,15 @@ Under PDPL, you have the right to access, correct, and request the deletion of y
                                 <constraints>
                                     <constraint firstAttribute="height" constant="397" id="br6-5T-3PL"/>
                                 </constraints>
-                                <string key="text">We retain your personal data only for as long as necessary to fulfill the purposes outlined in this policy, unless a longer retention period is required by law.
+                                <string key="text">Our Data Retention Policy
+
+We retain your personal data only for as long as necessary to fulfill the purposes outlined in this policy, unless a longer retention period is required by law.
                                                     
 1. Data Security We use technical and organizational measures to protect your information from unauthorized access or misuse.
 
 2. Data Deletion When no longer required, personal data will be securely deleted or anonymized in accordance with legal and regulatory requirements.</string>
                                 <color key="textColor" systemColor="labelColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                         </subviews>
@@ -1402,14 +1406,30 @@ Under PDPL, you have the right to access, correct, and request the deletion of y
                                                     <segue destination="trV-xk-xVG" kind="show" id="FLu-80-GVQ"/>
                                                 </connections>
                                             </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cPP-zm-bQC">
+                                                <rect key="frame" x="397" y="124" width="35" height="37"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="37" id="b78-SQ-6SK"/>
+                                                    <constraint firstAttribute="width" constant="35" id="zHq-ry-m7u"/>
+                                                </constraints>
+                                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <buttonConfiguration key="configuration" style="plain" image="message.fill" catalog="system">
+                                                    <backgroundConfiguration key="background"/>
+                                                </buttonConfiguration>
+                                                <connections>
+                                                    <action selector="btnChats:" destination="hiD-wW-VOt" eventType="touchUpInside" id="W1y-b8-FpU"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
                                             <constraint firstItem="dKt-i2-NCA" firstAttribute="centerX" secondItem="u2Z-KE-8f7" secondAttribute="centerX" id="6Jp-iS-ZPW"/>
+                                            <constraint firstItem="cPP-zm-bQC" firstAttribute="trailing" secondItem="u2Z-KE-8f7" secondAttribute="trailingMargin" id="AJr-C9-uVG"/>
                                             <constraint firstItem="dKt-i2-NCA" firstAttribute="centerY" secondItem="JlN-Nb-ASm" secondAttribute="centerY" id="HWH-a2-AoK"/>
                                             <constraint firstItem="dKt-i2-NCA" firstAttribute="top" secondItem="u2Z-KE-8f7" secondAttribute="top" constant="25" id="K8D-0T-QfO"/>
                                             <constraint firstAttribute="height" constant="250" id="Xxr-6c-JFA"/>
                                             <constraint firstItem="dKt-i2-NCA" firstAttribute="leading" secondItem="H6h-p2-Pjd" secondAttribute="trailing" constant="70" id="aof-mt-XiD"/>
+                                            <constraint firstItem="cPP-zm-bQC" firstAttribute="baseline" secondItem="H6h-p2-Pjd" secondAttribute="baseline" id="e9S-lM-mxQ"/>
                                             <constraint firstItem="dKt-i2-NCA" firstAttribute="centerX" secondItem="JlN-Nb-ASm" secondAttribute="centerX" id="eXV-IY-T0G"/>
                                             <constraint firstItem="H6h-p2-Pjd" firstAttribute="top" secondItem="JlN-Nb-ASm" secondAttribute="bottom" constant="8" id="fik-7q-Znl"/>
                                             <constraint firstItem="JlN-Nb-ASm" firstAttribute="leading" secondItem="u2Z-KE-8f7" secondAttribute="leading" id="ikF-hy-V9x"/>
@@ -1552,7 +1572,7 @@ Under PDPL, you have the right to access, correct, and request the deletion of y
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="Pok-gC-4Ga">
                                         <rect key="frame" x="0.0" y="48.333333333333371" width="334" height="38.333333333333343"/>
                                         <subviews>
-                                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Job Position" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3Ws-8N-qP6">
+                                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" horizontalCompressionResistancePriority="749" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Job Position hhhhhhhhhhhhhhhhhhhhh" borderStyle="roundedRect" textAlignment="center" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="3Ws-8N-qP6">
                                                 <rect key="frame" x="0.0" y="0.0" width="266.66666666666669" height="38.333333333333336"/>
                                                 <color key="backgroundColor" red="0.91372549020000005" green="0.91372549020000005" blue="0.92156862750000001" alpha="1" colorSpace="calibratedRGB"/>
                                                 <color key="tintColor" red="0.57254901960000004" green="0.57254901960000004" blue="0.57254901960000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -1821,39 +1841,27 @@ Under PDPL, you have the right to access, correct, and request the deletion of y
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" minimumZoomScale="5" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QKT-JW-Ypo">
-                                <rect key="frame" x="42" y="28" width="357" height="746"/>
+                                <rect key="frame" x="42" y="28" width="357" height="871"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="746" id="oGi-zU-Ns6"/>
+                                    <constraint firstAttribute="height" constant="871" id="oGi-zU-Ns6"/>
                                 </constraints>
                                 <string key="text">Q1. How to delete my account? 
 To delete your account, follow these steps:
 
-	1. Open the side menu (☰) at the top of 	the home page.
-
-	2. Click on Settings to go to the 			settings screen.
-
-	3. In the settings screen, select 			Account to access the Account 			Settings.
-
-	4. Click on Delete Your Account and 		Data. 
-
-	5. When the alert appears, confirm by 		clicking Delete.
+1. Open the side menu (☰) at top of the home page.
+2. Click on Settings to go to the settings screen.
+3. In the settings screen, select Account to access the Account Settings.
+4. Click on Delete Your Account and Data. 
+5. When the alert appears, confirm by clicking Delete.
 
 Q2.  How can I change my password ?
 
-	1. Go to Side Menu. 
-	2. Click on Settings.
-	3. Click onSign in &amp; Security.
-	4. Click onChange Password.
-	5. You will be directed to another 			screen to reset your password.
-
-Q3.  How can I log-out ?
-
-	1. From the home screen click on the 		side menue icon (☰).
-	2. Click on logout button.
-
-From Profile Screen:
-	1. Click on the settings icon.</string>
+1. Go to Side Menu. 
+2. Click on Settings.
+3. Click onSign in &amp; Security.
+4. Click onChange Password.
+5. You will be directed to another screen to reset your password.</string>
                                 <color key="textColor" systemColor="labelColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -2097,7 +2105,7 @@ From Profile Screen:
                                                     <constraint firstItem="4pe-mR-R98" firstAttribute="leading" secondItem="Qcb-bw-2pG" secondAttribute="leading" constant="20" id="SVj-Bf-Jmd"/>
                                                     <constraint firstItem="WKq-w2-7RM" firstAttribute="trailing" secondItem="Qcb-bw-2pG" secondAttribute="trailing" constant="-20" id="Ue9-No-0PA"/>
                                                     <constraint firstItem="WKq-w2-7RM" firstAttribute="leading" secondItem="Qcb-bw-2pG" secondAttribute="leading" constant="20" id="Z95-DU-K7d"/>
-                                                    <constraint firstItem="4pe-mR-R98" firstAttribute="top" secondItem="ghc-EN-kfi" secondAttribute="bottom" constant="10" id="ZPI-fp-Ct9"/>
+                                                    <constraint firstItem="4pe-mR-R98" firstAttribute="top" secondItem="ghc-EN-kfi" secondAttribute="bottom" constant="15" id="ZPI-fp-Ct9"/>
                                                 </constraints>
                                             </stackView>
                                         </subviews>
@@ -2526,16 +2534,16 @@ From Profile Screen:
                                             <rect key="frame" x="0.0" y="0.0" width="440" height="115"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OXS-be-NJE">
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OXS-be-NJE">
                                                     <rect key="frame" x="20" y="22" width="400" height="71"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Company's Vision's Details" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P0K-4e-T0m">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Company's Vision's Details" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P0K-4e-T0m">
                                                             <rect key="frame" x="25" y="0.0" width="206" height="21"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="oCS-2i-Uin">
+                                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="oCS-2i-Uin">
                                                             <rect key="frame" x="8" y="29" width="384" height="38"/>
                                                             <color key="backgroundColor" red="0.85098039219999999" green="0.85098039219999999" blue="0.85098039219999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <color key="textColor" systemColor="labelColor"/>
@@ -2571,15 +2579,15 @@ From Profile Screen:
                                             <rect key="frame" x="0.0" y="0.0" width="440" height="90"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XHN-4L-Iol">
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XHN-4L-Iol">
                                                     <rect key="frame" x="20" y="20" width="400" height="48"/>
                                                     <subviews>
-                                                        <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter your city" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="LiY-c0-YwY">
+                                                        <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter your city" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="LiY-c0-YwY">
                                                             <rect key="frame" x="15" y="28.666666666666664" width="370" height="34"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                             <textInputTraits key="textInputTraits"/>
                                                         </textField>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="City" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uhF-Uq-uNZ">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="City" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uhF-Uq-uNZ">
                                                             <rect key="frame" x="25" y="0.0" width="30.666666666666671" height="20.666666666666668"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
@@ -2613,7 +2621,7 @@ From Profile Screen:
                                             <rect key="frame" x="0.0" y="0.0" width="440" height="90"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vuD-nW-rQz">
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vuD-nW-rQz">
                                                     <rect key="frame" x="60" y="26" width="320" height="38"/>
                                                     <state key="normal" title="Button"/>
                                                     <buttonConfiguration key="configuration" style="gray" title="Sign Up">
@@ -3194,7 +3202,7 @@ From Profile Screen:
                                             <rect key="frame" x="0.0" y="0.0" width="440" height="97"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="admin.employer@jobify.com " borderStyle="roundedRect" placeholder="Username" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="n3B-uY-dRb">
+                                                <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Username" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="n3B-uY-dRb">
                                                     <rect key="frame" x="50" y="23" width="340" height="51"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <textInputTraits key="textInputTraits"/>
@@ -3216,7 +3224,7 @@ From Profile Screen:
                                             <rect key="frame" x="0.0" y="0.0" width="440" height="122"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" verticalHuggingPriority="251" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="123456" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bCV-Vr-8TN">
+                                                <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" verticalHuggingPriority="251" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bCV-Vr-8TN">
                                                     <rect key="frame" x="50" y="22" width="340" height="51"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="51" id="f6c-Zf-l4N"/>
@@ -3405,7 +3413,7 @@ From Profile Screen:
         <!--Navigation Controller-->
         <scene sceneID="nCY-Xf-ZnZ">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="ULB-ay-KAH" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="loginNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="ULB-ay-KAH" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="ltm-3N-o4I">
                         <rect key="frame" x="0.0" y="62" width="440" height="44"/>
@@ -3475,9 +3483,7 @@ If You Didn’t Choose, the Category Will be “Other” by Default</string>
                                                         <constraint firstAttribute="height" constant="125" id="GOy-Io-uUQ"/>
                                                     </constraints>
                                                     <state key="normal" title="Button"/>
-                                                    <buttonConfiguration key="configuration" style="gray" image="laptopcomputer" catalog="system" imagePadding="5">
-                                                        <string key="title">Information
-Technology</string>
+                                                    <buttonConfiguration key="configuration" style="gray" image="laptopcomputer" catalog="system" title="Information Technology" imagePadding="5">
                                                         <color key="baseForegroundColor" systemColor="labelColor"/>
                                                     </buttonConfiguration>
                                                     <connections>
@@ -3610,10 +3616,7 @@ Technology</string>
                                                         <constraint firstAttribute="height" constant="125" id="RnK-OZ-heB"/>
                                                     </constraints>
                                                     <state key="normal" title="Button"/>
-                                                    <buttonConfiguration key="configuration" style="gray" image="pencil.and.ruler" catalog="system" imagePadding="5">
-                                                        <string key="title">Architecture
-&amp; 
-Construction</string>
+                                                    <buttonConfiguration key="configuration" style="gray" image="pencil.and.ruler" catalog="system" title="Architecture &amp; Construction" imagePadding="5">
                                                         <color key="baseForegroundColor" systemColor="labelColor"/>
                                                     </buttonConfiguration>
                                                     <connections>
@@ -3788,7 +3791,7 @@ Construction</string>
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="uVc-Wd-AKt"/>
-        <segue reference="3Uj-QH-K5j"/>
+        <segue reference="FLu-80-GVQ"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="AnimationImage" width="559" height="549"/>

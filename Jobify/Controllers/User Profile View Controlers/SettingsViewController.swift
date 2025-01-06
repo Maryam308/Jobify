@@ -34,7 +34,7 @@ class SettingsViewController: UIViewController {
             UserSession.shared.loggedInUser = nil
 
             // Navigate back to the login screen
-            if let loginVC = storyboard?.instantiateViewController(withIdentifier: "loginScreenViewControler") {
+            if let loginVC = storyboard?.instantiateViewController(withIdentifier: "loginNavigationController") {
                 loginVC.modalPresentationStyle = .fullScreen
                 present(loginVC, animated: true, completion: nil)
             }
@@ -198,7 +198,7 @@ class settingsAccountViewController:  UIViewController{
                             UserSession.shared.loggedInUser = nil
                             
                             // Navigate back to the login screen
-                            if let loginVC = self.storyboard?.instantiateViewController(withIdentifier: "loginScreenViewControler") {
+                            if let loginVC = self.storyboard?.instantiateViewController(withIdentifier: "loginNavigationController") {
                                 loginVC.modalPresentationStyle = .fullScreen
                                 self.present(loginVC, animated: true, completion: nil)
                             }

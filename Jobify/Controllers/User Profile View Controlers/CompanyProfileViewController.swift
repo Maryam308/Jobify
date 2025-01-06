@@ -256,7 +256,7 @@ class CompanyProfileEditViewController: UIViewController, UIImagePickerControlle
     
     // Define the setupAboutUsTextView method
     private func setupAboutUsTextView() {
-        if let text = aboutUsTextView.text {
+        if let _ = aboutUsTextView.text {
             aboutUsTextView.layer.borderWidth = 1.0
             aboutUsTextView.layer.borderColor = UIColor.black.cgColor // Black border color
             aboutUsTextView.layer.cornerRadius = 15.0

@@ -64,4 +64,12 @@ class AdminProfileViewController: UIViewController {
                 
             }
     }
+    
+    @IBAction func btnChats(_ sender: Any) {
+        let storyboard = UIStoryboard(name: "EmployerJobPostingAndEmployerApplicantInteraction_MaryamAhmed", bundle: nil)
+        if let chatsAllVC = storyboard.instantiateViewController(identifier: "ChatsAll") as? chatsScreenViewController {
+            navigationController?.pushViewController(chatsAllVC, animated: true)
+        }
+    }
+    
 }
